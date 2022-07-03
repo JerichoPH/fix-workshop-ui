@@ -166,39 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-        \App\Providers\RbacServiceProvider::class,  # rbac
-        \App\Providers\AlarmServiceProvider::class,  # 报警
-        \App\Providers\OrganizationLevelServiceProvider::class,  # 机构等级
-        \App\Providers\TestLogServiceProvider::class,  # 测试日志
-        \App\Providers\WechatReceiveMessageServiceProvider::class,  # 微信接收消息处理
-        \App\Providers\ReportSensorServiceProvider::class,  # 传感器数据处理
-        \App\Providers\EntireInstanceCountServiceProvider::class,  # 整件型号计数器
-        \App\Providers\WarehouseReportServiceProvider::class,  # 仓库服务
-        \App\Providers\CodeServiceProvider::class,  # 代码生成器
-        \App\Providers\FixWorkflowCycleServiceProvider::class,  # 检修单周期服务
-        \App\Providers\AutoCollectServiceProvider::class,  # 自动采集服务
-        \App\Providers\ExcelWriterServiceProvider::class,  # Excel导出服务
-        \App\Providers\EntireInstanceServiceProvider::class,  # 整件实例服务
-        \App\Providers\FixWorkflowServiceProvider::class,  # 检修单服务
-        \App\Providers\DetectingServiceProvider::class, # 检测台服务
-        \App\Providers\EntireInstanceLogServiceProvider::class,  # 整件日志
-        \App\Providers\PartInstanceServiceProvider::class,  # 部件服务
-        \App\Providers\ExcelReaderServiceProvider::class,  # Excel读取服务
-        \App\Providers\MeasurementServiceProvider::class,  # 检测标准值服务
-        \App\Providers\FactoryServiceProvider::class,  # 供应商服务
-        \App\Providers\SuPuRuiApiServiceProvider::class,  # 速普瑞接口Api服务
-        \App\Providers\SuPuRuiSdkServiceProvider::class,  # 速普瑞接口Sdk服务
-        \App\Providers\SuPuRuiTestServiceProvider::class,  # 速普瑞接口测试服务
-        \App\Providers\EntireModelServiceProvider::class,  # 整件型号服务
-        \App\Providers\FixWorkflowExcelServiceProvider::class,  # 将检修单统计结果生成Excel
-        \App\Providers\EveryMonthExcelServiceProvider::class,  # 每月执行一次
-        \App\Providers\QualityServiceProvider::class,  # 返修率统计
-        \App\Providers\SuPuRuiLocationServiceProvider::class,  # 速普瑞位置同步服务
-        \App\Providers\TemporaryServiceProvider::class,  # 临时
-        \App\Providers\DingResponseServiceProvider::class, # 返回值
-        \App\Providers\CycleFixServiceProvider::class, # 周期修计划分配服务
-        \App\Providers\StatisticsServiceProvider::class,  # 统计服务
-        \App\Providers\QueryConditionServiceProvider::class,  # 搜索服务
         \Milon\Barcode\BarcodeServiceProvider::class,  # 条形码
 
         /*
