@@ -1,0 +1,4 @@
+GET http://maintain.yujizhou.test:8888/api/basic/station/init
+Accept: application/json
+
+### 从数据中台备份到本地

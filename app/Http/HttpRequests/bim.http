@@ -1,0 +1,12 @@
+GET http://fix-workshop.test:8888/api/bim/entireInstanceLogs/S0303B05000001
+Accept: application/json
+
+### 获取设备日志
+GET http://fix-workshop.test:8888/api/bim/entireInstance/S0303B05000001
+Accept: application/json
+
+### 获取设备详情
+GET http://fix-workshop.test:8888/api/bim/entireInstances
+Accept: application/json
+
+### 获取设备列表

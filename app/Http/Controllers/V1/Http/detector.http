@@ -1,0 +1,34 @@
+POST http://fix-workshop.test:8888/api/measurment
+Content-Type: application/json
+
+{
+    "header": {
+        "monitor_station_company_name": "公司名称",
+        "monitor_station_name": "检测/验收台名称",
+        "testing_time": "2021-8-9 20:39:36",
+        "identity_code": "Q010101B0480000002H",
+        "tester_name": "admin",
+        "record_type": "验收",
+        "factory_name": "",
+        "factory_device_code": "",
+        "made_at": "2021-8-9"
+    },
+    "body": [
+        {
+            "conclusion": 1,
+            "unit": "%",
+            "standard_value": "0.03 ±1",
+            "test_value": "0.05",
+            "test_project_name": "行程测量误差 机械特性 拉入"
+        },
+        {
+            "conclusion": 1,
+            "unit": "mm",
+            "standard_value": "0.1",
+            "test_value": "0.1",
+            "test_project_name": "行程测量误差 机械特性 拉出"
+        }
+    ]
+}
+
+### 上传检测单

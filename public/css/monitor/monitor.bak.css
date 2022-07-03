@@ -1,0 +1,352 @@
+ul li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.anchorBL {
+    display: none;
+}
+
+.BMap_cpyCtrl {
+    display: none;
+}
+
+.wrapper {
+    overflow: hidden;
+}
+
+/*@media screen and (max-width: 1920px) {*/
+.main-header {
+    height: 90px;
+    width: 100%;
+}
+
+.main-header .navbar {
+    width: 100%;
+    height: 90px;
+    background-color: #123856d4;
+    color: #c1e4ff;
+}
+
+.main-header .navbar .navbar-link {
+    font-size: 24px;
+    width: 100%;
+    color: #c1e4ff;
+    position: relative;
+    left: 555px;
+}
+
+.main-header .navbar .navbar-link2 {
+    font-size: 24px;
+    width: 100%;
+    color: #c1e4ff;
+    position: relative;
+    left: 650px;
+}
+
+.main-header .navbar .navbar-link a {
+    color: #c1e4ff;
+    left: 10px;
+}
+
+.main-header .navbar .navbar-header {
+    width: 100%;
+}
+
+.main-header .navbar .navbar-header .navbar-brand {
+    width: 100%;
+    padding-left: 36%;
+    font-weight: 900;
+    font-size: 24px;
+}
+
+
+.main-header .navbar .navbar-custom-menu .go-home {
+    bottom: 40px;
+}
+
+.main-header .navbar .navbar-custom-menu img {
+    width: 30px;
+    height: 30px;
+}
+
+.monitor-box {
+    z-index: 899;
+    width: 100%;
+    height: 830px;
+    position: absolute;
+}
+
+#header-time {
+    height: 50px;
+    font-size: 16px;
+    position: relative;
+    bottom: 15px;
+}
+
+/*地图*/
+#map {
+    height: 100vh;
+    /*height: 830px;*/
+    /*width: 100%;*/
+}
+
+/*左侧*/
+.monitor-box-left {
+    width: 520px;
+    float: left;
+    position: absolute;
+    color: #000000;
+    /*bottom: 830px;*/
+    top: 30px;
+}
+
+/*左上 - 设备状态统计*/
+.left-top {
+    width: 520px;
+    background: #123856d4;
+    border: 1px #13bce6 solid;
+    /*border-radius: 10px;*/
+    left: 10px;
+    position: relative;
+    height: 250px;
+    top: 10px;
+}
+
+.left-top .title {
+    width: 520px;
+    height: 40px;
+}
+
+.left-top .title .left-top-title {
+    width: 250px;
+    color: #c1e4ff;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 10px;
+    float: left;
+}
+
+.left-top .title .left-top-sel {
+    width: 270px;
+    float: right;
+    left: 10px;
+    padding-right: 10px;
+}
+
+.left-top .info {
+    width: 520px;
+    height: 210px;
+}
+
+#echartsLeftTop {
+    width: 520px;
+    height: 210px;
+}
+
+/*左中 - 资产管理*/
+.left-middle {
+    width: 520px;
+    background: #123856d4;
+    border: 1px #13bce6 solid;
+    /*border-radius: 10px;*/
+    left: 10px;
+    position: relative;
+    height: 300px;
+    top: 40px;
+}
+
+.left-middle .title {
+    width: 520px;
+    height: 40px;
+}
+
+.left-middle .title .left-middle-title {
+    width: 450px;
+    color: #c1e4ff;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+.left-middle .info {
+    width: 520px;
+    height: 210px;
+}
+
+#echartsLeftMiddle {
+    width: 520px;
+    height: 260px;
+}
+
+/*左下 - 仓库统计*/
+.left-bottom {
+    width: 520px;
+    background: #123856d4;
+    border: 1px #13bce6 solid;
+    /*border-radius: 10px;*/
+    left: 10px;
+    position: relative;
+    height: 300px;
+    top: 70px;
+}
+
+.left-bottom .title {
+    width: 520px;
+    height: 40px;
+}
+
+.left-bottom .title .left-bottom-title {
+    width: 450px;
+    color: #c1e4ff;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+.left-bottom .info {
+    width: 520px;
+    height: 200px;
+}
+
+#echartsLeftBottom {
+    width: 520px;
+    height: 260px;
+}
+
+/*右侧*/
+.monitor-box .monitor-box-right {
+    float: right;
+    position: absolute;
+    /*bottom: 830px;*/
+    top: 30px;
+    width: 520px;
+    right: 0;
+}
+
+/*右上 - 盘点统计*/
+.right-top {
+    width: 520px;
+    background: #123856d4;
+    border: 1px #13bce6 solid;
+    /*border-radius: 10px;*/
+    right: 10px;
+    position: relative;
+    height: 250px;
+    top: 10px;
+}
+
+.right-top .title {
+    width: 520px;
+    height: 40px;
+}
+
+.right-top .title .right-top-title {
+    width: 450px;
+    color: #c1e4ff;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+.right-top .info {
+    width: 520px;
+    height: 210px;
+}
+
+#echartsRightTop {
+    width: 520px;
+    height: 210px;
+}
+
+/*右中 - 超期统计*/
+.right-middle {
+    width: 520px;
+    background: #123856d4;
+    border: 1px #13bce6 solid;
+    /*border-radius: 10px;*/
+    right: 10px;
+    position: relative;
+    height: 300px;
+    top: 40px;
+}
+
+.right-middle .title {
+    width: 520px;
+    height: 40px;
+}
+
+.right-middle .title .right-middle-title {
+    width: 450px;
+    color: #c1e4ff;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+
+.right-middle .info {
+    width: 520px;
+    height: 210px;
+}
+
+#echartsRightMiddle {
+    width: 520px;
+    height: 260px;
+}
+
+/*右下 - 车站车间列表*/
+.right-bottom {
+    width: 520px;
+    height: 300px;
+    background: #123856d4;
+    border: 1px #13bce6 solid;
+    /*border-radius: 10px;*/
+    right: 10px;
+    position: relative;
+    top: 70px;
+    font-size: 16px;
+    color: #c1e4ff;
+}
+
+.right-bottom .title {
+    width: 520px;
+    height: 40px;
+}
+
+.right-bottom .title .right-bottom-title {
+    width: 450px;
+    color: #c1e4ff;
+    font-size: 18px;
+    line-height: 60px;
+    padding-left: 10px;
+}
+
+#right-bottom-table {
+    position: relative;
+    width: 500px;
+    height: 260px;
+    left: 12px;
+}
+
+.right-bottom #right-bottom-left-top {
+    background: #9FE6B8;
+    width: 40px;
+    height: 55px;
+    text-align: center;
+}
+
+.right-bottom #right-bottom-right-top {
+    background: #FFDB5C;
+    width: 40px;
+    height: 55px;
+    text-align: center;
+}
+
+.right-bottom #right-bottom-left-bottom {
+    background: #FF9F7F;
+    width: 40px;
+    height: 55px;
+    text-align: center;
+}
+/*}*/

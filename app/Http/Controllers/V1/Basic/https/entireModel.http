@@ -1,0 +1,24 @@
+PUT http://maintain.yujizhou.test:8888/api/basic/entireModel/S9901
+Content-Type: application/x-www-form-urlencoded
+Accept: application/application/x.fix_workshop.v1+json
+
+name=测试B
+
+### 类型 编辑
+POST http://maintain.yujizhou.test:8888/api/basic/entireModel
+Content-Type: application/x-www-form-urlencoded
+Accept: application/application/x.fix_workshop.v1+json
+
+unique_code=S9901
+&name=测试A
+&category_unique_code=S99
+
+### 类型 新建
+GET http://maintain.yujizhou.test:8888/api/basic/entireModel/S9901
+Accept: application/application/x.fix_workshop.v1+json
+
+### 类型 详情
+GET http://maintain.yujizhou.test:8888/api/basic/entireModel?page=1
+Accept: application/application/x.fix_workshop.v1+json
+
+### 类型 列表

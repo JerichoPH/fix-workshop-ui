@@ -1,0 +1,7 @@
+#GET http://127.0.0.1:8000/api/temporaryTask/production/main/byParagraphPrincipalId?paragraph_principal_id=1&paragraph_code=B049&page=1
+GET http://spas.zhongchengkeshi.com/api/temporaryTask/production/main/byParagraphPrincipalId?paragraph_principal_id=1&paragraph_code=B049&page=1
+Accept: application/json
+Username: railway
+Password: zces@1234
+
+### 获取和自己相关的临时生产主任务

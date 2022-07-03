@@ -1,0 +1,5 @@
+@extends('Layout.danger')
+@extends('Layout.success')
+@extends('Layout.info')
+@extends('Layout.warning')
+@extends('Layout.errors')

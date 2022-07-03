@@ -1,0 +1,1 @@
+mv app app$(date "+%Y-%m-%d") && mv config config$(date "+%Y-%m-%d") && mv resources resources$(date "+%Y-%m-%d") && mv routes routes$(date "+%Y-%m-%d") && unzip $1.zip && php artisan view:clear && chmod -R 777 storage
