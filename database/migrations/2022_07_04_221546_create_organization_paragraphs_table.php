@@ -22,7 +22,7 @@ class CreateOrganizationParagraphsTable extends Migration
             $table->string("short_name", 64)->comment("站段简称");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
             $table->string("organization_railway_unique_code")->nullable(false)->comment("所属路局名称");
-            $table->foreign("organization_railway_unique_code")->references("unique_code")->on("organization_railways")->onUpdate("cascade")->comment("所属路局");
+            $table->foreign("organization_railway_unique_code","oWorkshops_oruc")->references("unique_code")->on("organization_railways")->onUpdate("cascade")->comment("所属路局");
         });
     }
 

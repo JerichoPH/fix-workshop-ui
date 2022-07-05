@@ -20,7 +20,7 @@ class CreateLocationInstallRoomsTable extends Migration
             $table->char("unique_code",7)->unique()->nullable(false)->comment("机房代码");
             $table->string("name",64)->unique()->nullable(false)->comment("机房名称");
             $table->char("organization_station_unique_code",6)->nullable(false)->comment("所属车站代码");
-            $table->foreign("organization_station_unique_code")->references("unique_code")->on("organization_stations")->onUpdate("cascade")->comment("所属车站");
+            $table->foreign("organization_station_unique_code","lInstallRooms__osuc")->references("unique_code")->on("organization_stations")->onUpdate("cascade")->comment("所属车站");
 
         });
     }

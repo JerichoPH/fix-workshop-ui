@@ -20,7 +20,7 @@ class CreateLocationInstallPositionsTable extends Migration
             $table->char("unique_code",15)->unique()->nullable(false)->comment("位代码");
             $table->string("name",64)->unique()->nullable(false)->comment("位名称");
             $table->char("location_install_tier_unique_code",13)->nullable(false)->comment("所属层代码");
-            $table->foreign("location_install_tier_unique_code")->references("unique_code")->on("location_install_tiers")->onUpdate("cascade")->comment("所属层");
+            $table->foreign("location_install_tier_unique_code","lInstallPositions__lituc")->references("unique_code")->on("location_install_tiers")->onUpdate("cascade")->comment("所属层");
         });
     }
 

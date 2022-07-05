@@ -21,7 +21,7 @@ class CreateOrganizationWorkAreasTable extends Migration
             $table->string("name", 64)->unique()->nullable(false)->comment("工区名称");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
             $table->string("organization_work_area_type_unique_code", 64)->nullable(false)->comment("所属工区类型代码");
-            $table->foreign("organization_work_area_type_unique_code")->references("unique_code")->on("organization_work_area_types")->onUpdate("cascade")->comment("所属工区类型");
+            $table->foreign("organization_work_area_type_unique_code","oWorkAreas__owatuc")->references("unique_code")->on("organization_work_area_types")->onUpdate("cascade")->comment("所属工区类型");
         });
     }
 

@@ -20,7 +20,7 @@ class CreateLocationInstallPlatoonsTable extends Migration
             $table->char("unique_code",9)->unique()->nullable(false)->comment("排代码");
             $table->string("name",64)->unique()->nullable(false)->comment("排名称");
             $table->char("location_install_room_unique_code",7)->nullable(false)->comment("所属机房代码");
-            $table->foreign("location_install_room_unique_code")->references("unique_code")->on("location_install_rooms")->comment("所属机房");
+            $table->foreign("location_install_room_unique_code","lInstallPlatoons_liruc")->references("unique_code")->on("location_install_rooms")->comment("所属机房");
         });
     }
 
