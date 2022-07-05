@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKindCategoriesTable extends Migration
+class CreateOrganizationRailwaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateKindCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('kind_categories', function (Blueprint $table) {
-            $table->unsignedBigInteger('id', true);
+        Schema::create('organization_railways', function (Blueprint $table) {
+            $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code", 3)->unique()->nullable(false)->comment("种类代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("种类代码");
-            $table->string("nickname", 64)->comment("打印别名");
+            $table->char("unique_code", 3)->unique()->nullable(false)->comment("路局代码");
+            $table->string("name", 64)->unique()->nullable(false)->comment("路局名称");
+            $table->string("short_name", 64)->comment("路局简称");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
         });
     }
@@ -31,6 +31,6 @@ class CreateKindCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kind_categories');
+        Schema::dropIfExists('organization_railways');
     }
 }

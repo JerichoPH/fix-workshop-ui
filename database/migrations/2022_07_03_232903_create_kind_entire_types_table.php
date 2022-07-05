@@ -20,7 +20,7 @@ class CreateKindEntireTypesTable extends Migration
             $table->char("unique_code", 5)->unique()->nullable(false)->comment("种类代码");
             $table->string("name", 64)->unique()->nullable(false)->comment("种类代码");
             $table->string("nickname", 64)->comment("打印别名");
-            $table->boolean("be_active")->nullable(false)->default(true)->comment("是否启用");
+            $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
             $table->char("kind_category_unique_code", 3)->nullable(false)->comment("所属种类代码");
             $table->foreign("kind_category_unique_code")->references("unique_code")->on("kind_categories")->comment("所属种类");
         });
