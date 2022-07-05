@@ -18,9 +18,9 @@ class CreatePivotOrganizationLineAndOrganizationStationsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger("organization_line_id")->nullable(false)->comment("所属线别ID");
-            $table->foreign("organization_line_id")->references("id")->on("organization_lines")->comment("所属线别");
+            $table->foreign("organization_line_id")->references("id")->on("organization_lines")->onUpdate("cascade")->comment("所属线别");
             $table->unsignedBigInteger("organization_station_id")->nullable(false)->comment("所属站场ID");
-            $table->foreign("organization_station_id")->references("id")->on("organization_stations")->comment("所属站场");
+            $table->foreign("organization_station_id")->references("id")->on("organization_stations")->onUpdate("cascade")->comment("所属站场");
         });
     }
 

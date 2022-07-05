@@ -20,7 +20,7 @@ class CreateLocationSignalPostMainLightPositionsTable extends Migration
             $table->char("unique_code",2)->unique()->nullable(false)->comment("信号机主体灯位代码");
             $table->string("name",64)->unique()->nullable(false)->comment("信号机主体灯位名称");
             $table->char("location_signal_post_main_or_indicator_unique_code",6)->nullable(false)->comment("所属信号机主体或表示器代码");
-            $table->foreign("location_signal_post_main_or_indicator_unique_code")->references("unique_code")->on("location_signal_post_main_or_indicators")->comment("所属信号机主体或表示器");
+            $table->foreign("location_signal_post_main_or_indicator_unique_code")->references("unique_code")->on("location_signal_post_main_or_indicators")->onUpdate("cascade")->comment("所属信号机主体或表示器");
         });
     }
 

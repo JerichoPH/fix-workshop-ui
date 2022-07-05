@@ -21,9 +21,9 @@ class CreateOrganizationStationsTable extends Migration
             $table->string("name", 64)->unique()->nullable(false)->comment("站场名称");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
             $table->char("organization_workshop_unique_code")->nullable(false)->comment("所属车间代码");
-            $table->foreign("organization_workshop_unique_code")->references("unique_code")->on("organization_workshops")->comment("所属车间");
+            $table->foreign("organization_workshop_unique_code")->references("unique_code")->on("organization_workshops")->onUpdate("cascade")->comment("所属车间");
             $table->char("organization_work_area_unique_code")->nullable(true)->comment("所属工区代码");
-            $table->foreign("organization_work_area_unique_code")->references("unique_code")->on("organization_work_areas")->comment("所属工区");
+            $table->foreign("organization_work_area_unique_code")->references("unique_code")->on("organization_work_areas")->onUpdate("cascade")->comment("所属工区");
         });
     }
 
