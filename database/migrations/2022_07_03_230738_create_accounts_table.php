@@ -23,7 +23,7 @@ class CreateAccountsTable extends Migration
             $table->string("password", 128)->nullable(false)->comment("密码");
             $table->string("nickname", 64)->unique()->nullable(false)->comment("昵称");
             $table->string("account_status_unique_code", 64)->nullable(false)->comment("用户状态");
-            $table->foreign("account_status_unique_code")->references("unique_code")->on("account_statuses")->comment("用户状态");
+            $table->foreign("account_status_unique_code")->references("unique_code")->on("account_statuses")->onUpdate("cascade")->comment("用户状态");
         });
     }
 
