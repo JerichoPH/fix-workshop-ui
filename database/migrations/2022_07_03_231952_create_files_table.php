@@ -17,14 +17,14 @@ class CreateFilesTable extends Migration
             $table->unsignedBigInteger('id', true);
             $table->timestamps();
             $table->softDeletes();
-            $table->string("uuid",32)->unique()->nullable(false)->comment("uuid");
+            $table->string("uuid",36)->unique("uiFiles__uuid")->nullable(false)->comment("uuid");
             $table->string("filename",128)->nullable(false)->comment("文件存储名");
             $table->string("type",128)->nullable(false)->comment("文件类型");
             $table->string("original_filename",128)->nullable(false)->comment("原始文件名");
             $table->string("original_extension",32)->nullable(false)->comment("原始文件扩展名");
             $table->string("size",128)->nullable(false)->comment("文件大小");
             $table->char("upload_operator_uuid",32)->nullable(false)->comment("上传人编号");
-            $table->foreign("upload_operator_uuid")->references("uuid")->on("accounts")->onUpdate("cascade")->comment("上传人");
+            $table->foreign("upload_operator_uuid","fFiles__uploadOperatorUUID")->references("uuid")->on("accounts")->onUpdate("cascade")->comment("上传人");
         });
     }
 

@@ -1,8 +1,0 @@
-POST http://maintain.test:8888/repairBase/planOut/scanCycleFixOut
-Content-Type: application/json
-
-{
-    "bill_id": 10
-}
-
-###

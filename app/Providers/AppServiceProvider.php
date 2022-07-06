@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);
         Schema::enableForeignKeyConstraints();
         Paginator::defaultView('pagination::default');
         Paginator::defaultSimpleView('pagination::default');

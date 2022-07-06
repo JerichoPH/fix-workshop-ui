@@ -17,10 +17,10 @@ class CreateLocationWarehouseStorehousesTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code", 8)->unique()->nullable(false)->comment("仓库代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("仓库名称");
+            $table->char("unique_code", 8)->unique("uiLWS__uniqueCode")->nullable(false)->comment("仓库代码");
+            $table->string("name", 64)->unique("uiLWS__name")->nullable(false)->comment("仓库名称");
             $table->char("organization_paragraph_unique_code", 4)->nullable(false)->comment("所属站段代码");
-            $table->foreign("organization_paragraph_unique_code","lWarehouseStorehouses__opuc")->references("unique_code")->on("organization_paragraphs")->onUpdate("cascade")->comment("所属站段");
+            $table->foreign("organization_paragraph_unique_code","fLWS__opuc")->references("unique_code")->on("organization_paragraphs")->onUpdate("cascade")->comment("所属站段");
         });
     }
 

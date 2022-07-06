@@ -17,8 +17,8 @@ class CreateFactoriesTable extends Migration
             $table->unsignedBigInteger('id', true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code",5)->unique()->nullabel(false)->comment("供应商代码");
-            $table->string("name", 64)->unique()->nullabel(false)->comment("供应商名称");
+            $table->char("unique_code",5)->unique("uiFactories__uniqueCode")->nullabel(false)->comment("供应商代码");
+            $table->string("name", 64)->unique("uiFactories__name")->nullabel(false)->comment("供应商名称");
             $table->string("short_name",64)->comment("供应商简称");
         });
     }

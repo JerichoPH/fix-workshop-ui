@@ -17,10 +17,10 @@ class CreateLocationSignalPostIndicatorLightPositionsTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code",2)->unique()->nullable(false)->comment("信号机表示器灯位代码");
-            $table->string("name",64)->unique()->nullable(false)->comment("信号机表示器灯位名称");
-            $table->char("lspmoiuc",6)->nullable(false)->comment("所属信号机主体或表示器代码");
-            $table->foreign("lspmoiuc","lSignalPostIndicatorLightPositions__lspmoiuc")->references("unique_code")->on("location_signal_post_main_or_indicators")->comment("所属信号机主体或表示器");
+            $table->char("unique_code",2)->unique("uiLSPILP__uniqueCode")->nullable(false)->comment("信号机表示器灯位代码");
+            $table->string("name",64)->unique("uiLSPILP__name")->nullable(false)->comment("信号机表示器灯位名称");
+            $table->char("location_signal_post_main_or_indicator_unique_code",6)->nullable(false)->comment("所属信号机主体或表示器代码");
+            $table->foreign("location_signal_post_main_or_indicator_unique_code","fLSPILP__lspmoiuc")->references("unique_code")->on("location_signal_post_main_or_indicators")->comment("所属信号机主体或表示器");
         });
     }
 

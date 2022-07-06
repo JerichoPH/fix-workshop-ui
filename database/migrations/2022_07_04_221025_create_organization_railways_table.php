@@ -17,8 +17,8 @@ class CreateOrganizationRailwaysTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code", 3)->unique()->nullable(false)->comment("路局代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("路局名称");
+            $table->char("unique_code", 3)->unique("uiOR__uniqueCode")->nullable(false)->comment("路局代码");
+            $table->string("name", 64)->unique("uiOR__name")->nullable(false)->comment("路局名称");
             $table->string("short_name", 64)->comment("路局简称");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
         });

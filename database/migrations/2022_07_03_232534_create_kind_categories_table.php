@@ -17,8 +17,8 @@ class CreateKindCategoriesTable extends Migration
             $table->unsignedBigInteger('id', true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code", 3)->unique()->nullable(false)->comment("种类代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("种类代码");
+            $table->char("unique_code", 3)->unique("uiKC__uniqueCode")->nullable(false)->comment("种类代码");
+            $table->string("name", 64)->unique("uiKC__name")->nullable(false)->comment("种类代码");
             $table->string("nickname", 64)->comment("打印别名");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
         });

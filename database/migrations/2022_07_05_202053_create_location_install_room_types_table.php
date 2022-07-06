@@ -17,8 +17,8 @@ class CreateLocationInstallRoomTypesTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code",2)->unique()->nullable(false)->comment("机房类型代码");
-            $table->string("name",64)->unique()->nullable(false)->comment("机房类型名称");
+            $table->char("unique_code",2)->unique("uiLIRT__uniqueCode")->nullable(false)->comment("机房类型代码");
+            $table->string("name",64)->unique("uiLIRT__name")->nullable(false)->comment("机房类型名称");
         });
     }
 

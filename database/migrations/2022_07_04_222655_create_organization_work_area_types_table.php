@@ -17,8 +17,8 @@ class CreateOrganizationWorkAreaTypesTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->string("unique_code", 64)->unique()->nullable(false)->comment("工区类型代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("工区类型名称");
+            $table->string("unique_code", 64)->unique("uiOWAT__uniqueCode")->nullable(false)->comment("工区类型代码");
+            $table->string("name", 64)->unique("uiOWAT__name")->nullable(false)->comment("工区类型名称");
         });
     }
 

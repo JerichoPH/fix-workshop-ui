@@ -17,13 +17,13 @@ class CreateOrganizationWorkshopsTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code", 7)->unique()->nullable(false)->comment("车间代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("车间名称");
+            $table->char("unique_code", 7)->unique("uiOW__uniqueCode")->nullable(false)->comment("车间代码");
+            $table->string("name", 64)->unique("uiOW__name")->nullable(false)->comment("车间名称");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
             $table->string("organization_workshop_type_unique_code", 64)->nullable(false)->comment("所属车间类型代码");
-            $table->foreign("organization_workshop_type_unique_code","oWorkshops__owtuc")->references("unique_code")->on("organization_workshop_types")->onUpdate("cascade")->comment("所属车间类型");
+            $table->foreign("organization_workshop_type_unique_code","fOW__owtuc")->references("unique_code")->on("organization_workshop_types")->onUpdate("cascade")->comment("所属车间类型");
             $table->char("organization_paragraph_unique_code", 4)->nullable(false)->comment("所属站段代码");
-            $table->foreign("organization_paragraph_unique_code","oWorkshops__opuc")->references("unique_code")->on("organization_paragraphs")->onUpdate("cascade")->comment("所属站段");
+            $table->foreign("organization_paragraph_unique_code","fOW__opuc")->references("unique_code")->on("organization_paragraphs")->onUpdate("cascade")->comment("所属站段");
         });
     }
 

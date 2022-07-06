@@ -18,12 +18,12 @@ class CreateAccountsTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("uuid", 32)->unique()->nullable(false)->comment("uuid");
-            $table->string("username", 64)->unique()->nullable(false)->comment("账号");
+            $table->char("uuid", 36)->unique("uiAccounts__uuid")->nullable(false)->comment("uuid");
+            $table->string("username", 64)->unique("uiAccounts__username")->nullable(false)->comment("账号");
             $table->string("password", 128)->nullable(false)->comment("密码");
-            $table->string("nickname", 64)->unique()->nullable(false)->comment("昵称");
+            $table->string("nickname", 64)->unique("uiAccounts__nickname")->nullable(false)->comment("昵称");
             $table->string("account_status_unique_code", 64)->nullable(false)->comment("用户状态");
-            $table->foreign("account_status_unique_code","accounts__asuc")->references("unique_code")->on("account_statuses")->onUpdate("cascade")->comment("用户状态");
+            $table->foreign("account_status_unique_code","fAccounts__accountStatusUniqueCode")->references("unique_code")->on("account_statuses")->onUpdate("cascade")->comment("用户状态");
         });
     }
 

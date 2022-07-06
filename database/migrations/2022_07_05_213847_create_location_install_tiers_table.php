@@ -17,10 +17,10 @@ class CreateLocationInstallTiersTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code",13)->unique()->nullable(false)->comment("层代码");
-            $table->string("name",64)->unique()->nullable(false)->comment("层名称");
+            $table->char("unique_code",13)->unique("uiLIT__uniqueCode")->nullable(false)->comment("层代码");
+            $table->string("name",64)->unique("uiLIT__name")->nullable(false)->comment("层名称");
             $table->char("location_install_shelf_unique_code",11)->nullable(false)->comment("所属柜架代码");
-            $table->foreign("location_install_shelf_unique_code","lInstallTiers__lisuc")->references("unique_code")->on("location_install_shelves")->comment("所属柜架");
+            $table->foreign("location_install_shelf_unique_code","fLIT__lisuc")->references("unique_code")->on("location_install_shelves")->comment("所属柜架");
         });
     }
 

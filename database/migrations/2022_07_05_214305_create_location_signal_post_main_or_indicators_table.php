@@ -17,8 +17,8 @@ class CreateLocationSignalPostMainOrIndicatorsTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code",6)->unique()->nullable(false)->comment("信号灯主机或表示器代码");
-            $table->string("name",64)->unique()->nullable(false)->comment("信号机主机或表示器名称");
+            $table->char("unique_code",6)->unique("uiLSPMOI__uniqueCode")->nullable(false)->comment("信号灯主机或表示器代码");
+            $table->string("name",64)->unique("uiLSPOMI__name")->nullable(false)->comment("信号机主机或表示器名称");
         });
     }
 

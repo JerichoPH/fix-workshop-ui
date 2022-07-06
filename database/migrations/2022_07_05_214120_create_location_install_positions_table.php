@@ -17,10 +17,10 @@ class CreateLocationInstallPositionsTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code",15)->unique()->nullable(false)->comment("位代码");
-            $table->string("name",64)->unique()->nullable(false)->comment("位名称");
+            $table->char("unique_code",15)->unique("uiLIPositions__uniqueCode")->nullable(false)->comment("位代码");
+            $table->string("name",64)->unique("uiLIPositions__name")->nullable(false)->comment("位名称");
             $table->char("location_install_tier_unique_code",13)->nullable(false)->comment("所属层代码");
-            $table->foreign("location_install_tier_unique_code","lInstallPositions__lituc")->references("unique_code")->on("location_install_tiers")->onUpdate("cascade")->comment("所属层");
+            $table->foreign("location_install_tier_unique_code","fLIPositions__lituc")->references("unique_code")->on("location_install_tiers")->onUpdate("cascade")->comment("所属层");
         });
     }
 

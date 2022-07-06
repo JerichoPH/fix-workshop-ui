@@ -17,8 +17,8 @@ class CreateOrganizationLinesTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code", 5)->unique()->nullable(false)->comment("线别代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("线别名称");
+            $table->char("unique_code", 5)->unique("uiOL__uniqueCode")->nullable(false)->comment("线别代码");
+            $table->string("name", 64)->unique("uiOL__name")->nullable(false)->comment("线别名称");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
         });
     }

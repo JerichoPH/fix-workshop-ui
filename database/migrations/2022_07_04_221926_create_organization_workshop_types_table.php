@@ -17,8 +17,8 @@ class CreateOrganizationWorkshopTypesTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->string("unique_code", 64)->unique()->nullable(false)->comment("车间类型代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("车间类型名称");
+            $table->string("unique_code", 64)->unique("uiOWT__uniqueCode")->nullable(false)->comment("车间类型代码");
+            $table->string("name", 64)->unique("uiOWT__name")->nullable(false)->comment("车间类型名称");
         });
     }
 

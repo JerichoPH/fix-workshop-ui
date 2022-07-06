@@ -17,11 +17,11 @@ class CreateOrganizationSectionsTable extends Migration
             $table->unsignedBigInteger("id", true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code", 6)->unique()->nullable(false)->comment("区间代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("区间名称");
+            $table->char("unique_code", 6)->unique("uiOS__uniqueCode")->nullable(false)->comment("区间代码");
+            $table->string("name", 64)->unique("uiOS__name")->nullable(false)->comment("区间名称");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
             $table->char("organization_workshop_unique_code", 7)->nullable(false)->comment("所属车间代码");
-            $table->foreign("organization_workshop_unique_code")->references("unique_code")->on("organization_workshops")->comment("所属车间");
+            $table->foreign("organization_workshop_unique_code","fOS__owuc")->references("unique_code")->on("organization_workshops")->comment("所属车间");
         });
     }
 

@@ -17,12 +17,12 @@ class CreateKindSubTypesTable extends Migration
             $table->unsignedBigInteger('id', true);
             $table->timestamps();
             $table->softDeletes();
-            $table->char("unique_code", 7)->unique()->nullable(false)->comment("种类代码");
-            $table->string("name", 64)->unique()->nullable(false)->comment("种类代码");
+            $table->char("unique_code", 7)->unique("uiKST__uniqueCode")->nullable(false)->comment("种类代码");
+            $table->string("name", 64)->unique("uiKST__name")->nullable(false)->comment("种类代码");
             $table->string("nickname", 64)->comment("打印别名");
             $table->boolean("be_enable")->nullable(false)->default(true)->comment("是否启用");
             $table->char("kind_entire_type_unique_code", 5)->nullable(false)->default(true)->comment("所属类型代码");
-            $table->foreign("kind_entire_type_unique_code","kSubTypes__ketuc")->references("unique_code")->on("kind_entire_types")->onUpdate("cascade")->comment("所属类型");
+            $table->foreign("kind_entire_type_unique_code","uiKST__kindEntireTypeUniqueCode")->references("unique_code")->on("kind_entire_types")->onUpdate("cascade")->comment("所属类型");
         });
     }
 
