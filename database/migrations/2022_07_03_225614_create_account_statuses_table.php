@@ -17,7 +17,7 @@ class CreateAccountStatusesTable extends Migration
             $table->unsignedBigInteger('id', true);
             $table->timestamps();
             $table->softDeletes();
-            $table->string("unique_code", 64)->unique("uiAS__unique_code")->nullable(false)->comment("用户状态代码");
+            $table->string("unique_code", 64)->unique("uiAS__uniqueCode")->nullable(false)->comment("用户状态代码");
             $table->string("name", 64)->unique("uiAS__name")->nullable(false)->comment("用户状态名称");
         });
     }
