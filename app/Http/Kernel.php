@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckLoginMiddleware;
 use App\Http\Middleware\CorsMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate;
@@ -63,7 +64,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'wechat-oauth' => OAuthAuthenticate::class,  # 获取微信授
         'cors' => CorsMiddleware::class, # 允许跨域
+        'CheckLoginMiddleware' => CheckLoginMiddleware::class,  # 检查是否登录
     ];
 }

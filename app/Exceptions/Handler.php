@@ -32,8 +32,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontFlash = [
-        'password',
-        'password_confirmation',
+        "password",
+        "password_confirmation",
     ];
     private $__code = 0;
 
@@ -45,15 +45,15 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        // $this->__code = time() . str_pad(rand(0, 9999), 2, '0', 0);
+        // $this->__code = time() . str_pad(rand(0, 9999), 2, "0", 0);
         $this->__code = Str::uuid();
 
         // parent::report($e);
 
         Log::error($e->getMessage(), [
-            'request' => request()->all(),
-            'code' => $this->__code,
-            'trace' => $e->getTraceAsString(),
+            "request" => request()->all(),
+            "code" => $this->__code,
+            "trace" => $e->getTraceAsString(),
         ]);
     }
 
@@ -75,91 +75,98 @@ class Handler extends ExceptionHandler
         $msg = "错误：{$e_msg}。";
         if (env("APP_DEBUG")) $msg .= "（错误代码：{$this->__code}）";
 
-        if (env('APP_DEBUG')) {
+        if (env("APP_DEBUG")) {
             if ($request->ajax()) {
                 return response()->json([
-                    'msg' => $msg,
-                    'status' => 500,
-                    'errorCode' => 500,
-                    'details' => [
-                        'exception_type' => get_class($e),
-                        'message' => $e->getMessage(),
-                        'file' => $e->getFile(),
-                        'line' => $e->getLine(),
+                    "msg" => $msg,
+                    "status" => 500,
+                    "errorCode" => 500,
+                    "details" => [
+                        "exception_type" => get_class($e),
+                        "message" => $e->getMessage(),
+                        "file" => $e->getFile(),
+                        "line" => $e->getLine(),
+                        "trace" => $e->getTrace(),
                     ],
                 ], 500);
             }
-            dd($e);
+            dd([
+                "exception_type" => get_class($e),
+                "message" => $e->getMessage(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
+                "trace" => $e->getTrace(),
+            ]);
         }
 
         if ($e instanceof UnAuthorizationException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorUnauthorized($msg)
-                : back()->withInput()->with('danger', $msg);
+                : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof EmptyException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorEmpty($msg)
-                : back()->withInput()->with('danger', $msg);
+                : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof ForbiddenException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorForbidden($msg)
-                : back()->withInput()->with('danger', $msg);
+                : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof UnLoginException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorUnLogin($msg)
-                : redirect('/login', $msg);
+                : redirect("/login", $msg);
         }
 
         if ($e instanceof UnOwnerException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorUnauthorized($msg)
-                : back()->withInput()->with('danger', $msg);
+                : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof ValidateException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorValidate($msg)
-                : back()->withInput()->with('danger', $msg);
+                : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof ModelNotFoundException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorEmpty("错误：资源不存在。错误代码：{$this->__code}")
-                : back()->withInput()->with('danger', "错误：资源不存在。错误代码：{$this->__code}");
+                : back()->withInput()->with("danger", "错误：资源不存在。错误代码：{$this->__code}");
         }
 
         if ($e instanceof NotFoundHttpException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorEmpty("错误：路由不存在。错误代码：{$this->__code}")
-                : back()->withInput()->with('danger', "错误：资源不存在。错误代码：{$this->__code}");
+                : back()->withInput()->with("danger", "错误：资源不存在。错误代码：{$this->__code}");
         }
 
         if ($e instanceof ExcelInException) {
             return $request->ajax()
                 ? JsonResponseFacade::errorForbidden($msg)
-                : back()->with('danger', $msg);
+                : back()->with("danger", $msg);
         }
 
         if ($e instanceof Exception) {
             return $request->ajax()
                 ? response()->json([
-                    'msg' => $msg,
-                    'status' => 500,
-                    'errorCode' => 500,
-                    'details' => [
-                        'exception_type' => get_class($e),
-                        'message' => $e->getMessage(),
-                        'file' => $e->getFile(),
-                        'line' => $e->getLine(),
+                    "msg" => $msg,
+                    "status" => 500,
+                    "errorCode" => 500,
+                    "details" => [
+                        "exception_type" => get_class($e),
+                        "message" => $e->getMessage(),
+                        "file" => $e->getFile(),
+                        "line" => $e->getLine(),
                     ],
                 ], 500)
-                : back()->withInput()->with('danger', "意外错误。错误代码：{$this->__code}");
+                : back()->withInput()->with("danger", "意外错误。错误代码：{$this->__code}");
         }
 
         return parent::render($request, $e);

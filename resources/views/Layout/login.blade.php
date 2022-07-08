@@ -46,6 +46,7 @@
 <script src="/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript" src="/layer/layer.js"></script>
 <script>
     $(function () {
         $('input').iCheck({

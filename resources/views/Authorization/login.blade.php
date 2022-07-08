@@ -34,7 +34,7 @@
                     <div class="col-xs-8">
                     </div>
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">&emsp;登&emsp;录&emsp;</button>
+                        <button type="button" class="btn btn-primary btn-block btn-flat" onclick="fnLogin()">&emsp;登&emsp;录&emsp;</button>
                     </div>
                 </div>
             </form>
@@ -45,23 +45,32 @@
     <script>
         let $frmLogin = $("#frmLogin");
 
-        function fnLogin(){
+        /**
+         * 登录
+         */
+        function fnLogin() {
+            let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmLogin.serializeArray();
 
             $.ajax({
-                url: `{{ route("api.v1.Authorization:PostLogin") }}`,
+                url: `{{ route("web.Authorization:PostLogin") }}`,
                 type: 'post',
                 data,
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("api.v1.Authorization:PostLogin") }} success:`,res);
+                    console.log(`{{ route("web.Authorization:PostLogin") }} success:`, res);
+                    layer.close(loading);
 
-
+                    location.href = "/";
                 },
                 error: function (err) {
-                    console.log(`{{ route("api.v1.Authorization:PostLogin") }} fail:`, err);
-                    if (err.status === 401) location.href = "{{ url('login') }}";
-                    alert(err['responseJSON']['msg']);
+                    console.log(`{{ route("web.Authorization:PostLogin") }} fail:`, err);
+                    layer.close();
+                    if (err.status === 401) {
+                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
+                            location.href = "{{ route("web.Authorization:GetLogin") }}";
+                        });
+                    }
                 }
             });
         }

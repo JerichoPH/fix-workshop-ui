@@ -10,6 +10,7 @@
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': `JWT {{ session("__jwt__") }}`,
         }
     });
 </script>

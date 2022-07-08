@@ -36,10 +36,8 @@
     <!-- /.sidebar -->
 </aside>
 <script>
-    let treeJson = JSON.parse('{!! session('account.treeJson') !!}');
-
     window.onload = function () {
-        parseJsonMenu({!! session('account.treeJson') !!});
+        {{--parseJsonMenu({!! session('account.treeJson') !!});--}}
     };
 
     {{--let currentMenu = '{{ session('account.currentMenu') }}';--}}
