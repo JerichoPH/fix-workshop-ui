@@ -36,10 +36,10 @@ class AuthorizationController extends Controller
     {
         $this->sendStandardRequest(
             "authorization/login",
-            $request->session()->get("__jwt__"),
+            $request->session()->get(__JWT__),
             function () {
                 if (!$this->curl->error) {
-                    session()->put("__jwt__", $this->curl->response->content->token);
+                    session()->put(__JWT__, $this->curl->response->content->token);
                     session()->put("__account__", [
                         "username" => $this->curl->response->content->username,
                         "nickname" => $this->curl->response->content->nickname,
@@ -58,7 +58,7 @@ class AuthorizationController extends Controller
     final public function GetLogout()
     {
         session()->forget("__account__");
-        session()->forget("__jwt__");
+        session()->forget(__JWT__);
 
         return redirect("authorization/login");
     }
@@ -70,7 +70,7 @@ class AuthorizationController extends Controller
     final public function PostLogout()
     {
         session()->forget("__account__");
-        session()->forget("__jwt__");
+        session()->forget(__JWT__);
 
         return JsonResponseFacade::ok("退出成功");
     }

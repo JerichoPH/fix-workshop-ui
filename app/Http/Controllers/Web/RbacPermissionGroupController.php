@@ -11,10 +11,10 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\View\View;
 
-class RbacRoleController extends Controller
+class RbacPermissionGroupController extends Controller
 {
     /**
-     * 角色列表
+     * 权限列表
      * @return Factory|Application|View|mixed
      * @throws EmptyException
      * @throws ForbiddenException
@@ -24,60 +24,61 @@ class RbacRoleController extends Controller
     final public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacRole", session(__JWT__));
+            return $this->sendStandardRequest("rbacPermissionGroup", session(__JWT__));
         } else {
-            return view("RbacRole.index");
+            return view("RbacPermissionGroup.index");
         }
     }
 
     /**
-     * 新建角色页面
+     * 创建权限分组页面
      * @return Factory|Application|View
      */
     final public function Create()
     {
-        return view("RbacRole.create");
+        return view("RbacPermissionGroup.create");
     }
 
     /**
-     * 新建角色
-     * @throws UnLoginException
+     * 创建权限分组
+     * @return mixed
      * @throws EmptyException
      * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     final public function Store()
     {
-        return $this->sendStandardRequest("rbacRole", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermissionGroup", session(__JWT__));
     }
 
     /**
-     * 角色详情
+     * 权限分组详情
      * @throws UnLoginException
      * @throws EmptyException
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Show(string $uuid)
+    final public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacRole/$uuid", session(__JWT__));
+            return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
         }
         return null;
     }
 
     /**
-     * 编辑角色页面
+     * 编辑权限分组页面
      * @param string $uuid
      * @return Factory|Application|View
      */
     final public function Edit(string $uuid)
     {
-        return view("RbacRole.edit", ["uuid" => $uuid]);
+        return view("RbacPermissionGroup.edit");
     }
 
     /**
-     * 编辑角色
+     * 编辑权限分组
      * @param string $uuid
      * @return mixed
      * @throws EmptyException
@@ -87,11 +88,11 @@ class RbacRoleController extends Controller
      */
     final public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
     }
 
     /**
-     * 删除角色
+     * 删除权限分组
      * @param string $uuid
      * @return mixed
      * @throws EmptyException
@@ -101,6 +102,6 @@ class RbacRoleController extends Controller
      */
     final public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
     }
 }

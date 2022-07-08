@@ -63,7 +63,7 @@ class Controller extends BaseController
     protected function handleResponse()
     {
         if ($this->curl->error) {
-            $msg = $this->curl->response->msg;
+            $msg = @$this->curl->response->msg ?: "";
             switch ($this->curl->errorCode) {
                 case 401:
                     throw new UnLoginException($msg);
@@ -87,7 +87,7 @@ class Controller extends BaseController
                 case 202:
                     return JsonResponseFacade::updated((array)$this->curl->response->content);
                 case 204:
-                    return JsonResponseFacade::deleted((array)$this->curl->response->content);
+                    return JsonResponseFacade::deleted();
             }
         }
     }

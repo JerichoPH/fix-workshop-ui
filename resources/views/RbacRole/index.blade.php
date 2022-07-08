@@ -113,5 +113,33 @@
 
             fnFillTblRbacRole();  // 填充角色表
         });
+
+        /**
+         * 删除
+         * @param {string} uuid
+         */
+        function fnDelete(uuid = "") {
+            let loading = layer.msg('处理中……', {time: 0,});
+            $.ajax({
+                url: `{{ url("rbacRole") }}/${uuid}`,
+                type: 'delete',
+                data: {},
+                async: true,
+                success: res => {
+                    console.log(`{{ url("rbacRole") }}/${uuid} success:`, res);
+                    layer.close(loading);
+                    layer.msg(res['msg'], {time: 1000,}, function () {
+                        tblRbacRole.ajax.reload();
+                    });
+                },
+                error: err => {
+                    console.log(`{{ url("rbacRole") }}/${uuid} fail:`, err);
+                    layer.close(loading);
+                    layer.msg(err["responseJSON"], {time: 1500,}, () => {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
+            });
+        }
     </script>
 @endsection

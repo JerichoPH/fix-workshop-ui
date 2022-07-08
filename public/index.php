@@ -1,5 +1,7 @@
 <?php
 
+const __JWT__ = "__jwt__";
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
