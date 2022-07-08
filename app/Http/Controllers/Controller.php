@@ -35,7 +35,7 @@ class Controller extends BaseController
     /**
      * 发送标准请求
      * @param string $url
-     * @param string $token
+     * @param string|null $token
      * @param Closure|null $closure
      * @return mixed
      * @throws EmptyException
@@ -43,7 +43,7 @@ class Controller extends BaseController
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    protected function sendStandardRequest(string $url, string $token = "", Closure $closure = null)
+    protected function sendStandardRequest(string $url, ?string $token = "", Closure $closure = null)
     {
         $method = strtolower(request()->method());
         $this->curl->setHeader("Authorization", "JWT $token");

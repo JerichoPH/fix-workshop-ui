@@ -130,18 +130,18 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="/images/logo_sm_bg.png" class="user-image"
-                             alt="{{ session('account.nickname') }}">
-                        <span class="hidden-xs">{{ session('account.nickname') }}</span>
+                             alt="{{ session('__account__.nickname') }}">
+                        <span class="hidden-xs">{{ session('__account__.nickname') }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header" style="background-color: #0477c4;">
                             {{--<img src="/images/account-avatar-lack.jpeg" onclick="location.href='/profile'"--}}
                             <img src="/images/logo_sm_bg.png"
-                                 class="img-circle" alt="{{ session('account.nickname') }}">
+                                 class="img-circle" alt="{{ session('____.nickname') }}">
                             <p>
-                                {{ session('account.nickname') }} - 管理员
-                                <small>{{ session('account.created_at') }}</small>
+                                {{ session('__account__.nickname') }} - {{ session("__account__.username") }}
+                                <small>{{ session('__account__.created_at') }}</small>
                             </p>
                         </li>
                         <!-- Menu Body -->
@@ -161,10 +161,10 @@
                     <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ url('/account') }}/{{ session('account.id') }}/edit" class="btn btn-default btn-flat">修改个人信息</a>
+                                <a href="{{ route("web.Account:Edit", ["uuid" => session("__account__.uuid")]) }}" class="btn btn-default btn-flat">修改个人信息</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">退出登录</a>
+                                <a href="{{ route("web.Authorization:GetLogout") }}" class="btn btn-default btn-flat">退出登录</a>
                             </div>
                         </li>
                     </ul>

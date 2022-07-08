@@ -9,7 +9,6 @@ use App\Exceptions\UnLoginException;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AccountController extends Controller
@@ -41,37 +40,44 @@ class AccountController extends Controller
 
     /**
      * 新建用户
-     * @param Request $request
      * @return mixed
      * @throws EmptyException
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Store(Request $request)
+    final public function Store()
     {
         return $this->sendStandardRequest("account", session("__jwt__"));
     }
 
     /**
-     * 编辑用户页面
+     * 角色详情
      * @throws UnLoginException
-     * @throws ForbiddenException
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     */
+    final public function Show(string $uuid)
+    {
+        if (request()->ajax()) {
+            return $this->sendStandardRequest("account/$uuid", session("__jwt__"));
+        }
+        return null;
+    }
+
+    /**
+     * 编辑用户页面
+     * @param string $uuid
+     * @return Factory|Application|View
      */
     final public function Edit(string $uuid)
     {
-        if (request()->ajax()) {
-            return $this->sendStandardRequest("account/{$uuid}", session("__jwt__"));
-        } else {
-            return view("Account.edit", ["uuid" => $uuid,]);
-        }
+        return view("Account.edit", ["uuid" => $uuid,]);
     }
 
     /**
      * 编辑用户
-     * @param Request $request
      * @param string $uuid
      * @return mixed
      * @throws EmptyException
@@ -79,9 +85,23 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Update(Request $request, string $uuid)
+    final public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("account/{$uuid}", session("__jwt__"));
+        return $this->sendStandardRequest("account/$uuid", session("__jwt__"));
+    }
+
+    /**
+     * 编辑用户密码
+     * @param string $uuid
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
+     */
+    final public function UpdatePassword(string $uuid)
+    {
+        return $this->sendStandardRequest("account/$uuid/updatePassword", session("__jwt__"));
     }
 
     /**

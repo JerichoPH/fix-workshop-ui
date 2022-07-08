@@ -53,7 +53,7 @@
                         <div class="box-tools pull-right"></div>
                     </div>
                     <br>
-                    <form class="form-horizontal" id="frmUpdate">
+                    <form class="form-horizontal" id="frmUpdatePassword">
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">旧密码*：</label>
@@ -88,17 +88,21 @@
     <script>
         let $select2 = $('.select2');
         let $frmUpdate = $('#frmUpdate');
+        let $frmUpdatePassword = $("#frmUpdatePassword");
         let $txtUsername = $("#txtUsername");
         let $txtNickname = $("#txtNickname");
 
+        /**
+         * 初始化数据
+         */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.Account:Edit", ["uuid"=>$uuid]) }}`,
+                url: `{{ route("web.Account:Show", ["uuid" => $uuid]) }}`,
                 type: 'get',
                 data: {},
                 async: false,
                 success: res => {
-                    console.log(`{{ route("web.Account:Edit", ["uuid"=>$uuid]) }} success:`, res);
+                    console.log(`{{ route("web.Account:Show", ["uuid" => $uuid]) }} success:`, res);
 
                     let account = res["data"]["account"];
 
@@ -106,13 +110,10 @@
                     $txtNickname.val(account["nickname"]);
                 },
                 error: err => {
-                    console.log(`{{ route("web.Account:Edit", ["uuid"=>$uuid]) }} fail:`, err);
-                    if (err.status === 401) {
-                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                            location.href = '{{ route('web.Authorization:GetLogin') }}';
-                        });
-                    }
-                    layer.msg(err['responseJSON']['msg'], {time: 2000,});
+                    console.log(`{{ route("web.Account:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
                 },
             });
         }
@@ -144,19 +145,37 @@
                 error: err => {
                     console.log(`{{ route("web.Account:Update", ["uuid" => $uuid]) }} fail:`, err);
                     layer.close(loading);
-                    if (err.status === 401) {
-                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                            location.href = '{{ route('web.Authorization:GetLogin') }}';
-                        });
-                    }
-                    layer.msg(err['responseJSON']['msg'], {time: 2000,});
+                    layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
                 },
             });
         }
 
         // 修改密码
         function fnUpdatePassword() {
-
+            let data = $frmUpdatePassword.serializeArray();
+            let loading = layer.msg('处理中……', {time: 0,});
+            $.ajax({
+                url: `{{ route("web.Account:UpdatePassword", ["uuid" => $uuid]) }}`,
+                type: 'put',
+                data,
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.Account:UpdatePassword", ["uuid" => $uuid]) }} success:`, res);
+                    layer.close(loading);
+                    layer.msg(res['msg'], {time: 1000,}, function () {
+                        location.reload();
+                    });
+                },
+                error: err => {
+                    console.log(`{{ route("web.Account:UpdatePassword", ["uuid" => $uuid]) }} fail:`, err);
+                    layer.close(loading);
+                    layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
+            });
         }
 
     </script>

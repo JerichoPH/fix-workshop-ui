@@ -87,18 +87,15 @@
                     console.log(`{{ route("web.Account:Store") }} success:`, res);
                     layer.close(loading);
                     layer.msg(res['msg'], {time: 1000,}, function () {
-
+                        location.reload();
                     });
                 },
                 error: err => {
                     console.log(`{{ route("web.Account:Store") }} fail:`, err);
                     layer.close(loading);
-                    if (err.status === 401) {
-                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                            location.href = '{{ route('web.Authorization:GetLogin') }}';
-                        });
-                    }
-                    layer.msg(err['responseJSON']['msg'], {time: 2000,});
+                    layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
                 },
             });
         }
