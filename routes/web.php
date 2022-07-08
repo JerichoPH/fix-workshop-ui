@@ -12,3 +12,15 @@
 */
 
 use Illuminate\Support\Facades\Route;
+
+Route::prefix("")
+    ->name("Home:")
+    ->group(function () {
+        Route::get("", "HomeController@Index")->name("Index");  // 主页
+    });
+
+Route::prefix("authorization")
+    ->name("Authorization:")
+    ->group(function () {
+        Route::get("login", "AuthorizationController@GetLogin")->name("GetLogin");  // 登陆页面
+    });

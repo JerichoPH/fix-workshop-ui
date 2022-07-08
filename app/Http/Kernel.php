@@ -2,23 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\ApiCheckJwtMiddleware;
-use App\Http\Middleware\ApiCheckMiddleware;
-use App\Http\Middleware\ApiCheckPermissionMiddleware;
-use App\Http\Middleware\CheckDetectorUserSecretKeyMiddleware;
-use App\Http\Middleware\CheckJwtMiddleware;
-use App\Http\Middleware\CheckParagraphSyncBasicDataMiddleware;
-use App\Http\Middleware\CheckPermissionMiddleware;
-use App\Http\Middleware\CheckSignMiddleware;
-use App\Http\Middleware\CorsHttpMiddleware;
 use App\Http\Middleware\CorsMiddleware;
-use App\Http\Middleware\CrossHttpMiddleware;
-use App\Http\Middleware\GetCurrentMenuMiddleware;
-use App\Http\Middleware\GetIpMiddleware;
-use App\Http\Middleware\ThrottleRequestsMiddleware;
-use App\Http\Middleware\WebCheckJwtMiddleware;
-use App\Http\Middleware\WebCheckLoginMiddleware;
-use App\Http\Middleware\WebCheckPermissionMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Overtrue\LaravelWeChat\Middleware\OAuthAuthenticate;
 
@@ -38,8 +22,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         CorsMiddleware::class, # 允许跨域
-        GetIpMiddleware::class,  # 获取访问IP地址
-        ThrottleRequestsMiddleware::class,  # 白名单控制
     ];
 
     /**
@@ -54,7 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-//            \App\Http\Middleware\VerifyCsrfToken::class,
+            // \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             CorsMiddleware::class, # 允许跨域
         ],
@@ -81,17 +63,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'web-check-jwt' => WebCheckJwtMiddleware::class,  # 检查jwt(web)
-        'api-check-jwt' => ApiCheckJwtMiddleware::class,  # 检查jwt(api)
-        'api-check' => ApiCheckMiddleware::class,  # 登录
-        'web-check-permission' => WebCheckPermissionMiddleware::class,  # 检查权限(web)
-        'api-check-permission' => ApiCheckPermissionMiddleware::class,  # 检查权限(api)
-        'web-check-login' => WebCheckLoginMiddleware::class,  # 检查web是否登录
-        'web-get-current-menu'=>GetCurrentMenuMiddleware::class,  # 根据当前URL获取菜单
         'wechat-oauth' => OAuthAuthenticate::class,  # 获取微信授
-        'cors'=>CorsMiddleware::class, # 允许跨域
-        'CheckSignMiddleware'=>CheckSignMiddleware::class,  # 接口验签
-        'CheckParagraphSyncBasicData'=>CheckParagraphSyncBasicDataMiddleware::class,  // 检查是否允许段中心同步基础数据
-        "CheckDetectorUserSecretKey"=>CheckDetectorUserSecretKeyMiddleware::class,  // 检查检测台厂家密码
+        'cors' => CorsMiddleware::class, # 允许跨域
     ];
 }
