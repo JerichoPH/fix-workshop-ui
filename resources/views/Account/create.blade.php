@@ -51,8 +51,8 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.Account:Index', ['page' => request('page', 1), ]) }}" class="btn btn-default pull-left btn-flat btn-sm"><i class="fa fa-arrow-left btn-flat">&nbsp;</i>返回</a>
-                            <a onclick="fnStore()" class="btn btn-success pull-right btn-flat btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
+                            <a href="{{ route('web.Account:Index', ['page' => request('page', 1), ]) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a onclick="fnStore()" class="btn btn-success pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
                 </div>

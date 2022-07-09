@@ -63,10 +63,10 @@
                     <!--Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                {{--<a href="{{url('/profile')}}" class="btn btn-default btn-flat">个人中心</a>--}}
+                                {{--<a href="{{url('/profile')}}" class="btn btn-default">个人中心</a>--}}
                             </div>
                             <div class="pull-right">
-                                <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">退出登录</a>
+                                <a href="{{ url('/logout') }}" class="btn btn-default">退出登录</a>
                             </div>
                         </li>
                     </ul>

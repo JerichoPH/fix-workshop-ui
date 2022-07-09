@@ -34,7 +34,7 @@
                     <div class="col-xs-8">
                     </div>
                     <div class="col-xs-4">
-                        <button type="button" class="btn btn-primary btn-block btn-flat" onclick="fnLogin()">&emsp;登&emsp;录&emsp;</button>
+                        <button type="button" class="btn btn-primary btn-block" onclick="fnLogin()">&emsp;登&emsp;录&emsp;</button>
                     </div>
                 </div>
             </form>

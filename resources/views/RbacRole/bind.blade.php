@@ -3,39 +3,61 @@
     <!-- 面包屑 -->
     <section class="content-header">
         <h1>
-            用户管理
+            角色绑定管理
             <small>列表</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li class="active">用户-列表</li>
+            <li class="active">角色绑定-列表</li>
         </ol>
     </section>
     <section class="content">
         @include('Layout.alert')
-        <div class="box box-solid">
-            <div class="box-header">
-                <h3 class="box-title">用户-列表</h3>
-                <!--右侧最小化按钮-->
-                <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.Account:Create', ['page' => request('page', 1), ]) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-solid">
+                    <div class="box-header">
+                        <h3 class="box-title">角色绑定-用户</h3>
+                        <!--右侧最小化按钮-->
+                        <div class="pull-right btn-group btn-group-sm"></div>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-condensed" id="tblAccount">
+                                <thead>
+                                <tr>
+
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="box-body">
-                <table class="table table-hover table-striped table-condensed" id="tblAccount">
-                    <thead>
-                    <tr>
-                        <th>创建时间</th>
-                        <th>编号</th>
-                        <th>用户名</th>
-                        <th>昵称</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+            <div class="col-md-6">
+                <div class="box box-solid">
+                    <div class="box-header">
+                        <h3 class="box-title">角色绑定-权限</h3>
+                        <!--右侧最小化按钮-->
+                        <div class="pull-right btn-group btn-group-sm"></div>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-condensed" id="tblPermission">
+                                <thead>
+                                <tr>
+
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </section>
 @endsection
 @section('script')
@@ -43,9 +65,6 @@
         let $select2 = $('.select2');
         let tblAccount = null;
 
-        /**
-         * 填充用户表
-         */
         function fnFillTblAccount() {
             if (document.getElementById('tblAccount')) {
                 tblAccount = $('#tblAccount').DataTable({
@@ -53,25 +72,22 @@
                         url: `{{ route("web.Account:Index") }}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.Account:Index") }} success:`, res);
-                            let {accounts,} = res['data'];
+                            let {account: accounts,} = res['data'];
                             let render = [];
                             if (accounts.length > 0) {
-                                $.each(accounts, (_, account) => {
-                                    let createdAt = account["created_at"] ? moment(account["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                $.each(accounts, (key, account) => {
                                     let uuid = account["uuid"];
                                     let username = account["username"];
                                     let nickname = account["nickname"];
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ url("account") }}/${uuid}" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
                                     render.push([
-                                        createdAt,
-                                        uuid,
                                         username,
                                         nickname,
                                         divBtnGroup,
@@ -82,8 +98,8 @@
                         },
                     },
                     columnDefs: [{
-                        // orderable: false,
-                        // targets: 0,  // 清除第一列排序
+                        orderable: false,
+                        targets: 0,  // 清除第一列排序
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -112,7 +128,7 @@
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
 
-            fnFillTblAccount();  // 填充用户表
+            fnFillTblAccount();  // 填充用户列表
         });
 
 

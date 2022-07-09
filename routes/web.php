@@ -59,6 +59,9 @@ Route::prefix("")
                 Route::post("", "RbacRoleController@Store")->name("Store");  // 新建角色
                 Route::put("{uuid}", "RbacRoleController@Update")->name("Update"); // 编辑角色
                 Route::delete("{uuid}", "RbacRoleController@Destroy")->name("Destroy");  // 删除角色
+                Route::get("{uuid}/bind", "RbacRoleController@GetBind")->name("GetBind");  // 角色绑定管理页面
+                Route::put("{uuid}/bindAccounts", "RbacRoleController@PutBindAccounts")->name("PutBindAccounts"); // 角色绑定用户
+                Route::put("{uuid}/bindPermissions", "RbacRoleController@PutBindPermissions")->name("PutBindPermissions"); // 角色绑定权限
             });
 
         // 权限分组

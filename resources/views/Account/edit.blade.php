@@ -39,8 +39,8 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.Account:Index', ['page' => request('page', 1), ]) }}" class="btn btn-default pull-left btn-flat btn-sm"><i class="fa fa-arrow-left btn-flat">&nbsp;</i>返回</a>
-                            <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-flat btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
+                            <a href="{{ route('web.Account:Index', ['page' => request('page', 1), ]) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
                 </div>
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a onclick="fnUpdatePassword()" class="btn btn-danger pull-right btn-flat btn-sm"><i class="fa fa-lock">&nbsp;</i>修改密码</a>
+                            <a onclick="fnUpdatePassword()" class="btn btn-danger pull-right btn-sm"><i class="fa fa-lock">&nbsp;</i>修改密码</a>
                         </div>
                     </form>
                 </div>

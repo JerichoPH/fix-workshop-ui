@@ -18,7 +18,7 @@
                 <h3 class="box-title">角色-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.RbacRole:Create', ['page' => request('page', 1), ]) }}" class="btn btn-flat btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.RbacRole:Create', ['page' => request('page', 1), ]) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <div class="box-body">
@@ -64,8 +64,9 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ url("rbacRole") }}/${uuid}/edit" class="btn btn-warning btn-flat"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger btn-flat" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `<a href="{{ url("rbacRole") }}/${uuid}/bind" class="btn btn-primary"><i class="fa fa-link">&nbsp;</i></a>`;
+                                    divBtnGroup += `<a href="{{ url("rbacRole") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 

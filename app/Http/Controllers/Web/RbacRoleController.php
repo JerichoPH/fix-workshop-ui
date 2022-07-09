@@ -103,4 +103,14 @@ class RbacRoleController extends Controller
     {
         return $this->sendStandardRequest("rbacRole/$uuid", session(__JWT__));
     }
+
+    /**
+     * 角色绑定管理页面
+     * @param string $uuid
+     * @return Factory|Application|View
+     */
+    final public function GetBind(string $uuid)
+    {
+        return view("RbacRole.bind", ["uuid" => $uuid,]);
+    }
 }

@@ -181,7 +181,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-flat btn-lg" onclick="fnSearch()"><i class="fa fa-search">&nbsp;</i>查询</button>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="fnSearch()"><i class="fa fa-search">&nbsp;</i>查询</button>
                 </div>
             </div>
         </div>
@@ -202,7 +202,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="qr_code" id="txtQrCode" onkeydown="if(event.keyCode==13){ fnScanQrCode();}">
                                 <div class="input-group-btn">
-                                    <a class="btn btn-primary btn-flat" onclick="fnScanQrCode()">扫码</a>
+                                    <a class="btn btn-primary" onclick="fnScanQrCode()">扫码</a>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +213,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="bar_code" id="txtBarCode" onkeydown="if(event.keyCode==13){ fnScanBarCode();}">
                                 <div class="input-group-btn">
-                                    <a class="btn btn-primary btn-flat" onclick="fnScanBarCode()">扫码</a>
+                                    <a class="btn btn-primary" onclick="fnScanBarCode()">扫码</a>
                                 </div>
                             </div>
                         </div>
