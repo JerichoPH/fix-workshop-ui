@@ -32,6 +32,19 @@
 
         @include('Layout.script')
         <script>
+
+            /**
+             * 绑定全选按钮事件
+             * @param {string} checkAll 全选按钮ID
+             * @param {string} checkItem 被全选按钮类型名称
+             */
+            function fnCheckAll(checkAll = "", checkItem = "") {
+                // 全选按钮事件绑定
+                $(`#${checkAll}`).on("change", function () {
+                    $(`.${checkItem}`).prop("checked", $(`#${checkAll}`).is(":checked"));
+                });
+            }
+
             $(function () {
 
             });

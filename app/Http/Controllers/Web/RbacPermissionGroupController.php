@@ -9,6 +9,7 @@ use App\Exceptions\UnLoginException;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class RbacPermissionGroupController extends Controller
@@ -47,7 +48,7 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Store()
+    final public function Store(Request $request)
     {
         return $this->sendStandardRequest("rbacPermissionGroup", session(__JWT__));
     }
@@ -74,7 +75,7 @@ class RbacPermissionGroupController extends Controller
      */
     final public function Edit(string $uuid)
     {
-        return view("RbacPermissionGroup.edit");
+        return view("RbacPermissionGroup.edit", ["uuid" => $uuid]);
     }
 
     /**

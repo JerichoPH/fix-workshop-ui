@@ -1,6 +1,7 @@
 <?php
 
-const __JWT__ = "__jwt__";
+const __JWT__ = "__JWT__";
+const __ACCOUNT__ = "__ACCOUNT__";
 
 /**
  * Laravel - A PHP Framework For Web Artisans

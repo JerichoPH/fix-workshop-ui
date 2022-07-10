@@ -46,7 +46,8 @@ class Controller extends BaseController
     protected function sendStandardRequest(string $url, ?string $token = "", Closure $closure = null)
     {
         $method = strtolower(request()->method());
-        $this->curl->setHeader("Authorization", "JWT $token");
+        if ($token) $this->curl->setHeader("Authorization", "JWT $token");
+        $this->curl->setHeader("Content-Type", "application/json");
         $this->curl->{$method}("$this->ue_api_url/$url", request()->all());
         if ($closure) return $closure();
         return $this->handleResponse();
@@ -81,13 +82,13 @@ class Controller extends BaseController
             switch ($this->curl->getHttpStatusCode()) {
                 case 200:
                 default:
-                    return JsonResponseFacade::dict((array)$this->curl->response->content);
+                    return JsonResponseFacade::dict((array)$this->curl->response->content, $this->curl->response->msg);
                 case 201:
-                    return JsonResponseFacade::created((array)$this->curl->response->content);
+                    return JsonResponseFacade::created((array)$this->curl->response->content, $this->curl->response->msg);
                 case 202:
-                    return JsonResponseFacade::updated((array)$this->curl->response->content);
+                    return JsonResponseFacade::updated((array)$this->curl->response->content, $this->curl->response->msg);
                 case 204:
-                    return JsonResponseFacade::deleted();
+                    return JsonResponseFacade::deleted([], $this->curl->response->msg);
             }
         }
     }

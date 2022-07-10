@@ -76,5 +76,18 @@ Route::prefix("")
                 Route::put("{uuid}", "RbacPermissionGroupController@Update")->name("Update"); // 权限分组角色
                 Route::delete("{uuid}", "RbacPermissionGroupController@Destroy")->name("Destroy");  // 删除权限分组
             });
+
+        // 权限
+        Route::prefix("rbacPermission")
+            ->name("RbacPermission:")
+            ->group(function () {
+                Route::get("", "RbacPermissionController@Index")->name("Index");  // 权限列表
+                Route::get("create", "RbacPermissionController@Create")->name("Create");  // 新建权限页面
+                Route::get("{uuid}", "RbacPermissionController@Show")->name("Show");  // 权限详情
+                Route::get("{uuid}/edit", "RbacPermissionController@Edit")->name("Edit");  // 权限详情
+                Route::post("", "RbacPermissionController@Store")->name("Store");  // 权限角色
+                Route::put("{uuid}", "RbacPermissionController@Update")->name("Update"); // 权限角色
+                Route::delete("{uuid}", "RbacPermissionController@Destroy")->name("Destroy");  // 删除权限
+            });
     });
 

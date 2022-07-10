@@ -40,7 +40,7 @@ class AuthorizationController extends Controller
             function () {
                 if (!$this->curl->error) {
                     session()->put(__JWT__, $this->curl->response->content->token);
-                    session()->put("__account__", [
+                    session()->put(__ACCOUNT__, [
                         "username" => $this->curl->response->content->username,
                         "nickname" => $this->curl->response->content->nickname,
                         "uuid" => $this->curl->response->content->uuid,
@@ -69,7 +69,7 @@ class AuthorizationController extends Controller
      */
     final public function PostLogout()
     {
-        session()->forget("__account__");
+        session()->forget(__ACCOUNT__);
         session()->forget(__JWT__);
 
         return JsonResponseFacade::ok("退出成功");

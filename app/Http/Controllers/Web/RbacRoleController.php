@@ -113,4 +113,28 @@ class RbacRoleController extends Controller
     {
         return view("RbacRole.bind", ["uuid" => $uuid,]);
     }
+
+    /**
+     * 绑定用户
+     * @throws UnLoginException
+     * @throws ForbiddenException
+     * @throws EmptyException
+     * @throws UnAuthorizationException
+     */
+    final public function PutBindAccounts(string $uuid)
+    {
+        return $this->sendStandardRequest("rbacRole/{$uuid}/bindAccounts", session(__JWT__));
+    }
+
+    /**
+     * 绑定权限
+     * @throws UnLoginException
+     * @throws ForbiddenException
+     * @throws EmptyException
+     * @throws UnAuthorizationException
+     */
+    final public function PutBindPermissions(string $uuid)
+    {
+        return $this->sendStandardRequest("rbacRole/{$uuid}/bindPermissions", session(__JWT__));
+    }
 }

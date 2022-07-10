@@ -3,13 +3,13 @@
     <!-- 面包屑 -->
     <section class="content-header">
         <h1>
-            角色管理
+            权限分组管理
             <small>编辑</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.RbacRole:Index', ['page' => request('page', 1), ]) }}"><i class="fa fa-users">&nbsp;</i>角色-列表</a></li>
-            <li class="active">角色-编辑</li>
+            <li><a href="{{ route('web.RbacPermissionGroup:Index', ['page' => request('page', 1), ]) }}"><i class="fa fa-users">&nbsp;</i>权限分组-列表</a></li>
+            <li class="active">权限分组-编辑</li>
         </ol>
     </section>
     <section class="content">
@@ -18,7 +18,7 @@
             <div class="col-md-6">
                 <div class="box box-solid">
                     <div class="box-header">
-                        <h3 class="box-title">编辑角色</h3>
+                        <h3 class="box-title">编辑权限分组</h3>
                         <!--右侧最小化按钮-->
                         <div class="box-tools pull-right"></div>
                     </div>
@@ -26,14 +26,14 @@
                     <form class="form-horizontal" id="frmUpdate">
                         <div class="box-body">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label text-danger">名称*：</label>
+                                <label class="col-sm-2 control-label">名称：</label>
                                 <div class="col-sm-10 col-md-8">
                                     <input name="name" id="txtName" type="text" class="form-control" placeholder="名称" required value="">
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.RbacRole:Index', ['page' => request('page', 1), ]) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.RbacPermissionGroup:Index', ['page' => request('page', 1), ]) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
@@ -47,26 +47,26 @@
         let $select2 = $('.select2');
         let $frmUpdate = $('#frmUpdate');
         let $txtName = $("#txtName");
-        let rbacRole = null;
+        let rbacPermissionGroup = null;
 
-        /**
-         * 初始化
-         */
+        // 初始化数据
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.RbacPermissionGroup:Show", ["uuid" => $uuid]) }}`,
                 type: 'get',
                 data: {},
-                async: false,
+                async: true,
                 success: res => {
-                    console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} success:`, res);
-                    rbacRole = res["data"]["rbac_role"];
-                    $txtName.val(rbacRole["name"]);
+                    console.log(`{{ route("web.RbacPermissionGroup:Show", ["uuid" => $uuid]) }} success:`, res);
+
+                    rbacPermissionGroup = res["data"]["rbac_permission_group"];
+
+                    $txtName.val(rbacPermissionGroup["name"]);
                 },
                 error: err => {
-                    console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} fail:`, err);
-                    layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    console.log(`{{ route("web.RbacPermissionGroup:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    layer.msg(err["responseJSON"], {time: 1500,}, () => {
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
                     });
                 },
             });
@@ -75,7 +75,7 @@
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
 
-            fnInit();
+            fnInit();  // 初始化数据
         });
 
         /**
@@ -86,18 +86,16 @@
             let data = $frmUpdate.serializeArray();
 
             $.ajax({
-                url: `{{ route('web.RbacRole:Update', ['uuid' => $uuid,]) }}`,
+                url: `{{ route('web.RbacPermissionGroup:Update', ['uuid' => $uuid ]) }}`,
                 type: 'put',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.RbacRole:Update', ['uuid' => $uuid,]) }} success:`, res);
+                    console.log(`{{ route('web.RbacPermissionGroup:Update', ['uuid' => $uuid ]) }} success:`, res);
                     layer.close(loading);
-                    layer.msg(res.msg, {time: 1000,}, function () {
-                        location.reload();
-                    });
+                    layer.msg(res.msg, {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.RbacRole:Update', ['uuid' => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route('web.RbacPermissionGroup:Update', ['uuid' => $uuid ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';

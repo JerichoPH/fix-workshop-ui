@@ -3,31 +3,33 @@
     <!-- 面包屑 -->
     <section class="content-header">
         <h1>
-            权限分组管理
+            权限管理
             <small>列表</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li class="active">权限分组-列表</li>
+            <li class="active">权限-列表</li>
         </ol>
     </section>
     <section class="content">
         @include('Layout.alert')
         <div class="box box-solid">
             <div class="box-header">
-                <h3 class="box-title">权限分组-列表</h3>
+                <h3 class="box-title">权限-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.RbacPermissionGroup:Create', ['page' => request('page', 1), ]) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.RbacPermission:Create', ['page' => request('page', 1), ]) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <div class="box-body">
-                <table class="table table-hover table-striped table-condensed" id="tblRbacPermissionGroup">
+                <table class="table table-hover table-striped table-condensed" id="tblRbacPermission">
                     <thead>
                     <tr>
-                        <th>创建时间</th>
-                        <th>编号</th>
+                        <th>新建时间</th>
+                        <th>唯一编号</th>
+                        <th>分组</th>
                         <th>名称</th>
+                        <th>路由</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -40,38 +42,42 @@
 @section('script')
     <script>
         let $select2 = $('.select2');
-        let tblRbacPermissionGroup = null;
+        let tblRbacPermission = null;
 
         /**
-         * 填充权限分组表
+         * 填充权限表
          */
-        function fnFillTblRbacPermissionGroup() {
-            if (document.getElementById('tblRbacPermissionGroup')) {
-                tblRbacPermissionGroup = $('#tblRbacPermissionGroup').DataTable({
+        function fnFillTblPermission() {
+            if (document.getElementById('tblRbacPermission')) {
+                tblRbacPermission = $('#tblRbacPermission').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacPermissionGroup:Index") }}`,
+                        url: `{{ route("web.RbacPermission:Index") }}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
-                            let {rbac_permission_groups: rbacPermissionGroups,} = res['data'];
+                            console.log(`{{ route("web.RbacPermission:Index") }} success:`, res);
+                            let {rbac_permissions: rbacPermissions,} = res['data'];
                             let render = [];
-                            if (rbacPermissionGroups.length > 0) {
-                                $.each(rbacPermissionGroups, (key, rbacPermissionGroup) => {
-                                    console.log(rbacPermissionGroup);
-                                    let createdAt = rbacPermissionGroup["created_at"] ? moment(rbacPermissionGroup["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                    let uuid = rbacPermissionGroup["uuid"];
-                                    let name = rbacPermissionGroup["name"];
+                            if (rbacPermissions.length > 0) {
+                                $.each(rbacPermissions, (key, rbacPermission) => {
+                                    let uuid = rbacPermission["uuid"];
+                                    let createdAt = rbacPermission["created_at"] ? moment(rbacPermission["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let rbacPermissionGroupName = rbacPermission["rbac_permission_group"] ? rbacPermission["rbac_permission_group"]["name"] : "";
+                                    let name = rbacPermission["name"];
+                                    let uri = rbacPermission["uri"];
+                                    let method = rbacPermission["method"];
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ url("rbacPermissionGroup") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `<a href="{{ url("rbacPermission") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${rbacPermission['uuid']}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
                                     render.push([
                                         createdAt,
                                         uuid,
+                                        rbacPermissionGroupName,
                                         name,
+                                        `${method} ${uri}`,
                                         divBtnGroup,
                                     ]);
                                 });
@@ -110,30 +116,26 @@
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
 
-            fnFillTblRbacPermissionGroup();  // 填充权限分组表
+            fnFillTblPermission();  // 填充权限表
         });
 
-        /**
-         * 删除权限分组
-         * @param {string} uuid
-         */
         function fnDelete(uuid = "") {
             if (uuid && confirm("删除不可恢复，是否确认？")) {
                 let loading = layer.msg('处理中……', {time: 0,});
                 $.ajax({
-                    url: `{{ url("rbacPermissionGroup") }}/${uuid}`,
+                    url: `{{ url("rbacPermission") }}/${uuid}`,
                     type: 'delete',
                     data: {},
                     async: true,
                     success: res => {
-                        console.log(`{{ url("rbacPermissionGroup") }}/${uuid} success:`, res);
+                        console.log(`{{ url("rbacPermission") }}/${uuid} success:`, res);
                         layer.close(loading);
                         layer.msg(res['msg'], {time: 1000,}, function () {
-                            tblRbacPermissionGroup.ajax.reload();
+                            tblRbacPermission.ajax.reload();
                         });
                     },
                     error: err => {
-                        console.log(`{{ url("rbacPermissionGroup") }}/${uuid} fail:`, err);
+                        console.log(`{{ url("rbacPermission") }}/${uuid} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"], {time: 1500,}, () => {
                             if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;

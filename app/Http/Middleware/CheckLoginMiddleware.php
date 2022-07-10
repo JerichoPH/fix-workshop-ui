@@ -19,7 +19,7 @@ class CheckLoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!session()->has("__jwt__")) return redirect("authorization/login");
+        if (!session()->has(__JWT__)) return redirect("authorization/login");
         return $next($request);
     }
 }
