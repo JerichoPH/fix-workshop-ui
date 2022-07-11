@@ -57,17 +57,28 @@ class MenuController extends Controller
      */
     final public function Store()
     {
-        return $this->sendStandardRequest("menu",session(__JWT__));
+        return $this->sendStandardRequest("menu", session(__JWT__));
     }
 
-    final public function Show()
+    /**
+     * 菜单详情
+     * @throws UnLoginException
+     * @throws ForbiddenException
+     * @throws EmptyException
+     * @throws UnAuthorizationException
+     */
+    final public function Show(string $uuid)
     {
-
+        return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
     }
 
+    /**
+     * 菜单编辑页面
+     * @return Factory|Application|View
+     */
     final public function Edit()
     {
-
+        return view("Menu.show");
     }
 
     final public function Update()

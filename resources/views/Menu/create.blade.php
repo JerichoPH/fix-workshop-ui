@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">所属角色：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <select name="rbac_role_uuids" id="selRbacRoles" class="form-control select2" style="width: 100%;" multiple></select>
+                                    <select name="rbac_role_uuids[]" id="selRbacRoles" class="form-control select2" style="width: 100%;" multiple></select>
                                 </div>
                             </div>
                         </div>
@@ -146,6 +146,7 @@
          * 新建
          */
         function fnStore() {
+            let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
 
             $.ajax({
@@ -154,13 +155,17 @@
                 data,
                 success: function (res) {
                     console.log(`{{ route("web.Menu:Store") }} success:`, res);
-
-                    location.reload();
+                    layer.close(loading);
+                    layer.msg(res["msg"], {time: 1000,}, function () {
+                        // location.reload();
+                    });
                 },
                 error: function (err) {
                     console.log(`{{ route("web.Menu:Store") }} fail:`, err);
-                    if (err.responseText === 401) location.href = "{{ url('login') }}";
-
+                    layer.close(loading);
+                    layer.msg(err["responseJSON"]["msg"],{time:1500,},function(){
+                        if(err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                    });
                 }
             });
         }

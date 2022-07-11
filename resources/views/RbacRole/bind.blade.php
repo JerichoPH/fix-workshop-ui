@@ -42,10 +42,10 @@
                 <div class="box box-solid">
                     <div class="box-header">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <h3 class="box-title">角色绑定-权限</h3>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <div class="input-group">
                                     <div class="input-group-addon">权限分组</div>
                                     <select name="rbac_permission_group_uuid" id="selRbacPermissionGroup" class="select2 form-control" style="width: 100%;" onchange="fnFillTblPermission(this.value)"></select>
