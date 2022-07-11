@@ -36,20 +36,23 @@ class Controller extends BaseController
      * 发送标准请求
      * @param string $url
      * @param string|null $token
-     * @param Closure|null $closure
+     * @param Closure|null $before
+     * @param Closure|null $after
      * @return mixed
      * @throws EmptyException
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    protected function sendStandardRequest(string $url, ?string $token = "", Closure $closure = null)
+    protected function sendStandardRequest(string $url, ?string $token = "", Closure $before = null, Closure $after = null)
     {
         $method = strtolower(request()->method());
         if ($token) $this->curl->setHeader("Authorization", "JWT $token");
         $this->curl->setHeader("Content-Type", "application/json");
-        $this->curl->{$method}("$this->ue_api_url/$url", request()->all());
-        if ($closure) return $closure();
+        $request = null;
+        if ($before) $request = $before(request());
+        $this->curl->{$method}("$this->ue_api_url/$url", $request ?: request()->all());
+        if ($after) return $after($this->curl);
         return $this->handleResponse();
     }
 

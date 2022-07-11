@@ -72,7 +72,7 @@ Route::prefix("")
                 Route::get("create", "RbacPermissionGroupController@Create")->name("Create");  // 新建权限分组页面
                 Route::get("{uuid}", "RbacPermissionGroupController@Show")->name("Show");  // 权限分组详情
                 Route::get("{uuid}/edit", "RbacPermissionGroupController@Edit")->name("Edit");  // 权限分组详情
-                Route::post("", "RbacPermissionGroupController@Store")->name("Store");  // 权限分组角色
+                Route::post("", "RbacPermissionGroupController@Store")->name("Store");  // 新建权限分组角色
                 Route::put("{uuid}", "RbacPermissionGroupController@Update")->name("Update"); // 权限分组角色
                 Route::delete("{uuid}", "RbacPermissionGroupController@Destroy")->name("Destroy");  // 删除权限分组
             });
@@ -85,9 +85,22 @@ Route::prefix("")
                 Route::get("create", "RbacPermissionController@Create")->name("Create");  // 新建权限页面
                 Route::get("{uuid}", "RbacPermissionController@Show")->name("Show");  // 权限详情
                 Route::get("{uuid}/edit", "RbacPermissionController@Edit")->name("Edit");  // 权限详情
-                Route::post("", "RbacPermissionController@Store")->name("Store");  // 权限角色
+                Route::post("", "RbacPermissionController@Store")->name("Store");  // 新建权限角色
                 Route::put("{uuid}", "RbacPermissionController@Update")->name("Update"); // 权限角色
                 Route::delete("{uuid}", "RbacPermissionController@Destroy")->name("Destroy");  // 删除权限
+            });
+
+        // 菜单
+        Route::prefix("menu")
+            ->name("Menu:")
+            ->group(function () {
+                Route::get("", "MenuController@Index")->name("Index");  // 菜单列表
+                Route::get("create", "MenuController@Create")->name("Create");  // 新建菜单页面
+                Route::post("", "MenuController@Store")->name("Store");  // 新建菜单
+                Route::get("{uuid}", "MenuController@Show")->name("Show");  // 菜单详情
+                Route::get("{uuid}/edit", "MenuController@Edit")->name("Edit");  // 编辑菜单页面
+                Route::put("{uuid}", "MenuController@Update")->name("Update");  // 编辑菜单
+                Route::delete("{uuid}", "MenuController@Destroy")->name("Destroy");  // 删除菜单
             });
     });
 
