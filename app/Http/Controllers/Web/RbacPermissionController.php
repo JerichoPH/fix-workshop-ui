@@ -101,4 +101,17 @@ class RbacPermissionController extends Controller
     {
         return $this->sendStandardRequest("rbacPermission/{$uuid}", session(__JWT__));
     }
+
+    /**
+     * 批量添加资源路由模态框
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
+     */
+    final public function PostResource()
+    {
+        return $this->sendStandardRequest("rbacPermission/resource", session(__JWT__));
+    }
 }

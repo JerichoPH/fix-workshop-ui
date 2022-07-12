@@ -37,6 +37,7 @@ class AuthorizationController extends Controller
         $this->sendStandardRequest(
             "authorization/login",
             $request->session()->get(__JWT__),
+            null,
             function () {
                 if (!$this->curl->error) {
                     session()->put(__JWT__, $this->curl->response->content->token);
@@ -57,7 +58,7 @@ class AuthorizationController extends Controller
      */
     final public function GetLogout()
     {
-        session()->forget("__account__");
+        session()->forget(__ACCOUNT__);
         session()->forget(__JWT__);
 
         return redirect("authorization/login");

@@ -91,7 +91,7 @@ class Controller extends BaseController
                 case 202:
                     return JsonResponseFacade::updated((array)$this->curl->response->content, $this->curl->response->msg);
                 case 204:
-                    return JsonResponseFacade::deleted([], $this->curl->response->msg);
+                    return JsonResponseFacade::deleted([], @$this->curl->response->msg ?: "删除成功");
             }
         }
     }

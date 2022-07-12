@@ -14,13 +14,25 @@
     <section class="content">
         @include('Layout.alert')
         <div class="box box-solid">
-            <div class="box-header">
-                <h3 class="box-title">权限-列表</h3>
-                <!--右侧最小化按钮-->
-                <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.RbacPermission:Create', ['page' => request('page', 1), ]) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+            <form id="frmSearch">
+                <div class="box-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="box-title">权限-列表</h3>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-addon">权限分组</div>
+                                <select name="rbac_permission_group_uuid" id="selRbacPermissionGroup" class="select2 form-control" style="width: 100%;"></select>
+                                <div class="input-group-btn">
+                                    <a href="javascript:" class="btn btn-default"><i class="fa fa-search"></i></a>
+                                    <a href="javascript:" class="btn btn-success" onclick="fnToCreate()"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="box-body">
                 <table class="table table-hover table-striped table-condensed" id="tblRbacPermission">
                     <thead>
@@ -43,6 +55,8 @@
     <script>
         let $select2 = $('.select2');
         let tblRbacPermission = null;
+        let $selRbacPermissionGroup = $("#selRbacPermissionGroup");
+        let $frmSearch = $("#frmSearch");
 
         /**
          * 填充权限表
@@ -51,9 +65,9 @@
             if (document.getElementById('tblRbacPermission')) {
                 tblRbacPermission = $('#tblRbacPermission').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacPermission:Index") }}`,
+                        url: `{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid={{ request("rbac_permission_group_uuid") }}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacPermission:Index") }} success:`, res);
+                            console.log(`{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid={{ request("rbac_permission_group_uuid") }} success:`, res);
                             let {rbac_permissions: rbacPermissions,} = res['data'];
                             let render = [];
                             if (rbacPermissions.length > 0) {
@@ -113,12 +127,65 @@
             }
         }
 
+        /**
+         * 填充权限分组列表
+         */
+        function fnFillSelRbacPermissionGroup() {
+            $.ajax({
+                url: `{{ route("web.RbacPermissionGroup:Index") }}`,
+                type: 'get',
+                data: {},
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
+
+                    let {rbac_permission_groups: rbacPermissionGroups,} = res["data"];
+
+                    if (rbacPermissionGroups.length > 0) {
+                        $selRbacPermissionGroup.empty();
+                        $selRbacPermissionGroup.append(`<option value="">全部</option>`);
+                        rbacPermissionGroups.map(function (rbacPermissionGroup) {
+                            $selRbacPermissionGroup.append(`<option value="${rbacPermissionGroup["uuid"]}" ${"{{ request("rbac_permission_group_uuid") }}" === rbacPermissionGroup["uuid"] ? "selected" : ""}>${rbacPermissionGroup["name"]}</option>`);
+                        });
+                    }
+                },
+                error: err => {
+                    console.log(`{{ route("web.RbacPermissionGroup:Index") }} fail:`, err);
+                    layer.msg(err["responseJSON"], {time: 1500,}, () => {
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                    });
+                },
+            });
+        }
+
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
 
             fnFillTblPermission();  // 填充权限表
+            fnFillSelRbacPermissionGroup();  // 填充权限分组列表
         });
 
+        /**
+         * 搜索
+         */
+        function fnSearch() {
+            let queries = $.param($frmSearch.serializeArray());
+
+            tblRbacPermission.ajax.url(`{{ route("web.RbacPermission:Index") }}?${queries}`);
+            tblRbacPermission.ajax.reload();
+        }
+
+        /**
+         * 跳转到新建页面
+         */
+        function fnToCreate() {
+            location.href = `{{ route('web.RbacPermission:Create') }}?${$.param($frmSearch.serializeArray())}`;
+        }
+
+        /**
+         * 删除
+         * @param uuid
+         */
         function fnDelete(uuid = "") {
             if (uuid && confirm("删除不可恢复，是否确认？")) {
                 let loading = layer.msg('处理中……', {time: 0,});

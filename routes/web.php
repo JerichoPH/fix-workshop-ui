@@ -88,6 +88,7 @@ Route::prefix("")
                 Route::post("", "RbacPermissionController@Store")->name("Store");  // 新建权限角色
                 Route::put("{uuid}", "RbacPermissionController@Update")->name("Update"); // 权限角色
                 Route::delete("{uuid}", "RbacPermissionController@Destroy")->name("Destroy");  // 删除权限
+                Route::post("resource", "RbacPermissionController@PostResource")->name("PostResource");  // 批量添加资源权限
             });
 
         // 菜单
