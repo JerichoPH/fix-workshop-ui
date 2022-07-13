@@ -25,8 +25,8 @@
                                 <div class="input-group-addon">父级</div>
                                 <select name="parent_uuid" id="selParentMenu" class="select2 form-control" style="width: 100%;"></select>
                                 <div class="input-group-btn">
-                                    <a href="javascript:" class="btn btn-primary" onclick="fnSearch()"><i class="fa fa-search"></i></a>
-                                    <a href="{{ route('web.Menu:Create', ['page' => request('page', 1), ]) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                                    <a href="javascript:" class="btn btn-default" onclick="fnSearch()"><i class="fa fa-search"></i></a>
+                                    <a href="javascript:" class="btn btn-success" onclick="fnToCreate()"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -42,6 +42,7 @@
                         <th>URL</th>
                         <th>路由名称</th>
                         <th>所属父级</th>
+                        <th>所属权限</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -72,11 +73,11 @@
 
                     let {menus,} = res["data"];
 
+                    $selParentMenu.empty();
+                    $selParentMenu.append(`<option value="">顶级</option>`);
                     if (menus.length > 0) {
-                        $selParentMenu.empty();
-                        $selParentMenu.append(`<option value="">顶级</option>`);
                         menus.map(function (menu) {
-                            $selParentMenu.append(`<option value="${menu["uuid"]}">${menu["name"]}</option>`);
+                            $selParentMenu.append(`<option value="${menu["uuid"]}" ${"{{ request("parent_uuid") }}" === menu["uuid"] ? "selected" : ""}>${menu["name"]}</option>`);
                         });
                     }
                 },
@@ -95,9 +96,9 @@
             if (document.getElementById('tblMenu')) {
                 tblMenu = $('#tblMenu').DataTable({
                     ajax: {
-                        url: `{{ route("web.Menu:Index") }}`,
+                        url: `{{ route("web.Menu:Index") }}?{{ http_build_query(request()->all()) }}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.Menu:Index") }} success:`, res);
+                            console.log(`{{ route("web.Menu:Index") }}?{{ http_build_query(request()->all()) }} success:`, res);
                             let {menus: menus,} = res['data'];
                             let render = [];
                             if (menus.length > 0) {
@@ -108,6 +109,12 @@
                                     let url = menu["url"];
                                     let uriName = menu["uri_name"];
                                     let parentName = menu["parent"] ? menu["parent"]["name"] : "";
+                                    let rbacRoleNames = [];
+                                    if (menu["rbac_roles"].length > 0) {
+                                        menu["rbac_roles"].map(function (rbacRole) {
+                                            rbacRoleNames.push(rbacRole["name"]);
+                                        });
+                                    }
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="align-middle">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
@@ -122,6 +129,7 @@
                                         url,
                                         uriName,
                                         parentName,
+                                        `<span class="label label-default">${rbacRoleNames.join('</span><span class="label label-default">')}</span>`,
                                         divBtnGroup,
                                     ]);
                                 });
@@ -172,6 +180,46 @@
 
             tblMenu.ajax.url(`{{ route("web.Menu:Index") }}?${queries}`);
             tblMenu.ajax.reload();
+        }
+
+        /**
+         * 跳转到新建页面
+         */
+        function fnToCreate() {
+            let parentUUID = $selParentMenu.val();
+            location.href = `{{ route('web.Menu:Create') }}?parent_uuid=${parentUUID}`;
+        }
+
+        /**
+         * 删除
+         * @param uuid
+         */
+        function fnDelete(uuid = "") {
+            let loading = layer.msg("处理中……", {time: 0});
+
+            if (uuid && confirm("删除不可恢复，是否确认？")) {
+                $.ajax({
+                    url: `{{ url("menu") }}/${uuid}`,
+                    type: 'delete',
+                    data: {},
+                    async: true,
+                    success: function (res) {
+                        console.log(`{{ url("menu") }}/${uuid} success:`, res);
+
+                        layer.close(loading);
+                        layer.msg(res["msg"], {time: 1000,}, function () {
+                            tblMenu.ajax.reload();
+                        });
+                    },
+                    error: function (err) {
+                        console.log(`{{ url("menu") }}/${uuid} fail:`, err);
+                        layer.close(loading);
+                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
+                            if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                        });
+                    }
+                });
+            }
         }
     </script>
 @endsection

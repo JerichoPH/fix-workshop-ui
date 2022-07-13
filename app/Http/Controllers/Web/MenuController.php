@@ -74,20 +74,37 @@ class MenuController extends Controller
 
     /**
      * 菜单编辑页面
+     * @param string $uuid
      * @return Factory|Application|View
      */
-    final public function Edit()
+    final public function Edit(string $uuid)
     {
-        return view("Menu.show");
+        return view("Menu.edit", ["uuid" => $uuid]);
     }
 
-    final public function Update()
+    /**
+     * 更新菜单
+     * @param string $uuid
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
+     */
+    final public function Update(string $uuid)
     {
-
+        return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
     }
 
-    final public function Destroy()
+    /**
+     * 删除菜单
+     * @throws UnLoginException
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     */
+    final public function Destroy(string $uuid)
     {
-
+        return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
     }
 }

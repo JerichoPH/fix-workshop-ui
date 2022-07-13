@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route("web.Menu:Index") }}?page={{ request('page',1) }}"><i class="fa fa-users">&nbsp;</i>菜单管理</a></li>
+            <li><a href="javascript:" onclick="fnToIndex()"><i class="fa fa-users">&nbsp;</i>菜单管理</a></li>
             <li class="active">编辑</li>
         </ol>
     </section>
@@ -44,15 +44,20 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">所属父级：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select name="parent_uuid" id="selParentMenu" class="select2 form-control" style="width: 100%;"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">所属角色：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <select name="organization_id" class="form-control select2" style="width: 100%;">
-                                    </select>
+                                    <select name="rbac_role_uuids[]" id="selSelRbacRoles" class="form-control select2" style="width: 100%;"></select>
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route("web.Menu:Index") }}?page={{ request('page', 1) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="javascript:" class="btn btn-default pull-left btn-sm" onclick="fnToIndex()"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
@@ -65,8 +70,106 @@
     <script>
         let $select2 = $('.select2');
         let $frmUpdate = $("#frmUpdate");
+        let $txtName = $("#txtName");
+        let $txtUrl = $("#txtUrl");
+        let $txtUriName = $("#txtUriName");
+        let $selParentMenu = $("#selParentMenu");
+        let $selSelRbacRoles = $("#selSelRbacRoles");
+        let menu = null;
+        let rbacRoleUUIDs = [];
+
+        /**
+         * 初始化数据
+         */
+        function fnInit() {
+            $.ajax({
+                url: `{{ route("web.Menu:Show", ["uuid" => $uuid]) }}`,
+                type: 'get',
+                data: {},
+                async: false,
+                success: function (res) {
+                    console.log(`{{ route("web.Menu:Show", ["uuid" => $uuid]) }} success:`, res);
+
+                    menu = res["data"]["menu"];
+                    $txtName.val(menu["name"]);
+                    $txtUrl.val(menu["url"])
+                    $txtUriName.val(menu["uri_name"]);
+                    fnFillSelParentMenu(menu["parent_uuid"]);  // 填充父级菜单下拉列表
+                    fnFillSelRbacRoles();  // 填充角色下拉列表
+                },
+                error: function (err) {
+                    console.log(`{{ route("web.Menu:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    if (err.status === 401) location.href = "{{ url('login') }}";
+                    alert(err['responseJSON']['msg']);
+                }
+            });
+        }
+
+        /**
+         * 填充父级菜单下拉列表
+         */
+        function fnFillSelParentMenu(uuid = "") {
+            $.ajax({
+                url: `{{ route("web.Menu:Index") }}`,
+                type: 'get',
+                data: {},
+                async: true,
+                success: function (res) {
+                    console.log(`{{ route("web.Menu:Index") }} success:`, res);
+
+                    let {menus,} = res["data"];
+                    $selParentMenu.empty();
+                    $selParentMenu.append(`<option value="">顶级</option>`);
+                    menu["rbac_roles"].map(function (rbacRole) {
+                        rbacRoleUUIDs.push(rbacRole["uuid"]);
+                    });
+
+                    if (menus.length > 0) {
+                        menus.map(function (menu) {
+                            $selParentMenu.append(`<option value="${menu["uuid"]}" ${uuid === menu["uuid"] ? "selected" : ""}>${menu["name"]}</option>`);
+                        });
+                    }
+                },
+                error: function (err) {
+                    console.log(`{{ route("web.Menu:Index") }} fail:`, err);
+                    if (err.status === 401) location.href = "{{ url('login') }}";
+                    alert(err['responseJSON']['msg']);
+                }
+            });
+        }
+
+        /**
+         * 填充角色下拉列表
+         */
+        function fnFillSelRbacRoles() {
+            $.ajax({
+                url: `{{ route("web.RbacRole:Index") }}`,
+                type: 'get',
+                data: {},
+                async: true,
+                success: function (res) {
+                    console.log(`{{ route("web.RbacRole:Index") }} success:`, res);
+
+                    let {rbac_roles: rbacRoles,} = res["data"];
+                    $selSelRbacRoles.empty();
+                    if (rbacRoles.length > 0) {
+                        rbacRoles.map(function (rbacRole) {
+                            $selSelRbacRoles.append(`<option value="${rbacRole["uuid"]}" ${rbacRoleUUIDs.indexOf(rbacRole["uuid"]) > -1 ? "selected" : ""}>${rbacRole["name"]}</option>`);
+                        });
+                    }
+                },
+                error: function (err) {
+                    console.log(`{{ route("web.RbacRole:Index") }} fail:`, err);
+                    if (err.status === 401) location.href = "{{ url('login') }}";
+                    alert(err['responseJSON']['msg']);
+                }
+            });
+        }
+
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
+
+            fnInit();  // 初始化数据
         });
 
         /**
@@ -95,6 +198,14 @@
                     });
                 }
             });
+        }
+
+        /**
+         * 返回列表
+         */
+        function fnToIndex() {
+            let queries = $.param({parent_uuid: $selParentMenu.val()});
+            location.href = `{{ route("web.Menu:Index") }}?${queries}`;
         }
     </script>
 @endsection

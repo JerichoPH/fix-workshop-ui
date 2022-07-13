@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route("web.Menu:Index") }}?page={{ request('page',1) }}"><i class="fa fa-users">&nbsp;</i>菜单管理</a></li>
+            <li><a href="{{ route("web.Menu:Index", ["parent_uuid" => request("parent_uuid")]) }}"><i class="fa fa-users">&nbsp;</i>菜单管理</a></li>
             <li class="active">新建</li>
         </ol>
     </section>
@@ -50,14 +50,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">所属角色：</label>
+                                <label class="col-sm-2 control-label text-danger">所属角色*：</label>
                                 <div class="col-sm-10 col-md-9">
                                     <select name="rbac_role_uuids[]" id="selRbacRoles" class="form-control select2" style="width: 100%;" multiple></select>
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route("web.Menu:Index") }}?page={{ request('page', 1) }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route("web.Menu:Index", ["parent_uuid" => request("parent_uuid")]) }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>
@@ -90,11 +90,11 @@
 
                     let {menus,} = res["data"];
 
+                    $selParent.empty();
+                    $selParent.append(`<option value="">顶级</option>`);
                     if (menus.length > 0) {
-                        $selParent.empty();
-                        $selParent.append(`<option value="">顶级</option>`);
                         menus.map(function (menu) {
-                            $selParent.append(`<option value="${menu["parent_uuid"]}">${menu["name"]}</option>`);
+                            $selParent.append(`<option value="${menu["uuid"]}" ${"{{ request("parent_uuid") }}" === menu["uuid"] ? "selected" : ""}>${menu["name"]}</option>`);
                         });
                     }
                 },
@@ -157,14 +157,14 @@
                     console.log(`{{ route("web.Menu:Store") }} success:`, res);
                     layer.close(loading);
                     layer.msg(res["msg"], {time: 1000,}, function () {
-                        // location.reload();
+                        location.reload();
                     });
                 },
                 error: function (err) {
                     console.log(`{{ route("web.Menu:Store") }} fail:`, err);
                     layer.close(loading);
-                    layer.msg(err["responseJSON"]["msg"],{time:1500,},function(){
-                        if(err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                    layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
+                        if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
                     });
                 }
             });

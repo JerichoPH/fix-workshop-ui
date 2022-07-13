@@ -65,9 +65,9 @@
             if (document.getElementById('tblRbacPermission')) {
                 tblRbacPermission = $('#tblRbacPermission').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid={{ request("rbac_permission_group_uuid") }}`,
+                        url: `{{ route("web.RbacPermission:Index") }}?{{ http_build_query(request()->all()) }}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid={{ request("rbac_permission_group_uuid") }} success:`, res);
+                            console.log(`{{ route("web.RbacPermission:Index") }}?{{ http_build_query(request()->all()) }} success:`, res);
                             let {rbac_permissions: rbacPermissions,} = res['data'];
                             let render = [];
                             if (rbacPermissions.length > 0) {
