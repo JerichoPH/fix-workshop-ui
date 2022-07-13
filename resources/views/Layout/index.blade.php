@@ -32,7 +32,6 @@
 
         @include('Layout.script')
         <script>
-
             /**
              * 绑定全选按钮事件
              * @param {string} checkAll 全选按钮ID
@@ -45,8 +44,83 @@
                 });
             }
 
-            $(function () {
+            /**
+             * 初始化菜单
+             */
+            function fnInitMenu() {
+                let currentUriName = "{{ request()->route()->getName() }}".split(":")[0];
+                let activeUUIDs = [];
+                let html = '';
+                html = '<li class="header">菜单</li>';
 
+                // 加入统计报表页面
+                html = '<li>' +
+                    '<a href="/">' +
+                    '<i class="fa fa-home">&nbsp;</i><span>首页</span>' +
+                    '</a>' +
+                    '</li>';
+
+                let fillMenuItem = function (arr) {
+                    for (let k = 0; k < arr.length; k++) {
+                        if (arr[k]["subs"]) {
+                            html += `
+<li class="treeview" id="menu_${arr[k]["uuid"]}">
+    <a href="${arr[k]["url"]}" style="font-size: 14px;">
+        <i class="${arr[k]["icon"] ? arr[k]["icon"] : "fa fa-circle-o"}">&nbsp;</i><span>${arr[k]["name"]}</span>
+        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+    </a>
+<ul class="treeview-menu">
+`;
+                            fillMenuItem(arr[k]["subs"]);
+                            html += '</ul></li>';
+                        } else {
+                            // 判断是否是当前路由
+                            if (arr[k]["uri_name"] === currentUriName) {
+                                activeUUIDs.push(arr[k]["uuid"]);
+                                if (arr[k]["parent_uuid"]) {
+                                    activeUUIDs.push(arr[k]["parent_uuid"]);
+                                }
+                            }
+                            html += `
+<li id="menu_${arr[k]["uuid"]}">
+    <a href="${arr[k]["url"]}" style="font-size: 14px;">
+        <i class="${arr[k]["icon"] ? arr[k]["icon"] : "fa fa-circle-o"}">&nbsp;</i><span>${arr[k]["name"]}</span>
+    </a>
+</li>
+`;
+                        }
+                    }
+                };
+
+                $.ajax({
+                    url: `{{ route("web.Menu:Index") }}`,
+                    type: 'get',
+                    data: {},
+                    async: true,
+                    success: function (res) {
+                        console.log(`{{ route("web.Menu:Index") }} success:`, res);
+
+                        let {menus,} = res["data"];
+                        if (menus.length > 0) {
+                            fillMenuItem(menus);
+                        }
+                        $('#divTree').html(html);
+                        if (activeUUIDs.length > 0) {
+                            activeUUIDs.map(function (activeUUID) {
+                                $(`#menu_${activeUUID}`).addClass("active");
+                            });
+                        }
+                    },
+                    error: function (err) {
+                        console.log(`{{ route("web.Menu:Index") }} fail:`, err);
+                        if (err.status === 401) location.href = "{{ url('login') }}";
+                        alert(err['responseJSON']['msg']);
+                    }
+                });
+            }
+
+            $(function () {
+                fnInitMenu();  // 初始化菜单
             });
         </script>
         @yield('script')
