@@ -12,14 +12,14 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class InitDataCommand extends Command
+class DataCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'init {operator}';
+    protected $signature = 'data {operator}';
 
     /**
      * The console command description.
