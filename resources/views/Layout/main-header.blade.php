@@ -130,18 +130,18 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="/images/logo_sm_bg.png" class="user-image"
-                             alt="{{ session('__account__.nickname') }}">
-                        <span class="hidden-xs">{{ session('__account__.nickname') }}</span>
+                             alt="{{ session(__ACCOUNT__)["nickname"] }}">
+                        <span class="hidden-xs">{{ session(__ACCOUNT__)["nickname"] }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header" style="background-color: #0477c4;">
                             {{--<img src="/images/account-avatar-lack.jpeg" onclick="location.href='/profile'"--}}
                             <img src="/images/logo_sm_bg.png"
-                                 class="img-circle" alt="{{ session('____.nickname') }}">
+                                 class="img-circle" alt="{{ session(__ACCOUNT__)["nickname"] }}">
                             <p>
-                                {{ session('__account__.nickname') }} - {{ session("__account__.username") }}
-                                <small>{{ session('__account__.created_at') }}</small>
+                                {{ session(__ACCOUNT__)["nickname"] }} - {{ session(__ACCOUNT__)["username"] }}
+                                <small>{{ session(__ACCOUNT__)["nickname"] }}</small>
                             </p>
                         </li>
                         <!-- Menu Body -->

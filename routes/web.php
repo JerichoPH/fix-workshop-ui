@@ -21,6 +21,7 @@ Route::prefix("authorization")
         Route::post("login", "AuthorizationController@PostLogin")->name("PostLogin");  // 登录
         Route::get("logout", "AuthorizationController@GetLogout")->name("GetLogout");  // 退出登录
         Route::post("logout", "AuthorizationController@GetLogout")->name("PostLogout");  // 退出登录
+        Route::get("menus", "AuthorizationController@GetMenus")->name("GetMenus");  // 获取当前用户菜单
     });
 
 // 需要登录

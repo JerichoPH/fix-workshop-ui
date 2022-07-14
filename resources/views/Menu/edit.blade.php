@@ -44,6 +44,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">图标：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <div class="input-group">
+                                        <input name="icon" id="txtIcon" type="text" class="form-control" placeholder="选填" value="">
+                                        <div class="input-group-addon"><i id="iIcon"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">所属父级：</label>
                                 <div class="col-sm-10 col-md-9">
                                     <select name="parent_uuid" id="selParentMenu" class="select2 form-control" style="width: 100%;"></select>
@@ -73,8 +82,10 @@
         let $txtName = $("#txtName");
         let $txtUrl = $("#txtUrl");
         let $txtUriName = $("#txtUriName");
+        let $txtIcon = $("#txtIcon");
         let $selParentMenu = $("#selParentMenu");
         let $selSelRbacRoles = $("#selSelRbacRoles");
+        let $iIcon = $("#iIcon");
         let menu = null;
         let rbacRoleUUIDs = [];
 
@@ -94,6 +105,8 @@
                     $txtName.val(menu["name"]);
                     $txtUrl.val(menu["url"])
                     $txtUriName.val(menu["uri_name"]);
+                    $txtIcon.val(menu["icon"]);
+                    $iIcon
                     fnFillSelParentMenu(menu["parent_uuid"]);  // 填充父级菜单下拉列表
                     fnFillSelRbacRoles();  // 填充角色下拉列表
                 },
@@ -206,6 +219,15 @@
         function fnToIndex() {
             let queries = $.param({parent_uuid: $selParentMenu.val()});
             location.href = `{{ route("web.Menu:Index") }}?${queries}`;
+        }
+
+        /**
+         * 修改图标
+         * @param className
+         */
+        function fnChangeIcon(className = "") {
+            $iIcon.removeAttr("class");
+            $iIcon.addClass(className);
         }
     </script>
 @endsection

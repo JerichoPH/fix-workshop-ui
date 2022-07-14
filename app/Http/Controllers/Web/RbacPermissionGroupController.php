@@ -22,7 +22,7 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Index()
+    public function Index()
     {
         if (request()->ajax()) {
             return $this->sendStandardRequest("rbacPermissionGroup", session(__JWT__));
@@ -35,7 +35,7 @@ class RbacPermissionGroupController extends Controller
      * 创建权限分组页面
      * @return Factory|Application|View
      */
-    final public function Create()
+    public function Create()
     {
         return view("RbacPermissionGroup.create");
     }
@@ -48,7 +48,7 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Store(Request $request)
+    public function Store(Request $request)
     {
         return $this->sendStandardRequest("rbacPermissionGroup", session(__JWT__));
     }
@@ -60,7 +60,7 @@ class RbacPermissionGroupController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    final public function Show(string $uuid)
+    public function Show(string $uuid)
     {
         if (request()->ajax()) {
             return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
@@ -73,7 +73,7 @@ class RbacPermissionGroupController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    final public function Edit(string $uuid)
+    public function Edit(string $uuid)
     {
         return view("RbacPermissionGroup.edit", ["uuid" => $uuid]);
     }
@@ -87,7 +87,7 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Update(string $uuid)
+    public function Update(string $uuid)
     {
         return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
     }
@@ -101,7 +101,7 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Destroy(string $uuid)
+    public function Destroy(string $uuid)
     {
         return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
     }

@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Class PivotRbacRoleAndAccount
+ * Class PivotRbacRoleAndMenu
  * @package App\Models
+ * @property int $menu_id
  * @property int $rbac_role_id
- * @property int $account_id
+ * @property-read Menu $Menu
  * @property-read RbacRole $RbacRole
- * @property-read Account $Account
  */
-class PivotRbacRoleAndAccount extends Base
+class PivotRbacRoleAndMenu extends Base
 {
     protected $guarded = [];
 
@@ -27,11 +27,11 @@ class PivotRbacRoleAndAccount extends Base
     }
 
     /**
-     * 相关用户
+     * 相关菜单
      * @return HasOne
      */
-    public function Account(): HasOne
+    public function Menu(): HasOne
     {
-        return $this->hasOne(Account::class, "id", "account_id");
+        return $this->hasOne(Menu::class, "id", "menu_id");
     }
 }

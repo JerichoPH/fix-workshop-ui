@@ -36,12 +36,12 @@ class InstallQRequest extends FormRequest
      *
      * @return array
      */
-    final public function rules()
+    public function rules()
     {
         return self::$RULES;
     }
 
-    final public function messages()
+    public function messages()
     {
         return self::$MESSAGES;
     }

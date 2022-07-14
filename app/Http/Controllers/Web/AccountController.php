@@ -20,7 +20,7 @@ class AccountController extends Controller
      * @throws EmptyException
      * @throws UnAuthorizationException
      */
-    final public function Index()
+    public function Index()
     {
         if (request()->ajax()) {
             return $this->sendStandardRequest("account", session(__JWT__));
@@ -33,7 +33,7 @@ class AccountController extends Controller
      * 新建用户页面
      * @return Factory|Application|View
      */
-    final public function Create()
+    public function Create()
     {
         return view("Account.create");
     }
@@ -46,7 +46,7 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Store()
+    public function Store()
     {
         return $this->sendStandardRequest("account", session(__JWT__));
     }
@@ -58,7 +58,7 @@ class AccountController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    final public function Show(string $uuid)
+    public function Show(string $uuid)
     {
         if (request()->ajax()) {
             return $this->sendStandardRequest("account/$uuid", session(__JWT__));
@@ -71,7 +71,7 @@ class AccountController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    final public function Edit(string $uuid)
+    public function Edit(string $uuid)
     {
         return view("Account.edit", ["uuid" => $uuid,]);
     }
@@ -85,7 +85,7 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Update(string $uuid)
+    public function Update(string $uuid)
     {
         return $this->sendStandardRequest("account/$uuid", session(__JWT__));
     }
@@ -99,7 +99,7 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function UpdatePassword(string $uuid)
+    public function UpdatePassword(string $uuid)
     {
         return $this->sendStandardRequest("account/$uuid/updatePassword", session(__JWT__));
     }
@@ -108,7 +108,7 @@ class AccountController extends Controller
      * 删除用户
      * @param string $uuid
      */
-    final public function Destroy(string $uuid)
+    public function Destroy(string $uuid)
     {
 
     }

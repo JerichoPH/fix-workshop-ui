@@ -44,6 +44,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">图标：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <div class="input-group">
+                                        <input name="icon" id="txtIcon" type="text" class="form-control" placeholder="选填" required value="" onkeyup="fnChangeIcon(this.value)">
+                                        <div class="input-group-addon"><i id="iIcon"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label">所属父级：</label>
                                 <div class="col-sm-10 col-md-9">
                                     <select name="parent_uuid" id="selParent" class="form-control select2" style="width: 100%;"></select>
@@ -73,8 +82,10 @@
         let $txtName = $("#txtName");
         let $txtUrl = $("#txtUrl");
         let $txtUriName = $("#txtUriName");
+        let $txtIcon = $("#txtIcon");
         let $selParent = $("#selParent");
         let $selRbacRoles = $("#selRbacRoles");
+        let $iIcon = $(`#iIcon`);
 
         /**
          * 填充父级菜单下拉列表
@@ -168,6 +179,15 @@
                     });
                 }
             });
+        }
+
+        /**
+         * 修改图标
+         * @param className
+         */
+        function fnChangeIcon(className = "") {
+            $iIcon.removeAttr("class");
+            $iIcon.addClass(className);
         }
     </script>
 @endsection

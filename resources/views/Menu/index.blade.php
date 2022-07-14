@@ -41,6 +41,7 @@
                         <th>名称</th>
                         <th>URL</th>
                         <th>路由名称</th>
+                        <th>图标</th>
                         <th>所属父级</th>
                         <th>所属权限</th>
                         <th></th>
@@ -108,6 +109,7 @@
                                     let name = menu["name"];
                                     let url = menu["url"];
                                     let uriName = menu["uri_name"];
+                                    let icon = menu["icon"];
                                     let parentName = menu["parent"] ? menu["parent"]["name"] : "";
                                     let rbacRoleNames = [];
                                     if (menu["rbac_roles"].length > 0) {
@@ -128,6 +130,7 @@
                                         name,
                                         url,
                                         uriName,
+                                        `<i class="${icon}"></i>`,
                                         parentName,
                                         `<span class="label label-default">${rbacRoleNames.join('</span><span class="label label-default">')}</span>`,
                                         divBtnGroup,

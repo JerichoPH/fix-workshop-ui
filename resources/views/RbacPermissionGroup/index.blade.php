@@ -190,8 +190,8 @@
                     layer.close(loading);
                     layer.msg(res["msg"], {time: 1000,}, function () {
                         tblRbacPermissionGroup.ajax.reload();
-
                         $modalStoreResourceRbacPermissions.modal("hide");
+                        $txtUri_frmStoreResourceRbacPermissions.val("");
                     });
                 },
                 error: function (err) {

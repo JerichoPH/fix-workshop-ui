@@ -21,7 +21,7 @@ class AuthorizationController extends Controller
      * 登录页面
      * @return Factory|Application|View
      */
-    final public function GetLogin()
+    public function GetLogin()
     {
         return view("Authorization.login");
     }
@@ -32,7 +32,7 @@ class AuthorizationController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    final public function PostLogin(Request $request)
+    public function PostLogin(Request $request)
     {
         $this->sendStandardRequest(
             "authorization/login",
@@ -53,10 +53,23 @@ class AuthorizationController extends Controller
     }
 
     /**
+     * 获取当前用户菜单
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
+     */
+    public function GetMenus()
+    {
+        return $this->sendStandardRequest("authorization/menus", session(__JWT__));
+    }
+
+    /**
      * 退出
      * @return Application|RedirectResponse|Redirector
      */
-    final public function GetLogout()
+    public function GetLogout()
     {
         session()->forget(__ACCOUNT__);
         session()->forget(__JWT__);
@@ -68,7 +81,7 @@ class AuthorizationController extends Controller
      * 退出
      * @return mixed
      */
-    final public function PostLogout()
+    public function PostLogout()
     {
         session()->forget(__ACCOUNT__);
         session()->forget(__JWT__);

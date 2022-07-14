@@ -93,12 +93,12 @@
                 };
 
                 $.ajax({
-                    url: `{{ route("web.Menu:Index") }}`,
+                    url: `{{ route("web.Authorization:GetMenus") }}`,
                     type: 'get',
                     data: {},
                     async: true,
                     success: function (res) {
-                        console.log(`{{ route("web.Menu:Index") }} success:`, res);
+                        console.log(`{{ route("web.Authorization:GetMenus") }} success:`, res);
 
                         let {menus,} = res["data"];
                         if (menus.length > 0) {
@@ -112,7 +112,7 @@
                         }
                     },
                     error: function (err) {
-                        console.log(`{{ route("web.Menu:Index") }} fail:`, err);
+                        console.log(`{{ route("web.Authorization:GetMenus") }} fail:`, err);
                         if (err.status === 401) location.href = "{{ url('login') }}";
                         alert(err['responseJSON']['msg']);
                     }

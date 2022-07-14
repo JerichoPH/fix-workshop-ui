@@ -22,7 +22,7 @@ class MenuController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Index()
+    public function Index()
     {
         if (request()->ajax()) {
             return $this->sendStandardRequest(
@@ -42,7 +42,7 @@ class MenuController extends Controller
      * 新建菜单页面
      * @return Factory|Application|View
      */
-    final public function Create()
+    public function Create()
     {
         return view("Menu.create");
     }
@@ -55,7 +55,7 @@ class MenuController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Store()
+    public function Store()
     {
         return $this->sendStandardRequest("menu", session(__JWT__));
     }
@@ -67,7 +67,7 @@ class MenuController extends Controller
      * @throws EmptyException
      * @throws UnAuthorizationException
      */
-    final public function Show(string $uuid)
+    public function Show(string $uuid)
     {
         return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
     }
@@ -77,7 +77,7 @@ class MenuController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    final public function Edit(string $uuid)
+    public function Edit(string $uuid)
     {
         return view("Menu.edit", ["uuid" => $uuid]);
     }
@@ -91,7 +91,7 @@ class MenuController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    final public function Update(string $uuid)
+    public function Update(string $uuid)
     {
         return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
     }
@@ -103,7 +103,7 @@ class MenuController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    final public function Destroy(string $uuid)
+    public function Destroy(string $uuid)
     {
         return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
     }
