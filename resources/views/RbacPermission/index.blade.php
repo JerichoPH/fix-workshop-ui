@@ -25,7 +25,7 @@
                                 <div class="input-group-addon">权限分组</div>
                                 <select name="rbac_permission_group_uuid" id="selRbacPermissionGroup" class="select2 form-control" style="width: 100%;"></select>
                                 <div class="input-group-btn">
-                                    <a href="javascript:" class="btn btn-default"><i class="fa fa-search"></i></a>
+                                    <a href="javascript:" class="btn btn-default" onclick="fnSearch()"><i class="fa fa-search"></i></a>
                                     <a href="javascript:" class="btn btn-success" onclick="fnToCreate()"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
@@ -65,9 +65,9 @@
             if (document.getElementById('tblRbacPermission')) {
                 tblRbacPermission = $('#tblRbacPermission').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacPermission:Index") }}?{{ http_build_query(request()->all()) }}`,
+                        url: `{{ route("web.RbacPermission:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacPermission:Index") }}?{{ http_build_query(request()->all()) }} success:`, res);
+                            console.log(`{{ route("web.RbacPermission:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {rbac_permissions: rbacPermissions,} = res['data'];
                             let render = [];
                             if (rbacPermissions.length > 0) {

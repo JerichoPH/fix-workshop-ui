@@ -97,9 +97,9 @@
             if (document.getElementById('tblMenu')) {
                 tblMenu = $('#tblMenu').DataTable({
                     ajax: {
-                        url: `{{ route("web.Menu:Index") }}?{{ http_build_query(request()->all()) }}`,
+                        url: `{{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.Menu:Index") }}?{{ http_build_query(request()->all()) }} success:`, res);
+                            console.log(`{{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {menus: menus,} = res['data'];
                             let render = [];
                             if (menus.length > 0) {
