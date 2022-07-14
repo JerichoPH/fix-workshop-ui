@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Account;
 use App\Models\Menu;
-use App\Models\PivotRbacRoleAndMenu;
 use App\Models\RbacPermission;
 use App\Models\RbacPermissionGroup;
 use App\Models\RbacRole;
@@ -72,6 +71,17 @@ class DataCommand extends Command
             "权限分组" => "web.RbacPermissionGroup",
             "权限" => "web.RbacPermission",
             "菜单" => "web.Menu",
+            "路局" => "web.OrganizationRailway",
+            "站段" => "web.OrganizationParagraph",
+            "线别" => "web.OrganizationLine",
+            "车间" => "web.OrganizationWorkshop",
+            "车间类型" => "web.OrganizationWorkshopType",
+            "工区" => "web.OrganizationWorkArea",
+            "工区类型" => "web.OrganizationWorkAreaType",
+            "站场" => "web.OrganizationStation",
+            "道口" => "web.OrganizationRailroadGradeCross",
+            "区间" => "web.OrganizationSection",
+            "中心" => "web.OrganizationCenter",
         ])->each(function ($rbacPermissionGroupUri, $rbacPermissionGroupName) use ($rbacRole) {
             $rbacPermissionGroup = RbacPermissionGroup::with([])
                 ->create([
@@ -112,10 +122,84 @@ class DataCommand extends Command
         // 创建菜单
         collect([
             [
-                "name" => "基础数据",
+                "name" => "基础信息",
                 "url" => "",
                 "uri_name" => "",
-                "icon" => "",
+                "icon" => "fa fa-cog",
+                "subs" => [
+                    [
+                        "name" => "线别管理",
+                        "url" => "/organization/line",
+                        "uri_name" => "web.OrganizationLine",
+                        "icon" => "fa fa-code-fork"
+                    ],
+                    [
+                        "name" => "路局管理",
+                        "url" => "/organization/railway",
+                        "uri_name" => "web.OrganizationRailway",
+                        "icon" => "fa fa-subway",
+                    ],
+                    [
+                        "name" => "站段管理",
+                        "url" => "/organization/paragraph",
+                        "uri_name" => "web.OrganizationParagraph",
+                        "icon" => "fa fa-th-large",
+                    ],
+                    [
+                        "name" => "车间管理",
+                        "url" => "/organization/workshop",
+                        "uri_name" => "web.OrganizationWorkshop",
+                        "icon" => "fa fa-th",
+                    ],
+                    [
+                        "name" => "车间类型管理",
+                        "url" => "/organization/workshopType",
+                        "uri_name" => "web.OrganizationWorkshopType",
+                        "icon" => "fa fa-th",
+                    ],
+                    [
+                        "name" => "工区管理",
+                        "url" => "/organization/workArea",
+                        "uri_name" => "web.OrganizationWorkArea",
+                        "icon" => "fa fa-th-list",
+                    ],
+                    [
+                        "name" => "工区类型管理",
+                        "url" => "/organization/workAreaType",
+                        "uri_name" => "web.OrganizationWorkAreaType",
+                        "icon" => "fa fa-th-list",
+                    ],
+                    [
+                        "name" => "站场管理",
+                        "url" => "/organization/station",
+                        "uri_name" => "web.OrganizationStation",
+                        "icon" => "fa fa-fort-awesome",
+                    ],
+                    [
+                        "name" => "道口管理",
+                        "url" => "/organization/railroadGradeCross",
+                        "uri_name" => "web.OrganizationRailroadGradeCross",
+                        "icon" => "fa fa-openid"
+                    ],
+                    [
+                        "name" => "区间管理",
+                        "url" => "/organization/section",
+                        "uri_name" => "web.OrganizationSection",
+                        "icon" => "fa fa-slack",
+                    ],
+                    [
+                        "name" => "中心管理",
+                        "url" => "/organization/center",
+                        "uri_name" => "web.OrganizationCenter",
+                        "icon" => "fa fa-yelp",
+                    ],
+                ],
+            ],
+            [
+                "name" => "系统设置",
+                "url" => "",
+                "uri_name" => "",
+                "icon" => "fa fa-cogs",
                 "subs" => [
                     [
                         "name" => "用户管理",
