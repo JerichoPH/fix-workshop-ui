@@ -27,6 +27,9 @@ class DataCommand extends Command
      */
     protected $description = 'Command description';
 
+    /**
+     * 初始化数据库
+     */
     private function init()
     {
         $this->line("初始化数据开始");
@@ -82,6 +85,22 @@ class DataCommand extends Command
             "道口" => "web.OrganizationRailroadGradeCross",
             "区间" => "web.OrganizationSection",
             "中心" => "web.OrganizationCenter",
+            "种类型-种类" => "web.KindCategory",
+            "种类型-类型" => "web.KindEntireType",
+            "种类型-型号" => "web.KindSubType",
+            "位置-仓储-仓库" => "web.LocationDepotStorehouse",
+            "位置-仓储-仓库区域" => "web.LocationDepotSection",
+            "位置-仓库-仓库排类型" => "web.LocationDepotRowType",
+            "位置-仓储-仓库排" => "web.LocationDepotRow",
+            "位置-仓储-仓库柜架" => "web.LocationDepotCabinet",
+            "位置-仓储-仓库柜架层" => "web.LocationDepotTier",
+            "位置-仓储-仓库柜架格位" => "web.LocationDepotCell",
+            "位置-室内上道位置-仓库" => "web.LocationDepotStorehouse",
+            "位置-室内上道位置-仓库区域" => "web.LocationDepotSection",
+            "位置-室内上道位置-仓库排" => "web.LocationDepotRow",
+            "位置-室内上道位置-仓库柜架" => "web.LocationDepotCabinet",
+            "位置-室内上道位置-仓库柜架层" => "web.LocationDepotTier",
+            "位置-室内上道位置-仓库柜架格位" => "web.LocationDepotCell",
         ])->each(function ($rbacPermissionGroupUri, $rbacPermissionGroupName) use ($rbacRole) {
             $rbacPermissionGroup = RbacPermissionGroup::with([])
                 ->create([
@@ -193,6 +212,24 @@ class DataCommand extends Command
                         "uri_name" => "web.OrganizationCenter",
                         "icon" => "fa fa-yelp",
                     ],
+                    [
+                        "name" => "仓库位置管理",
+                        "url" => "/location/depotStorehouse",
+                        "uri_name" => "web.LocationDepotStorehouse",
+                        "icon" => "fa fa-home"
+                    ],
+                    [
+                        "name" => "室内上道位置管理",
+                        "url" => "/location/indoorRoom",
+                        "uri_name" => "web.LocationIndoorRoom",
+                        "icon" => "fa fa-map-marker"
+                    ],
+                    [
+                        "name" => "室外上道位置管理",
+                        "url" => "/location/indoorRoom",
+                        "uri_name" => "web.LocationIndoorRoom",
+                        "icon" => "fa fa-map-marker"
+                    ],
                 ],
             ],
             [
@@ -270,6 +307,14 @@ class DataCommand extends Command
             });
 
         $this->info("初始化数据完成");
+    }
+
+    /**
+     * 初始化测试数据
+     */
+    private function test()
+    {
+
     }
 
     /**
