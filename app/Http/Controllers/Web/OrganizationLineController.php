@@ -105,8 +105,17 @@ class OrganizationLineController extends Controller
         );
     }
 
+    /**
+     * 删除
+     * @param string $uuid
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
+     */
     public function Destroy(string $uuid)
     {
-
+        return $this->sendStandardRequest("organization/line/{$uuid}", session(__JWT__));
     }
 }

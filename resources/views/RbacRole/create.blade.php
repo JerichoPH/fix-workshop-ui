@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.RbacRole:Index', ['page' => request('page', 1), ]) }}"><i class="fa fa-users">&nbsp;</i>角色-列表</a></li>
+            <li><a href="{{ route('web.RbacRole:Index', []) }}"><i class="fa fa-users">&nbsp;</i>角色-列表</a></li>
             <li class="active">角色-新建</li>
         </ol>
     </section>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.RbacRole:Index', ['page' => request('page', 1), ]) }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.RbacRole:Index', []) }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>

@@ -18,7 +18,7 @@
                 <h3 class="box-title">用户-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.Account:Create', ['page' => request('page', 1), ]) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.Account:Create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <div class="box-body">

@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.RbacPermission:Index', ['page' => request('page', 1),  "rbac_permission_group_uuid" => request("rbac_permission_group_uuid") ]) }}"><i class="fa fa-users">&nbsp;</i>权限-列表</a></li>
+            <li><a href="{{ route('web.RbacPermission:Index', ["rbac_permission_group_uuid" => request("rbac_permission_group_uuid") ]) }}"><i class="fa fa-users">&nbsp;</i>权限-列表</a></li>
             <li class="active">权限-新建</li>
         </ol>
     </section>
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.RbacPermission:Index', ['page' => request('page', 1), "rbac_permission_group_uuid" => request("rbac_permission_group_uuid") ]) }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.RbacPermission:Index', ["rbac_permission_group_uuid" => request("rbac_permission_group_uuid") ]) }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>

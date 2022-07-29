@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationLine:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left btn-flat">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.OrganizationLine:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>

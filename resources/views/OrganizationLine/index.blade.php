@@ -53,7 +53,6 @@
                             $.each(organizationLines, (_, organizationLine) => {
                                 let uuid = organizationLine["uuid"];
                                 let createdAt = organizationLine["created_at"] ? moment(organizationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                let updatedAt = organizationLine["updated_at"] ? moment(organizationLine["updated_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                 let uniqueCode = organizationLine["unique_code"];
                                 let name = organizationLine["name"];
                                 let divBtnGroup = '';
@@ -117,7 +116,7 @@
                     data: {id: id},
                     success: function (res) {
                         console.log(`{{ url('organization/line')}}/${id} success:`, res);
-                        location.reload();
+                        tblLine.ajax.reload();
                     },
                     error: function (err) {
                         console.log(`{{ url('organization/line')}}/${id} fail:`, err);
