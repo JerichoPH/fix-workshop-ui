@@ -216,8 +216,8 @@
          * 填充权限表
          */
         function fnFillTblPermission(rbacPermissionGroupUUID = "") {
-            if (rbacPermissionGroupUUID && document.getElementById('tblPermission')) {
-                return tblPermission = $('#tblPermission').DataTable({
+            if (tblPermission == null) {
+                tblPermission = $('#tblPermission').DataTable({
                     ajax: {
                         url: `{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID}`,
                         async: false,
@@ -271,6 +271,11 @@
                     }
                 });
             }
+
+            if (rbacPermissionGroupUUID) {
+                tblPermission.ajax.url(`{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID}`);
+                tblPermission.ajax.reload();
+            }
         }
 
         $(function () {
@@ -284,6 +289,9 @@
             fnCheckAll("chkAllRbacPermission", "rbac-permission-uuid");  // 权限全选
         });
 
+        /**
+         * 绑定用户
+         */
         function fnBindAccounts() {
             let accountUUIDs = [];
             $(`.account-uuid:checked`).each(function (_, datum) {
@@ -347,7 +355,6 @@
                 });
             }
         }
-
 
     </script>
 @endsection
