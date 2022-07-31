@@ -76,27 +76,15 @@ class Handler extends ExceptionHandler
         if (env("APP_DEBUG")) $msg .= "（错误代码：{$this->__code}）";
 
         if (env("APP_DEBUG")) {
-            if ($request->ajax()) {
-                return response()->json([
-                    "msg" => $msg,
-                    "status" => 500,
-                    "errorCode" => 500,
-                    "details" => [
-                        "exception_type" => get_class($e),
-                        "message" => $e->getMessage(),
-                        "file" => $e->getFile(),
-                        "line" => $e->getLine(),
-                        "trace" => $e->getTrace(),
-                    ],
-                ], 500);
+            if (!$request->ajax()) {
+                dd([
+                    "exception_type" => get_class($e),
+                    "message" => $e->getMessage(),
+                    "file" => $e->getFile(),
+                    "line" => $e->getLine(),
+                    "trace" => $e->getTrace(),
+                ]);
             }
-            dd([
-                "exception_type" => get_class($e),
-                "message" => $e->getMessage(),
-                "file" => $e->getFile(),
-                "line" => $e->getLine(),
-                "trace" => $e->getTrace(),
-            ]);
         }
 
         if ($e instanceof UnAuthorizationException) {
@@ -155,17 +143,7 @@ class Handler extends ExceptionHandler
 
         if ($e instanceof Exception) {
             return $request->ajax()
-                ? response()->json([
-                    "msg" => $msg,
-                    "status" => 500,
-                    "errorCode" => 500,
-                    "details" => [
-                        "exception_type" => get_class($e),
-                        "message" => $e->getMessage(),
-                        "file" => $e->getFile(),
-                        "line" => $e->getLine(),
-                    ],
-                ], 500)
+                ? JsonResponseFacade::errorException($e)
                 : back()->withInput()->with("danger", "意外错误。错误代码：{$this->__code}");
         }
 

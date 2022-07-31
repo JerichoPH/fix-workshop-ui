@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Facades\TextFacade;
 use App\Models\Account;
 use App\Models\Menu;
+use App\Models\PivotRbacRoleAndRbacPermission;
 use App\Models\RbacPermission;
 use App\Models\RbacPermissionGroup;
 use App\Models\RbacRole;
@@ -18,7 +20,7 @@ class DataCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'data {operator}';
+    protected $signature = 'data {operator} {arg1?}';
 
     /**
      * The console command description.
@@ -33,6 +35,7 @@ class DataCommand extends Command
     private function init()
     {
         $this->line("初始化数据开始");
+
         DB::table("accounts")->truncate();
         DB::table("menus")->truncate();
         DB::table("pivot_rbac_role_and_accounts")->truncate();
@@ -69,73 +72,118 @@ class DataCommand extends Command
 
         // 创建权限分组
         collect([
-            "用户" => "web.Account",
-            "角色" => "web.RbacRole",
-            "权限分组" => "web.RbacPermissionGroup",
-            "权限" => "web.RbacPermission",
-            "菜单" => "web.Menu",
-            "路局" => "web.OrganizationRailway",
-            "站段" => "web.OrganizationParagraph",
-            "线别" => "web.OrganizationLine",
-            "车间" => "web.OrganizationWorkshop",
-            "车间类型" => "web.OrganizationWorkshopType",
-            "工区" => "web.OrganizationWorkArea",
-            "工区类型" => "web.OrganizationWorkAreaType",
-            "站场" => "web.OrganizationStation",
-            "道口" => "web.OrganizationRailroadGradeCross",
-            "区间" => "web.OrganizationSection",
-            "中心" => "web.OrganizationCenter",
-            "种类型-种类" => "web.KindCategory",
-            "种类型-类型" => "web.KindEntireType",
-            "种类型-型号" => "web.KindSubType",
-            "位置-仓储-仓库" => "web.LocationDepotStorehouse",
-            "位置-仓储-仓库区域" => "web.LocationDepotSection",
-            "位置-仓库-仓库排类型" => "web.LocationDepotRowType",
-            "位置-仓储-仓库排" => "web.LocationDepotRow",
-            "位置-仓储-仓库柜架" => "web.LocationDepotCabinet",
-            "位置-仓储-仓库柜架层" => "web.LocationDepotTier",
-            "位置-仓储-仓库柜架格位" => "web.LocationDepotCell",
-            "位置-室内上道位置-仓库" => "web.LocationDepotStorehouse",
-            "位置-室内上道位置-仓库区域" => "web.LocationDepotSection",
-            "位置-室内上道位置-仓库排" => "web.LocationDepotRow",
-            "位置-室内上道位置-仓库柜架" => "web.LocationDepotCabinet",
-            "位置-室内上道位置-仓库柜架层" => "web.LocationDepotTier",
-            "位置-室内上道位置-仓库柜架格位" => "web.LocationDepotCell",
+            "用户" => ["group" => "account", "subs" => [],],
+            "角色" => [
+                "group" => "rbacRole",
+                "subs" => [
+                    "角色绑定用户" => [
+                        "uri" => "rbacRole/{uuid}bindAccounts",
+                        "method" => "PUT",
+                    ],
+                    "角色绑定权限" => [
+                        "uri" => "rbacRole/{uuid}bindPermissions",
+                        "method" => "PUT",
+                    ],
+                ],
+            ],
+            "权限分组" => ["group" => "rbacPermissionGroup", "subs" => [],],
+            "权限" => ["group" => "rbacPermission", "subs" => [],],
+            "菜单" => ["group" => "menu", "subs" => [],],
+            "组织机构-线别" => [
+                "group" => "organization/line",
+                "subs" => [
+                    "线别绑定路局" => [
+                        "uri" => "organization/line/{uuid}/bindOrganizationRailways",
+                        "method" => "PUT",
+                    ],
+                    "线别绑定站段" => [
+                        "uri" => "organization/line/{uuid}/bindOrganizationParagraphs",
+                        "method" => "PUT",
+                    ],
+                    "线别绑定车间" => [
+                        "uri" => "organization/line/{uuid}/bindOrganizationWorkshops",
+                        "method" => "PUT",
+                    ],
+                    "线别绑定工区" => [
+                        "uri" => "organization/line/{uuid}/bindOrganizationWorkAreas",
+                        "method" => "PUT",
+                    ],
+                    "线别绑定区间" => [
+                        "uri" => "organization/line/{uuid}/bindOrganizationSections",
+                        "method" => "PUT",
+                    ],
+                    "线别绑定站场" => [
+                        "uri" => "organization/line/{uuid}/bindOrganizationStations",
+                        "method" => "PUT",
+                    ],
+                    "线别绑定道口" => [
+                        "uri" => "organization/line/{uuid}/bindOrganizationRailroadGradeCrosses",
+                        "method" => "PUT",
+                    ],
+                    "线别绑定中心" => [
+                        "uri" => "organization/line/{uuid}/bindOrganizationCenters",
+                        "method" => "PUT",
+                    ],
+                ],
+            ],
+            "组织机构-路局" => [
+                "group" => "organization/railway",
+                "subs" => [
+                    "路局绑定线别" => [
+                        "uri" => "organization/railway/{uuid}/bindOrganizationLines",
+                        "method" => "PUT",
+                    ],
+                ],
+            ],
+            "组织机构-站段" => ["group" => "organization/paragraph", "subs" => [],],
+            "组织机构-车间" => ["group" => "organization/workshop", "subs" => [],],
+            "组织机构-车间类型" => ["group" => "organization/workshopType", "subs" => [],],
+            "组织机构-工区" => ["group" => "organization/workArea", "subs" => [],],
+            "组织机构-工区类型" => ["group" => "organization/workAreaType", "subs" => [],],
+            "组织机构-区间" => ["group" => "organization/section", "subs" => [],],
+            "组织机构-站场" => ["group" => "organization/station", "subs" => [],],
+            "组织机构-道口" => ["group" => "organization/railroadGradeCross", "subs" => [],],
+            "组织机构-中心" => ["group" => "organization/center", "subs" => [],],
+            "种类型-种类" => ["group" => "kind/category", "subs" => [],],
+            "种类型-类型" => ["group" => "kind/entireType", "subs" => [],],
+            "种类型-型号" => ["group" => "kind/subType", "subs" => [],],
+            "位置-仓储-仓库" => ["group" => "location/depotStorehouse", "subs" => [],],
+            "位置-仓储-仓库区域" => ["group" => "location/depotSection", "subs" => [],],
+            "位置-仓库-仓库排类型" => ["group" => "location/depotRowType", "subs" => [],],
+            "位置-仓储-仓库排" => ["group" => "location/depotRow", "subs" => [],],
+            "位置-仓储-仓库柜架" => ["group" => "location/depotCabinet", "subs" => [],],
+            "位置-仓储-仓库柜架层" => ["group" => "location/depotTier", "subs" => [],],
+            "位置-仓储-仓库柜架格位" => ["group" => "location/depotCell", "subs" => [],],
+            "位置-室内上到位置-机房类型" => ["group" => "location/indoorRoomType", "subs" => [],],
+            "位置-室内上道位置-机房" => ["group" => "location/indoorRoom", "subs" => [],],
+            "位置-室内上道位置-机房排" => ["group" => "location/indoorRow", "subs" => [],],
+            "位置-室内上道位置-机房柜架" => ["group" => "location/indoorCabinet", "subs" => [],],
+            "位置-室内上道位置-机房柜架层" => ["group" => "location/indoorTier", "subs" => [],],
+            "位置-室内上道位置-机房柜架格位" => ["group" => "location/indoorCell", "subs" => [],],
         ])->each(function ($rbacPermissionGroupUri, $rbacPermissionGroupName) use ($rbacRole) {
-            $rbacPermissionGroup = RbacPermissionGroup::with([])
-                ->create([
-                    "uuid" => Str::uuid(),
-                    "name" => $rbacPermissionGroupName,
-                ]);
-            $this->comment("创建权限分组：$rbacPermissionGroup->name");
+            ["group" => $group, "subs" => $subs,] = $rbacPermissionGroupUri;
+            $rbacPermissionGroup = $this->createPermissionGroup(
+                $rbacPermissionGroupName,
+                $group,
+                $rbacRole
+            );
 
-            // 创建权限（资源权限组）
-            collect([
-                "列表" => "GET",
-                "新建页面" => "GET",
-                "新建" => "POST",
-                "详情页面" => "GET",
-                "编辑页面" => "GET",
-                "编辑" => "PUT",
-                "删除" => "DELETE",
-            ])
-                ->each(function ($rbacPermissionMethod, $rbacPermissionName) use ($rbacPermissionGroupUri, $rbacPermissionGroup, $rbacRole) {
+            if (!empty($subs)) {
+                collect($subs)->each(function ($datum, $name) use ($rbacPermissionGroup, $rbacRole) {
                     $rbacPermission = RbacPermission::with([])
                         ->create([
                             "uuid" => Str::uuid(),
-                            "name" => $rbacPermissionName,
-                            "uri" => $rbacPermissionGroupUri,
-                            "method" => $rbacPermissionMethod,
+                            "sort" => 0,
+                            "name" => $name,
+                            "uri" => TextFacade::joinWithNotEmpty("/", [$this->argument("arg1"), $datum["uri"]]),
+                            "method" => $datum["method"],
                             "rbac_permission_group_uuid" => $rbacPermissionGroup->uuid,
                         ]);
-                    $this->comment("创建权限：$rbacPermissionGroup->name ➡ $rbacPermission->name");
-                    // 创建角色➡权限
-                    DB::table("pivot_rbac_role_and_rbac_permissions")->insert([
-                        "rbac_permission_id" => $rbacPermission->id,
-                        "rbac_role_id" => $rbacRole->id,
-                    ]);
-                    $this->comment("角色绑定权限：$rbacRole->name ➡ $rbacPermissionGroup->name($rbacPermission->name)");
+                    $this->comment("创建权限：{$name}");
+                    PivotRbacRoleAndRbacPermission::with([])->insert(["rbac_role_id" => $rbacRole->id, "rbac_permission_id" => $rbacPermission->id,]);
+                    $this->comment("绑定角色与权限：{$rbacRole->name}→{$rbacPermission->name}");
                 });
+            }
         });
 
         // 创建菜单
@@ -149,85 +197,85 @@ class DataCommand extends Command
                     [
                         "name" => "线别管理",
                         "url" => "/organization/line",
-                        "uri_name" => "web.OrganizationLine",
+                        "uri_name" => "organization/line",
                         "icon" => "fa fa-code-fork"
                     ],
                     [
                         "name" => "路局管理",
                         "url" => "/organization/railway",
-                        "uri_name" => "web.OrganizationRailway",
+                        "uri_name" => "organization/Railway",
                         "icon" => "fa fa-subway",
                     ],
                     [
                         "name" => "站段管理",
                         "url" => "/organization/paragraph",
-                        "uri_name" => "web.OrganizationParagraph",
+                        "uri_name" => "organization/Paragraph",
                         "icon" => "fa fa-th-large",
                     ],
                     [
                         "name" => "车间管理",
                         "url" => "/organization/workshop",
-                        "uri_name" => "web.OrganizationWorkshop",
+                        "uri_name" => "organization/Workshop",
                         "icon" => "fa fa-th",
                     ],
                     [
                         "name" => "车间类型管理",
                         "url" => "/organization/workshopType",
-                        "uri_name" => "web.OrganizationWorkshopType",
+                        "uri_name" => "organization/WorkshopType",
                         "icon" => "fa fa-th",
                     ],
                     [
                         "name" => "工区管理",
                         "url" => "/organization/workArea",
-                        "uri_name" => "web.OrganizationWorkArea",
+                        "uri_name" => "organization/WorkArea",
                         "icon" => "fa fa-th-list",
                     ],
                     [
                         "name" => "工区类型管理",
                         "url" => "/organization/workAreaType",
-                        "uri_name" => "web.OrganizationWorkAreaType",
+                        "uri_name" => "organization/WorkAreaType",
                         "icon" => "fa fa-th-list",
                     ],
                     [
                         "name" => "站场管理",
                         "url" => "/organization/station",
-                        "uri_name" => "web.OrganizationStation",
+                        "uri_name" => "organization/Station",
                         "icon" => "fa fa-fort-awesome",
                     ],
                     [
                         "name" => "道口管理",
                         "url" => "/organization/railroadGradeCross",
-                        "uri_name" => "web.OrganizationRailroadGradeCross",
+                        "uri_name" => "organization/RailroadGradeCross",
                         "icon" => "fa fa-openid"
                     ],
                     [
                         "name" => "区间管理",
                         "url" => "/organization/section",
-                        "uri_name" => "web.OrganizationSection",
+                        "uri_name" => "organization/Section",
                         "icon" => "fa fa-slack",
                     ],
                     [
                         "name" => "中心管理",
                         "url" => "/organization/center",
-                        "uri_name" => "web.OrganizationCenter",
+                        "uri_name" => "organization/Center",
                         "icon" => "fa fa-yelp",
                     ],
                     [
                         "name" => "仓库位置管理",
                         "url" => "/location/depotStorehouse",
-                        "uri_name" => "web.LocationDepotStorehouse",
+                        "uri_name" => "location/DepotStorehouse",
                         "icon" => "fa fa-home"
                     ],
                     [
                         "name" => "室内上道位置管理",
                         "url" => "/location/indoorRoom",
-                        "uri_name" => "web.LocationIndoorRoom",
+                        "uri_name" => "location/IndoorRoom",
                         "icon" => "fa fa-map-marker"
                     ],
                     [
                         "name" => "室外上道位置管理",
                         "url" => "/location/indoorRoom",
-                        "uri_name" => "web.LocationIndoorRoom",
+                        "uri_name" => "location/IndoorRoom",
                         "icon" => "fa fa-map-marker"
                     ],
                 ],
@@ -333,5 +381,52 @@ class DataCommand extends Command
     public function handle(): void
     {
         $this->{$this->argument("operator")}();
+    }
+
+    /**
+     * @param string $rbacPermissionGroupName
+     * @param string $rbacPermissionGroupUri
+     * @param RbacRole $rbacRole
+     * @return RbacPermissionGroup
+     */
+    private function createPermissionGroup(string $rbacPermissionGroupName, string $rbacPermissionGroupUri, RbacRole $rbacRole): RbacPermissionGroup
+    {
+        $rbacPermissionGroup = RbacPermissionGroup::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "name" => $rbacPermissionGroupName,
+            ]);
+        $this->comment("创建权限分组：$rbacPermissionGroup->name");
+
+        // 创建权限（资源权限组）
+        collect([
+            "列表" => ["uri" => "", "method" => "GET"],
+            "新建页面" => ["uri" => "create", "method" => "GET",],
+            "新建" => ["uri" => "", "method" => "POST",],
+            "详情页面" => ["uri" => "{uuid}", "method" => "GET",],
+            "编辑页面" => ["uri" => "{uuid}/edit", "method" => "GET",],
+            "编辑" => ["uri" => "{uuid}", "method" => "PUT",],
+            "删除" => ["uri" => "{uuid}", "method" => "DELETE",],
+        ])
+            ->each(function ($datum, $rbacPermissionName)
+            use ($rbacPermissionGroupUri, $rbacPermissionGroup, $rbacRole) {
+                $rbacPermission = RbacPermission::with([])
+                    ->create([
+                        "uuid" => Str::uuid(),
+                        "name" => $rbacPermissionName,
+                        "uri" => TextFacade::joinWithNotEmpty("/", [$this->argument("arg1"), $rbacPermissionGroupUri, $datum["uri"]]),
+                        "method" => $datum["method"],
+                        "rbac_permission_group_uuid" => $rbacPermissionGroup->uuid,
+                    ]);
+                $this->comment("创建权限：$rbacPermissionGroup->name ➡ $rbacPermission->name");
+                // 创建角色➡权限
+                DB::table("pivot_rbac_role_and_rbac_permissions")->insert([
+                    "rbac_permission_id" => $rbacPermission->id,
+                    "rbac_role_id" => $rbacRole->id,
+                ]);
+                $this->comment("角色绑定权限：$rbacRole->name ➡ $rbacPermissionGroup->name($rbacPermission->name)");
+            });
+
+        return $rbacPermissionGroup;
     }
 }

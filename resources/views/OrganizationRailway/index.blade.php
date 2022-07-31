@@ -3,31 +3,30 @@
     <!-- 面包屑 -->
     <section class="content-header">
         <h1>
-            角色管理
+            路局管理
             <small>列表</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li class="active">角色-列表</li>
+            <li class="active">路局-列表</li>
         </ol>
     </section>
     <section class="content">
         @include('Layout.alert')
         <div class="box box-solid">
             <div class="box-header">
-                <h3 class="box-title">角色-列表</h3>
+                <h3 class="box-title">路局-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.RbacRole:Create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.OrganizationRailway:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
-                <hr>
             </div>
             <div class="box-body">
-                <table class="table table-hover table-striped table-condensed" id="tblRbacRole">
+                <table class="table table-hover table-striped table-condensed" id="tblOrganizationRailway">
                     <thead>
                     <tr>
                         <th>新建时间</th>
-                        <th>编号</th>
+                        <th>代码</th>
                         <th>名称</th>
                         <th></th>
                     </tr>
@@ -41,37 +40,37 @@
 @section('script')
     <script>
         let $select2 = $('.select2');
-        let tblRbacRole = null;
+        let tblOrganizationRailway = null;
 
         /**
-         * 填充角色表
+         * 填充表格
          */
-        function fnFillTblRbacRole() {
-            if (document.getElementById('tblRbacRole')) {
-                tblRbacRole = $('#tblRbacRole').DataTable({
+        function fnFillTblOrganizationRailway() {
+            if (document.getElementById('tblOrganizationRailway')) {
+                tblOrganizationRailway = $('#tblOrganizationRailway').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacRole:Index") }}`,
+                        url: `{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacRole:Index") }} success:`, res);
-                            let {rbac_roles: rbacRoles,} = res['data'];
+                            console.log(`{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            let {organization_railways: organizationRailways,} = res["data"];
                             let render = [];
-                            if (rbacRoles.length > 0) {
-                                $.each(rbacRoles, (key, rbacRole) => {
-                                    let createdAt = rbacRole["created_at"] ? moment(rbacRole["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                    let uuid = rbacRole["uuid"];
-                                    let name = rbacRole["name"];
+                            if (organizationRailways.length > 0) {
+                                $.each(organizationRailways, (_, organizationRailway) => {
+                                    let uuid = organizationRailway["uuid"];
+                                    let createdAt = organizationRailway["created_at"] ? moment(organizationRailway["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let uniqueCode = organizationRailway["unique_code"] ? organizationRailway["unique_code"] : "";
+                                    let name = organizationRailway["name"] ? organizationRailway["name"] : "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ url("rbacRole") }}/${uuid}/bind" class="btn btn-primary"><i class="fa fa-link">&nbsp;</i></a>`;
-                                    divBtnGroup += `<a href="{{ url("rbacRole") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.OrganizationRailway:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
                                     render.push([
                                         createdAt,
-                                        uuid,
+                                        uniqueCode,
                                         name,
                                         divBtnGroup,
                                     ]);
@@ -80,7 +79,7 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.RbacRole:Index") }} fail:`, err);
+                            console.log(`{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon:2, });
                             }else{
@@ -119,39 +118,33 @@
         }
 
         $(function () {
-            if ($select2.length > 0) $('.select2').select2();
+            if ($select2.length > 0) $select2.select2();
 
-            fnFillTblRbacRole();  // 填充角色表
+            fnFillTblOrganizationRailway();
         });
 
         /**
          * 删除
-         * @param {string} uuid
+         * @param id 编号
          */
-        function fnDelete(uuid = "") {
-            if (uuid && confirm("删除不可恢复，是否确定？")) {
-                let loading = layer.msg('处理中……', {time: 0,});
+        function fnDelete(id) {
+            if (confirm('删除不能恢复，是否确认'))
                 $.ajax({
-                    url: `{{ url("rbacRole") }}/${uuid}`,
+                    url: `{{ url('organizationRailway') }}/${id}`,
                     type: 'delete',
-                    data: {},
-                    async: true,
-                    success: res => {
-                        console.log(`{{ url("rbacRole") }}/${uuid} success:`, res);
-                        layer.close(loading);
-                        layer.msg(res['msg'], {time: 1000,}, function () {
-                            tblRbacRole.ajax.reload();
-                        });
+                    data: {id: id},
+                    success: function (res) {
+                        console.log(`{{ url('organizationRailway')}}/${id} success:`, res);
+                        location.reload();
                     },
-                    error: err => {
-                        console.log(`{{ url("rbacRole") }}/${uuid} fail:`, err);
+                    error: function (err) {
+                        console.log(`{{ url('organizationRailway')}}/${id} fail:`, err);
                         layer.close(loading);
-                        layer.msg(err["responseJSON"], {time: 1500,}, () => {
+                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                             if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                         });
-                    },
+                    }
                 });
-            }
         }
     </script>
 @endsection

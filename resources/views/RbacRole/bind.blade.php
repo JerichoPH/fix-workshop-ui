@@ -22,6 +22,7 @@
                         <div class="pull-right btn-group btn-group-sm">
                             <a href="javascript:" class="btn btn-primary" onclick="fnBindAccounts()"><i class="fa fa-link">&nbsp;</i>绑定用户</a>
                         </div>
+                        <hr>
                     </div>
                     <div class="box-body">
                         <table class="table table-hover table-striped table-condensed" id="tblAccount">
@@ -152,6 +153,16 @@
                             }
                             return render;
                         },
+                        error: function (err) {
+                            console.log(`{{ route("web.Account:Index") }} fail:`, err);
+                            if (err["status"] === 406) {
+                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
+                            }else{
+                                layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
+                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                                });
+                            }
+                        },
                     },
                     columnDefs: [{
                         orderable: false,
@@ -243,6 +254,16 @@
                                 });
                             }
                             return render;
+                        },
+                        error: function (err) {
+                            console.log(`{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID} fail:`, err);
+                            if (err["status"] === 406) {
+                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
+                            }else{
+                                layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
+                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                                });
+                            }
                         },
                     },
                     columnDefs: [{

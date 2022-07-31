@@ -74,9 +74,9 @@ class Controller extends BaseController
                 case 406:
                     throw new UnAuthorizationException($msg);
                 case 403:
-                    throw new EmptyException($msg);
-                case 404:
                     throw new ForbiddenException($msg);
+                case 404:
+                    throw new EmptyException($msg);
                 case 500:
                 default:
                     throw new Exception($msg);

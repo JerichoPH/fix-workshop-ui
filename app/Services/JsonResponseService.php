@@ -15,10 +15,10 @@ class JsonResponseService
     final public static function dump(...$data): JsonResponse
     {
         return response()->json([
-            'msg' => 'dump response',
-            'status' => 200,
-            'errorCode' => 0,
-            'data' => $data,
+            "msg" => "dump response",
+            "status" => 200,
+            "errorCode" => 0,
+            "data" => $data,
         ],
             200);
     }
@@ -30,7 +30,7 @@ class JsonResponseService
      * @param ...$details
      * @return JsonResponse
      */
-    final public static function dict($data = [], string $msg = 'OK', ...$details): JsonResponse
+    final public static function dict($data = [], string $msg = "OK", ...$details): JsonResponse
     {
         return self::data($data, $msg, $details);
     }
@@ -42,14 +42,14 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function data($data = [], string $msg = 'OK', ...$details): JsonResponse
+    final public static function data($data = [], string $msg = "OK", ...$details): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 200,
-            'errorCode' => 0,
-            'data' => $data,
-            'details' => $details,
+            "msg" => $msg,
+            "status" => 200,
+            "errorCode" => 0,
+            "data" => $data,
+            "details" => $details,
         ],
             200);
     }
@@ -59,14 +59,14 @@ class JsonResponseService
      * @param string $msg
      * @return JsonResponse
      */
-    final public function ok(string $msg = 'OK'): JsonResponse
+    final public function ok(string $msg = "OK"): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 200,
-            'errorCode' => 0,
-            'data' => [],
-            'details' => [],
+            "msg" => $msg,
+            "status" => 200,
+            "errorCode" => 0,
+            "data" => [],
+            "details" => [],
         ], 200);
     }
 
@@ -77,14 +77,14 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function created(array $data = [], string $msg = '新建成功', ...$details): JsonResponse
+    final public static function created(array $data = [], string $msg = "新建成功", ...$details): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 200,
-            'errorCode' => 0,
-            'data' => $data,
-            'details' => $details,
+            "msg" => $msg,
+            "status" => 200,
+            "errorCode" => 0,
+            "data" => $data,
+            "details" => $details,
         ],
             200);
     }
@@ -96,14 +96,14 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function updated(array $data = [], string $msg = '编辑成功', ...$details): JsonResponse
+    final public static function updated(array $data = [], string $msg = "编辑成功", ...$details): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 200,
-            'errorCode' => 0,
-            'data' => $data,
-            'details' => $details
+            "msg" => $msg,
+            "status" => 200,
+            "errorCode" => 0,
+            "data" => $data,
+            "details" => $details
         ],
             200);
     }
@@ -115,14 +115,14 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function deleted(array $data = [], string $msg = '删除成功', ...$details): JsonResponse
+    final public static function deleted(array $data = [], string $msg = "删除成功", ...$details): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 200,
-            'errorCode' => 0,
-            'data' => $data,
-            'details' => $details,
+            "msg" => $msg,
+            "status" => 200,
+            "errorCode" => 0,
+            "data" => $data,
+            "details" => $details,
         ],
             200);
     }
@@ -133,13 +133,14 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function errorEmpty(string $msg = '数据不存在', ...$details): JsonResponse
+    final public static function errorEmpty(string $msg = "数据不存在", ...$details): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 404,
-            'errorCode' => 1,
-            'details' => $details,
+            "msg" => $msg,
+            "status" => 404,
+            "errorCode" => 1,
+            "data" => [],
+            "details" => $details,
         ],
             404);
     }
@@ -153,10 +154,11 @@ class JsonResponseService
     final public static function errorForbidden(string $msg, ...$details): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 403,
-            'errorCode' => 2,
-            'details' => $details,
+            "msg" => $msg,
+            "status" => 403,
+            "errorCode" => 2,
+            "data" => [],
+            "details" => $details,
         ],
             403);
     }
@@ -167,13 +169,14 @@ class JsonResponseService
      * @param ...$details
      * @return JsonResponse
      */
-    final public static function errorUnLogin(string $msg = '未登录', ...$details): JsonResponse
+    final public static function errorUnLogin(string $msg = "未登录", ...$details): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 401,
-            'errorCode' => 3,
-            'details' => $details,
+            "msg" => $msg,
+            "status" => 401,
+            "errorCode" => 3,
+            "data" => [],
+            "details" => $details,
         ],
             401);
     }
@@ -184,13 +187,14 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function errorUnauthorized(string $msg = '未授权', ...$details): JsonResponse
+    final public static function errorUnauthorized(string $msg = "未授权", ...$details): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 406,
-            'errorCode' => 3,
-            'details' => $details
+            "msg" => $msg,
+            "status" => 406,
+            "errorCode" => 3,
+            "data" => [],
+            "details" => $details
         ],
             406);
     }
@@ -203,9 +207,10 @@ class JsonResponseService
     final public static function errorValidate(string $msg): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 422,
-            'errorCode' => 4,
+            "msg" => $msg,
+            "status" => 422,
+            "data" => [],
+            "errorCode" => 4,
         ],
             422);
     }
@@ -217,19 +222,20 @@ class JsonResponseService
      * @param Throwable|null $e
      * @return JsonResponse
      */
-    final public static function errorCustom(string $msg = '意外错误', int $errorCode = 5, Throwable $e = null): JsonResponse
+    final public static function errorCustom(string $msg = "意外错误", int $errorCode = 5, Throwable $e = null): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 500,
-            'errorCode' => $errorCode,
-            'details' => [
-                'exception_type' => get_class($e),
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
+            "msg" => $msg,
+            "status" => 500,
+            "errorCode" => $errorCode,
+            "data" => [],
+            "details" => [
+                "exception_type" => get_class($e),
+                "message" => $e->getMessage(),
+                "file" => $e->getFile(),
+                "line" => $e->getLine(),
             ],
-            'trace' => $e->getTrace(),
+            "trace" => $e->getTrace(),
         ]);
     }
 
@@ -240,19 +246,14 @@ class JsonResponseService
      * @param int $errorCode
      * @return JsonResponse
      */
-    final public static function errorException(Throwable $e, string $msg = '意外错误', int $errorCode = 6): JsonResponse
+    final public static function errorException(Throwable $e, string $msg = "意外错误", int $errorCode = 6): JsonResponse
     {
         return response()->json([
-            'msg' => $msg,
-            'status' => 500,
-            'errorCode' => $errorCode,
-            'details' => [
-                'exception_type' => get_class($e),
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ],
-            'trace' => $e->getTrace(),
+            "msg" => $msg,
+            "status" => 500,
+            "errorCode" => $errorCode,
+            "data" => [],
+            "trace" => $e->getTrace(),
         ],
             500);
     }

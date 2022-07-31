@@ -6,6 +6,7 @@ use App\Exceptions\EmptyException;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnAuthorizationException;
 use App\Exceptions\UnLoginException;
+use App\Facades\JsonResponseFacade;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
@@ -71,6 +72,7 @@ class OrganizationLineController extends Controller
         if (request()->ajax()) {
             return $this->sendStandardRequest("organization/line/{$uuid}", session(__JWT__));
         }
+        return JsonResponseFacade::OK();
     }
 
     /**
@@ -117,5 +119,19 @@ class OrganizationLineController extends Controller
     public function Destroy(string $uuid)
     {
         return $this->sendStandardRequest("organization/line/{$uuid}", session(__JWT__));
+    }
+
+    /**
+     * 绑定路局
+     * @param string $uuid
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
+     */
+    public function PutBindOrganizationRailways(string $uuid)
+    {
+        return $this->sendStandardRequest("organization/line/{$uuid}/bindOrganizationRailways", session(__JWT__));
     }
 }

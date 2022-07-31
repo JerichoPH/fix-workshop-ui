@@ -21,8 +21,8 @@
                         <h3 class="box-title">新建用户</h3>
                         <!--右侧最小化按钮-->
                         <div class="box-tools pull-right"></div>
+                        <hr>
                     </div>
-                    <br>
                     <form class="form-horizontal" id="frmStore">
                         <div class="box-body">
                             <div class="form-group">

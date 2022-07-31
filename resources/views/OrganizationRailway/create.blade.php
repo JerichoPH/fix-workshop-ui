@@ -3,23 +3,23 @@
     <!-- 面包屑 -->
     <section class="content-header">
         <h1>
-            线别管理
+            路局管理
             <small>新建</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.OrganizationLine:Index') }}"><i class="fa fa-users">&nbsp;</i>线别-列表</a></li>
-            <li class="active">线别-新建</li>
+            <li><a href="{{ route('web.OrganizationRailway:Index') }}"><i class="fa fa-users">&nbsp;</i>路局-列表</a></li>
+            <li class="active">路局-新建</li>
         </ol>
     </section>
     <section class="content">
         @include('Layout.alert')
         <form class="form-horizontal" id="frmStore">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="box box-solid">
                         <div class="box-header">
-                            <h3 class="box-title">新建线别</h3>
+                            <h3 class="box-title">新建路局</h3>
                             <!--右侧最小化按钮-->
                             <div class="btn-group btn-group-sm pull-right"></div>
                             <hr>
@@ -38,40 +38,44 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label text-danger">是否启用*：</label>
+                                <label class="col-sm-2 control-label text-danger text-danger">别名*：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <input name="short_name" id="txtShortName" type="text" class="form-control" placeholder="唯一、必填" required value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label text-danger text-danger">是否启用*：</label>
                                 <div class="col-sm-10 col-md-9">
                                     <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1" checked>
                                     <label for="rdoBeEnableYes">是</label>
                                     &emsp;
                                     <input type="radio" name="be_enable" id="rdoBeEnableNo" value="0">
-                                    <label for="rdoBeEnableNo">否</label>
+                                    <label for="rdoBeEnableYes">否</label>
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationLine:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.OrganizationRailway:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-6">
                     <div class="box box-solid">
                         <div class="box-header">
-                            <h3 class="box-title">路局绑定</h3>
+                            <h3 class="box-title">新建路局</h3>
                             <!--右侧最小化按钮-->
-                            <div class="btn-group btn-group-sm pull-right">
-                            </div>
+                            <div class="btn-group btn-group-sm pull-right"></div>
                             <hr>
                         </div>
                         <div class="box-body">
-                            <table class="table table-condensed table-hover" id="tblOrganizationRailway">
+                            <table class="table table-hover table-condensed" id="tblOrganizationLine">
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="chkAllOrganizationRailway"></th>
+                                    <th><input type="checkbox" id="chkAllOrganizationLine"></th>
                                     <th>新建时间</th>
                                     <th>代码</th>
                                     <th>名称</th>
-                                    <th>简称</th>
                                 </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -88,38 +92,38 @@
         let $select2 = $('.select2');
         let $frmStore = $('#frmStore');
         let $chkBackToIndex = $('#chkBackToIndex');
-        let tblOrganizationRailway = null;
-        let boundOrganizationRailwayUUIDs = [];
+        let tblOrganizationLine = null;
+        let boundOrganizationLineUUIDs = [];
 
         /**
-         * 加载路局表格
+         * 加载线别表格
          */
-        function fnFillTblOrganizationRailway() {
-            if (document.getElementById('tblOrganizationRailway')) {
-                tblOrganizationRailway = $('#tblOrganizationRailway').DataTable({
+        function fnFillTblOrganizationLine() {
+            if (document.getElementById('tblOrganizationLine')) {
+                tblOrganizationLine = $('#tblOrganizationLine').DataTable({
                     ajax: {
-                        url: `{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_railways: organizationRailways,} = res["data"];
+                            console.log(`{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            let {organization_lines: organizationLines,} = res["data"];
                             let render = [];
-                            if (organizationRailways.length > 0) {
-                                $.each(organizationRailways, (_, organizationRailway) => {
-                                    let uuid = organizationRailway["uuid"];
-                                    let createdAt = organizationRailway["created_at"] ? moment(organizationRailway["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                    let uniqueCode = organizationRailway["unique_code"] ? organizationRailway["unique_code"] : "";
-                                    let name = organizationRailway["name"] ? organizationRailway["name"] : "";
-                                    let shortName = organizationRailway["short_name"] ? organizationRailway["short_name"] : "";
+                            if (organizationLines.length > 0) {
+                                $.each(organizationLines, (_, organizationLine) => {
+                                    let uuid = organizationLine["uuid"];
+                                    let createdAt = organizationLine["created_at"] ? moment(organizationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let uniqueCode = organizationLine["unique_code"] ? organizationLine["unique_code"] : "";
+                                    let name = organizationLine["name"] ? organizationLine["name"] : "";
+                                    let shortName = organizationLine["short_name"] ? organizationLine["short_name"] : "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-warning" onclick="('${uuid}')"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.OrganizationRailway:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
                                     render.push([
-                                        `<input type="checkbox" class="organization-railway-uuid" name="organization_railway_uuids[]" value="${uuid}" ${boundOrganizationRailwayUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllAccount').prop('checked', $('.organization-railway-uuid').length === $('.organization-railway-uuid:checked').length)">`,
+                                        `<input type="checkbox" class="organization-line-uuid" name="organization_line_uuids[]" value="${uuid}" ${boundOrganizationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllOrganizationLine').prop('checked', $('.organization-line-uuid').length === $('.organization-line-uuid:checked').length)">`,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -131,7 +135,7 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon:2, });
                             }else{
@@ -172,9 +176,9 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillTblOrganizationRailway();  // 加载路局表格
+            fnFillTblOrganizationLine();  // 加载线别表格
 
-            fnCheckAll("chkAllOrganizationRailway", "organization-railway-uuid");  // 路局全选
+            fnCheckAll("chkAllOrganizationLine", "organization-line-uuid");  // 全选线别
         });
 
         /**
@@ -185,18 +189,18 @@
             let data = $frmStore.serializeArray();
 
             $.ajax({
-                url: '{{ route('web.OrganizationLine:Store') }}',
+                url: '{{ route('web.OrganizationRailway:Store') }}',
                 type: 'post',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationLine:Store') }} success:`, res);
+                    console.log(`{{ route('web.OrganizationRailway:Store') }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,}, function () {
                         location.reload();
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationLine:Store') }} fail:`, err);
+                    console.log(`{{ route('web.OrganizationRailway:Store') }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';

@@ -20,6 +20,7 @@
                 <div class="pull-right btn-group btn-group-sm">
                     <a href="{{ route('web.OrganizationLine:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
+                <hr>
             </div>
             <div class="box-body">
                 <table class="table table-hover table-striped table-condensed" id="tblLine">
@@ -72,6 +73,16 @@
                             });
                         }
                         return render;
+                    },
+                    error: function (err) {
+                        console.log(`{{ route("web.OrganizationLine:Index") }} fail:`, err);
+                        if (err["status"] === 406) {
+                            layer.alert(err["responseJSON"]["msg"], {icon:2, });
+                        }else{
+                            layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
+                                if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                            });
+                        }
                     },
                 },
                 // columnDefs: [{

@@ -108,6 +108,20 @@ Route::prefix("")
         // 组织机构
         Route::prefix("organization")
             ->group(function () {
+                // 线别
+                Route::prefix("line")
+                    ->name("OrganizationLine:")
+                    ->group(function () {
+                        Route::get("", "OrganizationLineController@Index")->name("Index");  // 线别列表
+                        Route::get("create", "OrganizationLineController@Create")->name("Create");  // 新建线别页面
+                        Route::get("{uuid}", "OrganizationLineController@Show")->name("Show");  // 线别详情
+                        Route::get("{uuid}/edit", "OrganizationLineController@Edit")->name("Edit");  // 线别详情
+                        Route::post("", "OrganizationLineController@Store")->name("Store");  // 线别角色
+                        Route::put("{uuid}", "OrganizationLineController@Update")->name("Update"); // 线别角色
+                        Route::delete("{uuid}", "OrganizationLineController@Destroy")->name("Destroy");  // 删除线别
+                        Route::put("{uuid}/bindOrganizationRailways", "OrganizationLineController@PutBindOrganizationRailways")->name("PutBindOrganizationRailways");  // 绑定路局
+                    });
+
                 // 路局
                 Route::prefix("railway")
                     ->name("OrganizationRailway:")
@@ -119,6 +133,7 @@ Route::prefix("")
                         Route::post("", "OrganizationRailwayController@Store")->name("Store");  // 路局角色
                         Route::put("{uuid}", "OrganizationRailwayController@Update")->name("Update"); // 路局角色
                         Route::delete("{uuid}", "OrganizationRailwayController@Destroy")->name("Destroy");  // 删除路局
+                        Route::put("{uuid}/bindOrganizationLines", "OrganizationRailwayController@PutBindOrganizationLiens")->name("PutBindOrganizationLines");  // 绑定线别
                     });
 
                 // 站段
@@ -132,19 +147,6 @@ Route::prefix("")
                         Route::post("", "OrganizationParagraphController@Store")->name("Store");  // 站段角色
                         Route::put("{uuid}", "OrganizationParagraphController@Update")->name("Update"); // 站段角色
                         Route::delete("{uuid}", "OrganizationParagraphController@Destroy")->name("Destroy");  // 删除站段
-                    });
-
-                // 线别
-                Route::prefix("line")
-                    ->name("OrganizationLine:")
-                    ->group(function () {
-                        Route::get("", "OrganizationLineController@Index")->name("Index");  // 线别列表
-                        Route::get("create", "OrganizationLineController@Create")->name("Create");  // 新建线别页面
-                        Route::get("{uuid}", "OrganizationLineController@Show")->name("Show");  // 线别详情
-                        Route::get("{uuid}/edit", "OrganizationLineController@Edit")->name("Edit");  // 线别详情
-                        Route::post("", "OrganizationLineController@Store")->name("Store");  // 线别角色
-                        Route::put("{uuid}", "OrganizationLineController@Update")->name("Update"); // 线别角色
-                        Route::delete("{uuid}", "OrganizationLineController@Destroy")->name("Destroy");  // 删除线别
                     });
 
                 // 车间类型
