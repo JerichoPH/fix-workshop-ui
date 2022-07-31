@@ -77,11 +77,11 @@ class DataCommand extends Command
                 "group" => "rbacRole",
                 "subs" => [
                     "角色绑定用户" => [
-                        "uri" => "rbacRole/{uuid}bindAccounts",
+                        "uri" => "rbacRole/:uuidbindAccounts",
                         "method" => "PUT",
                     ],
                     "角色绑定权限" => [
-                        "uri" => "rbacRole/{uuid}bindPermissions",
+                        "uri" => "rbacRole/:uuidbindPermissions",
                         "method" => "PUT",
                     ],
                 ],
@@ -93,35 +93,35 @@ class DataCommand extends Command
                 "group" => "organization/line",
                 "subs" => [
                     "线别绑定路局" => [
-                        "uri" => "organization/line/{uuid}/bindOrganizationRailways",
+                        "uri" => "organization/line/:uuid/bindOrganizationRailways",
                         "method" => "PUT",
                     ],
                     "线别绑定站段" => [
-                        "uri" => "organization/line/{uuid}/bindOrganizationParagraphs",
+                        "uri" => "organization/line/:uuid/bindOrganizationParagraphs",
                         "method" => "PUT",
                     ],
                     "线别绑定车间" => [
-                        "uri" => "organization/line/{uuid}/bindOrganizationWorkshops",
+                        "uri" => "organization/line/:uuid/bindOrganizationWorkshops",
                         "method" => "PUT",
                     ],
                     "线别绑定工区" => [
-                        "uri" => "organization/line/{uuid}/bindOrganizationWorkAreas",
+                        "uri" => "organization/line/:uuid/bindOrganizationWorkAreas",
                         "method" => "PUT",
                     ],
                     "线别绑定区间" => [
-                        "uri" => "organization/line/{uuid}/bindOrganizationSections",
+                        "uri" => "organization/line/:uuid/bindOrganizationSections",
                         "method" => "PUT",
                     ],
                     "线别绑定站场" => [
-                        "uri" => "organization/line/{uuid}/bindOrganizationStations",
+                        "uri" => "organization/line/:uuid/bindOrganizationStations",
                         "method" => "PUT",
                     ],
                     "线别绑定道口" => [
-                        "uri" => "organization/line/{uuid}/bindOrganizationRailroadGradeCrosses",
+                        "uri" => "organization/line/:uuid/bindOrganizationRailroadGradeCrosses",
                         "method" => "PUT",
                     ],
                     "线别绑定中心" => [
-                        "uri" => "organization/line/{uuid}/bindOrganizationCenters",
+                        "uri" => "organization/line/:uuid/bindOrganizationCenters",
                         "method" => "PUT",
                     ],
                 ],
@@ -130,7 +130,7 @@ class DataCommand extends Command
                 "group" => "organization/railway",
                 "subs" => [
                     "路局绑定线别" => [
-                        "uri" => "organization/railway/{uuid}/bindOrganizationLines",
+                        "uri" => "organization/railway/:uuid/bindOrganizationLines",
                         "method" => "PUT",
                     ],
                 ],
@@ -197,85 +197,85 @@ class DataCommand extends Command
                     [
                         "name" => "线别管理",
                         "url" => "/organization/line",
-                        "uri_name" => "organization/line",
+                        "uri_name" => "web.OrganizationLine",
                         "icon" => "fa fa-code-fork"
                     ],
                     [
                         "name" => "路局管理",
                         "url" => "/organization/railway",
-                        "uri_name" => "organization/Railway",
+                        "uri_name" => "web.OrganizationRailway",
                         "icon" => "fa fa-subway",
                     ],
                     [
                         "name" => "站段管理",
                         "url" => "/organization/paragraph",
-                        "uri_name" => "organization/Paragraph",
+                        "uri_name" => "web.OrganizationParagraph",
                         "icon" => "fa fa-th-large",
                     ],
                     [
                         "name" => "车间管理",
                         "url" => "/organization/workshop",
-                        "uri_name" => "organization/Workshop",
+                        "uri_name" => "web.OrganizationWorkshop",
                         "icon" => "fa fa-th",
                     ],
                     [
                         "name" => "车间类型管理",
                         "url" => "/organization/workshopType",
-                        "uri_name" => "organization/WorkshopType",
+                        "uri_name" => "web.OrganizationWorkshopType",
                         "icon" => "fa fa-th",
                     ],
                     [
                         "name" => "工区管理",
                         "url" => "/organization/workArea",
-                        "uri_name" => "organization/WorkArea",
+                        "uri_name" => "web.OrganizationWorkArea",
                         "icon" => "fa fa-th-list",
                     ],
                     [
                         "name" => "工区类型管理",
                         "url" => "/organization/workAreaType",
-                        "uri_name" => "organization/WorkAreaType",
+                        "uri_name" => "web.OrganizationWorkAreaType",
                         "icon" => "fa fa-th-list",
                     ],
                     [
                         "name" => "站场管理",
                         "url" => "/organization/station",
-                        "uri_name" => "organization/Station",
+                        "uri_name" => "web.OrganizationStation",
                         "icon" => "fa fa-fort-awesome",
                     ],
                     [
                         "name" => "道口管理",
                         "url" => "/organization/railroadGradeCross",
-                        "uri_name" => "organization/RailroadGradeCross",
+                        "uri_name" => "web.OrganizationRailroadGradeCross",
                         "icon" => "fa fa-openid"
                     ],
                     [
                         "name" => "区间管理",
                         "url" => "/organization/section",
-                        "uri_name" => "organization/Section",
+                        "uri_name" => "web.OrganizationSection",
                         "icon" => "fa fa-slack",
                     ],
                     [
                         "name" => "中心管理",
                         "url" => "/organization/center",
-                        "uri_name" => "organization/Center",
+                        "uri_name" => "web.OrganizationCenter",
                         "icon" => "fa fa-yelp",
                     ],
                     [
                         "name" => "仓库位置管理",
                         "url" => "/location/depotStorehouse",
-                        "uri_name" => "location/DepotStorehouse",
+                        "uri_name" => "web.LocationDepotStorehouse",
                         "icon" => "fa fa-home"
                     ],
                     [
                         "name" => "室内上道位置管理",
                         "url" => "/location/indoorRoom",
-                        "uri_name" => "location/IndoorRoom",
+                        "uri_name" => "web.LocationIndoorRoom",
                         "icon" => "fa fa-map-marker"
                     ],
                     [
                         "name" => "室外上道位置管理",
                         "url" => "/location/indoorRoom",
-                        "uri_name" => "location/IndoorRoom",
+                        "uri_name" => "web.LocationIndoorRoom",
                         "icon" => "fa fa-map-marker"
                     ],
                 ],
@@ -403,10 +403,10 @@ class DataCommand extends Command
             "列表" => ["uri" => "", "method" => "GET"],
             "新建页面" => ["uri" => "create", "method" => "GET",],
             "新建" => ["uri" => "", "method" => "POST",],
-            "详情页面" => ["uri" => "{uuid}", "method" => "GET",],
-            "编辑页面" => ["uri" => "{uuid}/edit", "method" => "GET",],
-            "编辑" => ["uri" => "{uuid}", "method" => "PUT",],
-            "删除" => ["uri" => "{uuid}", "method" => "DELETE",],
+            "详情页面" => ["uri" => ":uuid", "method" => "GET",],
+            "编辑页面" => ["uri" => ":uuid/edit", "method" => "GET",],
+            "编辑" => ["uri" => ":uuid", "method" => "PUT",],
+            "删除" => ["uri" => ":uuid", "method" => "DELETE",],
         ])
             ->each(function ($datum, $rbacPermissionName)
             use ($rbacPermissionGroupUri, $rbacPermissionGroup, $rbacRole) {

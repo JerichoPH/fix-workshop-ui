@@ -262,17 +262,17 @@
             let data = $frmBindOrganizationRailway.serializeArray();
 
             $.ajax({
-                url: `{{ route("web.OrganizationLine:PutBindOrganizationRailway", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.OrganizationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }}`,
                 type: 'put',
                 data,
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.OrganizationLine:PutBindOrganizationRailway", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.OrganizationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res['msg'], {time: 1000,});
                 },
                 error: err => {
-                    console.log(`{{ route("web.OrganizationLine:PutBindOrganizationRailway", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
