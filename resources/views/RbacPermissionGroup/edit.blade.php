@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">名称：</label>
                                 <div class="col-sm-10 col-md-8">
-                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="名称" required value="">
+                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="名称" required value="" autocomplete="off">
                                 </div>
                             </div>
                         </div>

@@ -28,26 +28,26 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">名称*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="必填，和URL组合唯一" required value="">
+                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="必填，和URL组合唯一" required value=""  autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">URL：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="url" id="txtUrl" type="text" class="form-control" placeholder="选填，和名称组合唯一" required value="">
+                                    <input name="url" id="txtUrl" type="text" class="form-control" placeholder="选填，和名称组合唯一" required value=""  autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">路由名称：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="uri_name" id="txtUriName" type="text" class="form-control" placeholder="选填" required value="">
+                                    <input name="uri_name" id="txtUriName" type="text" class="form-control" placeholder="选填" required value=""  autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">图标：</label>
                                 <div class="col-sm-10 col-md-9">
                                     <div class="input-group">
-                                        <input name="icon" id="txtIcon" type="text" class="form-control" placeholder="选填" required value="" onkeyup="fnChangeIcon(this.value)">
+                                        <input name="icon" id="txtIcon" type="text" class="form-control" placeholder="选填" required value="" onkeyup="fnChangeIcon(this.value)"  autocomplete="off">
                                         <div class="input-group-addon"><i id="iIcon"></i></div>
                                     </div>
                                 </div>

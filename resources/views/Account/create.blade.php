@@ -28,25 +28,25 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">账号*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="username" id="txtUsername" type="text" class="form-control" placeholder="必填，唯一" required value="">
+                                    <input name="username" id="txtUsername" type="text" class="form-control" placeholder="必填，唯一" required value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">昵称*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="nickname" id="txtNickname" type="text" class="form-control" placeholder="必填，唯一" required value="">
+                                    <input name="nickname" id="txtNickname" type="text" class="form-control" placeholder="必填，唯一" required value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">密码*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="password" id="txtPassword" type="password" class="form-control" placeholder="必填" required value="">
+                                    <input name="password" id="txtPassword" type="password" class="form-control" placeholder="必填" required value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">确认密码*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="password_confirmation" id="txtPasswordConfirmation" type="password" class="form-control" placeholder="必填" required value="">
+                                    <input name="password_confirmation" id="txtPasswordConfirmation" type="password" class="form-control" placeholder="必填" required value="" autocomplete="off">
                                 </div>
                             </div>
                         </div>

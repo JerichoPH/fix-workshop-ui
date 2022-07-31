@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">名称*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="必填，唯一" required value="">
+                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="必填，唯一" required value="" autocomplete="off">
                                 </div>
                             </div>
                         </div>

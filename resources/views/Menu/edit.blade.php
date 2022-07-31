@@ -28,19 +28,19 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">名称：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="必填，和URL组合唯一" value="">
+                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="必填，和URL组合唯一" value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">URL：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="url" id="txtUrl" type="text" class="form-control" placeholder="选填，和URL组合唯一" value="">
+                                    <input name="url" id="txtUrl" type="text" class="form-control" placeholder="选填，和URL组合唯一" value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">路由名称：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="uri_name" id="txtUriName" type="text" class="form-control" placeholder="选填" value="">
+                                    <input name="uri_name" id="txtUriName" type="text" class="form-control" placeholder="选填" value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">

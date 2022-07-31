@@ -29,13 +29,13 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">代码*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="unique_code" id="txtUniqueCode" type="text" class="form-control" placeholder="唯一、必填" required value="" disabled>
+                                    <input name="unique_code" id="txtUniqueCode" type="text" class="form-control" placeholder="唯一、必填" required value="" disabled autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">名称*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="唯一、必填" required value="">
+                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="唯一、必填" required value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
