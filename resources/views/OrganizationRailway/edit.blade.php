@@ -61,7 +61,29 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="box box-solid">
+                    <div class="box-header">
+                        <h3 class="box-title">编辑路局</h3>
+                        <!--右侧最小化按钮-->
+                        <div class="box-tools pull-right"></div>
+                        <hr>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-hover table-condensed" id="tblOrganizationLine">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="chkAllOrganizationLine"></th>
+                                <th>新建时间</th>
+                                <th>代码</th>
+                                <th>名称</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @endsection
@@ -75,6 +97,8 @@
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
         let organizationRailway = null;
+        let tblOrganizationLine = null;
+        let boundOrganizationRailwayUUIDs = [];
 
         /**
          * 初始化数据
@@ -89,7 +113,7 @@
                     console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} success:`, res);
                     organizationRailway = res["data"]["organization_railway"];
 
-                    let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable,} = organizationRailway;
+                    let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable, organization_lines: organizationLines,} = organizationRailway;
 
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
@@ -98,6 +122,12 @@
                         $rdoBeEnableYes.prop("checked", "checked");
                     } else {
                         $rdoBeEnableNo.prop("checked", "checked");
+                    }
+                    // 已经绑定的线别
+                    if (organizationLines.length > 0) {
+                        organizationLines.map(function (organizationLine) {
+                            boundOrganizationRailwayUUIDs.push(organizationLine["uuid"]);
+                        });
                     }
                 },
                 error: err => {
@@ -109,10 +139,89 @@
             });
         }
 
+        /**
+         * 加载线别表格
+         */
+        function fnFillTblOrganizationLine() {
+            if (document.getElementById('tblOrganizationLine')) {
+                tblOrganizationLine = $('#tblOrganizationLine').DataTable({
+                    ajax: {
+                        url: `{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        dataSrc: function (res) {
+                            console.log(`{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            let {organization_lines: organizationLines,} = res["data"];
+                            let render = [];
+                            if (organizationLines.length > 0) {
+                                $.each(organizationLines, (_, organizationLine) => {
+                                    let uuid = organizationLine["uuid"];
+                                    let createdAt = organizationLine["created_at"] ? moment(organizationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let uniqueCode = organizationLine["unique_code"] ? organizationLine["unique_code"] : "";
+                                    let name = organizationLine["name"] ? organizationLine["name"] : "";
+                                    let divBtnGroup = '';
+                                    divBtnGroup += `<td class="">`;
+                                    divBtnGroup += `<div class="btn-group btn-group-sm">`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-warning btn-flat" onclick="('${uuid}')"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger btn-flat" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `</div>`;
+                                    divBtnGroup += `</td>`;
+
+                                    render.push([
+                                        `<input type="checkbox" class="organization-line-uuid" name="organization_line_uuids[]" value="${uuid}" ${boundOrganizationRailwayUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllOrganizationLine').prop('checked', $('.organization-line-uuid').length === $('.organization-line-uuid:checked').length)">`,
+                                        createdAt,
+                                        uniqueCode,
+                                        name,
+                                        divBtnGroup,
+                                    ]);
+                                });
+                            }
+                            return render;
+                        },
+                        error: function (err) {
+                            console.log(`{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            if (err["status"] === 406) {
+                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                            } else {
+                                layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
+                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                                });
+                            }
+                        }
+                    },
+                    columnDefs: [{
+                        orderable: false,
+                        targets: 0,  // 清除第一列排序
+                    }],
+                    paging: true,  // 分页器
+                    lengthChange: true,
+                    searching: true,  // 搜索框
+                    ordering: true,  // 列排序
+                    info: true,
+                    autoWidth: true,  // 自动宽度
+                    order: [[1, 'desc']],  // 排序依据
+                    iDisplayLength: 50,  // 默认分页数
+                    aLengthMenu: [50, 100, 200],  // 分页下拉框选项
+                    language: {
+                        sInfoFiltered: "从_MAX_中过滤",
+                        sProcessing: "正在加载中...",
+                        info: "第 _START_ - _END_ 条记录，共 _TOTAL_ 条",
+                        sLengthMenu: "每页显示_MENU_条记录",
+                        zeroRecords: "没有符合条件的记录",
+                        infoEmpty: " ",
+                        emptyTable: "没有符合条件的记录",
+                        search: "筛选：",
+                        paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
+                    }
+                });
+            }
+        }
+
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
             fnInit();  // 初始化数据
+            fnFillTblOrganizationLine(); // 加载线别表格
+
+            fnCheckAll("chkAllOrganizationLine", "organization-line-uuid");  // 全选线别
         });
 
         /**

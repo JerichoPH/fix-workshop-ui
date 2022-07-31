@@ -38,10 +38,14 @@
              * @param {string} checkItem 被全选按钮类型名称
              */
             function fnCheckAll(checkAll = "", checkItem = "") {
+                let $checkAll = $(`#${checkAll}`);
                 // 全选按钮事件绑定
-                $(`#${checkAll}`).on("change", function () {
+                $checkAll.on("change", function () {
                     $(`.${checkItem}`).prop("checked", $(`#${checkAll}`).is(":checked"));
                 });
+
+                // 检查当前初始状态是否是全选
+                $checkAll.prop("checked", $(`.${checkItem}`).length === $(`.${checkItem}:checked`).length);
             }
 
             /**
