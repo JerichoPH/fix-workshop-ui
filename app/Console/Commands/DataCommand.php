@@ -37,10 +37,45 @@ class DataCommand extends Command
         $this->line("初始化数据开始");
 
         DB::table("accounts")->truncate();
+        DB::table("kind_categories")->truncate();
+        DB::table("kind_entire_types")->truncate();
+        DB::table("kind_sub_types")->truncate();
+        DB::table("location_centers")->truncate();
+        DB::table("location_lines")->truncate();
+        DB::table("location_sections")->truncate();
+        DB::table("location_stations")->truncate();
         DB::table("menus")->truncate();
+        DB::table("organization_paragraphs")->truncate();
+        DB::table("organization_railroad_grade_crosses")->truncate();
+        DB::table("organization_railways")->truncate();
+        DB::table("organization_work_area_types")->truncate();
+        DB::table("organization_work_areas")->truncate();
+        DB::table("organization_workshop_types")->truncate();
+        DB::table("organization_workshops")->truncate();
+        DB::table("pivot_location_line_and_location_centers")->truncate();
+        DB::table("pivot_location_line_and_location_railroad_grade_crosses")->truncate();
+        DB::table("pivot_location_line_and_location_sections")->truncate();
+        DB::table("pivot_location_line_and_location_stations")->truncate();
+        DB::table("pivot_location_line_and_organization_paragraphs")->truncate();
+        DB::table("pivot_location_line_and_organization_railways")->truncate();
+        DB::table("pivot_location_line_and_organization_work_areas")->truncate();
+        DB::table("pivot_location_line_and_organization_workshops")->truncate();
         DB::table("pivot_rbac_role_and_accounts")->truncate();
         DB::table("pivot_rbac_role_and_menus")->truncate();
         DB::table("pivot_rbac_role_and_rbac_permissions")->truncate();
+        DB::table("position_depot_cabinets")->truncate();
+        DB::table("position_depot_cells")->truncate();
+        DB::table("position_depot_row_types")->truncate();
+        DB::table("position_depot_rows")->truncate();
+        DB::table("position_depot_sections")->truncate();
+        DB::table("position_depot_storehouses")->truncate();
+        DB::table("position_depot_tiers")->truncate();
+        DB::table("position_indoor_cabinets")->truncate();
+        DB::table("position_indoor_cells")->truncate();
+        DB::table("position_indoor_room_types")->truncate();
+        DB::table("position_indoor_rooms")->truncate();
+        DB::table("position_indoor_rows")->truncate();
+        DB::table("position_indoor_tiers")->truncate();
         DB::table("rbac_permission_groups")->truncate();
         DB::table("rbac_permissions")->truncate();
         DB::table("rbac_roles")->truncate();
@@ -77,11 +112,11 @@ class DataCommand extends Command
                 "group" => "rbacRole",
                 "subs" => [
                     "角色绑定用户" => [
-                        "uri" => "rbacRole/:uuidbindAccounts",
+                        "uri" => "rbacRole/:uuid/bindAccounts",
                         "method" => "PUT",
                     ],
                     "角色绑定权限" => [
-                        "uri" => "rbacRole/:uuidbindPermissions",
+                        "uri" => "rbacRole/:uuid/bindPermissions",
                         "method" => "PUT",
                     ],
                 ],
@@ -89,77 +124,77 @@ class DataCommand extends Command
             "权限分组" => ["group" => "rbacPermissionGroup", "subs" => [],],
             "权限" => ["group" => "rbacPermission", "subs" => [],],
             "菜单" => ["group" => "menu", "subs" => [],],
-            "组织机构-线别" => [
-                "group" => "organization/line",
+            "种类型-种类" => ["group" => "kindCategory", "subs" => [],],
+            "种类型-类型" => ["group" => "kindEntireType", "subs" => [],],
+            "种类型-型号" => ["group" => "kindSubType", "subs" => [],],
+            "组织机构-站段" => ["group" => "organizationParagraph", "subs" => [],],
+            "组织机构-车间" => ["group" => "organizationWorkshop", "subs" => [],],
+            "组织机构-车间类型" => ["group" => "organizationWorkshopType", "subs" => [],],
+            "组织机构-工区" => ["group" => "organizationWorkArea", "subs" => [],],
+            "组织机构-工区类型" => ["group" => "organizationWorkAreaType", "subs" => [],],
+            "组织机构-路局" => [
+                "group" => "organizationRailway",
+                "subs" => [
+                    "路局绑定线别" => [
+                        "uri" => "organizationRailway/:uuid/bindLocationLines",
+                        "method" => "PUT",
+                    ],
+                ],
+            ],
+            "使用处所-线别" => [
+                "group" => "locationLine",
                 "subs" => [
                     "线别绑定路局" => [
-                        "uri" => "organization/line/:uuid/bindOrganizationRailways",
+                        "uri" => "locationLine/:uuid/bindOrganizationRailways",
                         "method" => "PUT",
                     ],
                     "线别绑定站段" => [
-                        "uri" => "organization/line/:uuid/bindOrganizationParagraphs",
+                        "uri" => "locationLine/:uuid/bindOrganizationParagraphs",
                         "method" => "PUT",
                     ],
                     "线别绑定车间" => [
-                        "uri" => "organization/line/:uuid/bindOrganizationWorkshops",
+                        "uri" => "locationLine/:uuid/bindOrganizationWorkshops",
                         "method" => "PUT",
                     ],
                     "线别绑定工区" => [
-                        "uri" => "organization/line/:uuid/bindOrganizationWorkAreas",
+                        "uri" => "locationLine/:uuid/bindOrganizationWorkAreas",
                         "method" => "PUT",
                     ],
                     "线别绑定区间" => [
-                        "uri" => "organization/line/:uuid/bindOrganizationSections",
+                        "uri" => "locationLine/:uuid/bindOrganizationSections",
                         "method" => "PUT",
                     ],
                     "线别绑定站场" => [
-                        "uri" => "organization/line/:uuid/bindOrganizationStations",
+                        "uri" => "locationLine/:uuid/bindOrganizationStations",
                         "method" => "PUT",
                     ],
                     "线别绑定道口" => [
-                        "uri" => "organization/line/:uuid/bindOrganizationRailroadGradeCrosses",
+                        "uri" => "locationLine/:uuid/bindOrganizationRailroadGradeCrosses",
                         "method" => "PUT",
                     ],
                     "线别绑定中心" => [
-                        "uri" => "organization/line/:uuid/bindOrganizationCenters",
+                        "uri" => "locationLine/:uuid/bindOrganizationCenters",
                         "method" => "PUT",
                     ],
                 ],
             ],
-            "组织机构-路局" => [
-                "group" => "organization/railway",
-                "subs" => [
-                    "路局绑定线别" => [
-                        "uri" => "organization/railway/:uuid/bindOrganizationLines",
-                        "method" => "PUT",
-                    ],
-                ],
-            ],
-            "组织机构-站段" => ["group" => "organization/paragraph", "subs" => [],],
-            "组织机构-车间" => ["group" => "organization/workshop", "subs" => [],],
-            "组织机构-车间类型" => ["group" => "organization/workshopType", "subs" => [],],
-            "组织机构-工区" => ["group" => "organization/workArea", "subs" => [],],
-            "组织机构-工区类型" => ["group" => "organization/workAreaType", "subs" => [],],
-            "组织机构-区间" => ["group" => "organization/section", "subs" => [],],
-            "组织机构-站场" => ["group" => "organization/station", "subs" => [],],
-            "组织机构-道口" => ["group" => "organization/railroadGradeCross", "subs" => [],],
-            "组织机构-中心" => ["group" => "organization/center", "subs" => [],],
-            "种类型-种类" => ["group" => "kind/category", "subs" => [],],
-            "种类型-类型" => ["group" => "kind/entireType", "subs" => [],],
-            "种类型-型号" => ["group" => "kind/subType", "subs" => [],],
-            "位置-仓储-仓库" => ["group" => "location/depotStorehouse", "subs" => [],],
-            "位置-仓储-仓库区域" => ["group" => "location/depotSection", "subs" => [],],
-            "位置-仓库-仓库排类型" => ["group" => "location/depotRowType", "subs" => [],],
-            "位置-仓储-仓库排" => ["group" => "location/depotRow", "subs" => [],],
-            "位置-仓储-仓库柜架" => ["group" => "location/depotCabinet", "subs" => [],],
-            "位置-仓储-仓库柜架层" => ["group" => "location/depotTier", "subs" => [],],
-            "位置-仓储-仓库柜架格位" => ["group" => "location/depotCell", "subs" => [],],
-            "位置-室内上到位置-机房类型" => ["group" => "location/indoorRoomType", "subs" => [],],
-            "位置-室内上道位置-机房" => ["group" => "location/indoorRoom", "subs" => [],],
-            "位置-室内上道位置-机房排" => ["group" => "location/indoorRow", "subs" => [],],
-            "位置-室内上道位置-机房柜架" => ["group" => "location/indoorCabinet", "subs" => [],],
-            "位置-室内上道位置-机房柜架层" => ["group" => "location/indoorTier", "subs" => [],],
-            "位置-室内上道位置-机房柜架格位" => ["group" => "location/indoorCell", "subs" => [],],
+            "使用处所-区间" => ["group" => "locationSection", "subs" => [],],
+            "使用处所-站场" => ["group" => "locationStation", "subs" => [],],
+            "使用处所-道口" => ["group" => "locationRailroadGradeCross", "subs" => [],],
+            "使用处所-中心" => ["group" => "locationCenter", "subs" => [],],
+            "使用位置-仓储-仓库" => ["group" => "positionDepotStorehouse", "subs" => [],],
+            "使用位置-仓储-仓库区域" => ["group" => "positionDepotSection", "subs" => [],],
+            "使用位置-仓库-仓库排类型" => ["group" => "positionDepotRowType", "subs" => [],],
+            "使用位置-仓储-仓库排" => ["group" => "positionDepotRow", "subs" => [],],
+            "使用位置-仓储-仓库柜架" => ["group" => "positionDepotCabinet", "subs" => [],],
+            "使用位置-仓储-仓库柜架层" => ["group" => "positionDepotTier", "subs" => [],],
+            "使用位置-仓储-仓库柜架格位" => ["group" => "positionDepotCell", "subs" => [],],
+            "使用位置-室内上到位置-机房类型" => ["group" => "positionIndoorRoomType", "subs" => [],],
+            "使用位置-室内上道位置-机房" => ["group" => "positionIndoorRoom", "subs" => [],],
+            "使用位置-室内上道位置-机房排" => ["group" => "positionIndoorRow", "subs" => [],],
+            "使用位置-室内上道位置-机房柜架" => ["group" => "positionIndoorCabinet", "subs" => [],],
+            "使用位置-室内上道位置-机房柜架层" => ["group" => "positionIndoorTier", "subs" => [],],
+            "使用位置-室内上道位置-机房柜架格位" => ["group" => "positionIndoorCell", "subs" => [],],
         ])->each(function ($rbacPermissionGroupUri, $rbacPermissionGroupName) use ($rbacRole) {
             ["group" => $group, "subs" => $subs,] = $rbacPermissionGroupUri;
             $rbacPermissionGroup = $this->createPermissionGroup(
@@ -195,86 +230,86 @@ class DataCommand extends Command
                 "icon" => "fa fa-cog",
                 "subs" => [
                     [
-                        "name" => "线别管理",
-                        "url" => "/organization/line",
-                        "uri_name" => "web.OrganizationLine",
-                        "icon" => "fa fa-code-fork"
-                    ],
-                    [
                         "name" => "路局管理",
-                        "url" => "/organization/railway",
+                        "url" => "/organizationRailway",
                         "uri_name" => "web.OrganizationRailway",
                         "icon" => "fa fa-subway",
                     ],
                     [
                         "name" => "站段管理",
-                        "url" => "/organization/paragraph",
+                        "url" => "/organizationParagraph",
                         "uri_name" => "web.OrganizationParagraph",
                         "icon" => "fa fa-th-large",
                     ],
                     [
                         "name" => "车间管理",
-                        "url" => "/organization/workshop",
+                        "url" => "/organizationWorkshop",
                         "uri_name" => "web.OrganizationWorkshop",
                         "icon" => "fa fa-th",
                     ],
                     [
                         "name" => "车间类型管理",
-                        "url" => "/organization/workshopType",
+                        "url" => "/organizationWorkshopType",
                         "uri_name" => "web.OrganizationWorkshopType",
                         "icon" => "fa fa-th",
                     ],
                     [
                         "name" => "工区管理",
-                        "url" => "/organization/workArea",
+                        "url" => "/organizationWorkArea",
                         "uri_name" => "web.OrganizationWorkArea",
                         "icon" => "fa fa-th-list",
                     ],
                     [
                         "name" => "工区类型管理",
-                        "url" => "/organization/workAreaType",
+                        "url" => "/organizationWorkAreaType",
                         "uri_name" => "web.OrganizationWorkAreaType",
                         "icon" => "fa fa-th-list",
                     ],
                     [
+                        "name" => "线别管理",
+                        "url" => "/locationLine",
+                        "uri_name" => "web.LocationLine",
+                        "icon" => "fa fa-code-fork"
+                    ],
+                    [
                         "name" => "站场管理",
-                        "url" => "/organization/station",
+                        "url" => "/locationStation",
                         "uri_name" => "web.OrganizationStation",
                         "icon" => "fa fa-fort-awesome",
                     ],
                     [
                         "name" => "道口管理",
-                        "url" => "/organization/railroadGradeCross",
+                        "url" => "/locationRailroadGradeCross",
                         "uri_name" => "web.OrganizationRailroadGradeCross",
                         "icon" => "fa fa-openid"
                     ],
                     [
                         "name" => "区间管理",
-                        "url" => "/organization/section",
+                        "url" => "/locationSection",
                         "uri_name" => "web.OrganizationSection",
                         "icon" => "fa fa-slack",
                     ],
                     [
                         "name" => "中心管理",
-                        "url" => "/organization/center",
+                        "url" => "/locationCenter",
                         "uri_name" => "web.OrganizationCenter",
                         "icon" => "fa fa-yelp",
                     ],
                     [
                         "name" => "仓库位置管理",
-                        "url" => "/location/depotStorehouse",
+                        "url" => "/positionDepotStorehouse",
                         "uri_name" => "web.LocationDepotStorehouse",
                         "icon" => "fa fa-home"
                     ],
                     [
                         "name" => "室内上道位置管理",
-                        "url" => "/location/indoorRoom",
+                        "url" => "/positionIndoorRoom",
                         "uri_name" => "web.LocationIndoorRoom",
                         "icon" => "fa fa-map-marker"
                     ],
                     [
                         "name" => "室外上道位置管理",
-                        "url" => "/location/indoorRoom",
+                        "url" => "/positionIndoorRoom",
                         "uri_name" => "web.LocationIndoorRoom",
                         "icon" => "fa fa-map-marker"
                     ],
