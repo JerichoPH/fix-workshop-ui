@@ -48,10 +48,17 @@ class Controller extends BaseController
     {
         $method = strtolower(request()->method());
         if ($token) $this->curl->setHeader("Authorization", "JWT $token");
-        $this->curl->setHeader("Content-Type", "application/json");
+        switch($method){
+            case "GET":
+                $this->curl->setHeader("Accept", "application/json");
+                break;
+            default:
+                $this->curl->setHeader("Content-Type", "application/json");
+                break;
+        }
         $request = null;
         if ($before) $request = $before(request());
-        $this->curl->{$method}("$this->ue_api_url/$url", $request ?: request()->all());
+        $this->curl->{$method}("$this->ue_api_url/$url", $request ?? request()->all());
         if ($after) return $after($this->curl);
         return $this->handleResponse();
     }
@@ -85,13 +92,13 @@ class Controller extends BaseController
             switch ($this->curl->getHttpStatusCode()) {
                 case 200:
                 default:
-                    return JsonResponseFacade::dict((array)$this->curl->response->content, $this->curl->response->msg);
+                    return JsonResponseFacade::Dict((array)$this->curl->response->content, $this->curl->response->msg);
                 case 201:
-                    return JsonResponseFacade::created((array)$this->curl->response->content, $this->curl->response->msg);
+                    return JsonResponseFacade::Created((array)$this->curl->response->content, $this->curl->response->msg);
                 case 202:
-                    return JsonResponseFacade::updated((array)$this->curl->response->content, $this->curl->response->msg);
+                    return JsonResponseFacade::Updated((array)$this->curl->response->content, $this->curl->response->msg);
                 case 204:
-                    return JsonResponseFacade::deleted([], @$this->curl->response->msg ?: "删除成功");
+                    return JsonResponseFacade::Deleted([], @$this->curl->response->msg ?: "删除成功");
             }
         }
     }

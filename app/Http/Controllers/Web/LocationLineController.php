@@ -13,7 +13,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class OrganizationLineController extends Controller
+class LocationLineController extends Controller
 {
     /**
      * 列表
@@ -25,9 +25,9 @@ class OrganizationLineController extends Controller
     public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("organization/line", session(__JWT__));
+            return $this->sendStandardRequest("locationLine", session(__JWT__));
         } else {
-            return view("OrganizationLine.index");
+            return view("LocationLine.index");
         }
     }
 
@@ -37,7 +37,7 @@ class OrganizationLineController extends Controller
      */
     public function Create()
     {
-        return view("OrganizationLine.create");
+        return view("LocationLine.create");
     }
 
     /**
@@ -70,7 +70,7 @@ class OrganizationLineController extends Controller
     public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("organization/line/{$uuid}", session(__JWT__));
+            return $this->sendStandardRequest("locationLine/{$uuid}", session(__JWT__));
         }
         return JsonResponseFacade::OK();
     }
@@ -82,7 +82,7 @@ class OrganizationLineController extends Controller
      */
     public function Edit(string $uuid)
     {
-        return view("OrganizationLine.edit", ["uuid" => $uuid,]);
+        return view("LocationLine.edit", ["uuid" => $uuid,]);
     }
 
     /**
@@ -118,7 +118,7 @@ class OrganizationLineController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("organization/line/{$uuid}", session(__JWT__));
+        return $this->sendStandardRequest("locationLine/{$uuid}", session(__JWT__));
     }
 
     /**
@@ -132,6 +132,6 @@ class OrganizationLineController extends Controller
      */
     public function PutBindOrganizationRailways(string $uuid)
     {
-        return $this->sendStandardRequest("organization/line/{$uuid}/bindOrganizationRailways", session(__JWT__));
+        return $this->sendStandardRequest("locationLine/{$uuid}/bindOrganizationRailways", session(__JWT__));
     }
 }

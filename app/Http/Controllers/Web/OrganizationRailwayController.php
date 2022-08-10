@@ -25,7 +25,7 @@ class OrganizationRailwayController extends Controller
     public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("organization/railway", session(__JWT__));
+            return $this->sendStandardRequest("organizationRailway", session(__JWT__));
         } else {
             return view("OrganizationRailway.index");
         }
@@ -49,7 +49,7 @@ class OrganizationRailwayController extends Controller
     public function Store()
     {
         return $this->sendStandardRequest(
-            "organization/railway",
+            "organizationRailway",
             session(__JWT__),
             function (Request $request) {
                 $request = $request->all();
@@ -69,7 +69,7 @@ class OrganizationRailwayController extends Controller
     public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("organization/railway/{$uuid}", session(__JWT__));
+            return $this->sendStandardRequest("organizationRailway/{$uuid}", session(__JWT__));
         }
         return JsonResponseFacade::OK();
     }
@@ -94,7 +94,7 @@ class OrganizationRailwayController extends Controller
     public function Update(string $uuid)
     {
         return $this->sendStandardRequest(
-            "organization/railway/{$uuid}",
+            "organizationRailway/{$uuid}",
             session(__JWT__),
             function(Request $request){
                 $request = $request->all();
@@ -113,7 +113,7 @@ class OrganizationRailwayController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("organization/railway/{$uuid}", session(__JWT__));
+        return $this->sendStandardRequest("organizationRailway/{$uuid}", session(__JWT__));
     }
 
     public function PutBindOrganizationLines()

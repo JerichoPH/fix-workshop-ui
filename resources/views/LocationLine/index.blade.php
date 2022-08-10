@@ -18,7 +18,7 @@
                 <h3 class="box-title">线别-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.OrganizationLine:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.LocationLine:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
@@ -45,21 +45,21 @@
         if (document.getElementById('tblLine')) {
             tblLine = $('#tblLine').DataTable({
                 ajax: {
-                    url: `{{ route("web.OrganizationLine:Index") }}`,
+                    url: `{{ route("web.LocationLine:Index") }}`,
                     dataSrc: function (res) {
-                        console.log(`{{ route("web.OrganizationLine:Index") }} success:`, res);
-                        let {organization_lines: organizationLines,} = res["data"];
+                        console.log(`{{ route("web.LocationLine:Index") }} success:`, res);
+                        let {location_lines: locationLines,} = res["data"];
                         let render = [];
-                        if (organizationLines.length > 0) {
-                            $.each(organizationLines, (_, organizationLine) => {
-                                let uuid = organizationLine["uuid"];
-                                let createdAt = organizationLine["created_at"] ? moment(organizationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                let uniqueCode = organizationLine["unique_code"];
-                                let name = organizationLine["name"];
+                        if (locationLines.length > 0) {
+                            $.each(locationLines, (_, locationLine) => {
+                                let uuid = locationLine["uuid"];
+                                let createdAt = locationLine["created_at"] ? moment(locationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                let uniqueCode = locationLine["unique_code"];
+                                let name = locationLine["name"];
                                 let divBtnGroup = '';
                                 divBtnGroup += `<td class="">`;
                                 divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                divBtnGroup += `<a href="{{ route("web.OrganizationLine:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                divBtnGroup += `<a href="{{ route("web.LocationLine:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                 divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                 divBtnGroup += `</div>`;
                                 divBtnGroup += `</td>`;
@@ -75,7 +75,7 @@
                         return render;
                     },
                     error: function (err) {
-                        console.log(`{{ route("web.OrganizationLine:Index") }} fail:`, err);
+                        console.log(`{{ route("web.LocationLine:Index") }} fail:`, err);
                         if (err["status"] === 406) {
                             layer.alert(err["responseJSON"]["msg"], {icon:2, });
                         }else{

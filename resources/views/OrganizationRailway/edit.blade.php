@@ -166,7 +166,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
-                                        `<input type="checkbox" class="organization-line-uuid" name="organization_line_uuids[]" value="${uuid}" ${boundOrganizationRailwayUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllOrganizationLine').prop('checked', $('.organization-line-uuid').length === $('.organization-line-uuid:checked').length)">`,
+                                        `<input type="checkbox" class="location-line-uuid" name="organization_line_uuids[]" value="${uuid}" ${boundOrganizationRailwayUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllOrganizationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -221,7 +221,7 @@
             fnInit();  // 初始化数据
             fnFillTblOrganizationLine(); // 加载线别表格
 
-            fnCheckAll("chkAllOrganizationLine", "organization-line-uuid");  // 全选线别
+            fnCheckAll("chkAllOrganizationLine", "location-line-uuid");  // 全选线别
         });
 
         /**

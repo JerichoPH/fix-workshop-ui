@@ -24,7 +24,7 @@ class RbacPermissionController extends Controller
     public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbac/permission", session(__JWT__));
+            return $this->sendStandardRequest("rbacPermission", session(__JWT__));
         } else {
             return view("RbacPermission.index");
         }
@@ -48,7 +48,7 @@ class RbacPermissionController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest("rbac/permission", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermission", session(__JWT__));
     }
 
     /**
@@ -61,7 +61,7 @@ class RbacPermissionController extends Controller
     public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbac/permission/{$uuid}", session(__JWT__));
+            return $this->sendStandardRequest("rbacPermission/{$uuid}", session(__JWT__));
         }
         return null;
     }
@@ -87,7 +87,7 @@ class RbacPermissionController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("rbac/permission/{$uuid}", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermission/{$uuid}", session(__JWT__));
     }
 
     /**
@@ -99,7 +99,7 @@ class RbacPermissionController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("rbac/permission/{$uuid}", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermission/{$uuid}", session(__JWT__));
     }
 
     /**
@@ -112,6 +112,6 @@ class RbacPermissionController extends Controller
      */
     public function PostResource()
     {
-        return $this->sendStandardRequest("rbac/permission/resource", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermission/resource", session(__JWT__));
     }
 }

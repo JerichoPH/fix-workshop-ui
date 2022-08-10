@@ -69,10 +69,10 @@
                             <hr>
                         </div>
                         <div class="box-body">
-                            <table class="table table-hover table-condensed" id="tblOrganizationLine">
+                            <table class="table table-hover table-condensed" id="tblLocationLine">
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="chkAllOrganizationLine"></th>
+                                    <th><input type="checkbox" id="chkAllLocationLine"></th>
                                     <th>新建时间</th>
                                     <th>代码</th>
                                     <th>名称</th>
@@ -92,28 +92,28 @@
         let $select2 = $('.select2');
         let $frmStore = $('#frmStore');
         let $chkBackToIndex = $('#chkBackToIndex');
-        let tblOrganizationLine = null;
-        let boundOrganizationLineUUIDs = [];
+        let tblLocationLine = null;
+        let boundLocationLineUUIDs = [];
 
         /**
          * 加载线别表格
          */
-        function fnFillTblOrganizationLine() {
-            if (document.getElementById('tblOrganizationLine')) {
-                tblOrganizationLine = $('#tblOrganizationLine').DataTable({
+        function fnFillTblLocationLine() {
+            if (document.getElementById('tblLocationLine')) {
+                tblLocationLine = $('#tblLocationLine').DataTable({
                     ajax: {
-                        url: `{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_lines: organizationLines,} = res["data"];
+                            console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            let {organization_lines: LocationLines,} = res["data"];
                             let render = [];
-                            if (organizationLines.length > 0) {
-                                $.each(organizationLines, (_, organizationLine) => {
-                                    let uuid = organizationLine["uuid"];
-                                    let createdAt = organizationLine["created_at"] ? moment(organizationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                    let uniqueCode = organizationLine["unique_code"] ? organizationLine["unique_code"] : "";
-                                    let name = organizationLine["name"] ? organizationLine["name"] : "";
-                                    let shortName = organizationLine["short_name"] ? organizationLine["short_name"] : "";
+                            if (LocationLines.length > 0) {
+                                $.each(LocationLines, (_, LocationLine) => {
+                                    let uuid = LocationLine["uuid"];
+                                    let createdAt = LocationLine["created_at"] ? moment(LocationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let uniqueCode = LocationLine["unique_code"] ? LocationLine["unique_code"] : "";
+                                    let name = LocationLine["name"] ? LocationLine["name"] : "";
+                                    let shortName = LocationLine["short_name"] ? LocationLine["short_name"] : "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
@@ -123,7 +123,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
-                                        `<input type="checkbox" class="organization-line-uuid" name="organization_line_uuids[]" value="${uuid}" ${boundOrganizationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllOrganizationLine').prop('checked', $('.organization-line-uuid').length === $('.organization-line-uuid:checked').length)">`,
+                                        `<input type="checkbox" class="organization-line-uuid" name="organization_line_uuids[]" value="${uuid}" ${boundLocationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.organization-line-uuid').length === $('.organization-line-uuid:checked').length)">`,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -135,7 +135,7 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon:2, });
                             }else{
@@ -176,9 +176,9 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillTblOrganizationLine();  // 加载线别表格
+            fnFillTblLocationLine();  // 加载线别表格
 
-            fnCheckAll("chkAllOrganizationLine", "organization-line-uuid");  // 全选线别
+            fnCheckAll("chkAllLocationLine", "organization-line-uuid");  // 全选线别
         });
 
         /**

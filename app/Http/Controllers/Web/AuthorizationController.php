@@ -86,6 +86,6 @@ class AuthorizationController extends Controller
         session()->forget(__ACCOUNT__);
         session()->forget(__JWT__);
 
-        return JsonResponseFacade::ok("退出成功");
+        return JsonResponseFacade::OK("退出成功");
     }
 }

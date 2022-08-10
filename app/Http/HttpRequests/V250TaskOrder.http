@@ -1,4 +1,0 @@
-GET http://maintain.test:8888/v250TaskOrder
-Accept: application/json
-
-### 测试

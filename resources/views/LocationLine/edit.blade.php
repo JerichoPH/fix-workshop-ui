@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.OrganizationLine:Index') }}"><i class="fa fa-users">&nbsp;</i>线别-列表</a></li>
+            <li><a href="{{ route('web.LocationLine:Index') }}"><i class="fa fa-users">&nbsp;</i>线别-列表</a></li>
             <li class="active">线别-编辑</li>
         </ol>
     </section>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationLine:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.LocationLine:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </div>
@@ -105,12 +105,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.OrganizationLine:Show", ["uuid" => $uuid, ]) }}`,
+                url: `{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.OrganizationLine:Show", ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }} success:`, res);
 
                     organizationLine = res["data"]["organization_line"];
 
@@ -132,7 +132,7 @@
                     }
                 },
                 error: err => {
-                    console.log(`{{ route("web.OrganizationLine:Show", ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
                     });
@@ -162,7 +162,7 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ route("web.OrganizationLine:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.LocationLine:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
@@ -236,16 +236,16 @@
             data.push({name: "unique_code", value: organizationLine["unique_code"]});
 
             $.ajax({
-                url: `{{ route('web.OrganizationLine:Update', ["uuid" => $uuid , ]) }}`,
+                url: `{{ route('web.LocationLine:Update', ["uuid" => $uuid , ]) }}`,
                 type: 'put',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationLine:Update', ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route('web.LocationLine:Update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationLine:Update', ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route('web.LocationLine:Update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
@@ -262,17 +262,17 @@
             let data = $frmBindOrganizationRailway.serializeArray();
 
             $.ajax({
-                url: `{{ route("web.OrganizationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.LocationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }}`,
                 type: 'put',
                 data,
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.OrganizationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.LocationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res['msg'], {time: 1000,});
                 },
                 error: err => {
-                    console.log(`{{ route("web.OrganizationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.LocationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
