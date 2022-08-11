@@ -20,16 +20,16 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $curl = null;
-    protected $ue_url_root = "";
-    protected $ue_api_version = "";
-    protected $ue_api_url = "";
+    protected $ueUrlRoot = "";
+    protected $ueApiVersion = "";
+    protected $ueApiUrl = "";
 
     public function __construct()
     {
         $this->curl = new Curl();
-        $this->ue_url_root = env("UE_URL_ROOT");
-        $this->ue_api_version = env("UE_API_VERSION");
-        $this->ue_api_url = "{$this->ue_url_root}/{$this->ue_api_version}";
+        $this->ueUrlRoot = env("UE_URL_ROOT");
+        $this->ueApiVersion = env("UE_API_VERSION");
+        $this->ueApiUrl = "{$this->ueUrlRoot}/{$this->ueApiVersion}";
     }
 
     /**
@@ -44,11 +44,11 @@ class Controller extends BaseController
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    protected function sendStandardRequest(string $url, ?string $token = "", Closure $before = null, Closure $after = null)
+    protected function sendStandardRequest(string $url, Closure $before = null, Closure $after = null)
     {
         $method = strtolower(request()->method());
-        if ($token) $this->curl->setHeader("Authorization", "JWT $token");
-        switch($method){
+        if (session(__JWT__)) $this->curl->setHeader("Authorization", "JWT " . session(__JWT__));
+        switch ($method) {
             case "GET":
                 $this->curl->setHeader("Accept", "application/json");
                 break;
@@ -58,7 +58,7 @@ class Controller extends BaseController
         }
         $request = null;
         if ($before) $request = $before(request());
-        $this->curl->{$method}("$this->ue_api_url/$url", $request ?? request()->all());
+        $this->curl->{$method}("$this->ueApiUrl/$url", $request ?? request()->all());
         if ($after) return $after($this->curl);
         return $this->handleResponse();
     }

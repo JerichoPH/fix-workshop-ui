@@ -24,7 +24,7 @@ class RbacRoleController extends Controller
     public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacRole", session(__JWT__));
+            return $this->sendStandardRequest("rbacRole");
         } else {
             return view("RbacRole.index");
         }
@@ -48,7 +48,7 @@ class RbacRoleController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest("rbacRole", session(__JWT__));
+        return $this->sendStandardRequest("rbacRole");
     }
 
     /**
@@ -61,7 +61,7 @@ class RbacRoleController extends Controller
     public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacRole/$uuid", session(__JWT__));
+            return $this->sendStandardRequest("rbacRole/$uuid");
         }
         return null;
     }
@@ -87,7 +87,7 @@ class RbacRoleController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("rbacRole/$uuid");
     }
 
     /**
@@ -101,7 +101,7 @@ class RbacRoleController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("rbacRole/$uuid");
     }
 
     /**
@@ -123,7 +123,7 @@ class RbacRoleController extends Controller
      */
     public function PutBindAccounts(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/{$uuid}/bindAccounts", session(__JWT__));
+        return $this->sendStandardRequest("rbacRole/{$uuid}/bindAccounts");
     }
 
     /**
@@ -135,6 +135,6 @@ class RbacRoleController extends Controller
      */
     public function PutBindPermissions(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/{$uuid}/bindPermissions", session(__JWT__));
+        return $this->sendStandardRequest("rbacRole/{$uuid}/bindPermissions");
     }
 }

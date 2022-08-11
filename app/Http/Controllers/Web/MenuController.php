@@ -27,7 +27,6 @@ class MenuController extends Controller
         if (request()->ajax()) {
             return $this->sendStandardRequest(
                 "menu",
-                session(__JWT__),
                 function (Request $request) {
                     $request = $request->all();
                     $request["parent_uuid"] = @$request["parent_uuid"] ?: "";
@@ -57,7 +56,7 @@ class MenuController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest("menu", session(__JWT__));
+        return $this->sendStandardRequest("menu");
     }
 
     /**
@@ -69,7 +68,7 @@ class MenuController extends Controller
      */
     public function Show(string $uuid)
     {
-        return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("menu/$uuid");
     }
 
     /**
@@ -93,7 +92,7 @@ class MenuController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("menu/$uuid");
     }
 
     /**
@@ -105,6 +104,6 @@ class MenuController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("menu/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("menu/$uuid");
     }
 }

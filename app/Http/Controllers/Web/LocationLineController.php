@@ -25,7 +25,7 @@ class LocationLineController extends Controller
     public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("locationLine", session(__JWT__));
+            return $this->sendStandardRequest("locationLine");
         } else {
             return view("LocationLine.index");
         }
@@ -51,7 +51,6 @@ class LocationLineController extends Controller
     {
         return $this->sendStandardRequest(
             "locationLine",
-            session(__JWT__),
             function (Request $request) {
                 $request = $request->all();
                 $request["be_enable"] = boolval($request["be_enable"]);
@@ -70,7 +69,7 @@ class LocationLineController extends Controller
     public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("locationLine/{$uuid}", session(__JWT__));
+            return $this->sendStandardRequest("locationLine/{$uuid}");
         }
         return JsonResponseFacade::OK();
     }
@@ -98,7 +97,6 @@ class LocationLineController extends Controller
     {
         return $this->sendStandardRequest(
             "locationLine/{$uuid}",
-            session(__JWT__),
             function (Request $request) {
                 $request = $request->all();
                 $request["be_enable"] = boolval($request["be_enable"]);
@@ -118,7 +116,7 @@ class LocationLineController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("locationLine/{$uuid}", session(__JWT__));
+        return $this->sendStandardRequest("locationLine/{$uuid}");
     }
 
     /**
@@ -132,6 +130,6 @@ class LocationLineController extends Controller
      */
     public function PutBindOrganizationRailways(string $uuid)
     {
-        return $this->sendStandardRequest("locationLine/{$uuid}/bindOrganizationRailways", session(__JWT__));
+        return $this->sendStandardRequest("locationLine/{$uuid}/bindOrganizationRailways");
     }
 }

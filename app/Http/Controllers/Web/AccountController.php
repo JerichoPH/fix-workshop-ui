@@ -23,7 +23,7 @@ class AccountController extends Controller
     public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("account", session(__JWT__));
+            return $this->sendStandardRequest("account");
         } else {
             return view("Account.index");
         }
@@ -48,7 +48,7 @@ class AccountController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest("account", session(__JWT__));
+        return $this->sendStandardRequest("account");
     }
 
     /**
@@ -61,7 +61,7 @@ class AccountController extends Controller
     public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("account/$uuid", session(__JWT__));
+            return $this->sendStandardRequest("account/$uuid");
         }
         return null;
     }
@@ -87,7 +87,7 @@ class AccountController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("account/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("account/$uuid");
     }
 
     /**
@@ -101,7 +101,7 @@ class AccountController extends Controller
      */
     public function UpdatePassword(string $uuid)
     {
-        return $this->sendStandardRequest("account/$uuid/updatePassword", session(__JWT__));
+        return $this->sendStandardRequest("account/$uuid/updatePassword");
     }
 
     /**

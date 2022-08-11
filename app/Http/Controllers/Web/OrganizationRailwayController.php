@@ -25,7 +25,7 @@ class OrganizationRailwayController extends Controller
     public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("organizationRailway", session(__JWT__));
+            return $this->sendStandardRequest("organizationRailway");
         } else {
             return view("OrganizationRailway.index");
         }
@@ -50,7 +50,6 @@ class OrganizationRailwayController extends Controller
     {
         return $this->sendStandardRequest(
             "organizationRailway",
-            session(__JWT__),
             function (Request $request) {
                 $request = $request->all();
                 $request["be_enable"] = boolval($request["be_enable"]);
@@ -69,7 +68,7 @@ class OrganizationRailwayController extends Controller
     public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("organizationRailway/{$uuid}", session(__JWT__));
+            return $this->sendStandardRequest("organizationRailway/{$uuid}");
         }
         return JsonResponseFacade::OK();
     }
@@ -95,7 +94,6 @@ class OrganizationRailwayController extends Controller
     {
         return $this->sendStandardRequest(
             "organizationRailway/{$uuid}",
-            session(__JWT__),
             function (Request $request) {
                 $request = $request->all();
                 $request["be_enable"] = boolval($request["be_enable"]);
@@ -113,7 +111,7 @@ class OrganizationRailwayController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("organizationRailway/{$uuid}", session(__JWT__));
+        return $this->sendStandardRequest("organizationRailway/{$uuid}");
     }
 
     /**
@@ -127,6 +125,6 @@ class OrganizationRailwayController extends Controller
      */
     public function PutBindLocationLines(string $uuid)
     {
-        return $this->sendStandardRequest("organizationRailway/{$uuid}/bindLocationLines", session(__JWT__));
+        return $this->sendStandardRequest("organizationRailway/{$uuid}/bindLocationLines");
     }
 }

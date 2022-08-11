@@ -25,7 +25,7 @@ class RbacPermissionGroupController extends Controller
     public function Index()
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacPermissionGroup", session(__JWT__));
+            return $this->sendStandardRequest("rbacPermissionGroup");
         } else {
             return view("RbacPermissionGroup.index");
         }
@@ -50,7 +50,7 @@ class RbacPermissionGroupController extends Controller
      */
     public function Store(Request $request)
     {
-        return $this->sendStandardRequest("rbacPermissionGroup", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermissionGroup");
     }
 
     /**
@@ -63,7 +63,7 @@ class RbacPermissionGroupController extends Controller
     public function Show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
+            return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
         }
         return null;
     }
@@ -89,7 +89,7 @@ class RbacPermissionGroupController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
     }
 
     /**
@@ -103,6 +103,6 @@ class RbacPermissionGroupController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("rbacPermissionGroup/$uuid", session(__JWT__));
+        return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
     }
 }

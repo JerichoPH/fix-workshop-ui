@@ -36,7 +36,6 @@ class AuthorizationController extends Controller
     {
         $this->sendStandardRequest(
             "authorization/login",
-            $request->session()->get(__JWT__),
             null,
             function () {
                 if (!$this->curl->error) {
@@ -62,7 +61,7 @@ class AuthorizationController extends Controller
      */
     public function GetMenus()
     {
-        return $this->sendStandardRequest("authorization/menus", session(__JWT__));
+        return $this->sendStandardRequest("authorization/menus");
     }
 
     /**
