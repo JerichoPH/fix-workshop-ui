@@ -172,8 +172,8 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-warning btn-flat" onclick="('${uuid}')"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger btn-flat" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-warning" onclick="('${uuid}')"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
