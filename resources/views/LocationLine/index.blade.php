@@ -85,10 +85,10 @@
                         }
                     },
                 },
-                // columnDefs: [{
-                //     orderable: false,
-                //     targets: 0,  // 清除第一列排序
-                // }],
+                columnDefs: [{
+                    orderable: false,
+                    targets: 3,
+                }],
                 paging: true,  // 分页器
                 lengthChange: true,
                 searching: true,  // 搜索框

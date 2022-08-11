@@ -62,7 +62,7 @@
         /**
          * 填充权限表
          */
-        function fnFillTblPermission() {
+        function fnFillTblRbacPermission() {
             if (document.getElementById('tblRbacPermission')) {
                 tblRbacPermission = $('#tblRbacPermission').DataTable({
                     ajax: {
@@ -110,10 +110,10 @@
                             }
                         },
                     },
-                    // columnDefs: [{
-                    //     orderable: false,
-                    //     targets: 0,  // 清除第一列排序
-                    // }],
+                    columnDefs: [{
+                        orderable: false,
+                        targets: 5,
+                    }],
                     paging: true,  // 分页器
                     lengthChange: true,
                     searching: true,  // 搜索框
@@ -172,7 +172,7 @@
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
 
-            fnFillTblPermission();  // 填充权限表
+            fnFillTblRbacPermission();  // 填充权限表
             fnFillSelRbacPermissionGroup();  // 填充权限分组列表
         });
 

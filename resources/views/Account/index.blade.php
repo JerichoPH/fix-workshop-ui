@@ -84,8 +84,8 @@
                         error: function (err) {
                             console.log(`{{ route("web.Account:Index") }} fail:`, err);
                             if (err["status"] === 406) {
-                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
-                            }else{
+                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                            } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
                                     if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
                                 });
@@ -93,8 +93,8 @@
                         },
                     },
                     columnDefs: [{
-                        // orderable: false,
-                        // targets: 0,  // 清除第一列排序
+                        orderable: false,
+                        targets: 4,
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
