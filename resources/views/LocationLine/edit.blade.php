@@ -56,14 +56,14 @@
                     </div>
                 </div>
             </form>
-            <form id="frmBindOrganizationRailway">
+            <form id="frmBindOrganizationRailways">
                 <div class="col-md-6">
                     <div class="box box-solid">
                         <div class="box-header">
                             <h3 class="box-title">绑定路局</h3>
                             <!--右侧最小化按钮-->
                             <div class="box-tools pull-right">
-                                <a href="javascript:" class="btn btn-primary" onclick="fnBindOrganizationRailway()"><i class="fa fa-link">&nbsp;</i>绑定路局</a>
+                                <a href="javascript:" class="btn btn-primary" onclick="fnBindOrganizationRailways()"><i class="fa fa-link">&nbsp;</i>绑定路局</a>
                             </div>
                             <hr>
                         </div>
@@ -91,7 +91,7 @@
     <script>
         let $select2 = $('.select2');
         let $frmUpdate = $('#frmUpdate');
-        let $frmBindOrganizationRailway = $("#frmBindOrganizationRailway");
+        let $frmBindOrganizationRailways = $("#frmBindOrganizationRailways");
         let $txtUniqueCode = $("#txtUniqueCode");
         let $txtName = $("#txtName");
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
@@ -257,9 +257,9 @@
         /**
          * 绑定路局
          */
-        function fnBindOrganizationRailway() {
+        function fnBindOrganizationRailways() {
             let loading = layer.msg('处理中……', {time: 0,});
-            let data = $frmBindOrganizationRailway.serializeArray();
+            let data = $frmBindOrganizationRailways.serializeArray();
 
             $.ajax({
                 url: `{{ route("web.LocationLine:PutBindOrganizationRailways", ["uuid" => $uuid,]) }}`,

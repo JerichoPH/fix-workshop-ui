@@ -117,7 +117,7 @@ Route::prefix("")
                 Route::post("", "OrganizationRailwayController@Store")->name("Store");  // 路局角色
                 Route::put("{uuid}", "OrganizationRailwayController@Update")->name("Update"); // 路局角色
                 Route::delete("{uuid}", "OrganizationRailwayController@Destroy")->name("Destroy");  // 删除路局
-                Route::put("{uuid}/bindOrganizationLines", "OrganizationRailwayController@PutBindOrganizationLiens")->name("PutBindOrganizationLines");  // 绑定线别
+                Route::put("{uuid}/bindLocationLines", "OrganizationRailwayController@PutBindLocationLines")->name("PutBindLocationLines");  // 绑定线别
             });
 
         // 站段

@@ -50,7 +50,7 @@ class LocationLineController extends Controller
     public function Store()
     {
         return $this->sendStandardRequest(
-            "organization/line",
+            "locationLine",
             session(__JWT__),
             function (Request $request) {
                 $request = $request->all();
@@ -97,7 +97,7 @@ class LocationLineController extends Controller
     public function Update(string $uuid)
     {
         return $this->sendStandardRequest(
-            "organization/line/{$uuid}",
+            "locationLine/{$uuid}",
             session(__JWT__),
             function (Request $request) {
                 $request = $request->all();

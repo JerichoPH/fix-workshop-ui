@@ -45,7 +45,9 @@
                 });
 
                 // 检查当前初始状态是否是全选
-                $checkAll.prop("checked", $(`.${checkItem}`).length === $(`.${checkItem}:checked`).length);
+                let checkBoxTotal = $(`.${checkItem}`).length;
+                let checkedBoxTotal = $(`.${checkItem}:checked`).length;
+                $checkAll.prop("checked", (checkBoxTotal === checkedBoxTotal) && (checkedBoxTotal > 0));
             }
 
             /**

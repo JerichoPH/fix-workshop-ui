@@ -15,15 +15,16 @@
     <section class="content">
         @include('Layout.alert')
         <div class="row">
-            <div class="col-md-6">
-                <div class="box box-solid">
-                    <div class="box-header">
-                        <h3 class="box-title">编辑路局</h3>
-                        <!--右侧最小化按钮-->
-                        <div class="box-tools pull-right"></div>
-                        <hr>
-                    </div>
-                    <form class="form-horizontal" id="frmUpdate">
+            <form class="form-horizontal" id="frmUpdate">
+                <div class="col-md-6">
+                    <div class="box box-solid">
+                        <div class="box-header">
+                            <h3 class="box-title">编辑路局</h3>
+                            <!--右侧最小化按钮-->
+                            <div class="box-tools pull-right"></div>
+                            <hr>
+                        </div>
+
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">代码*：</label>
@@ -58,32 +59,41 @@
                             <a href="{{ route('web.OrganizationRailway:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="box box-solid">
-                    <div class="box-header">
-                        <h3 class="box-title">编辑路局</h3>
-                        <!--右侧最小化按钮-->
-                        <div class="box-tools pull-right"></div>
-                        <hr>
-                    </div>
-                    <div class="box-body">
-                        <table class="table table-hover table-condensed" id="tblOrganizationLine">
-                            <thead>
-                            <tr>
-                                <th><input type="checkbox" id="chkAllOrganizationLine"></th>
-                                <th>新建时间</th>
-                                <th>代码</th>
-                                <th>名称</th>
-                            </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
                     </div>
                 </div>
-            </div>
+            </form>
+            <form id="frmBindLocationLines">
+                <div class="col-md-6">
+                    <div class="box box-solid">
+                        <div class="box-header">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h3 class="box-title">绑定线别</h3>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="btn-group btn-group-sm pull-right">
+                                        <a href="javascript:" class="btn btn-primary" onclick="fnBindLocationLines()"><i class="fa fa-link">&nbsp;</i>绑定线别</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-hover table-condensed" id="tblLocationLine">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="chkAllLocationLine"></th>
+                                    <th>新建时间</th>
+                                    <th>代码</th>
+                                    <th>名称</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </section>
 @endsection
@@ -91,14 +101,15 @@
     <script>
         let $select2 = $('.select2');
         let $frmUpdate = $('#frmUpdate');
+        let $frmBindLocationLines = $("#frmBindLocationLines");
         let $txtUniqueCode = $("#txtUniqueCode");
         let $txtName = $("#txtName");
         let $txtShortName = $("#txtShortName");
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
         let organizationRailway = null;
-        let tblOrganizationLine = null;
-        let boundOrganizationRailwayUUIDs = [];
+        let tblLocationLine = null;
+        let boundLocationLineUUIDs = [];
 
         /**
          * 初始化数据
@@ -113,7 +124,7 @@
                     console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} success:`, res);
                     organizationRailway = res["data"]["organization_railway"];
 
-                    let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable, organization_lines: organizationLines,} = organizationRailway;
+                    let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable, location_lines: locationLines,} = organizationRailway;
 
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
@@ -124,9 +135,10 @@
                         $rdoBeEnableNo.prop("checked", "checked");
                     }
                     // 已经绑定的线别
-                    if (organizationLines.length > 0) {
-                        organizationLines.map(function (organizationLine) {
-                            boundOrganizationRailwayUUIDs.push(organizationLine["uuid"]);
+                    console.log(locationLines);
+                    if (locationLines.length > 0) {
+                        locationLines.map(function (organizationLine) {
+                            boundLocationLineUUIDs.push(organizationLine["uuid"]);
                         });
                     }
                 },
@@ -142,21 +154,21 @@
         /**
          * 加载线别表格
          */
-        function fnFillTblOrganizationLine() {
-            if (document.getElementById('tblOrganizationLine')) {
-                tblOrganizationLine = $('#tblOrganizationLine').DataTable({
+        function fnFillTblLocationLine() {
+            if (document.getElementById('tblLocationLine')) {
+                tblLocationLine = $('#tblLocationLine').DataTable({
                     ajax: {
-                        url: `{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_lines: organizationLines,} = res["data"];
+                            console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            let {location_lines: locationLines,} = res["data"];
                             let render = [];
-                            if (organizationLines.length > 0) {
-                                $.each(organizationLines, (_, organizationLine) => {
-                                    let uuid = organizationLine["uuid"];
-                                    let createdAt = organizationLine["created_at"] ? moment(organizationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                    let uniqueCode = organizationLine["unique_code"] ? organizationLine["unique_code"] : "";
-                                    let name = organizationLine["name"] ? organizationLine["name"] : "";
+                            if (locationLines.length > 0) {
+                                $.each(locationLines, (_, locationLine) => {
+                                    let uuid = locationLine["uuid"];
+                                    let createdAt = locationLine["created_at"] ? moment(locationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let uniqueCode = locationLine["unique_code"] ? locationLine["unique_code"] : "";
+                                    let name = locationLine["name"] ? locationLine["name"] : "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
@@ -166,7 +178,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
-                                        `<input type="checkbox" class="location-line-uuid" name="organization_line_uuids[]" value="${uuid}" ${boundOrganizationRailwayUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllOrganizationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
+                                        `<input type="checkbox" class="location-line-uuid" name="location_line_uuids[]" value="${uuid}" ${boundLocationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -177,7 +189,7 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.OrganizationLine:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon: 2,});
                             } else {
@@ -219,9 +231,9 @@
             if ($select2.length > 0) $select2.select2();
 
             fnInit();  // 初始化数据
-            fnFillTblOrganizationLine(); // 加载线别表格
+            fnFillTblLocationLine(); // 加载线别表格
 
-            fnCheckAll("chkAllOrganizationLine", "location-line-uuid");  // 全选线别
+            fnCheckAll("chkAllLocationLine", "location-line-uuid");  // 全选线别
         });
 
         /**
@@ -247,6 +259,38 @@
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
+                }
+            });
+        }
+
+        /**
+         * 绑定线别
+         */
+        function fnBindLocationLines() {
+            let loading = layer.msg("处理中……", {time: 0,});
+            let data = $frmBindLocationLines.serializeArray();
+
+            $.ajax({
+                url: `{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }}`,
+                type: 'put',
+                data,
+                async: true,
+                success: function (res) {
+                    console.log(`{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }} success:`, res);
+
+                    layer.close(loading);
+                    layer.msg(res["msg"], {time: 1000,});
+                },
+                error: function (err) {
+                    console.log(`{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }} fail:`, err);
+                    layer.close(loading);
+                    if (err["status"] === 406) {
+                        layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                    } else {
+                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
+                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                        });
+                    }
                 }
             });
         }

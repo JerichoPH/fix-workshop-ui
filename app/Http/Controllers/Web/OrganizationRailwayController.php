@@ -96,7 +96,7 @@ class OrganizationRailwayController extends Controller
         return $this->sendStandardRequest(
             "organizationRailway/{$uuid}",
             session(__JWT__),
-            function(Request $request){
+            function (Request $request) {
                 $request = $request->all();
                 $request["be_enable"] = boolval($request["be_enable"]);
                 return $request;
@@ -116,8 +116,17 @@ class OrganizationRailwayController extends Controller
         return $this->sendStandardRequest("organizationRailway/{$uuid}", session(__JWT__));
     }
 
-    public function PutBindOrganizationLines()
+    /**
+     * 绑定线别
+     * @param string $uuid
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
+     */
+    public function PutBindLocationLines(string $uuid)
     {
-
+        return $this->sendStandardRequest("organizationRailway/{$uuid}/bindLocationLines", session(__JWT__));
     }
 }

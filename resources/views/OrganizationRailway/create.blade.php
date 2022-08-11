@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label text-danger text-danger">别名*：</label>
+                                <label class="col-sm-2 control-label text-danger text-danger">简称*：</label>
                                 <div class="col-sm-10 col-md-9">
                                     <input name="short_name" id="txtShortName" type="text" class="form-control" placeholder="唯一、必填" required value="" autocomplete="off">
                                 </div>
@@ -63,7 +63,7 @@
                 <div class="col-md-6">
                     <div class="box box-solid">
                         <div class="box-header">
-                            <h3 class="box-title">新建路局</h3>
+                            <h3 class="box-title">绑定线别</h3>
                             <!--右侧最小化按钮-->
                             <div class="btn-group btn-group-sm pull-right"></div>
                             <hr>
@@ -105,7 +105,7 @@
                         url: `{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_lines: LocationLines,} = res["data"];
+                            let {location_lines: LocationLines,} = res["data"];
                             let render = [];
                             if (LocationLines.length > 0) {
                                 $.each(LocationLines, (_, LocationLine) => {
@@ -123,7 +123,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
-                                        `<input type="checkbox" class="organization-line-uuid" name="organization_line_uuids[]" value="${uuid}" ${boundLocationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.organization-line-uuid').length === $('.organization-line-uuid:checked').length)">`,
+                                        `<input type="checkbox" class="location-line-uuid" name="location_line_uuids[]" value="${uuid}" ${boundLocationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -178,7 +178,7 @@
 
             fnFillTblLocationLine();  // 加载线别表格
 
-            fnCheckAll("chkAllLocationLine", "organization-line-uuid");  // 全选线别
+            fnCheckAll("chkAllLocationLine", "location-line-uuid");  // 全选线别
         });
 
         /**
