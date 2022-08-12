@@ -1,15 +1,15 @@
 @extends('Layout.index')
 @section('content')
-    <!-- 面包屑 -->
+    {{-- 面包屑 --}}
     <section class="content-header">
         <h1>
             站段管理
-            <small>新建</small>
+            <small>编辑</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.OrganizationParagraph:Index') }}"><i class="fa fa-users">&nbsp;</i>站段-列表</a></li>
-            <li class="active">站段-新建</li>
+            <li><a href="{{ url('web.OrganizationParagraph:Index') }}"><i class="fa fa-users">&nbsp;</i>站段管理</a></li>
+            <li class="active">编辑</li>
         </ol>
     </section>
     <section class="content">
@@ -18,23 +18,23 @@
             <div class="col-md-6">
                 <div class="box box-solid">
                     <div class="box-header">
-                        <h3 class="box-title">新建站段</h3>
-                        <!--右侧最小化按钮-->
-                        <div class="btn-group btn-group-sm pull-right"></div>
-                        <hr>
+                        <h3 class="box-title">编辑站段</h3>
+                        {{--右侧最小化按钮--}}
+                        <div class="box-tools pull-right"></div>
                     </div>
-                    <form class="form-horizontal" id="frmStore">
+                    <br>
+                    <form class="form-horizontal" id="frmUpdate">
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">代码*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="unique_code" id="txtUniqueCode" type="text" class="form-control" placeholder="必填，唯一" required value="" autocomplete="off">
+                                    <input name="unique_code" id="txtUniqueCode" type="text" class="form-control" placeholder="必填，唯一" required disabled autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">名称*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="必填，唯一" required value="" autocomplete="off">
+                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="名称" required autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -61,8 +61,8 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationParagraph:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
+                            <a href="{{ route('web.OrganizationParagraph:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
                 </div>
@@ -73,79 +73,106 @@
 @section('script')
     <script>
         let $select2 = $('.select2');
-        let $frmStore = $('#frmStore');
+        let $frmUpdate = $("#frmUpdate");
         let $txtUniqueCode = $("#txtUniqueCode");
         let $txtName = $("#txtName");
+        let $rdoBeEnableYes = $("#rdoBeEnableYes");
+        let $rdoBeEnableNo = $("#rdoBeEnableNo");
         let $selOrganizationRailway = $("#selOrganizationRailway");
+        let organizationParagraph = null;
 
         /**
-         * 填充路局下拉列表
+         * 初始化数据
          */
-        function fnFillOrganizationRailway() {
+        function fnInit() {
+            $.ajax({
+                url: `{{ route("web.OrganizationParagraph:Show", ["uuid" => $uuid,]) }}`,
+                type: 'get',
+                data: {},
+                async: true,
+                success: function (res) {
+                    console.log(`{{ route("web.OrganizationParagraph:Show", ["uuid" => $uuid,]) }} success:`, res);
+
+                    organizationParagraph = res["data"]["organization_paragraph"];
+
+                    $txtUniqueCode.val(organizationParagraph["unique_code"]);
+                    $txtName.val(organizationParagraph["name"]);
+                    if (organizationParagraph["be_enable"]) {
+                        $rdoBeEnableYes.prop("checked", "checked");
+                    } else {
+                        $rdoBeEnableNo.prop("checked", "checked");
+                    }
+                    fnFillSelOrganizationRailway();  // 初始化路局下拉菜单
+                },
+                error: function (err) {
+                    console.log(`{{ route("web.OrganizationParagraph:Show", ["uuid" => $uuid,]) }} fail:`, err);
+                    if (err.status === 401) location.href = "{{ url('login') }}";
+                    alert(err['responseJSON']['msg']);
+                }
+            });
+        }
+
+        /**
+         * 初始化路局下拉菜单
+         */
+        function fnFillSelOrganizationRailway() {
             $.ajax({
                 url: `{{ route("web.OrganizationRailway:Index") }}`,
                 type: 'get',
                 data: {},
                 async: true,
-                success: res => {
+                success: function (res) {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
 
                     let {organization_railways: organizationRailways,} = res["data"];
-
                     $selOrganizationRailway.empty();
-                    $selOrganizationRailway.append(`<option value="" disabled selected>未选择</option>`);
-
+                    $selOrganizationRailway.append(`<option value="" disabled>未选择</option>`);
                     if (organizationRailways.length > 0) {
                         organizationRailways.map(function (organizationRailway) {
-                            $selOrganizationRailway.append(`<option value="${organizationRailway["uuid"]}">${organizationRailway["name"]}</option>`);
+                            $selOrganizationRailway.append(`<option value="${organizationRailway["uuid"]}" ${organizationRailway["uuid"] === organizationParagraph["organization_railway_uuid"] ? "selected" : ""}>${organizationRailway["name"]}</option>`);
                         });
                     }
                 },
-                error: err => {
+                error: function (err) {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} fail:`, err);
-                    if (err["status"] === 406) {
-                        layer.msg(err["responseJSON"]["msg"], {icon: 2,});
-                    } else {
-                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
-                        });
-                    }
-                },
+                    if (err.status === 401) location.href = "{{ url('login') }}";
+                    alert(err['responseJSON']['msg']);
+                }
             });
         }
 
         $(function () {
-            if ($select2.length > 0) $select2.select2();
+            if ($select2.length > 0) $('.select2').select2();
 
-            fnFillOrganizationRailway();  // 填充路局下拉列表
+            fnInit();  // 初始化数据
         });
 
         /**
-         * 新建
+         * 保存
          */
-        function fnStore() {
+        function fnUpdate() {
             let loading = layer.msg("处理中……", {time: 0,});
-            let data = $frmStore.serializeArray();
+            let data = $frmUpdate.serializeArray();
+            data.push({name: "unique_code", value: organizationParagraph["unique_code"]});
 
             $.ajax({
-                url: '{{ route('web.OrganizationParagraph:Store') }}',
-                type: 'post',
+                url: `{{ route('web.OrganizationParagraph:Update', ["uuid" => $uuid,]) }}`,
+                type: "put",
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationParagraph:Store') }} success:`, res);
+                    console.log(`{{ route('web.OrganizationParagraph:Update', ["uuid" => $uuid,]) }} success:`, res);
+
                     layer.close(loading);
-                    layer.msg(res.msg, {time: 1000,}, function () {
-                        location.reload();
-                    });
+                    layer.msg(res["msg"], {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationParagraph:Store') }} fail:`, err);
+                    console.log(`{{ route('web.OrganizationParagraph:Update', ["uuid" => $uuid,]) }} fail:`, err);
                     layer.close(loading);
                     if (err["status"] === 406) {
-                        layer.msg(err["responseJSON"]["msg"], {icon: 2,});
+                        layer.alert(err["responseJSON"]["msg"], {icon: 2,});
                     } else {
                         layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
                         });
                     }
                 }

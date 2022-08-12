@@ -28,6 +28,7 @@
                         <th>新建时间</th>
                         <th>代码</th>
                         <th>名称</th>
+                        <th>是否启用</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -60,6 +61,7 @@
                                     let createdAt = organizationRailway["created_at"] ? moment(organizationRailway["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                     let uniqueCode = organizationRailway["unique_code"] ? organizationRailway["unique_code"] : "";
                                     let name = organizationRailway["name"] ? organizationRailway["name"] : "";
+                                    let beEnable = organizationRailway["be_enable"] ? "是" : "否" ;
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
@@ -72,6 +74,7 @@
                                         createdAt,
                                         uniqueCode,
                                         name,
+                                        beEnable,
                                         divBtnGroup,
                                     ]);
                                 });
@@ -91,7 +94,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 3,
+                        targets: 4,
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,

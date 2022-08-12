@@ -23,20 +23,19 @@
                 <hr>
             </div>
             <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-condensed" id="tblOrganizationParagraph">
-                        <thead>
-                        <tr>
-                            <th>新建时间</th>
-                            <th>站段代码</th>
-                            <th>站段名称</th>
-                            <th>所属路局</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+                <table class="table table-hover table-striped table-condensed" id="tblOrganizationParagraph">
+                    <thead>
+                    <tr>
+                        <th>新建时间</th>
+                        <th>站段代码</th>
+                        <th>站段名称</th>
+                        <th>是否启用</th>
+                        <th>所属路局</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -64,6 +63,7 @@
                                     let createdAt = organizationParagraph["created_at"] ? moment(organizationParagraph["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                     let uniqueCode = organizationParagraph["unique_code"] ? organizationParagraph["unique_code"] : "";
                                     let name = organizationParagraph["name"] ? organizationParagraph["name"] : "";
+                                    let beEnable = organizationParagraph["be_enable"] ? "是" : "否";
                                     let organizationRailwayName = organizationParagraph["organization_railway"] ? organizationParagraph["organization_railway"]["name"] : "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
@@ -78,6 +78,7 @@
                                         uniqueCode,
                                         name,
                                         organizationRailwayName,
+                                        beEnable,
                                         divBtnGroup,
                                     ]);
                                 });
@@ -97,7 +98,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 4,
+                        targets: 5,
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
