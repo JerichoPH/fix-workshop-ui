@@ -33,6 +33,7 @@
                             <th>是否启用</th>
                             <th>所属车间</th>
                             <th>所属工区</th>
+                            <th>所属线别</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -69,6 +70,15 @@
                                     let beEnable = locationStation["be_enable"] ? locationStation["be_enable"] : "";
                                     let organizationWorkshopName = locationStation["organization_workshop"] ? locationStation["organization_workshop"]["name"] : "";
                                     let organizationWorkAreaName = locationStation["organization_work_area"] ? locationStation["organization_work_area"]["name"] : "";
+                                    let locationLines = locationStation["location_lines"] ? locationStation["location_lines"] : [];
+                                    let locationLineNames = [];
+                                    if (locationLines.length > 0) {
+                                        locationLines.map(function (locationLine) {
+                                            if (locationLine["name"]) {
+                                                locationLineNames.push(locationLine["name"]);
+                                            }
+                                        });
+                                    }
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
@@ -81,9 +91,10 @@
                                         createdAt,
                                         uniqueCode,
                                         name,
-                                        beEnable,
+                                        beEnable ? "是" : "否",
                                         organizationWorkshopName,
                                         organizationWorkAreaName,
+                                        locationLineNames.join("、"),
                                         divBtnGroup,
                                     ]);
                                 });
@@ -99,7 +110,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 6,  // 清除第一列排序
+                        targets: 7,  // 清除第一列排序
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,

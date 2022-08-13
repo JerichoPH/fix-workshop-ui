@@ -3,13 +3,13 @@
     <!-- 面包屑 -->
     <section class="content-header">
         <h1>
-            路局管理
+            站场管理
             <small>编辑</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.OrganizationRailway:Index') }}"><i class="fa fa-users">&nbsp;</i>路局-列表</a></li>
-            <li class="active">路局-编辑</li>
+            <li><a href="{{ route('web.LocationStation:Index') }}"><i class="fa fa-users">&nbsp;</i>站场-列表</a></li>
+            <li class="active">站场-编辑</li>
         </ol>
     </section>
     <section class="content">
@@ -19,44 +19,61 @@
                 <form class="form-horizontal" id="frmUpdate">
                     <div class="box box-solid">
                         <div class="box-header">
-                            <h3 class="box-title">编辑路局</h3>
+                            <h3 class="box-title">编辑站场</h3>
                             <!--右侧最小化按钮-->
-                            <div class="box-tools pull-right"></div>
+                            <div class="pull-right btn-group btn-group-sm"></div>
                             <hr>
                         </div>
-
                         <div class="box-body">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">代码*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="unique_code" id="txtUniqueCode" type="text" class="form-control" placeholder="唯一、必填" required value="" disabled autocomplete="off">
+                                    <input name="unique_code" id="txtUniqueCode" type="text" class="form-control" placeholder="唯一，必填" required value="" autocomplete="off" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">名称*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="唯一、必填" required value="" autocomplete="off">
+                                    <input name="name" id="txtName" type="text" class="form-control" placeholder="唯一，必填" required value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label text-danger text-danger">别名*：</label>
+                                <label class="col-sm-2 control-label text-danger">是否启用*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="short_name" id="txtShortName" type="text" class="form-control" placeholder="唯一、必填" required value="" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label text-danger text-danger">是否启用*：</label>
-                                <div class="col-sm-10 col-md-9">
-                                    <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1" checked>
+                                    <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1">
                                     <label for="rdoBeEnableYes">是</label>
                                     &emsp;
                                     <input type="radio" name="be_enable" id="rdoBeEnableNo" value="0">
-                                    <label for="rdoBeEnableYes">否</label>
+                                    <label for="rdoBeEnableNo">否</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label text-danger">所属车间*：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select
+                                            name="organization_workshop_uuid"
+                                            id="selOrganizationWorkshop"
+                                            class="form-control select2"
+                                            style="width: 100%;"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属工区：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select
+                                            name="organization_work_area_uuid"
+                                            id="selOrganizationWorkArea"
+                                            class="form-control select2"
+                                            style="width: 100%;"
+                                    >
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationRailway:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.LocationStation:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </div>
@@ -101,39 +118,41 @@
     <script>
         let $select2 = $('.select2');
         let $frmUpdate = $('#frmUpdate');
-        let $frmBindLocationLines = $("#frmBindLocationLines");
         let $txtUniqueCode = $("#txtUniqueCode");
         let $txtName = $("#txtName");
-        let $txtShortName = $("#txtShortName");
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
-        let organizationRailway = null;
+        let $selOrganizationWorkshop = $("#selOrganizationWorkshop");
+        let $selOrganizationWorkArea = $("#selOrganizationWorkArea");
+        let locationStation = null;
         let tblLocationLine = null;
         let boundLocationLineUUIDs = [];
 
         /**
-         * 初始化数据
+         * 加载初始化
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }}`,
+                url: `{{ route("web.LocationStation:Show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} success:`, res);
-                    organizationRailway = res["data"]["organization_railway"];
+                    console.log(`{{ route("web.LocationStation:Show", ["uuid" => $uuid,]) }} success:`, res);
 
-                    let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable, location_lines: locationLines,} = organizationRailway;
+                    locationStation = res["data"]["location_station"];
+
+                    let {unique_code: uniqueCode, name, be_enable: beEnable, location_lines: locationLines,} = locationStation;
 
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
-                    $txtShortName.val(shortName);
                     if (beEnable) {
                         $rdoBeEnableYes.prop("checked", "checked");
                     } else {
                         $rdoBeEnableNo.prop("checked", "checked");
                     }
+                    fnFillSelOrganizationWorkshop(locationStation["organization_workshop"]["uuid"]);
+                    fnFillSelOrganizationWorkArea(locationStation["organization_work_area"]["uuid"]);
                     // 已经绑定的线别
                     if (locationLines.length > 0) {
                         locationLines.map(function (locationLine) {
@@ -142,9 +161,9 @@
                     }
                 },
                 error: err => {
-                    console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} fail:`, err);
-                    layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                    console.log(`{{ route("web.LocationStation:Show", ["uuid" => $uuid,]) }} fail:`, err);
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
                 },
             });
@@ -168,6 +187,7 @@
                                     let createdAt = locationLine["created_at"] ? moment(locationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                     let uniqueCode = locationLine["unique_code"] ? locationLine["unique_code"] : "";
                                     let name = locationLine["name"] ? locationLine["name"] : "";
+                                    let shortName = locationLine["short_name"] ? locationLine["short_name"] : "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
@@ -181,6 +201,7 @@
                                         createdAt,
                                         uniqueCode,
                                         name,
+                                        shortName,
                                         divBtnGroup,
                                     ]);
                                 });
@@ -222,11 +243,77 @@
             }
         }
 
+        /**
+         * 加载车间下拉列表
+         * @param {string} organizationWorkshopUUID
+         */
+        function fnFillSelOrganizationWorkshop(organizationWorkshopUUID = "") {
+            $.ajax({
+                url: `{{ route("web.OrganizationWorkshop:Index") }}`,
+                type: 'get',
+                data: {be_enable: 1,},
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
+
+                    let {organization_workshops: organizationWorkshops,} = res["data"];
+
+                    $selOrganizationWorkshop.empty();
+                    $selOrganizationWorkshop.append(`<option value="" disabled selected>未选择</option>`);
+
+                    if (organizationWorkshops.length > 0) {
+                        organizationWorkshops.map(function (organizationWorkshop) {
+                            $selOrganizationWorkshop.append(`<option value="${organizationWorkshop["uuid"]}" ${organizationWorkshopUUID === organizationWorkshop["uuid"] ? "selected" : ""}>${organizationWorkshop["name"]}</option>`);
+                        });
+                    }
+                },
+                error: err => {
+                    console.log(`{{ route("web.OrganizationWorkshop:Index") }} fail:`, err);
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
+            });
+        }
+
+        /**
+         * 加载工区下拉列表
+         * @param {string} organizationWorkAreaUUID
+         */
+        function fnFillSelOrganizationWorkArea(organizationWorkAreaUUID = "") {
+            $.ajax({
+                url: `{{ route("web.OrganizationWorkArea:Index") }}`,
+                type: 'get',
+                data: {be_enable: 1,},
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
+
+                    let {organization_work_areas: organizationWorkAreas,} = res["data"];
+
+                    $selOrganizationWorkArea.empty();
+                    $selOrganizationWorkArea.append(`<option value="">未选择</option>`);
+
+                    if (organizationWorkAreas.length > 0) {
+                        organizationWorkAreas.map(function (organizationWorkArea) {
+                            $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}" ${organizationWorkAreaUUID === organiationWorkArea["uuid"] ? "selected" : ""}>${organizationWorkArea["name"]}</option>`);
+                        });
+                    }
+                },
+                error: err => {
+                    console.log(`{{ route("web.OrganizationWorkArea:Index") }} fail:`, err);
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
+            });
+        }
+
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnInit();  // 初始化数据
-            fnFillTblLocationLine(); // 加载线别表格
+            fnInit();  // 加载初始化
+            fnFillTblLocationLine();  // 加载线别表格
 
             fnCheckAll("chkAllLocationLine", "location-line-uuid");  // 全选线别
         });
@@ -240,52 +327,20 @@
             data.push({name: "unique_code", value: $txtUniqueCode.val()});
 
             $.ajax({
-                url: `{{ route('web.OrganizationRailway:Update', ["uuid" => $uuid , ]) }}`,
+                url: `{{ route('web.LocationStation:Update', ["uuid" => $uuid , ]) }}`,
                 type: 'put',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationRailway:Update', ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route('web.LocationStation:Update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationRailway:Update', ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route('web.LocationStation:Update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
-                    layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
-                }
-            });
-        }
-
-        /**
-         * 绑定线别
-         */
-        function fnBindLocationLines() {
-            let loading = layer.msg("处理中……", {time: 0,});
-            let data = $frmBindLocationLines.serializeArray();
-
-            $.ajax({
-                url: `{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }}`,
-                type: 'put',
-                data,
-                async: true,
-                success: function (res) {
-                    console.log(`{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }} success:`, res);
-
-                    layer.close(loading);
-                    layer.msg(res["msg"], {time: 1000,});
-                },
-                error: function (err) {
-                    console.log(`{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }} fail:`, err);
-                    layer.close(loading);
-                    if (err["status"] === 406) {
-                        layer.alert(err["responseJSON"]["msg"], {icon: 2,});
-                    } else {
-                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
-                        });
-                    }
                 }
             });
         }

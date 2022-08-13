@@ -274,43 +274,43 @@ class DataCommand extends Command
                     [
                         "name" => "站场管理",
                         "url" => "/locationStation",
-                        "uri_name" => "web.OrganizationStation",
+                        "uri_name" => "web.LocationStation",
                         "icon" => "fa fa-fort-awesome",
                     ],
                     [
                         "name" => "道口管理",
                         "url" => "/locationRailroadGradeCross",
-                        "uri_name" => "web.OrganizationRailroadGradeCross",
+                        "uri_name" => "web.LocationRailroadGradeCross",
                         "icon" => "fa fa-openid"
                     ],
                     [
                         "name" => "区间管理",
                         "url" => "/locationSection",
-                        "uri_name" => "web.OrganizationSection",
+                        "uri_name" => "web.LocationSection",
                         "icon" => "fa fa-slack",
                     ],
                     [
                         "name" => "中心管理",
                         "url" => "/locationCenter",
-                        "uri_name" => "web.OrganizationCenter",
+                        "uri_name" => "web.LocationCenter",
                         "icon" => "fa fa-yelp",
                     ],
                     [
                         "name" => "仓库位置管理",
                         "url" => "/positionDepotStorehouse",
-                        "uri_name" => "web.LocationDepotStorehouse",
+                        "uri_name" => "web.PositionDepotStorehouse",
                         "icon" => "fa fa-home"
                     ],
                     [
                         "name" => "室内上道位置管理",
                         "url" => "/positionIndoorRoom",
-                        "uri_name" => "web.LocationIndoorRoom",
+                        "uri_name" => "web.PositionIndoorRoom",
                         "icon" => "fa fa-map-marker"
                     ],
                     [
                         "name" => "室外上道位置管理",
-                        "url" => "/positionIndoorRoom",
-                        "uri_name" => "web.LocationIndoorRoom",
+                        "url" => "/positionOutdoor",
+                        "uri_name" => "web.PositionOutdoor",
                         "icon" => "fa fa-map-marker"
                     ],
                 ],

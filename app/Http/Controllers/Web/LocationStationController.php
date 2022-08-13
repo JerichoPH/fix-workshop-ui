@@ -6,9 +6,9 @@ use App\Exceptions\EmptyException;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnAuthorizationException;
 use App\Exceptions\UnLoginException;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
 
@@ -46,7 +46,14 @@ class LocationStationController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest("locationStation");
+        return $this->sendStandardRequest(
+            "locationStation",
+            function (Request $request) {
+                $request = $request->all();
+                $request["be_enable"] = boolval($request["be_enable"]);
+                return $request;
+            }
+        );
     }
 
     /**
@@ -84,7 +91,14 @@ class LocationStationController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("locationStation/{$uuid}");
+        return $this->sendStandardRequest(
+            "locationStation/{$uuid}",
+            function (Request $request) {
+                $request = $request->all();
+                $request["be_enable"] = boolval($request["be_enable"]);
+                return $request;
+            }
+        );
     }
 
     /**
