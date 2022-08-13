@@ -6,6 +6,7 @@ use App\Exceptions\EmptyException;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnAuthorizationException;
 use App\Exceptions\UnLoginException;
+use App\Exceptions\ValidateException;
 use App\Facades\JsonResponseFacade;
 use Closure;
 use Curl\Curl;
@@ -84,6 +85,8 @@ class Controller extends BaseController
                     throw new ForbiddenException($msg);
                 case 404:
                     throw new EmptyException($msg);
+                case 421:
+                    throw new ValidateException($msg);
                 case 500:
                 default:
                     throw new Exception($msg);

@@ -15,7 +15,7 @@ class RbacPermissionController extends Controller
 {
     /**
      * 权限列表
-     * @return mixed
+     * @return Factory|Application|View|mixed
      * @throws EmptyException
      * @throws ForbiddenException
      * @throws UnAuthorizationException
@@ -41,10 +41,11 @@ class RbacPermissionController extends Controller
 
     /**
      * 新建
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * @return mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Store()
     {

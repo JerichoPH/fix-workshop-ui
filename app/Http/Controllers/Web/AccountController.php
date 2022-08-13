@@ -15,10 +15,11 @@ class AccountController extends Controller
 {
     /**
      * 用户列表
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * @return Factory|Application|View|mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Index()
     {
@@ -53,10 +54,12 @@ class AccountController extends Controller
 
     /**
      * 角色详情
-     * @throws UnLoginException
+     * @param string $uuid
+     * @return mixed|null
      * @throws EmptyException
      * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Show(string $uuid)
     {
@@ -107,9 +110,14 @@ class AccountController extends Controller
     /**
      * 删除用户
      * @param string $uuid
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Destroy(string $uuid)
     {
-
+        return $this->sendStandardRequest("account/{$uuid}");
     }
 }

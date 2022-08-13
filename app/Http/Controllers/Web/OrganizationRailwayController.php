@@ -17,10 +17,11 @@ class OrganizationRailwayController extends Controller
 {
     /**
      * 列表
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * @return Factory|Application|View|mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Index()
     {
@@ -41,10 +42,12 @@ class OrganizationRailwayController extends Controller
     }
 
     /**
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * 新建
+     * @return mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Store()
     {

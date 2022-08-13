@@ -3,39 +3,39 @@
     <!-- 面包屑 -->
     <section class="content-header">
         <h1>
-            站段管理
+            工区类型管理
             <small>列表</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li class="active">站段-列表</li>
+            <li class="active">工区类型-列表</li>
         </ol>
     </section>
     <section class="content">
         @include('Layout.alert')
         <div class="box box-solid">
             <div class="box-header">
-                <h3 class="box-title">站段-列表</h3>
+                <h3 class="box-title">工区类型-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.OrganizationParagraph:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.OrganizationWorkAreaType:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
             <div class="box-body">
-                <table class="table table-hover table-striped table-condensed" id="tblOrganizationParagraph">
-                    <thead>
-                    <tr>
-                        <th>新建时间</th>
-                        <th>站段代码</th>
-                        <th>站段名称</th>
-                        <th>是否启用</th>
-                        <th>所属路局</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped table-condensed" id="tblOrganizationWorkAreaType">
+                        <thead>
+                        <tr>
+                            <th>创建时间</th>
+                            <th>代码</th>
+                            <th>名称</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
@@ -43,32 +43,30 @@
 @section('script')
     <script>
         let $select2 = $('.select2');
-        let tblOrganizationParagraph = null;
+        let tblOrganizationWorkAreaType = null;
 
         /**
-         * 加载站段表格
+         * 加载工区类型表格
          */
-        function fnFillTblOrganizationParagraph() {
-            if (document.getElementById('tblOrganizationParagraph')) {
-                tblOrganizationParagraph = $('#tblOrganizationParagraph').DataTable({
+        function fnFillTblOrganizationWorkAreaType() {
+            if (document.getElementById('tblOrganizationWorkAreaType')) {
+                tblOrganizationWorkAreaType = $('#tblOrganizationWorkAreaType').DataTable({
                     ajax: {
-                        url: `{{ route("web.OrganizationParagraph:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.OrganizationWorkAreaType:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.OrganizationParagraph:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_paragraphs: organizationParagraphs,} = res["data"];
+                            console.log(`{{ route("web.OrganizationWorkAreaType:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            let {organization_work_area_types: organizationWorkAreaTypes,} = res["data"];
                             let render = [];
-                            if (organizationParagraphs.length > 0) {
-                                $.each(organizationParagraphs, (_, organizationParagraph) => {
-                                    let uuid = organizationParagraph["uuid"];
-                                    let createdAt = organizationParagraph["created_at"] ? moment(organizationParagraph["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                    let uniqueCode = organizationParagraph["unique_code"] ? organizationParagraph["unique_code"] : "";
-                                    let name = organizationParagraph["name"] ? organizationParagraph["name"] : "";
-                                    let beEnable = organizationParagraph["be_enable"] ? "是" : "否";
-                                    let organizationRailwayName = organizationParagraph["organization_railway"] ? organizationParagraph["organization_railway"]["name"] : "";
+                            if (organizationWorkAreaTypes.length > 0) {
+                                $.each(organizationWorkAreaTypes, (_, organizationWorkAreaType) => {
+                                    let uuid = organizationWorkAreaType["uuid"];
+                                    let createdAt = organizationWorkAreaType["created_at"] ? moment(organizationWorkAreaType["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let uniqueCode = organizationWorkAreaType["unique_code"] ? organizationWorkAreaType["unique_code"] : "";
+                                    let name = organizationWorkAreaType["name"] ? organizationWorkAreaType["name"] : "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ route("web.OrganizationParagraph:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.OrganizationWorkAreaType:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
@@ -77,8 +75,6 @@
                                         createdAt,
                                         uniqueCode,
                                         name,
-                                        beEnable,
-                                        organizationRailwayName,
                                         divBtnGroup,
                                     ]);
                                 });
@@ -86,15 +82,15 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.OrganizationParagraph:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.OrganizationWorkAreaType:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
-                        });
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            });
                         }
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 5,
+                        targets: 3,  // 清除第一列排序
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -123,7 +119,7 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillTblOrganizationParagraph();  // 加载站段表格
+            fnFillTblOrganizationWorkAreaType();  // 加载工区类型表格
         });
 
         /**
@@ -133,17 +129,17 @@
         function fnDelete(id) {
             if (confirm('删除不能恢复，是否确认'))
                 $.ajax({
-                    url: `{{ url('organizationParagraph') }}/${id}`,
+                    url: `{{ url('organizationWorkAreaType') }}/${id}`,
                     type: 'delete',
                     data: {id: id},
                     success: function (res) {
-                        console.log(`{{ url('organizationParagraph')}}/${id} success:`, res);
+                        console.log(`{{ url('organizationWorkAreaType')}}/${id} success:`, res);
                         location.reload();
                     },
                     error: function (err) {
-                        console.log(`{{ url('organizationParagraph')}}/${id} fail:`, err);
+                        console.log(`{{ url('organizationWorkAreaType')}}/${id} fail:`, err);
                         layer.close(loading);
-                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
+                        layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                             if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                         });
                     }

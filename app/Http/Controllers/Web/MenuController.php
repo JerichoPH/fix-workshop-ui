@@ -16,7 +16,7 @@ class MenuController extends Controller
 {
     /**
      * 列表
-     * @return mixed
+     * @return Factory|Application|View|mixed
      * @throws EmptyException
      * @throws ForbiddenException
      * @throws UnAuthorizationException
@@ -61,10 +61,12 @@ class MenuController extends Controller
 
     /**
      * 菜单详情
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * @param string $uuid
+     * @return mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Show(string $uuid)
     {

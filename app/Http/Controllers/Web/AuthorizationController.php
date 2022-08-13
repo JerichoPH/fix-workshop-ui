@@ -27,6 +27,7 @@ class AuthorizationController extends Controller
     }
 
     /**
+     * 登录
      * @throws UnLoginException
      * @throws EmptyException
      * @throws ForbiddenException

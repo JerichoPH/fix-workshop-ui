@@ -116,10 +116,12 @@ class RbacRoleController extends Controller
 
     /**
      * 绑定用户
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * @param string $uuid
+     * @return mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function PutBindAccounts(string $uuid)
     {
@@ -128,10 +130,12 @@ class RbacRoleController extends Controller
 
     /**
      * 绑定权限
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * @param string $uuid
+     * @return mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function PutBindPermissions(string $uuid)
     {

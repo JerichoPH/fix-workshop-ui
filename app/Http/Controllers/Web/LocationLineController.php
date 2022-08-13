@@ -17,10 +17,11 @@ class LocationLineController extends Controller
 {
     /**
      * 列表
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * @return Factory|Application|View|mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Index()
     {
@@ -42,10 +43,11 @@ class LocationLineController extends Controller
 
     /**
      * 新建
-     * @throws UnLoginException
-     * @throws ForbiddenException
+     * @return mixed
      * @throws EmptyException
+     * @throws ForbiddenException
      * @throws UnAuthorizationException
+     * @throws UnLoginException
      */
     public function Store()
     {

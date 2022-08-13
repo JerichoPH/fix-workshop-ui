@@ -83,13 +83,9 @@
                         },
                         error: function (err) {
                             console.log(`{{ route("web.Account:Index") }} fail:`, err);
-                            if (err["status"] === 406) {
-                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
-                            } else {
-                                layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
-                                });
-                            }
+                            layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        });
                         },
                     },
                     columnDefs: [{

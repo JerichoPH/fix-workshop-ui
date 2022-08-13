@@ -102,7 +102,7 @@
                     } else {
                         $rdoBeEnableNo.prop("checked", "checked");
                     }
-                    fnFillSelOrganizationRailway();  // 初始化路局下拉菜单
+                    fnFillSelOrganizationRailway(organizationParagraph["organization_railway_uuid"]);  // 初始化路局下拉菜单
                 },
                 error: function (err) {
                     console.log(`{{ route("web.OrganizationParagraph:Show", ["uuid" => $uuid,]) }} fail:`, err);
@@ -115,11 +115,11 @@
         /**
          * 初始化路局下拉菜单
          */
-        function fnFillSelOrganizationRailway() {
+        function fnFillSelOrganizationRailway(organizationRailwayUUID = "") {
             $.ajax({
                 url: `{{ route("web.OrganizationRailway:Index") }}`,
                 type: 'get',
-                data: {},
+                data: {be_enable: 1,},
                 async: true,
                 success: function (res) {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
@@ -129,7 +129,7 @@
                     $selOrganizationRailway.append(`<option value="" disabled>未选择</option>`);
                     if (organizationRailways.length > 0) {
                         organizationRailways.map(function (organizationRailway) {
-                            $selOrganizationRailway.append(`<option value="${organizationRailway["uuid"]}" ${organizationRailway["uuid"] === organizationParagraph["organization_railway_uuid"] ? "selected" : ""}>${organizationRailway["name"]}</option>`);
+                            $selOrganizationRailway.append(`<option value="${organizationRailway["uuid"]}" ${organizationRailway["uuid"] === organizationRailwayUUID ? "selected" : ""}>${organizationRailway["name"]}</option>`);
                         });
                     }
                 },

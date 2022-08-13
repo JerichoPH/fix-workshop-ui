@@ -85,7 +85,7 @@
             $.ajax({
                 url: `{{ route("web.OrganizationRailway:Index") }}`,
                 type: 'get',
-                data: {},
+                data: {be_enable: 1,},
                 async: true,
                 success: res => {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);

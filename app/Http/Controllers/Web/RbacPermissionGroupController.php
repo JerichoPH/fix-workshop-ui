@@ -42,6 +42,7 @@ class RbacPermissionGroupController extends Controller
 
     /**
      * 创建权限分组
+     * @param Request $request
      * @return mixed
      * @throws EmptyException
      * @throws ForbiddenException
