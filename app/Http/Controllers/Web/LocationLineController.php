@@ -25,11 +25,7 @@ class LocationLineController extends Controller
      */
     public function Index()
     {
-        if (request()->ajax()) {
-            return $this->sendStandardRequest("locationLine");
-        } else {
-            return view("LocationLine.index");
-        }
+        return request()->ajax() ? $this->sendStandardRequest("locationLine") : view("LocationLine.index");
     }
 
     /**

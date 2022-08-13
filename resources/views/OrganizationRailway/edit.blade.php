@@ -16,7 +16,7 @@
         @include('Layout.alert')
         <div class="row">
             <form class="form-horizontal" id="frmUpdate">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="box box-solid">
                         <div class="box-header">
                             <h3 class="box-title">编辑路局</h3>
@@ -63,7 +63,7 @@
                 </div>
             </form>
             <form id="frmBindLocationLines">
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="box box-solid">
                         <div class="box-header">
                             <div class="row">

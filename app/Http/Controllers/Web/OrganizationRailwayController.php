@@ -25,11 +25,7 @@ class OrganizationRailwayController extends Controller
      */
     public function Index()
     {
-        if (request()->ajax()) {
-            return $this->sendStandardRequest("organizationRailway");
-        } else {
-            return view("OrganizationRailway.index");
-        }
+        return request()->ajax() ? $this->sendStandardRequest("organizationRailway") : view("OrganizationRailway.index");
     }
 
     /**

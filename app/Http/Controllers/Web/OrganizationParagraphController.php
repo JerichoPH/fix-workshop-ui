@@ -6,7 +6,6 @@ use App\Exceptions\EmptyException;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnAuthorizationException;
 use App\Exceptions\UnLoginException;
-use App\Facades\JsonResponseFacade;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
@@ -25,11 +24,7 @@ class OrganizationParagraphController extends Controller
      */
     public function Index()
     {
-        if (request()->ajax()) {
-            return $this->sendStandardRequest("organizationParagraph");
-        } else {
-            return view("OrganizationParagraph.index");
-        }
+        return request()->ajax() ? $this->sendStandardRequest("organizationParagraph") : view("OrganizationParagraph.index");
     }
 
     /**

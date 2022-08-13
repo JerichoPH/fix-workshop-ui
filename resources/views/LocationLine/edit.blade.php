@@ -16,7 +16,7 @@
         @include('Layout.alert')
         <div class="row">
             <form class="form-horizontal" id="frmUpdate">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="box box-solid">
                         <div class="box-header">
                             <h3 class="box-title">编辑线别</h3>
@@ -57,12 +57,12 @@
                 </div>
             </form>
             <form id="frmBindOrganizationRailways">
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="box box-solid">
                         <div class="box-header">
                             <h3 class="box-title">绑定路局</h3>
                             <!--右侧最小化按钮-->
-                            <div class="box-tools pull-right">
+                            <div class="pull-right btn-group btn-group-sm">
                                 <a href="javascript:" class="btn btn-primary" onclick="fnBindOrganizationRailways()"><i class="fa fa-link">&nbsp;</i>绑定路局</a>
                             </div>
                             <hr>
@@ -96,7 +96,7 @@
         let $txtName = $("#txtName");
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
-        let organizationLine = null;
+        let locationLine = null;
         let tblOrganizationRailway = null;
         let boundOrganizationRailwayUUIDs = [];
 
@@ -112,9 +112,9 @@
                 success: res => {
                     console.log(`{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }} success:`, res);
 
-                    organizationLine = res["data"]["organization_line"];
+                    locationLine = res["data"]["location_line"];
 
-                    let {unique_code: uniqueCode, name, be_enable: beEnable, organization_railways: organizationRailways,} = organizationLine;
+                    let {unique_code: uniqueCode, name, be_enable: beEnable, organization_railways: organizationRailways,} = locationLine;
 
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
@@ -233,7 +233,7 @@
         function fnUpdate() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmUpdate.serializeArray();
-            data.push({name: "unique_code", value: organizationLine["unique_code"]});
+            data.push({name: "unique_code", value: locationLine["unique_code"]});
 
             $.ajax({
                 url: `{{ route('web.LocationLine:Update', ["uuid" => $uuid , ]) }}`,

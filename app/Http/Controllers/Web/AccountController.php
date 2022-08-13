@@ -23,11 +23,7 @@ class AccountController extends Controller
      */
     public function Index()
     {
-        if (request()->ajax()) {
-            return $this->sendStandardRequest("account");
-        } else {
-            return view("Account.index");
-        }
+        return request()->ajax() ? $this->sendStandardRequest("account") : view("Account.index");
     }
 
     /**

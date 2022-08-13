@@ -24,17 +24,13 @@ class MenuController extends Controller
      */
     public function Index()
     {
-        if (request()->ajax()) {
-            return $this->sendStandardRequest(
-                "menu",
-                function (Request $request) {
-                    $request = $request->all();
-                    $request["parent_uuid"] = @$request["parent_uuid"] ?: "";
-                    return $request;
-                });
-        } else {
-            return view("Menu.index");
-        }
+        return request()->ajax() ? $this->sendStandardRequest(
+            "menu",
+            function (Request $request) {
+                $request = $request->all();
+                $request["parent_uuid"] = @$request["parent_uuid"] ?: "";
+                return $request;
+            }) : view("Menu.index");
     }
 
     /**

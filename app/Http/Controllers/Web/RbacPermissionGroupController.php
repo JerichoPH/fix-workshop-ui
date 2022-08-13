@@ -24,11 +24,7 @@ class RbacPermissionGroupController extends Controller
      */
     public function Index()
     {
-        if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacPermissionGroup");
-        } else {
-            return view("RbacPermissionGroup.index");
-        }
+        return request()->ajax() ? $this->sendStandardRequest("rbacPermissionGroup") : view("RbacPermissionGroup.index");
     }
 
     /**
