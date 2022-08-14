@@ -23,7 +23,7 @@ class OrganizationWorkshopTypeController extends Controller
      */
     public function Index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("organizationWorkshopType") : view("OrganizationWorkshop.index");
+        return request()->ajax() ? $this->sendStandardRequest("organizationWorkshopType") : view("OrganizationWorkshopType.index");
     }
 
     /**

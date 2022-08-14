@@ -296,7 +296,7 @@
 
                     if (organizationWorkAreas.length > 0) {
                         organizationWorkAreas.map(function (organizationWorkArea) {
-                            $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}" ${organizationWorkAreaUUID === organiationWorkArea["uuid"] ? "selected" : ""}>${organizationWorkArea["name"]}</option>`);
+                            $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}" ${organizationWorkAreaUUID === organizationWorkArea["uuid"] ? "selected" : ""}>${organizationWorkArea["name"]}</option>`);
                         });
                     }
                 },
