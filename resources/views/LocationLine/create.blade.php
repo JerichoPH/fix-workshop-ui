@@ -16,7 +16,7 @@
         @include('Layout.alert')
         <form class="form-horizontal" id="frmStore">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="box box-solid">
                         <div class="box-header">
                             <h3 class="box-title">新建线别</h3>
@@ -51,31 +51,6 @@
                         <div class="box-footer">
                             <a href="{{ route('web.LocationLine:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="box box-solid">
-                        <div class="box-header">
-                            <h3 class="box-title">路局绑定</h3>
-                            <!--右侧最小化按钮-->
-                            <div class="btn-group btn-group-sm pull-right">
-                            </div>
-                            <hr>
-                        </div>
-                        <div class="box-body">
-                            <table class="table table-condensed table-hover" id="tblOrganizationRailway">
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="chkAllOrganizationRailway"></th>
-                                    <th>新建时间</th>
-                                    <th>代码</th>
-                                    <th>名称</th>
-                                    <th>简称</th>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
                         </div>
                     </div>
                 </div>

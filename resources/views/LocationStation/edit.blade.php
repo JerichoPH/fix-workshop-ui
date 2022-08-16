@@ -189,13 +189,6 @@
                                     let uniqueCode = locationLine["unique_code"] ? locationLine["unique_code"] : "";
                                     let name = locationLine["name"] ? locationLine["name"] : "";
                                     let shortName = locationLine["short_name"] ? locationLine["short_name"] : "";
-                                    let divBtnGroup = '';
-                                    divBtnGroup += `<td class="">`;
-                                    divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-warning" onclick="('${uuid}')"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
-                                    divBtnGroup += `</div>`;
-                                    divBtnGroup += `</td>`;
 
                                     render.push([
                                         `<input type="checkbox" class="location-line-uuid" name="location_line_uuids[]" value="${uuid}" ${boundLocationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
@@ -203,7 +196,6 @@
                                         uniqueCode,
                                         name,
                                         shortName,
-                                        divBtnGroup,
                                     ]);
                                 });
                             }

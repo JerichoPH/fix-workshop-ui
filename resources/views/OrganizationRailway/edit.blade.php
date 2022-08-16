@@ -15,7 +15,7 @@
     <section class="content">
         @include('Layout.alert')
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <form class="form-horizontal" id="frmUpdate">
                     <div class="box box-solid">
                         <div class="box-header">
@@ -62,38 +62,6 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-7">
-                <form id="frmBindLocationLines">
-                    <div class="box box-solid">
-                        <div class="box-header">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h3 class="box-title">绑定线别</h3>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="btn-group btn-group-sm pull-right">
-                                        <a href="javascript:" class="btn btn-primary" onclick="fnBindLocationLines()"><i class="fa fa-link">&nbsp;</i>绑定线别</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
-                        <div class="box-body">
-                            <table class="table table-hover table-condensed" id="tblLocationLine">
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="chkAllLocationLine"></th>
-                                    <th>新建时间</th>
-                                    <th>代码</th>
-                                    <th>名称</th>
-                                </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
     </section>
 @endsection
@@ -108,8 +76,6 @@
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
         let organizationRailway = null;
-        let tblLocationLine = null;
-        let boundLocationLineUUIDs = [];
 
         /**
          * 初始化数据
@@ -226,9 +192,6 @@
             if ($select2.length > 0) $select2.select2();
 
             fnInit();  // 初始化数据
-            fnFillTblLocationLine(); // 加载线别表格
-
-            fnCheckAll("chkAllLocationLine", "location-line-uuid");  // 全选线别
         });
 
         /**
@@ -254,38 +217,6 @@
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
-                }
-            });
-        }
-
-        /**
-         * 绑定线别
-         */
-        function fnBindLocationLines() {
-            let loading = layer.msg("处理中……", {time: 0,});
-            let data = $frmBindLocationLines.serializeArray();
-
-            $.ajax({
-                url: `{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }}`,
-                type: 'put',
-                data,
-                async: true,
-                success: function (res) {
-                    console.log(`{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }} success:`, res);
-
-                    layer.close(loading);
-                    layer.msg(res["msg"], {time: 1000,});
-                },
-                error: function (err) {
-                    console.log(`{{ route("web.OrganizationRailway:PutBindLocationLines", ["uuid" => $uuid,]) }} fail:`, err);
-                    layer.close(loading);
-                    if (err["status"] === 406) {
-                        layer.alert(err["responseJSON"]["msg"], {icon: 2,});
-                    } else {
-                        layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
-                        });
-                    }
                 }
             });
         }

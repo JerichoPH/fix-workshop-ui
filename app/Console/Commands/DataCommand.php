@@ -134,49 +134,11 @@ class DataCommand extends Command
             "组织机构-工区类型" => ["group" => "organizationWorkAreaType", "subs" => [],],
             "组织机构-路局" => [
                 "group" => "organizationRailway",
-                "subs" => [
-                    "路局绑定线别" => [
-                        "uri" => "organizationRailway/:uuid/bindLocationLines",
-                        "method" => "PUT",
-                    ],
-                ],
+                "subs" => [],
             ],
             "使用处所-线别" => [
                 "group" => "locationLine",
-                "subs" => [
-                    "线别绑定路局" => [
-                        "uri" => "locationLine/:uuid/bindOrganizationRailways",
-                        "method" => "PUT",
-                    ],
-                    "线别绑定站段" => [
-                        "uri" => "locationLine/:uuid/bindOrganizationParagraphs",
-                        "method" => "PUT",
-                    ],
-                    "线别绑定车间" => [
-                        "uri" => "locationLine/:uuid/bindOrganizationWorkshops",
-                        "method" => "PUT",
-                    ],
-                    "线别绑定工区" => [
-                        "uri" => "locationLine/:uuid/bindOrganizationWorkAreas",
-                        "method" => "PUT",
-                    ],
-                    "线别绑定区间" => [
-                        "uri" => "locationLine/:uuid/bindLocationSections",
-                        "method" => "PUT",
-                    ],
-                    "线别绑定站场" => [
-                        "uri" => "locationLine/:uuid/bindLocationStations",
-                        "method" => "PUT",
-                    ],
-                    "线别绑定道口" => [
-                        "uri" => "locationLine/:uuid/bindLocationRailroadGradeCrosses",
-                        "method" => "PUT",
-                    ],
-                    "线别绑定中心" => [
-                        "uri" => "locationLine/:uuid/bindLocationCenters",
-                        "method" => "PUT",
-                    ],
-                ],
+                "subs" => [],
             ],
             "使用处所-区间" => [
                 "group" => "locationSection",
