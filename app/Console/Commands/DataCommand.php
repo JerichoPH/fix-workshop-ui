@@ -56,10 +56,6 @@ class DataCommand extends Command
         DB::table("pivot_location_line_and_location_railroad_grade_crosses")->truncate();
         DB::table("pivot_location_line_and_location_sections")->truncate();
         DB::table("pivot_location_line_and_location_stations")->truncate();
-        DB::table("pivot_location_line_and_organization_paragraphs")->truncate();
-        DB::table("pivot_location_line_and_organization_railways")->truncate();
-        DB::table("pivot_location_line_and_organization_work_areas")->truncate();
-        DB::table("pivot_location_line_and_organization_workshops")->truncate();
         DB::table("pivot_rbac_role_and_accounts")->truncate();
         DB::table("pivot_rbac_role_and_menus")->truncate();
         DB::table("pivot_rbac_role_and_rbac_permissions")->truncate();
