@@ -211,6 +211,7 @@ Route::prefix("")
                 Route::post("", "LocationStationController@Store")->name("Store");  // 站场角色
                 Route::put("{uuid}", "LocationStationController@Update")->name("Update"); // 站场角色
                 Route::delete("{uuid}", "LocationStationController@Destroy")->name("Destroy");  // 删除站场
+                Route::put("{uuid}/bindLocationLines","LocationStationController@PutBindLocationLines")->name("PutBindLocationLines");  // 绑定线别
             });
 
         // 道口

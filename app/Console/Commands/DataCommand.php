@@ -161,27 +161,59 @@ class DataCommand extends Command
                         "method" => "PUT",
                     ],
                     "线别绑定区间" => [
-                        "uri" => "locationLine/:uuid/bindOrganizationSections",
+                        "uri" => "locationLine/:uuid/bindLocationSections",
                         "method" => "PUT",
                     ],
                     "线别绑定站场" => [
-                        "uri" => "locationLine/:uuid/bindOrganizationStations",
+                        "uri" => "locationLine/:uuid/bindLocationStations",
                         "method" => "PUT",
                     ],
                     "线别绑定道口" => [
-                        "uri" => "locationLine/:uuid/bindOrganizationRailroadGradeCrosses",
+                        "uri" => "locationLine/:uuid/bindLocationRailroadGradeCrosses",
                         "method" => "PUT",
                     ],
                     "线别绑定中心" => [
-                        "uri" => "locationLine/:uuid/bindOrganizationCenters",
+                        "uri" => "locationLine/:uuid/bindLocationCenters",
                         "method" => "PUT",
                     ],
                 ],
             ],
-            "使用处所-区间" => ["group" => "locationSection", "subs" => [],],
-            "使用处所-站场" => ["group" => "locationStation", "subs" => [],],
-            "使用处所-道口" => ["group" => "locationRailroadGradeCross", "subs" => [],],
-            "使用处所-中心" => ["group" => "locationCenter", "subs" => [],],
+            "使用处所-区间" => [
+                "group" => "locationSection",
+                "subs" => [
+                    "站场绑定线别" => [
+                        "uri" => "locationSection/:uuid/bindLocationLines",
+                        "method" => "PUT",
+                    ],
+                ],
+            ],
+            "使用处所-站场" => [
+                "group" => "locationStation",
+                "subs" => [
+                    "站场绑定线别" => [
+                        "uri" => "locationStation/:uuid/bindLocationLines",
+                        "method" => "PUT",
+                    ],
+                ],
+            ],
+            "使用处所-道口" => [
+                "group" => "locationRailroadGradeCross",
+                "subs" => [
+                    "站场绑定线别" => [
+                        "uri" => "locationRailroadGradeCross/:uuid/bindLocationLines",
+                        "method" => "PUT",
+                    ],
+                ],
+            ],
+            "使用处所-中心" => [
+                "group" => "locationCenter",
+                "subs" => [
+                    "中心绑定线别" => [
+                        "uri" => "locationCenter/:uuid/bindLocationLines",
+                        "method" => "PUT",
+                    ],
+                ],
+            ],
             "使用位置-仓储-仓库" => ["group" => "positionDepotStorehouse", "subs" => [],],
             "使用位置-仓储-仓库区域" => ["group" => "positionDepotSection", "subs" => [],],
             "使用位置-仓库-仓库排类型" => ["group" => "positionDepotRowType", "subs" => [],],

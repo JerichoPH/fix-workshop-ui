@@ -114,4 +114,16 @@ class LocationStationController extends Controller
     {
         return $this->sendStandardRequest("locationStation/{$uuid}");
     }
+
+    /**
+     * 站场绑定线别
+     * @throws UnLoginException
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     */
+    public function PutBindLocationLines(string $uuid)
+    {
+        return $this->sendStandardRequest("locationStation/{$uuid}/bindLocationLines");
+    }
 }

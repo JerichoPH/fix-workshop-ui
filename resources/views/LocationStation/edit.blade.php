@@ -127,6 +127,7 @@
         let locationStation = null;
         let tblLocationLine = null;
         let boundLocationLineUUIDs = [];
+        let $frmBindLocationLines = $("#frmBindLocationLines");
 
         /**
          * 加载初始化
@@ -342,6 +343,35 @@
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
                 }
+            });
+        }
+
+        /**
+         * 站场绑定线别
+         */
+        function fnBindLocationLines(){
+            let loading = layer.msg('处理中……', {time: 0,});
+            let data = $frmBindLocationLines.serializeArray();
+
+            $.ajax({
+                url: `{{ route("web.LocationStation:PutBindLocationLines", ["uuid" => $uuid,]) }}`,
+                type: 'put',
+                data,
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.LocationStation:PutBindLocationLines", ["uuid" => $uuid,]) }} success:`,res);
+                    layer.close(loading);
+                    layer.msg(res['msg'], {time: 1000,}, function () {
+
+                    });
+                },
+                error: err => {
+                    console.log(`{{ route("web.LocationStation:PutBindLocationLines", ["uuid" => $uuid,]) }} fail:`, err);
+                    layer.close(loading);
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
             });
         }
     </script>
