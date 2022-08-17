@@ -75,6 +75,8 @@ class DataCommand extends Command
         DB::table("rbac_permission_groups")->truncate();
         DB::table("rbac_permissions")->truncate();
         DB::table("rbac_roles")->truncate();
+        DB::table("entire_instance_statuses")->truncate();
+        DB::table("entire_instance_log_types")->truncate();
 
         // 注册用户
         $account = Account::with([])
@@ -212,99 +214,98 @@ class DataCommand extends Command
         });
 
         // 创建菜单
-        collect([
-            [
-                "name" => "基础信息",
-                "url" => "",
-                "uri_name" => "",
-                "icon" => "fa fa-cog",
-                "subs" => [
-                    [
-                        "name" => "路局管理",
-                        "url" => "/organizationRailway",
-                        "uri_name" => "web.OrganizationRailway",
-                        "icon" => "fa fa-subway",
-                    ],
-                    [
-                        "name" => "站段管理",
-                        "url" => "/organizationParagraph",
-                        "uri_name" => "web.OrganizationParagraph",
-                        "icon" => "fa fa-th-large",
-                    ],
-                    [
-                        "name" => "车间管理",
-                        "url" => "/organizationWorkshop",
-                        "uri_name" => "web.OrganizationWorkshop",
-                        "icon" => "fa fa-th",
-                    ],
-                    [
-                        "name" => "车间类型管理",
-                        "url" => "/organizationWorkshopType",
-                        "uri_name" => "web.OrganizationWorkshopType",
-                        "icon" => "fa fa-th",
-                    ],
-                    [
-                        "name" => "工区管理",
-                        "url" => "/organizationWorkArea",
-                        "uri_name" => "web.OrganizationWorkArea",
-                        "icon" => "fa fa-th-list",
-                    ],
-                    [
-                        "name" => "工区类型管理",
-                        "url" => "/organizationWorkAreaType",
-                        "uri_name" => "web.OrganizationWorkAreaType",
-                        "icon" => "fa fa-th-list",
-                    ],
-                    [
-                        "name" => "线别管理",
-                        "url" => "/locationLine",
-                        "uri_name" => "web.LocationLine",
-                        "icon" => "fa fa-code-fork"
-                    ],
-                    [
-                        "name" => "站场管理",
-                        "url" => "/locationStation",
-                        "uri_name" => "web.LocationStation",
-                        "icon" => "fa fa-fort-awesome",
-                    ],
-                    [
-                        "name" => "道口管理",
-                        "url" => "/locationRailroadGradeCross",
-                        "uri_name" => "web.LocationRailroadGradeCross",
-                        "icon" => "fa fa-openid"
-                    ],
-                    [
-                        "name" => "区间管理",
-                        "url" => "/locationSection",
-                        "uri_name" => "web.LocationSection",
-                        "icon" => "fa fa-slack",
-                    ],
-                    [
-                        "name" => "中心管理",
-                        "url" => "/locationCenter",
-                        "uri_name" => "web.LocationCenter",
-                        "icon" => "fa fa-yelp",
-                    ],
-                    [
-                        "name" => "仓库位置管理",
-                        "url" => "/positionDepotStorehouse",
-                        "uri_name" => "web.PositionDepotStorehouse",
-                        "icon" => "fa fa-home"
-                    ],
-                    [
-                        "name" => "室内上道位置管理",
-                        "url" => "/positionIndoorRoom",
-                        "uri_name" => "web.PositionIndoorRoom",
-                        "icon" => "fa fa-map-marker"
-                    ],
-                    [
-                        "name" => "室外上道位置管理",
-                        "url" => "/positionOutdoor",
-                        "uri_name" => "web.PositionOutdoor",
-                        "icon" => "fa fa-map-marker"
-                    ],
+        collect([[
+            "name" => "基础信息",
+            "url" => "",
+            "uri_name" => "",
+            "icon" => "fa fa-cog",
+            "subs" => [
+                [
+                    "name" => "路局管理",
+                    "url" => "/organizationRailway",
+                    "uri_name" => "web.OrganizationRailway",
+                    "icon" => "fa fa-subway",
+                ],
+                [
+                    "name" => "站段管理",
+                    "url" => "/organizationParagraph",
+                    "uri_name" => "web.OrganizationParagraph",
+                    "icon" => "fa fa-th-large",
+                ],
+                [
+                    "name" => "车间管理",
+                    "url" => "/organizationWorkshop",
+                    "uri_name" => "web.OrganizationWorkshop",
+                    "icon" => "fa fa-th",
+                ],
+                [
+                    "name" => "车间类型管理",
+                    "url" => "/organizationWorkshopType",
+                    "uri_name" => "web.OrganizationWorkshopType",
+                    "icon" => "fa fa-th",
+                ],
+                [
+                    "name" => "工区管理",
+                    "url" => "/organizationWorkArea",
+                    "uri_name" => "web.OrganizationWorkArea",
+                    "icon" => "fa fa-th-list",
+                ],
+                [
+                    "name" => "工区类型管理",
+                    "url" => "/organizationWorkAreaType",
+                    "uri_name" => "web.OrganizationWorkAreaType",
+                    "icon" => "fa fa-th-list",
+                ],
+                [
+                    "name" => "线别管理",
+                    "url" => "/locationLine",
+                    "uri_name" => "web.LocationLine",
+                    "icon" => "fa fa-code-fork"
+                ],
+                [
+                    "name" => "站场管理",
+                    "url" => "/locationStation",
+                    "uri_name" => "web.LocationStation",
+                    "icon" => "fa fa-fort-awesome",
+                ],
+                [
+                    "name" => "道口管理",
+                    "url" => "/locationRailroadGradeCross",
+                    "uri_name" => "web.LocationRailroadGradeCross",
+                    "icon" => "fa fa-openid"
+                ],
+                [
+                    "name" => "区间管理",
+                    "url" => "/locationSection",
+                    "uri_name" => "web.LocationSection",
+                    "icon" => "fa fa-slack",
+                ],
+                [
+                    "name" => "中心管理",
+                    "url" => "/locationCenter",
+                    "uri_name" => "web.LocationCenter",
+                    "icon" => "fa fa-yelp",
+                ],
+                [
+                    "name" => "仓库位置管理",
+                    "url" => "/positionDepotStorehouse",
+                    "uri_name" => "web.PositionDepotStorehouse",
+                    "icon" => "fa fa-home"
+                ],
+                [
+                    "name" => "室内上道位置管理",
+                    "url" => "/positionIndoorRoom",
+                    "uri_name" => "web.PositionIndoorRoom",
+                    "icon" => "fa fa-map-marker"
+                ],
+                [
+                    "name" => "室外上道位置管理",
+                    "url" => "/positionOutdoor",
+                    "uri_name" => "web.PositionOutdoor",
+                    "icon" => "fa fa-map-marker"
                 ],
             ],
+        ],
             [
                 "name" => "系统设置",
                 "url" => "",
@@ -342,8 +343,7 @@ class DataCommand extends Command
                         "icon" => "fa fa-bars",
                     ],
                 ],
-            ],
-        ])
+            ],])
             ->each(function ($menu1) use ($rbacRole) {
                 $newMenu1 = Menu::with([])
                     ->create([
@@ -377,6 +377,140 @@ class DataCommand extends Command
                     ]);
                     $this->comment("角色绑定菜单：$rbacRole->name ➡ $newMenu1->name($newMenu2->name)");
                 });
+            });
+
+        // 创建器材状态
+        collect([
+            [
+                "unique_code" => "FIXING",
+                "name" => "待修",
+                "number" => "07",
+            ], [
+                "unique_code" => "FIXED",
+                "name" => "所内成品",
+                "number" => "08",
+            ], [
+                "unique_code" => "TRANSFER_OUT",
+                "name" => "出所在途",
+                "number" => "02",
+            ], [
+                "unique_code" => "INSTALLED",
+                "name" => "上道使用",
+                "number" => "01",
+            ], [
+                "unique_code" => "INSTALLING",
+                "name" => "备品",
+                "number" => "03",
+            ], [
+                "unique_code" => "TRANSFER_IN",
+                "name" => "入所在途",
+                "number" => "06",
+            ], [
+                "unique_code" => "UNINSTALLED",
+                "name" => "下道停用",
+                "number" => "04",
+            ], [
+                "unique_code" => "UNINSTALLED_BREAKDOWN",
+                "name" => "故障停用",
+                "number" => "05",
+            ], [
+                "unique_code" => "SEND_REPAIR",
+                "name" => "返厂修",
+                "number" => "09",
+            ], [
+                "unique_code" => "SCRAP",
+                "name" => "报废",
+                "number" => "10",
+            ],
+        ])
+            ->each(function ($status) {
+                DB::table("entire_instance_statuses")
+                    ->insert([
+                        "created_at" => now(),
+                        "updated_at" => now(),
+                        "uuid" => Str::uuid(),
+                        "unique_code" => $status["unique_code"],
+                        "name" => $status["name"],
+                        "number" => $status["number"],
+                    ]);
+                $this->comment("创建器材状态：{$status["unique_code"]} {$status["number"]} {$status["name"]}");
+            });
+
+        // 创建器材日志类型
+        collect([[
+            "unique_code" => "TAG",
+            "name" => "赋码",
+            "icon" => "fa fa-envelope-o",
+            "unique_code_for_paragraph" => "TAG",
+        ], [
+            "unique_code" => "IN",
+            "name" => "入所",
+            "icon" => "fa fa-home",
+            "unique_code_for_paragraph" => "TRANSFER_IN",
+        ], [
+            "unique_code" => "OUT",
+            "name" => "出所",
+            "icon" => "fa fa-home",
+            "unique_code_for_paragraph" => "OUT",
+        ], [
+            "unique_code" => "FIX-BEFORE",
+            "name" => "修前检",
+            "icon" => "fa fa-wrench",
+            "unique_code_for_paragraph" => "FIX_BEFORE",
+        ], [
+            "unique_code" => "FIX-AFTER",
+            "name" => "修后检",
+            "icon" => "fa fa-wrench",
+            "unique_code_for_paragraph" => "FIX_AFTER",
+        ], [
+            "unique_code" => "CHECK",
+            "name" => "验收",
+            "icon" => "fa fa-wrench",
+            "unique_code_for_paragraph" => "CHECKED",
+        ], [
+            "unique_code" => "SPOT-CHECK",
+            "name" => "抽验",
+            "icon" => "fa fa-wrench",
+            "unique_code_for_paragraph" => "CHECKED",
+        ], [
+            "unique_code" => "INSTALLED",
+            "name" => "上道",
+            "icon" => "fa fa-map-signs",
+            "unique_code_for_paragraph" => "INSTALLED",
+        ], [
+            "unique_code" => "UNINSTALL",
+            "name" => "下道",
+            "icon" => "fa fa-map-signs",
+            "unique_code_for_paragraph" => "UNBINDING",
+        ], [
+            "unique_code" => "WAREHOUSE_IN",
+            "name" => "入库",
+            "icon" => "fa fa-home",
+            "unique_code_for_paragraph" => "IN",
+        ], [
+            "unique_code" => "BREAKDOWN",
+            "name" => "故障",
+            "icon" => "fa fa-exclamation",
+            "unique_code_for_paragraph" => "",
+        ], [
+            "unique_code" => "ALARM",
+            "name" => "报警",
+            "icon" => "fa fa-exclamation",
+            "unique_code_for_paragraph" => "",
+        ],])
+            ->each(function ($type) {
+                DB::table("entire_instance_log_types")
+                    ->insert([
+                        "created_at" => now(),
+                        "updated_at" => now(),
+                        "uuid" => Str::uuid(),
+                        "unique_code" => $type["unique_code"],
+                        "name" => $type["name"],
+                        "icon" => $type["icon"],
+                        "number" => "",
+                        "unique_code_for_paragraph" => $type["unique_code_for_paragraph"] ?? "",
+                    ]);
+                $this->comment("创建器材日志类型：{$type["unique_code"]} {$type["name"]}");
             });
 
         $this->info("初始化数据完成");

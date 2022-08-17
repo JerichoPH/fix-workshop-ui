@@ -56,9 +56,9 @@
             if (document.getElementById('tblLocationRailroadGradeCross')) {
                 tblLocationRailroadGradeCross = $('#tblLocationRailroadGradeCross').DataTable({
                     ajax: {
-                        url: `{{ route("web:LocationRailroadGradeCross:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.LocationRailroadGradeCross:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web:LocationRailroadGradeCross:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log(`{{ route("web.LocationRailroadGradeCross:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {location_railroad_grade_crosses: locationRailroadGradeCrosses,} = res["data"];
                             let render = [];
                             if (locationRailroadGradeCrosses.length > 0) {
@@ -102,7 +102,7 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web:LocationRailroadGradeCross:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.LocationRailroadGradeCross:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                                 if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                             });

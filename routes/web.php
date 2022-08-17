@@ -225,6 +225,7 @@ Route::prefix("")
                 Route::post("", "LocationRailroadGradeCrossController@Store")->name("Store");  // 道口角色
                 Route::put("{uuid}", "LocationRailroadGradeCrossController@Update")->name("Update"); // 道口角色
                 Route::delete("{uuid}", "LocationRailroadGradeCrossController@Destroy")->name("Destroy");  // 删除道口
+                Route::put("{uuid}/bindLocationLines","LocationRailroadGradeCrossController@PutBindLocationLines")->name("PutBindLocationLines");  // 绑定线别
             });
 
         // 区间
@@ -238,6 +239,7 @@ Route::prefix("")
                 Route::post("", "LocationSectionController@Store")->name("Store");  // 区间角色
                 Route::put("{uuid}", "LocationSectionController@Update")->name("Update"); // 区间角色
                 Route::delete("{uuid}", "LocationSectionController@Destroy")->name("Destroy");  // 删除区间
+                Route::put("{uuid}/bindLocationLines","LocationSectionController@PutBindLocationLines")->name("PutBindLocationLines");  // 绑定线别
             });
 
         // 中心
@@ -251,6 +253,7 @@ Route::prefix("")
                 Route::post("", "LocationCenterController@Store")->name("Store");  // 中心角色
                 Route::put("{uuid}", "LocationCenterController@Update")->name("Update"); // 中心角色
                 Route::delete("{uuid}", "LocationCenterController@Destroy")->name("Destroy");  // 删除中心
+                Route::put("{uuid}/bindLocationLines","LocationSectionController@PutBindLocationLines")->name("PutBindLocationLines");  // 绑定线别
             });
 
     });
