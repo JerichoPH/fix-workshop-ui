@@ -305,8 +305,7 @@ class DataCommand extends Command
                     "icon" => "fa fa-map-marker"
                 ],
             ],
-        ],
-            [
+        ], [
                 "name" => "系统设置",
                 "url" => "",
                 "uri_name" => "",
