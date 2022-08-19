@@ -44,9 +44,9 @@ class DataCommand extends Command
         DB::table("location_lines")->truncate();
         DB::table("location_sections")->truncate();
         DB::table("location_stations")->truncate();
+        DB::table("location_railroad_grade_crosses")->truncate();
         DB::table("menus")->truncate();
         DB::table("organization_paragraphs")->truncate();
-        DB::table("organization_railroad_grade_crosses")->truncate();
         DB::table("organization_railways")->truncate();
         DB::table("organization_work_area_types")->truncate();
         DB::table("organization_work_areas")->truncate();
