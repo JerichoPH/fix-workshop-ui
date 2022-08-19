@@ -85,6 +85,10 @@ class DataCommand extends Command
                 "username" => "admin",
                 "password" => bcrypt("zces@1234"),
                 "nickname" => "admin",
+                "organization_railway_uuid" => "",
+                "organization_paragraph_uuid" => "",
+                "organization_workshop_uuid" => "",
+                "organization_work_area_uuid" => "",
             ]);
         $this->comment("创建用户：$account->nickname");
 
@@ -306,43 +310,43 @@ class DataCommand extends Command
                 ],
             ],
         ], [
-                "name" => "系统设置",
-                "url" => "",
-                "uri_name" => "",
-                "icon" => "fa fa-cogs",
-                "subs" => [
-                    [
-                        "name" => "用户管理",
-                        "url" => "/account",
-                        "uri_name" => "web.Account",
-                        "icon" => "fa fa-user",
-                    ],
-                    [
-                        "name" => "角色管理",
-                        "url" => "/rbacRole",
-                        "uri_name" => "web.RbacRole",
-                        "icon" => "fa fa-users",
-                    ],
-                    [
-                        "name" => "权限分组管理",
-                        "url" => "/rbacPermissionGroup",
-                        "uri_name" => "web.RbacPermissionGroup",
-                        "icon" => "fa fa-lock",
-                    ],
-                    [
-                        "name" => "权限管理",
-                        "url" => "/rbacPermission",
-                        "uri_name" => "web.RbacPermission",
-                        "icon" => "fa fa-key",
-                    ],
-                    [
-                        "name" => "菜单管理",
-                        "url" => "/menu",
-                        "uri_name" => "web.Menu",
-                        "icon" => "fa fa-bars",
-                    ],
+            "name" => "系统设置",
+            "url" => "",
+            "uri_name" => "",
+            "icon" => "fa fa-cogs",
+            "subs" => [
+                [
+                    "name" => "用户管理",
+                    "url" => "/account",
+                    "uri_name" => "web.Account",
+                    "icon" => "fa fa-user",
                 ],
-            ],])
+                [
+                    "name" => "角色管理",
+                    "url" => "/rbacRole",
+                    "uri_name" => "web.RbacRole",
+                    "icon" => "fa fa-users",
+                ],
+                [
+                    "name" => "权限分组管理",
+                    "url" => "/rbacPermissionGroup",
+                    "uri_name" => "web.RbacPermissionGroup",
+                    "icon" => "fa fa-lock",
+                ],
+                [
+                    "name" => "权限管理",
+                    "url" => "/rbacPermission",
+                    "uri_name" => "web.RbacPermission",
+                    "icon" => "fa fa-key",
+                ],
+                [
+                    "name" => "菜单管理",
+                    "url" => "/menu",
+                    "uri_name" => "web.Menu",
+                    "icon" => "fa fa-bars",
+                ],
+            ],
+        ],])
             ->each(function ($menu1) use ($rbacRole) {
                 $newMenu1 = Menu::with([])
                     ->create([
