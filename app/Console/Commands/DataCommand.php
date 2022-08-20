@@ -129,19 +129,14 @@ class DataCommand extends Command
             "种类型-种类" => ["group" => "kindCategory", "subs" => [],],
             "种类型-类型" => ["group" => "kindEntireType", "subs" => [],],
             "种类型-型号" => ["group" => "kindSubType", "subs" => [],],
+            "组织机构-路局" => ["group" => "organizationRailway", "subs" => [],],
             "组织机构-站段" => ["group" => "organizationParagraph", "subs" => [],],
             "组织机构-车间" => ["group" => "organizationWorkshop", "subs" => [],],
             "组织机构-车间类型" => ["group" => "organizationWorkshopType", "subs" => [],],
             "组织机构-工区" => ["group" => "organizationWorkArea", "subs" => [],],
             "组织机构-工区类型" => ["group" => "organizationWorkAreaType", "subs" => [],],
-            "组织机构-路局" => [
-                "group" => "organizationRailway",
-                "subs" => [],
-            ],
-            "使用处所-线别" => [
-                "group" => "locationLine",
-                "subs" => [],
-            ],
+            "组织机构-工区专业" => ["group" => "organizationWorkAreaProfession", "subs" => [],],
+            "使用处所-线别" => ["group" => "locationLine", "subs" => [],],
             "使用处所-区间" => [
                 "group" => "locationSection",
                 "subs" => [
@@ -191,6 +186,7 @@ class DataCommand extends Command
             "使用位置-室内上道位置-机房柜架" => ["group" => "positionIndoorCabinet", "subs" => [],],
             "使用位置-室内上道位置-机房柜架层" => ["group" => "positionIndoorTier", "subs" => [],],
             "使用位置-室内上道位置-机房柜架格位" => ["group" => "positionIndoorCell", "subs" => [],],
+            "赋码" => ["group" => "tag"],
         ])->each(function ($rbacPermissionGroupUri, $rbacPermissionGroupName) use ($rbacRole) {
             ["group" => $group, "subs" => $subs,] = $rbacPermissionGroupUri;
             $rbacPermissionGroup = $this->createPermissionGroup(

@@ -30,6 +30,10 @@
                         <th>编号</th>
                         <th>用户名</th>
                         <th>昵称</th>
+                        <th>所属路局</th>
+                        <th>所属站段</th>
+                        <th>所属车间</th>
+                        <th>所属工区</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -62,6 +66,10 @@
                                     let uuid = account["uuid"];
                                     let username = account["username"];
                                     let nickname = account["nickname"];
+                                    let organizationRailwayName = account["organization_railway"] ? account["organization_railway"]["name"] : "";
+                                    let organizationParagraphName = account["organization_paragraph"] ? account["organization_paragraph"]["name"] : "";
+                                    let organizationWorkshopName = account["organization_workshop"] ? account["organization_workshop"]["name"] : "";
+                                    let organizationWorkAreaName = account["organization_work_area"] ? account["organization_workshop"]["name"] : "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
@@ -75,6 +83,10 @@
                                         uuid,
                                         username,
                                         nickname,
+                                        organizationRailwayName,
+                                        organizationParagraphName,
+                                        organizationWorkshopName,
+                                        organizationWorkAreaName,
                                         divBtnGroup,
                                     ]);
                                 });
@@ -121,7 +133,5 @@
 
             fnFillTblAccount();  // 填充用户表
         });
-
-
     </script>
 @endsection

@@ -38,6 +38,30 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-2 control-label">所属路局：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select name="organization_railway_uuid" id="selOrganizationRailway" class="select2 form-control" onchange="fnFillOrganizationParagraph(this.value)"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属站段：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select name="organization_paragraph_uuid" id="selOrganizationParagraph" class="select2 form-control" onchange="fnFillOrganizationWorkshop(this.value)"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属车间：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select name="organization_workshop_uuid" id="selOrganizationWorkshop" class="select2 form-control"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属工区：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select name="organization_work_area_uuid" id="selOrganizationWorkArea" class="select2 form-control"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">密码*：</label>
                                 <div class="col-sm-10 col-md-9">
                                     <input name="password" id="txtPassword" type="password" class="form-control" placeholder="必填" required value="" autocomplete="off">
@@ -67,9 +91,152 @@
         let $frmStore = $('#frmStore');
         let $txtUsername = $("#txtUsername");
         let $txtNickname = $("#txtNickname");
+        let $selOrganizationRailway = $("#selOrganizationRailway");
+        let $selOrganizationParagraph = $("#selOrganizationParagraph");
+        let $selOrganizationWorkshop = $("#selOrganizationWorkshop");
+        let $selOrganizationWorkArea = $("#selOrganizationWorkArea");
+
+        /**
+         * 加载路局下拉列表
+         */
+        function fnFillOrganizationRailway() {
+            $.ajax({
+                url: `{{ route("web.OrganizationRailway:Index") }}`,
+                type: 'get',
+                data: {be_enable: true,},
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
+
+                    let {organization_railways: organizationRailways} = res["data"];
+                    $selOrganizationRailway.empty();
+                    $selOrganizationRailway.append(`<option value="">未选择</option>`);
+                    if (organizationRailways.length > 0) {
+                        organizationRailways.map(organizationRailway => {
+                            $selOrganizationRailway.append(`<option value="${organizationRailway["uuid"]}">${organizationRailway["name"]}</option>`);
+                        });
+                    }
+                },
+                error: err => {
+                    console.log(`{{ route("web.OrganizationRailway:Index") }} fail:`, err);
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
+            });
+        }
+
+        /**
+         * 加载站段下拉列表
+         * @param {string} organizationRailwayUUID
+         */
+        function fnFillOrganizationParagraph(organizationRailwayUUID) {
+            $selOrganizationParagraph.empty();
+            $selOrganizationParagraph.append(`<option value="">未选择</option>`);
+
+            if (organizationRailwayUUID) {
+                $.ajax({
+                    url: `{{ route("web.OrganizationParagraph:Index") }}`,
+                    type: 'get',
+                    data: {be_enable: true, organization_railway_uuid: organizationRailwayUUID,},
+                    async: true,
+                    success: res => {
+                        console.log(`{{ route("web.OrganizationParagraph:Index") }} success:`, res);
+
+                        let {organization_paragraphs: organizationParagraphs,} = res["data"];
+                        if (organizationParagraphs.length > 0) {
+                            organizationParagraphs.map(function (organizationParagraph) {
+                                $selOrganizationParagraph.append(`<option value="${organizationParagraph["uuid"]}">${organizationParagraph["name"]}</option>`);
+                            });
+                        }
+                    },
+                    error: err => {
+                        console.log(`{{ route("web.OrganizationParagraph:Index") }} fail:`, err);
+                        layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        });
+                    },
+                });
+            }
+        }
+
+        /**
+         * 加载车间下拉列表
+         * @param {string} organizationParagraphUUID
+         */
+        function fnFillOrganizationWorkshop(organizationParagraphUUID) {
+            $selOrganizationWorkshop.empty();
+            $selOrganizationWorkshop.append(`<option value="">未选择</option>`);
+
+            if (organizationParagraphUUID) {
+                $.ajax({
+                    url: `{{ route("web.OrganizationWorkshop:Index") }}`,
+                    type: 'get',
+                    data: {
+                        be_enable: true,
+                        organization_paragraph_uuid: organizationParagraphUUID,
+                        organization_workshop_type_unique_code: ["FIX-WORKSHOP",],
+                    },
+                    async: true,
+                    success: res => {
+                        console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
+
+                        let {organization_workshops: organizationWorkshops,} = res["data"];
+                        if (organizationWorkshops.length > 0) {
+                            organizationWorkshops.map(function (organizationWorkshop) {
+                                $selOrganizationWorkshop.append(`<option value="${organizationWorkshop["uuid"]}">${organizationWorkshop["name"]}</option>`);
+                            });
+                        }
+                    },
+                    error: err => {
+                        console.log(`{{ route("web.OrganizationWorkshop:Index") }} fail:`, err);
+                        layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        });
+                    },
+                });
+            }
+        }
+
+        /**
+         * 加载工区下拉列表
+         * @param {string} organizationWorkshopUUID
+         */
+        function fnFillOrganizationWorkArea(organizationWorkshopUUID) {
+            $selOrganizationWorkArea.empty();
+            $selOrganizationWorkArea.append(`<option value="">未选择</option>`);
+
+            $.ajax({
+                url: `{{ route("web.OrganizationWorkArea:Index") }}`,
+                type: 'get',
+                data: {organization_workshop_uuid: organizationWorkshopUUID,},
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
+
+                    let {organization_work_areas: organizationWorkAreas,} = res["data"];
+                    if (organizationWorkAreas.length > 0) {
+                        organizationWorkAreas.map(function (organizationWorkArea) {
+                            $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}">${organizationWorkArea["name"]}</option>`);
+                        });
+                    }
+                },
+                error: err => {
+                    console.log(`{{ route("web.OrganizationWorkArea:Index") }} fail:`, err);
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
+            });
+        }
 
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
+
+            fnFillOrganizationRailway();  // 加载路局下拉列表
+            fnFillOrganizationParagraph("");  // 加载站段下拉列表
+            fnFillOrganizationWorkshop(""); // 加载车间下拉列表
+            fnFillOrganizationWorkArea("");  // 加载工区下拉列表
         });
 
         /**
