@@ -186,7 +186,7 @@ class DataCommand extends Command
             "使用位置-室内上道位置-机房柜架" => ["group" => "positionIndoorCabinet", "subs" => [],],
             "使用位置-室内上道位置-机房柜架层" => ["group" => "positionIndoorTier", "subs" => [],],
             "使用位置-室内上道位置-机房柜架格位" => ["group" => "positionIndoorCell", "subs" => [],],
-            "赋码" => ["group" => "tag"],
+            "赋码" => ["group" => "tag", "subs" => [],],
         ])->each(function ($rbacPermissionGroupUri, $rbacPermissionGroupName) use ($rbacRole) {
             ["group" => $group, "subs" => $subs,] = $rbacPermissionGroupUri;
             $rbacPermissionGroup = $this->createPermissionGroup(
