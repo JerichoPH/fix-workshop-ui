@@ -257,6 +257,12 @@ class DataCommand extends Command
                     "icon" => "fa fa-th-list",
                 ],
                 [
+                    "name" => "工区专业管理",
+                    "url" => "/organizationWorkAreaProfession",
+                    "uri_name" => "web.OrganizationWorkAreaProfession",
+                    "icon" => "fa fa-th-list",
+                ],
+                [
                     "name" => "线别管理",
                     "url" => "/locationLine",
                     "uri_name" => "web.LocationLine",
