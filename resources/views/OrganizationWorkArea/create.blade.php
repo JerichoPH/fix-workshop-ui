@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">是否启用*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1">
+                                    <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1" checked>
                                     <label for="rdoBeEnableYes">是</label>
                                     &emsp;
                                     <input type="radio" name="be_enable" id="rdoBeEnableNo" value="0">
@@ -71,6 +71,18 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">工区专业：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select
+                                            name="organization_work_area_profession_uuid"
+                                            id="selOrganizationWorkAreaProfession"
+                                            class="form-control select2"
+                                            style="width: 100%;"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationWorkArea:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
@@ -88,6 +100,7 @@
         let $frmStore = $('#frmStore');
         let $selOrganizationWorkshop = $("#selOrganizationWorkshop");
         let $selOrganizationWorkAreaType = $("#selOrganizationWorkAreaType");
+        let $selOrganizationWorkAreaProfession = $("#selOrganizationWorkAreaProfession");
 
         /**
          * 加载车间下拉列表
@@ -153,11 +166,44 @@
             });
         }
 
+        /**
+         * 加载工区专业下拉列表
+         */
+        function fnFillSelOrganizationWorkAreaProfession() {
+            $selOrganizationWorkAreaProfession.empty();
+            $selOrganizationWorkAreaProfession.append(`<option value="">未选择</option>`);
+
+            $.ajax({
+                url: `{{ route("web.OrganizationWorkAreaProfession:Index") }}`,
+                type: 'get',
+                data: {},
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.OrganizationWorkAreaProfession:Index") }} success:`, res);
+
+                    let {organization_work_area_professions: organizationWorkAreaProfessions,} = res["data"];
+
+                    if (organizationWorkAreaProfessions.length > 0) {
+                        organizationWorkAreaProfessions.map(function (organizationWorkAreaProfession) {
+                            $selOrganizationWorkAreaProfession.append(`<option value="${organizationWorkAreaProfession["uuid"]}">${organizationWorkAreaProfession["name"]}</option>`);
+                        });
+                    }
+                },
+                error: err => {
+                    console.log(`{{ route("web.OrganizationWorkAreaProfession:Index") }} fail:`, err);
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
+            });
+        }
+
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
             fnFillSelOrganizationWorkshop();  // 加载车间下拉列表
             fnFillSelOrganizationWorkAreaType();  // 加载工区类型下拉列表
+            fnFillSelOrganizationWorkAreaProfession();  // 加载工区专业下拉列表
         });
 
         /**
@@ -166,6 +212,7 @@
         function fnStore() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
+            console.log(data);
 
             $.ajax({
                 url: '{{ route('web.OrganizationWorkArea:Store') }}',

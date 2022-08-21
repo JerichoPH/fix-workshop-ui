@@ -6,13 +6,13 @@ use App\Exceptions\EmptyException;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnAuthorizationException;
 use App\Exceptions\UnLoginException;
-use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\View\Factory;
+use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 
-class OrganizationWorkAreaController extends Controller
+class OrganizationWorkAreaProfessionController extends Controller
 {
     /**
      * 工区类型列表
@@ -24,7 +24,7 @@ class OrganizationWorkAreaController extends Controller
      */
     public function Index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("organizationWorkArea") : view("OrganizationWorkArea.index");
+        return request()->ajax() ? $this->sendStandardRequest("organizationWorkAreaProfession") : view("OrganizationWorkAreaProfession.index");
     }
 
     /**
@@ -33,7 +33,7 @@ class OrganizationWorkAreaController extends Controller
      */
     public function Create()
     {
-        return view("OrganizationWorkArea.create");
+        return view("OrganizationWorkAreaProfession.create");
     }
 
     /**
@@ -46,15 +46,7 @@ class OrganizationWorkAreaController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest(
-            "organizationWorkArea",
-            function (Request $request) {
-                $request = $request->all();
-                $request["be_enable"] = boolval($request["be_enable"]);
-                $request["organization_work_area_profession_uuid"] = $request["organization_work_area_profession_uuid"] ?? "";
-                return $request;
-            }
-        );
+        return $this->sendStandardRequest("organizationWorkAreaProfession");
     }
 
     /**
@@ -68,7 +60,7 @@ class OrganizationWorkAreaController extends Controller
      */
     public function Show(string $uuid)
     {
-        return $this->sendStandardRequest("organizationWorkArea/{$uuid}");
+        return $this->sendStandardRequest("organizationWorkAreaProfession/{$uuid}");
     }
 
     /**
@@ -78,7 +70,7 @@ class OrganizationWorkAreaController extends Controller
      */
     public function Edit(string $uuid)
     {
-        return view("OrganizationWorkArea.edit", ["uuid" => $uuid,]);
+        return view("OrganizationWorkAreaProfession.edit", ["uuid" => $uuid,]);
     }
 
     /**
@@ -92,14 +84,7 @@ class OrganizationWorkAreaController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest(
-            "organizationWorkArea/{$uuid}",
-            function (Request $request) {
-                $request = $request->all();
-                $request["be_enable"] = boolval($request["be_enable"]);
-                return $request;
-            }
-        );
+        return $this->sendStandardRequest("organizationWorkAreaProfession/{$uuid}");
     }
 
     /**
@@ -113,6 +98,6 @@ class OrganizationWorkAreaController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("organizationWorkArea/{$uuid}");
+        return $this->sendStandardRequest("organizationWorkAreaProfession/{$uuid}");
     }
 }

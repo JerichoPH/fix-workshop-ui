@@ -71,6 +71,18 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">工区专业：</label>
+                                <div class="col-sm-10 col-md-9">
+                                    <select
+                                            name="organization_work_area_profession_uuid"
+                                            id="selOrganizationWorkAreaProfession"
+                                            class="form-control select2"
+                                            style="width: 100%;"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationWorkArea:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
@@ -88,9 +100,10 @@
         let $txtUniqueCode = $("#txtUniqueCode");
         let $txtName = $("#txtName");
         let $selOrganizationWorkshop = $("#selOrganizationWorkshop");
-        let $selOrganizationWorkAreaType = $("#selOrganizationWorkAreaType");
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
+        let $selOrganizationWorkAreaType = $("#selOrganizationWorkAreaType");
+        let $selOrganizationWorkAreaProfession = $("#selOrganizationWorkAreaProfession");
         let $frmUpdate = $('#frmUpdate');
         let organizationWorkArea = null;
 
@@ -117,6 +130,7 @@
                     }
                     fnFillSelOrganizationWorkshop(organizationWorkArea["organization_workshop"]["uuid"]);
                     fnFillSelOrganizationWorkAreaType(organizationWorkArea["organization_work_area_type"]["uuid"]);
+                    fnFillSelOrganizationWorkAreaProfession(organizationWorkArea["organization_work_area_profession"]["uuid"]);
                 },
                 error: err => {
                     console.log(`{{ route("web.OrganizationWorkArea:Show", ["uuid" => $uuid,]) }} fail:`, err);
@@ -186,6 +200,39 @@
                 },
                 error: err => {
                     console.log(`{{ route("web.OrganizationWorkAreaType:Index") }} fail:`, err);
+                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                    });
+                },
+            });
+        }
+
+        /**
+         * 加载工区专业下拉列表
+         * @param {string} organizationWorkAreaProfessionUUID
+         */
+        function fnFillSelOrganizationWorkAreaProfession(organizationWorkAreaProfessionUUID = "") {
+            $selOrganizationWorkAreaProfession.empty();
+            $selOrganizationWorkAreaProfession.append(`<option value="">未选择</option>`);
+
+            $.ajax({
+                url: `{{ route("web.OrganizationWorkAreaProfession:Index") }}`,
+                type: 'get',
+                data: {},
+                async: true,
+                success: res => {
+                    console.log(`{{ route("web.OrganizationWorkAreaProfession:Index") }} success:`, res);
+
+                    let {organization_work_area_professions: organizationWorkAreaProfessions,} = res["data"];
+
+                    if (organizationWorkAreaProfessions.length > 0) {
+                        organizationWorkAreaProfessions.map(function (organizationWorkAreaProfession) {
+                            $selOrganizationWorkAreaProfession.append(`<option value="${organizationWorkAreaProfession["uuid"]}">${organizationWorkAreaProfession["name"]}</option>`);
+                        });
+                    }
+                },
+                error: err => {
+                    console.log(`{{ route("web.OrganizationWorkAreaProfession:Index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });

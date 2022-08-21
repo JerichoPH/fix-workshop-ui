@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">是否启用*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1">
+                                    <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1" checked>
                                     <label for="rdoBeEnableYes">是</label>
                                     &emsp;
                                     <input type="radio" name="be_enable" id="rdoBeEnableNo" value="0">
