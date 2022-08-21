@@ -51,7 +51,6 @@ class OrganizationWorkAreaController extends Controller
             function (Request $request) {
                 $request = $request->all();
                 $request["be_enable"] = boolval($request["be_enable"]);
-                $request["organization_work_area_profession_uuid"] = $request["organization_work_area_profession_uuid"] ?? "";
                 return $request;
             }
         );

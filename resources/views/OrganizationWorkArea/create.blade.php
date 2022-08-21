@@ -136,20 +136,21 @@
 
         /**
          * 加载工区类型下拉列表
+         * @param {string} organizationWorkshopUUID
          */
-        function fnFillSelOrganizationWorkAreaType() {
+        function fnFillSelOrganizationWorkAreaType(organizationWorkshopUUID = "") {
+            $selOrganizationWorkAreaType.empty();
+            $selOrganizationWorkAreaType.append(`<option value="" disabled selected>未选择</option>`);
+
             $.ajax({
                 url: `{{ route("web.OrganizationWorkAreaType:Index") }}`,
                 type: 'get',
-                data: {},
+                data: {organization_workshop_uuid: organizationWorkshopUUID,},
                 async: true,
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkAreaType:Index") }} success:`, res);
 
                     let {organization_work_area_types: organizationWorkAreaTypes,} = res["data"];
-
-                    $selOrganizationWorkAreaType.empty();
-                    $selOrganizationWorkAreaType.append(`<option value="" disabled selected>未选择</option>`);
 
                     if (organizationWorkAreaTypes.length > 0) {
                         organizationWorkAreaTypes.map(function (organizationWorkAreaType) {
