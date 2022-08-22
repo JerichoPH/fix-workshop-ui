@@ -40,25 +40,25 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">所属路局：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <select name="organization_railway_uuid" id="selOrganizationRailway" class="select2 form-control" onchange="fnFillOrganizationParagraph(this.value)"></select>
+                                    <select name="organization_railway_uuid" id="selOrganizationRailway" class="select2 form-control" onchange="fnFillOrganizationParagraph(this.value)" style="width: 100%;"></select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">所属站段：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <select name="organization_paragraph_uuid" id="selOrganizationParagraph" class="select2 form-control" onchange="fnFillOrganizationWorkshop(this.value)"></select>
+                                    <select name="organization_paragraph_uuid" id="selOrganizationParagraph" class="select2 form-control" onchange="fnFillOrganizationWorkshop(this.value)" style="width: 100%;"></select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">所属车间：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <select name="organization_workshop_uuid" id="selOrganizationWorkshop" class="select2 form-control"></select>
+                                    <select name="organization_workshop_uuid" id="selOrganizationWorkshop" class="select2 form-control" onchange="fnFillOrganizationWorkArea(this.value)" style="width: 100%;"></select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">所属工区：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <select name="organization_work_area_uuid" id="selOrganizationWorkArea" class="select2 form-control"></select>
+                                    <select name="organization_work_area_uuid" id="selOrganizationWorkArea" class="select2 form-control" style="width: 100%;"></select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -105,7 +105,10 @@
                 type: 'get',
                 data: {be_enable: true,},
                 async: true,
-                success: res => {
+                beforeSend() {
+                    $selOrganizationRailway.prop("disabled", "disabled");
+                },
+                success(res) {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
 
                     let {organization_railways: organizationRailways} = res["data"];
@@ -117,11 +120,14 @@
                         });
                     }
                 },
-                error: err => {
+                error(err) {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
+                },
+                complete() {
+                    $selOrganizationRailway.removeAttr("disabled");
                 },
             });
         }
@@ -130,7 +136,7 @@
          * 加载站段下拉列表
          * @param {string} organizationRailwayUUID
          */
-        function fnFillOrganizationParagraph(organizationRailwayUUID) {
+        function fnFillOrganizationParagraph(organizationRailwayUUID = "") {
             $selOrganizationParagraph.empty();
             $selOrganizationParagraph.append(`<option value="">未选择</option>`);
 
@@ -140,7 +146,10 @@
                     type: 'get',
                     data: {be_enable: true, organization_railway_uuid: organizationRailwayUUID,},
                     async: true,
-                    success: res => {
+                    beforeSend() {
+                        $selOrganizationParagraph.prop("disabled", "disabled");
+                    },
+                    success(res) {
                         console.log(`{{ route("web.OrganizationParagraph:Index") }} success:`, res);
 
                         let {organization_paragraphs: organizationParagraphs,} = res["data"];
@@ -150,11 +159,14 @@
                             });
                         }
                     },
-                    error: err => {
+                    error(err) {
                         console.log(`{{ route("web.OrganizationParagraph:Index") }} fail:`, err);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                             if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                         });
+                    },
+                    complete() {
+                        $selOrganizationParagraph.removeAttr("disabled");
                     },
                 });
             }
@@ -164,7 +176,7 @@
          * 加载车间下拉列表
          * @param {string} organizationParagraphUUID
          */
-        function fnFillOrganizationWorkshop(organizationParagraphUUID) {
+        function fnFillOrganizationWorkshop(organizationParagraphUUID = "") {
             $selOrganizationWorkshop.empty();
             $selOrganizationWorkshop.append(`<option value="">未选择</option>`);
 
@@ -178,7 +190,10 @@
                         organization_workshop_type_unique_code: ["FIX-WORKSHOP",],
                     },
                     async: true,
-                    success: res => {
+                    beforeSend() {
+                        $selOrganizationWorkshop.prop("disabled", "disabled");
+                    },
+                    success(res) {
                         console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
 
                         let {organization_workshops: organizationWorkshops,} = res["data"];
@@ -188,12 +203,15 @@
                             });
                         }
                     },
-                    error: err => {
+                    error(err) {
                         console.log(`{{ route("web.OrganizationWorkshop:Index") }} fail:`, err);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                             if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                         });
                     },
+                    complete() {
+                        $selOrganizationWorkshop.removeAttr("disabled");
+                    }
                 });
             }
         }
@@ -202,32 +220,40 @@
          * 加载工区下拉列表
          * @param {string} organizationWorkshopUUID
          */
-        function fnFillOrganizationWorkArea(organizationWorkshopUUID) {
+        function fnFillOrganizationWorkArea(organizationWorkshopUUID = "") {
             $selOrganizationWorkArea.empty();
             $selOrganizationWorkArea.append(`<option value="">未选择</option>`);
 
-            $.ajax({
-                url: `{{ route("web.OrganizationWorkArea:Index") }}`,
-                type: 'get',
-                data: {organization_workshop_uuid: organizationWorkshopUUID,},
-                async: true,
-                success: res => {
-                    console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
+            if (organizationWorkshopUUID) {
+                $.ajax({
+                    url: `{{ route("web.OrganizationWorkArea:Index") }}`,
+                    type: 'get',
+                    data: {organization_workshop_uuid: organizationWorkshopUUID,},
+                    async: true,
+                    beforeSend() {
+                        $selOrganizationWorkArea.prop("disabled", "disabled");
+                    },
+                    success: res => {
+                        console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
 
-                    let {organization_work_areas: organizationWorkAreas,} = res["data"];
-                    if (organizationWorkAreas.length > 0) {
-                        organizationWorkAreas.map(function (organizationWorkArea) {
-                            $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}">${organizationWorkArea["name"]}</option>`);
+                        let {organization_work_areas: organizationWorkAreas,} = res["data"];
+                        if (organizationWorkAreas.length > 0) {
+                            organizationWorkAreas.map(function (organizationWorkArea) {
+                                $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}">${organizationWorkArea["name"]}</option>`);
+                            });
+                        }
+                    },
+                    error: err => {
+                        console.log(`{{ route("web.OrganizationWorkArea:Index") }} fail:`, err);
+                        layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                         });
-                    }
-                },
-                error: err => {
-                    console.log(`{{ route("web.OrganizationWorkArea:Index") }} fail:`, err);
-                    layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
-                    });
-                },
-            });
+                    },
+                    complete() {
+                        $selOrganizationWorkArea.attr("disabled");
+                    },
+                });
+            }
         }
 
         $(function () {
