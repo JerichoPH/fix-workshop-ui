@@ -248,7 +248,12 @@ class JsonResponseService
             "status" => 500,
             "errorCode" => $errorCode,
             "data" => [],
-            "trace" => $e->getTrace(),
+            "details"=>[
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine(),
+            ],
+            "trace" => $e->getTraceAsString(),
         ],
             500);
     }

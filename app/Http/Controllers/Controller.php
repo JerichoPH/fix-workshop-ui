@@ -89,7 +89,7 @@ class Controller extends BaseController
                     throw new ValidateException($msg);
                 case 500:
                 default:
-                    throw new Exception($msg);
+                    throw new Exception($this->curl->errorMessage);
             }
         } else {
             switch ($this->curl->getHttpStatusCode()) {
