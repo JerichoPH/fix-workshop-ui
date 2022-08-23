@@ -85,10 +85,6 @@ class DataCommand extends Command
                 "username" => "admin",
                 "password" => bcrypt("zces@1234"),
                 "nickname" => "admin",
-                "organization_railway_uuid" => "",
-                "organization_paragraph_uuid" => "",
-                "organization_workshop_uuid" => "",
-                "organization_work_area_uuid" => "",
             ]);
         $this->comment("创建用户：$account->nickname");
 
