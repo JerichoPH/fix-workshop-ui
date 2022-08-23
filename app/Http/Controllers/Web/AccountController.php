@@ -6,6 +6,7 @@ use App\Exceptions\EmptyException;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnAuthorizationException;
 use App\Exceptions\UnLoginException;
+use App\Facades\JsonResponseFacade;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;

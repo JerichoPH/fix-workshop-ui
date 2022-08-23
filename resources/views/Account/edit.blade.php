@@ -20,7 +20,7 @@
                     <div class="box-header">
                         <h3 class="box-title">编辑用户</h3>
                         <!--右侧最小化按钮-->
-                        <div class="box-tools pull-right"></div>
+                        <div class="pull-right btn-group btn-group-sm"></div>
                         <hr>
                     </div>
                     <form class="form-horizontal" id="frmUpdate">
@@ -74,7 +74,8 @@
                     <div class="box-header">
                         <h3 class="box-title">编辑密码</h3>
                         <!--右侧最小化按钮-->
-                        <div class="box-tools pull-right"></div>
+                        <div class="pull-right btn-group btn-group-sm"></div>
+                        <hr>
                     </div>
                     <br>
                     <form class="form-horizontal" id="frmUpdatePassword">
@@ -319,33 +320,36 @@
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
 
-            fnInit();
+            fnInit();  // 初始化数据
         });
 
         /**
          * 保存
          */
         function fnUpdate() {
-            let data = $frmUpdate.serializeArray();
             let loading = layer.msg('处理中……', {time: 0,});
+            let data = $frmUpdate.serializeArray();
+
             $.ajax({
                 url: `{{ route("web.Account:Update", ["uuid" => $uuid]) }}`,
                 type: 'put',
                 data,
-                async: true,
-                success: res => {
+                async: false,
+                beforeSend() {
+                },
+                success(res) {
                     console.log(`{{ route("web.Account:Update", ["uuid" => $uuid]) }} success:`, res);
                     layer.close(loading);
-                    layer.msg(res['msg'], {time: 1000,}, function () {
-
-                    });
+                    layer.msg(res['msg'], {time: 1000,});
                 },
-                error: err => {
+                error(err) {
                     console.log(`{{ route("web.Account:Update", ["uuid" => $uuid]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
+                },
+                complete() {
                 },
             });
         }
@@ -358,20 +362,24 @@
                 url: `{{ route("web.Account:UpdatePassword", ["uuid" => $uuid]) }}`,
                 type: 'put',
                 data,
-                async: true,
-                success: res => {
+                async: false,
+                beforeSend() {
+                },
+                success(res) {
                     console.log(`{{ route("web.Account:UpdatePassword", ["uuid" => $uuid]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res['msg'], {time: 1000,}, function () {
                         location.reload();
                     });
                 },
-                error: err => {
+                error(err) {
                     console.log(`{{ route("web.Account:UpdatePassword", ["uuid" => $uuid]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
+                },
+                complete() {
                 },
             });
         }

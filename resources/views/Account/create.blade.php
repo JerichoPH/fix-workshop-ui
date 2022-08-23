@@ -233,7 +233,7 @@
                     beforeSend() {
                         $selOrganizationWorkArea.prop("disabled", "disabled");
                     },
-                    success: res => {
+                    success(res) {
                         console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
 
                         let {organization_work_areas: organizationWorkAreas,} = res["data"];
@@ -243,14 +243,14 @@
                             });
                         }
                     },
-                    error: err => {
+                    error(err) {
                         console.log(`{{ route("web.OrganizationWorkArea:Index") }} fail:`, err);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                             if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                         });
                     },
                     complete() {
-                        $selOrganizationWorkArea.attr("disabled");
+                        $selOrganizationWorkArea.removeAttr("disabled");
                     },
                 });
             }
