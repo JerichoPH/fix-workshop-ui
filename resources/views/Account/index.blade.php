@@ -62,7 +62,7 @@
                             let render = [];
                             if (accounts.length > 0) {
                                 $.each(accounts, (_, account) => {
-                                    let createdAt = account["created_at"] ? moment(account["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let createdAt = account["updated_at"] ? moment(account["updated_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                     let uuid = account["uuid"];
                                     let username = account["username"];
                                     let nickname = account["nickname"];
