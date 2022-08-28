@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use Curl\Curl;
 use Illuminate\Console\Command;
 
@@ -48,9 +47,9 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $this->__curl->post("{$this->__ue_api_url}/authorization/login",[
-            "username"=>"admin",
-            "password"=>"123123",
+        $this->__curl->post("{$this->__ue_api_url}/authorization/login", [
+            "username" => "admin",
+            "password" => "123123",
         ]);
         dump($this->__curl->getHttpStatusCode());
         $this->__curl->close();
