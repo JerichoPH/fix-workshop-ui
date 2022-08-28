@@ -50,7 +50,12 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.LocationLine:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
+                            <div class="pull-right">
+                                <input type="checkbox" id="chkReturn">
+                                <label for="chkReturn">保存后返回列表</label>
+                                &emsp;
+                                <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,9 +67,24 @@
     <script>
         let $select2 = $('.select2');
         let $frmStore = $('#frmStore');
-        let $chkBackToIndex = $('#chkBackToIndex');
+        let $chkReturn = $('#chkReturn');
+        let $txtUniqueCode = $('#txtUniqueCode');
+        let $txtName = $('#txtName');
+        let $rdoBeEnableYes = $('#rdoBeEnableYes');
+        let $rdoBeEnableNo = $('#rdoBeEnableNo');
         let tblOrganizationRailway = null;
         let boundOrganizationRailwayUUIDs = [];
+
+        /**
+         * 初始化页面
+         */
+        function fnInit() {
+            $txtUniqueCode.val('');
+            $txtName.val('');
+            $rdoBeEnableYes.prop('checked', 'checked');
+            $rdoBeEnableNo.removeAttr('checked');
+            $txtUniqueCode.focus();
+        }
 
         /**
          * 加载路局表格
@@ -108,8 +128,8 @@
                         error: function (err) {
                             console.log(`{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
-                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
-                            }else{
+                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                            } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
                                     if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
                                 });
@@ -147,6 +167,7 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
+            fnInit();  // 初始化页面
             fnFillTblOrganizationRailway();  // 加载路局表格
 
             fnCheckAll("chkAllOrganizationRailway", "organization-railway-uuid");  // 路局全选
@@ -166,8 +187,12 @@
                 success: function (res) {
                     console.log(`{{ route('web.LocationLine:Store') }} success:`, res);
                     layer.close(loading);
-                    layer.msg(res.msg, {time: 1000,}, function () {
-                        location.reload();
+                    layer.msg(res.msg, {time: 500,}, function () {
+                        if ($chkReturn.is(':checked')) {
+                            location.href = '{{ route('web.LocationLine:Index') }}';
+                        } else {
+                            fnInit();
+                        }
                     });
                 },
                 error: function (err) {

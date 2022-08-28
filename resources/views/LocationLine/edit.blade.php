@@ -51,7 +51,12 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.LocationLine:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
+                            <div class="pull-right">
+                                <input type="checkbox" id="chkReturn">
+                                <label for="chkReturn">保存后返回列表</label>
+                                &emsp;
+                                <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -68,6 +73,7 @@
         let $txtName = $("#txtName");
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
+        let $chkReturn = $('#chkReturn');
         let locationLine = null;
 
         /**
@@ -93,6 +99,7 @@
                     } else {
                         $rdoBeEnableNo.prop("checked", "checked");
                     }
+                    $txtName.focus();
                 },
                 error: err => {
                     console.log(`{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }} fail:`, err);
@@ -121,12 +128,18 @@
                 url: `{{ route('web.LocationLine:Update', ["uuid" => $uuid , ]) }}`,
                 type: 'put',
                 data,
-                success: function (res) {
+                success (res) {
                     console.log(`{{ route('web.LocationLine:Update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
-                    layer.msg(res.msg, {time: 1000,});
+                    layer.msg(res.msg, {time: 500,},function(){
+                        if($chkReturn.is(':checked')){
+                            location.href = '{{ route('web.LocationLine:Index') }}';
+                        }else{
+                            fnInit();
+                        }
+                    });
                 },
-                error: function (err) {
+                error (err) {
                     console.log(`{{ route('web.LocationLine:Update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {

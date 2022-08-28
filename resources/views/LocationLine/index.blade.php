@@ -77,8 +77,8 @@
                     error: function (err) {
                         console.log(`{{ route("web.LocationLine:Index") }} fail:`, err);
                         if (err["status"] === 406) {
-                            layer.alert(err["responseJSON"]["msg"], {icon:2, });
-                        }else{
+                            layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                        } else {
                             layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
                                 if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
                             });
@@ -120,23 +120,28 @@
          * @param id 编号
          */
         function fnDelete(id) {
-            if (confirm('删除不能恢复，是否确认'))
+            if (confirm('删除不能恢复，是否确认')) {
+                let loading = layer.msg('处理中……', {time: 0,});
                 $.ajax({
-                    url: `{{ url('organization/line') }}/${id}`,
+                    url: `{{ url('locationLine') }}/${id}`,
                     type: 'delete',
                     data: {id: id},
                     success: function (res) {
-                        console.log(`{{ url('organization/line')}}/${id} success:`, res);
-                        tblLine.ajax.reload();
+                        console.log(`{{ url('locationLine')}}/${id} success:`, res);
+                        layer.close(loading);
+                        layer.msg(res['msg'], {time: 500,}, function () {
+                            tblLine.ajax.reload();
+                        });
                     },
                     error: function (err) {
-                        console.log(`{{ url('organization/line')}}/${id} fail:`, err);
+                        console.log(`{{ url('locationLine')}}/${id} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                             if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                         });
                     }
                 });
+            }
         }
     </script>
 @endsection
