@@ -103,7 +103,7 @@
             $.ajax({
                 url: `{{ route("web.OrganizationRailway:Index") }}`,
                 type: 'get',
-                data: {be_enable: true,},
+                data: {be_enable: 1,},
                 async: true,
                 beforeSend() {
                     $selOrganizationRailway.prop("disabled", "disabled");
@@ -144,7 +144,7 @@
                 $.ajax({
                     url: `{{ route("web.OrganizationParagraph:Index") }}`,
                     type: 'get',
-                    data: {be_enable: true, organization_railway_uuid: organizationRailwayUUID,},
+                    data: {be_enable: 1, organization_railway_uuid: organizationRailwayUUID,},
                     async: true,
                     beforeSend() {
                         $selOrganizationParagraph.prop("disabled", "disabled");
@@ -185,7 +185,7 @@
                     url: `{{ route("web.OrganizationWorkshop:Index") }}`,
                     type: 'get',
                     data: {
-                        be_enable: true,
+                        be_enable: 1,
                         organization_paragraph_uuid: organizationParagraphUUID,
                         organization_workshop_type_unique_code: ["FIX-WORKSHOP",],
                     },
@@ -228,7 +228,7 @@
                 $.ajax({
                     url: `{{ route("web.OrganizationWorkArea:Index") }}`,
                     type: 'get',
-                    data: {organization_workshop_uuid: organizationWorkshopUUID,},
+                    data: {be_enable: 1, organization_workshop_uuid: organizationWorkshopUUID,},
                     async: true,
                     beforeSend() {
                         $selOrganizationWorkArea.prop("disabled", "disabled");
@@ -260,9 +260,9 @@
             if ($select2.length > 0) $('.select2').select2();
 
             fnFillOrganizationRailway();  // 加载路局下拉列表
-            fnFillOrganizationParagraph("");  // 加载站段下拉列表
-            fnFillOrganizationWorkshop(""); // 加载车间下拉列表
-            fnFillOrganizationWorkArea("");  // 加载工区下拉列表
+            fnFillOrganizationParagraph();  // 加载站段下拉列表
+            fnFillOrganizationWorkshop(); // 加载车间下拉列表
+            fnFillOrganizationWorkArea();  // 加载工区下拉列表
         });
 
         /**

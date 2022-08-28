@@ -56,7 +56,7 @@
                 tblAccount = $('#tblAccount').DataTable({
                     ajax: {
                         url: `{{ route("web.Account:Index") }}`,
-                        dataSrc: function (res) {
+                        dataSrc(res) {
                             console.log(`{{ route("web.Account:Index") }} success:`, res);
                             let {accounts,} = res['data'];
                             let render = [];
@@ -93,7 +93,7 @@
                             }
                             return render;
                         },
-                        error: function (err) {
+                        error(err) {
                             console.log(`{{ route("web.Account:Index") }} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                                 if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
@@ -133,5 +133,41 @@
 
             fnFillTblAccount();  // 填充用户表
         });
+
+        /**
+         * 删除用户
+         * @param uuid
+         */
+        function fnDelete(uuid = "") {
+            console.log(uuid);
+            if (uuid) {
+
+                let loading = layer.msg('处理中……', {time: 0,});
+                $.ajax({
+                    url: `{{ route("web.Account:Index") }}/${uuid}`,
+                    type: 'delete',
+                    data: {},
+                    async: true,
+                    beforeSend() {
+                    },
+                    success(res) {
+                        console.log(`{{ route("web.Account:Index") }}/${uuid} success:`, res);
+                        layer.close(loading);
+                        layer.msg(res['msg'], {time: 1000,}, function () {
+                            tblAccount.ajax.reload();
+                        });
+                    },
+                    error(err) {
+                        console.log(`{{ route("web.Account:Index") }}/${uuid} fail:`, err);
+                        layer.close(loading);
+                        layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        });
+                    },
+                    complete() {
+                    },
+                });
+            }
+        }
     </script>
 @endsection

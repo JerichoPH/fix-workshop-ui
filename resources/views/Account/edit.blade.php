@@ -140,11 +140,6 @@
 
                     $txtUsername.val(account["username"]);
                     $txtNickname.val(account["nickname"]);
-
-                    fnFillOrganizationRailway();
-                    fnFillOrganizationParagraph();
-                    fnFillOrganizationWorkshop();
-                    fnFillOrganizationWorkArea();
                 },
                 error(err) {
                     console.log(`{{ route("web.Account:Show", ["uuid" => $uuid]) }} fail:`, err);
@@ -164,7 +159,7 @@
             $.ajax({
                 url: `{{ route("web.OrganizationRailway:Index") }}`,
                 type: 'get',
-                data: {be_enable: true,},
+                data: {be_enable: 1,},
                 async: true,
                 beforeSend() {
                     $selOrganizationRailway.prop("disabled", "disabled");
@@ -177,7 +172,7 @@
                     $selOrganizationRailway.append(`<option value="">未选择</option>`);
                     if (organizationRailways.length > 0) {
                         organizationRailways.map(organizationRailway => {
-                            $selOrganizationRailway.append(`<option value="${organizationRailway["uuid"]}" ${organizationRailway["uuid"] === account["organization_railway"]["uuid"] ? "selected" : ""}>${organizationRailway["name"]}</option>`);
+                            $selOrganizationRailway.append(`<option value="${organizationRailway["uuid"]}" ${organizationRailway["uuid"] === account["organization_railway_uuid"] ? "selected" : ""}>${organizationRailway["name"]}</option>`);
                         });
                     }
                 },
@@ -205,7 +200,7 @@
                 $.ajax({
                     url: `{{ route("web.OrganizationParagraph:Index") }}`,
                     type: 'get',
-                    data: {be_enable: true, organization_railway_uuid: organizationRailwayUUID,},
+                    data: {be_enable: 1, organization_railway_uuid: organizationRailwayUUID,},
                     async: true,
                     beforeSend() {
                         $selOrganizationParagraph.prop("disabled", "disabled");
@@ -216,7 +211,7 @@
                         let {organization_paragraphs: organizationParagraphs,} = res["data"];
                         if (organizationParagraphs.length > 0) {
                             organizationParagraphs.map(function (organizationParagraph) {
-                                $selOrganizationParagraph.append(`<option value="${organizationParagraph["uuid"]}" ${organizationParagraph["uuid"] === account["organization_paragraph"]["uuid"] ? "selectd" : ""}>${organizationParagraph["name"]}</option>`);
+                                $selOrganizationParagraph.append(`<option value="${organizationParagraph["uuid"]}" ${organizationParagraph["uuid"] === account["organization_paragraph_uuid"] ? "selected" : ""}>${organizationParagraph["name"]}</option>`);
                             });
                         }
                     },
@@ -246,7 +241,7 @@
                     url: `{{ route("web.OrganizationWorkshop:Index") }}`,
                     type: 'get',
                     data: {
-                        be_enable: true,
+                        be_enable: 1,
                         organization_paragraph_uuid: organizationParagraphUUID,
                         organization_workshop_type_unique_code: ["FIX-WORKSHOP",],
                     },
@@ -260,7 +255,7 @@
                         let {organization_workshops: organizationWorkshops,} = res["data"];
                         if (organizationWorkshops.length > 0) {
                             organizationWorkshops.map(function (organizationWorkshop) {
-                                $selOrganizationWorkshop.append(`<option value="${organizationWorkshop["uuid"]}" ${organizationWorkshop["uuid"] === account["organization_workshop"]["uuid"] ? "selected" : ""}>${organizationWorkshop["name"]}</option>`);
+                                $selOrganizationWorkshop.append(`<option value="${organizationWorkshop["uuid"]}" ${organizationWorkshop["uuid"] === account["organization_workshop_uuid"] ? "selected" : ""}>${organizationWorkshop["name"]}</option>`);
                             });
                         }
                     },
@@ -289,7 +284,7 @@
                 $.ajax({
                     url: `{{ route("web.OrganizationWorkArea:Index") }}`,
                     type: 'get',
-                    data: {organization_workshop_uuid: organizationWorkshopUUID,},
+                    data: {be_enable: 1, organization_workshop_uuid: organizationWorkshopUUID,},
                     async: true,
                     beforeSend() {
                         $selOrganizationWorkArea.prop("disabled", "disabled");
@@ -300,7 +295,7 @@
                         let {organization_work_areas: organizationWorkAreas,} = res["data"];
                         if (organizationWorkAreas.length > 0) {
                             organizationWorkAreas.map(function (organizationWorkArea) {
-                                $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}" ${organizationWorkArea["uuid"] === account["organization_work_area"]["uuid"] ? "selected" : ""}>${organizationWorkArea["name"]}</option>`);
+                                $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}" ${organizationWorkArea["uuid"] === account["organization_work_area_uuid"] ? "selected" : ""}>${organizationWorkArea["name"]}</option>`);
                             });
                         }
                     },
@@ -321,6 +316,10 @@
             if ($select2.length > 0) $('.select2').select2();
 
             fnInit();  // 初始化数据
+            fnFillOrganizationRailway();
+            fnFillOrganizationParagraph(account['organization_railway_uuid']);
+            fnFillOrganizationWorkshop(account['organization_paragraph_uuid']);
+            fnFillOrganizationWorkArea(account['organization_workshop_uuid']);
         });
 
         /**
