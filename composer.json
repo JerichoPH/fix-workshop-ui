@@ -36,6 +36,7 @@
   },
   "autoload": {
     "files": [
+      "app/Functions/comm.php"
     ],
     "classmap": [
       "database/seeds",

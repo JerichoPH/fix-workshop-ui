@@ -48,7 +48,7 @@ class Controller extends BaseController
     protected function sendStandardRequest(string $url, Closure $before = null, Closure $after = null)
     {
         $method = strtolower(request()->method());
-        if (session(__JWT__)) $this->curl->setHeader("Authorization", "JWT " . session(__JWT__));
+        if (GetJWTFromSession()) $this->curl->setHeader("Authorization", "JWT " . GetJWTFromSession());
         switch ($method) {
             case "GET":
                 $this->curl->setHeader("Accept", "application/json");
