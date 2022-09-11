@@ -110,7 +110,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 7,  // 清除第一列排序
+                        targets: [0, 7,],  // 清除第一列排序
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -133,6 +133,12 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblLocationRailroadGradeCross.on('draw.dt order.dt search.dt', function () {
+                    tblLocationRailroadGradeCross.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 
