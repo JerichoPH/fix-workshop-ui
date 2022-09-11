@@ -27,6 +27,7 @@
                     <table class="table table-hover table-striped table-condensed" id="tblOrganizationWorkArea">
                         <thead>
                         <tr>
+                            <th>行号</th>
                             <th>新建时间</th>
                             <th>代码</th>
                             <th>名称</th>
@@ -78,6 +79,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        '',
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -99,7 +101,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 6,  // 清除第一列排序
+                        targets: [0, 7],  // 清除首列排序
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -107,7 +109,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[0, 'desc']],  // 排序依据
+                    order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -122,6 +124,12 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblOrganizationWorkArea.on('draw.dt order.dt search.dt', function () {
+                    tblOrganizationWorkArea.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 

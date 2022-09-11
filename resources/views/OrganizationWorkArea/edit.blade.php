@@ -227,7 +227,7 @@
 
                     if (organizationWorkAreaProfessions.length > 0) {
                         organizationWorkAreaProfessions.map(function (organizationWorkAreaProfession) {
-                            $selOrganizationWorkAreaProfession.append(`<option value="${organizationWorkAreaProfession["uuid"]}">${organizationWorkAreaProfession["name"]}</option>`);
+                            $selOrganizationWorkAreaProfession.append(`<option value="${organizationWorkAreaProfession["uuid"]}" ${organizationWorkAreaProfessionUUID === organizationWorkAreaProfession["uuid"] ? "selected" : ""}>${organizationWorkAreaProfession["name"]}</option>`);
                         });
                     }
                 },

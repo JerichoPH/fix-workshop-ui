@@ -55,6 +55,7 @@
                                             id="selOrganizationWorkshop"
                                             class="form-control select2"
                                             style="width: 100%;"
+                                            onchange="fnFillSelOrganizationWorkArea(this.value)"
                                     >
                                     </select>
                                 </div>
@@ -99,6 +100,7 @@
                             <table class="table table-hover table-condensed" id="tblLocationLine">
                                 <thead>
                                 <tr>
+                                    <th>行号</th>
                                     <th><input type="checkbox" id="chkAllLocationLine"></th>
                                     <th>新建时间</th>
                                     <th>代码</th>
@@ -138,7 +140,9 @@
                 type: 'get',
                 data: {},
                 async: true,
-                success: res => {
+                beforeSend: function () {
+                },
+                success: function (res) {
                     console.log(`{{ route("web.LocationStation:Show", ["uuid" => $uuid,]) }} success:`, res);
 
                     locationStation = res["data"]["location_station"];
@@ -148,12 +152,12 @@
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
                     if (beEnable) {
-                        $rdoBeEnableYes.prop("checked", "checked");
+                        $rdoBeEnableYes.attr("checked", "checked");
                     } else {
-                        $rdoBeEnableNo.prop("checked", "checked");
+                        $rdoBeEnableNo.attr("checked", "checked");
                     }
                     fnFillSelOrganizationWorkshop(locationStation["organization_workshop"]["uuid"]);
-                    fnFillSelOrganizationWorkArea(locationStation["organization_work_area"]["uuid"]);
+                    fnFillSelOrganizationWorkArea(locationStation["organization_workshop"]["uuid"], locationStation["organization_work_area"]["uuid"]);
                     // 已经绑定的线别
                     if (locationLines.length > 0) {
                         locationLines.map(function (locationLine) {
@@ -161,11 +165,13 @@
                         });
                     }
                 },
-                error: err => {
+                error: function (err) {
                     console.log(`{{ route("web.LocationStation:Show", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
+                },
+                complete: function () {
                 },
             });
         }
@@ -191,6 +197,7 @@
                                     let shortName = locationLine["short_name"] ? locationLine["short_name"] : "";
 
                                     render.push([
+                                        null,
                                         `<input type="checkbox" class="location-line-uuid" name="location_line_uuids[]" value="${uuid}" ${boundLocationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
                                         createdAt,
                                         uniqueCode,
@@ -210,7 +217,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 0,  // 清除第一列排序
+                        targets: [0, 1,],  // 清除第一列排序
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -218,7 +225,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[1, 'desc']],  // 排序依据
+                    order: [[2, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -233,20 +240,29 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblLocationLine.on('draw.dt order.dt search.dt', function () {
+                    tblLocationLine.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 
         /**
          * 加载车间下拉列表
-         * @param {string} organizationWorkshopUUID
+         * @param {string} organizationWorkshopUuid
          */
-        function fnFillSelOrganizationWorkshop(organizationWorkshopUUID = "") {
+        function fnFillSelOrganizationWorkshop(organizationWorkshopUuid = "") {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshop:Index") }}`,
                 type: 'get',
                 data: {be_enable: 1,},
                 async: true,
-                success: res => {
+                beforeSend: function () {
+                    $selOrganizationWorkshop.attr('disabled', 'disabled');
+                },
+                success: function (res) {
                     console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
 
                     let {organization_workshops: organizationWorkshops,} = res["data"];
@@ -256,28 +272,35 @@
 
                     if (organizationWorkshops.length > 0) {
                         organizationWorkshops.map(function (organizationWorkshop) {
-                            $selOrganizationWorkshop.append(`<option value="${organizationWorkshop["uuid"]}" ${organizationWorkshopUUID === organizationWorkshop["uuid"] ? "selected" : ""}>${organizationWorkshop["name"]}</option>`);
+                            $selOrganizationWorkshop.append(`<option value="${organizationWorkshop["uuid"]}" ${organizationWorkshopUuid === organizationWorkshop["uuid"] ? "selected" : ""}>${organizationWorkshop["name"]}</option>`);
                         });
                     }
                 },
-                error: err => {
+                error: function (err) {
                     console.log(`{{ route("web.OrganizationWorkshop:Index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
+                },
+                complete: function () {
+                    $selOrganizationWorkshop.removeAttr('disabled');
                 },
             });
         }
 
         /**
          * 加载工区下拉列表
-         * @param {string} organizationWorkAreaUUID
+         * @param {string} organizationWorkshopUuid
+         * @param {string} organizationWorkAreaUuid
          */
-        function fnFillSelOrganizationWorkArea(organizationWorkAreaUUID = "") {
+        function fnFillSelOrganizationWorkArea(organizationWorkshopUuid = "", organizationWorkAreaUuid = "") {
+            let data = {be_enable: 1,};
+            if (organizationWorkshopUuid) data["organization_workshop_uuid"] = organizationWorkshopUuid;
+
             $.ajax({
                 url: `{{ route("web.OrganizationWorkArea:Index") }}`,
                 type: 'get',
-                data: {be_enable: 1,},
+                data,
                 async: true,
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
@@ -289,7 +312,7 @@
 
                     if (organizationWorkAreas.length > 0) {
                         organizationWorkAreas.map(function (organizationWorkArea) {
-                            $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}" ${organizationWorkAreaUUID === organizationWorkArea["uuid"] ? "selected" : ""}>${organizationWorkArea["name"]}</option>`);
+                            $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}" ${organizationWorkAreaUuid === organizationWorkArea["uuid"] ? "selected" : ""}>${organizationWorkArea["name"]}</option>`);
                         });
                     }
                 },
@@ -341,7 +364,7 @@
         /**
          * 站场绑定线别
          */
-        function fnBindLocationLines(){
+        function fnBindLocationLines() {
             let loading = layer.msg('处理中……', {time: 0,});
             let data = $frmBindLocationLines.serializeArray();
 
@@ -351,7 +374,7 @@
                 data,
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.LocationStation:PutBindLocationLines", ["uuid" => $uuid,]) }} success:`,res);
+                    console.log(`{{ route("web.LocationStation:PutBindLocationLines", ["uuid" => $uuid,]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res['msg'], {time: 1000,}, function () {
 

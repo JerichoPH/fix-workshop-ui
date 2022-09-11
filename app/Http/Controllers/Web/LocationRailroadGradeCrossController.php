@@ -9,6 +9,7 @@ use App\Exceptions\UnLoginException;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class LocationRailroadGradeCrossController extends Controller
@@ -45,7 +46,14 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest("locationRailroadGradeCross");
+        return $this->sendStandardRequest(
+            "locationRailroadGradeCross",
+            function (Request $request) {
+                $request = $request->all();
+                $request["be_enable"] = boolval($request["be_enable"]);
+                return $request;
+            }
+        );
     }
 
     /**
@@ -69,7 +77,7 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function Edit(string $uuid)
     {
-        return view("locationRailroadGradeCross/{$uuid}", ["uuid" => $uuid,]);
+        return view("LocationRailroadGradeCross.edit", ["uuid" => $uuid,]);
     }
 
     /**
@@ -83,7 +91,14 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("locationRailroadGradeCross/{$uuid}");
+        return $this->sendStandardRequest(
+            "locationRailroadGradeCross/{$uuid}",
+            function(Request $request){
+                $request = $request->all();
+                $request["be_enable"] = boolval($request["be_enable"]);
+                return $request;
+            }
+        );
     }
 
     /**

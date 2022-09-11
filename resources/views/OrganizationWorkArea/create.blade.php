@@ -213,7 +213,6 @@
         function fnStore() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
-            console.log(data);
 
             $.ajax({
                 url: '{{ route('web.OrganizationWorkArea:Store') }}',

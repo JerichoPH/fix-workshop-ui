@@ -19,7 +19,6 @@
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
                     <a href="{{ route('web.Account:Create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
-                    <a href="javascript:" class="btn btn-default" onclick="wsSendMsg()">测试</a>
                 </div>
                 <hr>
             </div>
@@ -130,38 +129,11 @@
             }
         }
 
-        $(function () {
+        $(()=>{
             if ($select2.length > 0) $('.select2').select2();
 
             fnFillTblAccount();  // 填充用户表
-            wsInit();
         });
-
-        function wsSendMsg() {
-            let msg = JSON.stringify({uri: "ping", context: {},})
-            ws.send(msg);
-        }
-
-        /**
-         * 创建链接
-         */
-        function wsInit() {
-            // 创建长连接
-            ws = new WebSocket("ws://127.0.0.1:90/ws");
-            //连接打开时触发
-            ws.onopen = function (evt) {
-                console.log("Connection open ...");
-                ws.send("Hello WebSockets!");
-            };
-            //接收到消息时触发
-            ws.onmessage = function (evt) {
-                console.log("Received Message: " + evt.data);
-            };
-            //连接关闭时触发
-            ws.onclose = function (evt) {
-                console.log("Connection closed.");
-            };
-        }
 
         /**
          * 删除用户

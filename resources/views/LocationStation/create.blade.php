@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">是否启用*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1">
+                                    <input type="radio" name="be_enable" id="rdoBeEnableYes" value="1" checked>
                                     <label for="rdoBeEnableYes">是</label>
                                     &emsp;
                                     <input type="radio" name="be_enable" id="rdoBeEnableNo" value="0">
@@ -55,6 +55,7 @@
                                             id="selOrganizationWorkshop"
                                             class="form-control select2"
                                             style="width: 100%;"
+                                            onchange="fnFillSelOrganizationWorkArea(this.value)"
                                     >
                                     </select>
                                 </div>
@@ -90,6 +91,7 @@
                             <table class="table table-hover table-condensed" id="tblLocationLine">
                                 <thead>
                                 <tr>
+                                    <th>行号</th>
                                     <th><input type="checkbox" id="chkAllLocationLine"></th>
                                     <th>新建时间</th>
                                     <th>代码</th>
@@ -112,7 +114,7 @@
         let $selOrganizationWorkshop = $("#selOrganizationWorkshop");
         let $selOrganizationWorkArea = $("#selOrganizationWorkArea");
         let tblLocationLine = null;
-        let boundLocationLineUUIDs = [];
+        let boundLocationLineUuids = [];
 
         /**
          * 加载线别表格
@@ -142,7 +144,8 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
-                                        `<input type="checkbox" class="location-line-uuid" name="location_line_uuids[]" value="${uuid}" ${boundLocationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
+                                        null,
+                                        `<input type="checkbox" class="location-line-uuid" name="location_line_uuids[]" value="${uuid}" ${boundLocationLineUuids.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -162,7 +165,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 0,  // 清除第一列排序
+                        targets: [0, 1,],  // 清除第一列排序
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -170,7 +173,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[1, 'desc']],  // 排序依据
+                    order: [[2, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -185,6 +188,12 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblLocationLine.on('draw.dt order.dt search.dt', function () {
+                    tblLocationLine.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 
@@ -197,6 +206,9 @@
                 type: 'get',
                 data: {be_enable: 1,},
                 async: true,
+                beforeSend: function () {
+                    $selOrganizationWorkshop.attr('disabled', 'disabled');
+                },
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
 
@@ -217,19 +229,29 @@
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
                 },
+                complete: function () {
+                    $selOrganizationWorkshop.removeAttr('disabled');
+                },
             });
         }
 
         /**
          * 加载工区下拉列表
+         * @param {string} organizationWorkshopUuid
          */
-        function fnFillSelOrganizationWorkArea() {
+        function fnFillSelOrganizationWorkArea(organizationWorkshopUuid = '') {
+            let data = {be_enable: 1,}
+            if (organizationWorkshopUuid) data['organization_workshop_uuid'] = organizationWorkshopUuid
+
             $.ajax({
                 url: `{{ route("web.OrganizationWorkArea:Index") }}`,
                 type: 'get',
-                data: {be_enable: 1,},
+                data,
                 async: true,
-                success: res => {
+                beforeSend: function () {
+                    $selOrganizationWorkArea.attr('disabled', 'disabled');
+                },
+                success: function (res) {
                     console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
 
                     let {organization_work_areas: organizationWorkAreas,} = res["data"];
@@ -243,11 +265,14 @@
                         });
                     }
                 },
-                error: err => {
+                error: function (err) {
                     console.log(`{{ route("web.OrganizationWorkArea:Index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
                     });
+                },
+                complete: function () {
+                    $selOrganizationWorkArea.removeAttr('disabled');
                 },
             });
         }

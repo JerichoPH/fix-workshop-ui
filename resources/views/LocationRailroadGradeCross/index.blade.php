@@ -138,6 +138,8 @@
 
         $(function () {
             if ($select2.length > 0) $select2.select2();
+
+            fnFillTblLocationRailroadGradeCross();  // 加载区间列表
         });
 
         /**
@@ -152,7 +154,8 @@
                     data: {id: id},
                     success: function (res) {
                         console.log(`{{ url('locationRailroadGradeCross')}}/${id} success:`, res);
-                        location.reload();
+
+                        tblLocationRailroadGradeCross.ajax.reload();
                     },
                     error: function (err) {
                         console.log(`{{ url('locationRailroadGradeCross')}}/${id} fail:`, err);
