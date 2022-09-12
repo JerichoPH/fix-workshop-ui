@@ -5,12 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class PivotRbacRoleAndRbacPermission extends Model
+/**
+ * Class PivotRbacRoleAndMenu
+ * @package App\Models
+ * @property int $rbac_role_id
+ * @property int $menu_id
+ * @property-read RbacRole $rbac_role
+ * @property Menu $menu
+ */
+class PivotRbacRoleAndMenu extends Model
 {
     protected $guarded = [];
 
     /**
-     * 所属角色
+     * 相关角色
      * @return HasOne
      */
     public function RbacRole(): HasOne
@@ -19,11 +27,11 @@ class PivotRbacRoleAndRbacPermission extends Model
     }
 
     /**
-     * 所属权限
+     * 相关菜单
      * @return HasOne
      */
-    public function RbacPermission(): HasOne
+    public function Menu(): HasOne
     {
-        return $this->hasOne(RbacPermission::class);
+        return $this->hasOne(Menu::class);
     }
 }

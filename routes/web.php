@@ -266,8 +266,20 @@ Route::prefix("")
                 Route::post("", "LocationCenterController@Store")->name("Store");  // 中心角色
                 Route::put("{uuid}", "LocationCenterController@Update")->name("Update"); // 中心角色
                 Route::delete("{uuid}", "LocationCenterController@Destroy")->name("Destroy");  // 删除中心
-                Route::put("{uuid}/bindLocationLines", "LocationSectionController@PutBindLocationLines")->name("PutBindLocationLines");  // 绑定线别
+                Route::put("{uuid}/bindLocationLines", "LocationCenterController@PutBindLocationLines")->name("PutBindLocationLines");  // 绑定线别
             });
 
+        // 仓库位置
+        Route::prefix("positionDepotStorehouse")
+            ->name("PositionDepotStorehouse:")
+            ->group(function () {
+                Route::get("", "PositionDepotStorehouseController@Index")->name("Index");  // 仓库位置列表
+                Route::get("create", "PositionDepotStorehouseController@Create")->name("Create");  // 新建仓库位置页面
+                Route::get("{uuid}", "PositionDepotStorehouseController@Show")->name("Show");  // 仓库位置详情
+                Route::get("{uuid}/edit", "PositionDepotStorehouseController@Edit")->name("Edit");  // 仓库位置详情
+                Route::post("", "PositionDepotStorehouseController@Store")->name("Store");  // 仓库位置角色
+                Route::put("{uuid}", "PositionDepotStorehouseController@Update")->name("Update"); // 仓库位置角色
+                Route::delete("{uuid}", "PositionDepotStorehouseController@Destroy")->name("Destroy");  // 删除仓库位置
+            });
     });
 

@@ -9,6 +9,7 @@ use App\Exceptions\UnLoginException;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class LocationCenterController extends Controller
@@ -69,7 +70,7 @@ class LocationCenterController extends Controller
      */
     public function Edit(string $uuid)
     {
-        return view("locationCenter/{$uuid}", ["uuid" => $uuid,]);
+        return view("LocationCenter.edit", ["uuid" => $uuid,]);
     }
 
     /**
@@ -83,7 +84,14 @@ class LocationCenterController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("locationCenter/{$uuid}");
+        return $this->sendStandardRequest(
+            "locationCenter/{$uuid}",
+            function (Request $request) {
+                $request = $request->all();
+                $request["be_enable"] = boolval($request["be_enable"]);
+                return $request;
+            }
+        );
     }
 
     /**

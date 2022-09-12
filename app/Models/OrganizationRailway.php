@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * Class RbacPermissionGroup
+ * Class OrganizationRailway
  * @package App\Models
  * @property int $id
  * @property Carbon $created_at
@@ -16,21 +16,24 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property string $uuid
  * @property int $sort
+ * @property string $unique_code
  * @property string $name
- * @property-read RbacPermission $rbac_permissions
+ * @property string $short_name
+ * @property boolean $be_enable
+ * @property-read Account[] $accounts
  */
-class RbacPermissionGroup extends Model
+class OrganizationRailway extends Model
 {
     use SoftDeletes;
 
     protected $guarded = [];
 
     /**
-     * 相关权限
+     * 相关用户
      * @return BelongsTo
      */
-    public function RbacPermissions(): BelongsTo
+    public function Accounts(): BelongsTo
     {
-        return $this->belongsTo(RbacPermission::class, "rbac_permission_group_uuid", "uuid");
+        return $this->belongsTo(Account::class, "uuid", "organization_railway_uuid");
     }
 }

@@ -6,17 +6,15 @@ use App\Exceptions\EmptyException;
 use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnAuthorizationException;
 use App\Exceptions\UnLoginException;
-use App\Facades\JsonResponseFacade;
 use App\Http\Controllers\Controller;
-use App\Models\Account;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
+use Illuminate\View\Factory;
 use Illuminate\View\View;
 
-class AccountController extends Controller
+class PositionDepotStorehouseController extends Controller
 {
     /**
-     * 用户列表
+     * 工区类型列表
      * @return Factory|Application|View|mixed
      * @throws EmptyException
      * @throws ForbiddenException
@@ -25,20 +23,20 @@ class AccountController extends Controller
      */
     public function Index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("account") : view("Account.index");
+        return request()->ajax() ? $this->sendStandardRequest("positionDepotStorehouse") : view("PositionDepotStorehouse.index");
     }
 
     /**
-     * 新建用户页面
+     * 新建工区类型页面
      * @return Factory|Application|View
      */
     public function Create()
     {
-        return view("Account.create");
+        return view("PositionDepotStorehouse.create");
     }
 
     /**
-     * 新建用户
+     * 新建工区类型
      * @return mixed
      * @throws EmptyException
      * @throws ForbiddenException
@@ -47,13 +45,13 @@ class AccountController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest("account");
+        return $this->sendStandardRequest("positionDepotStorehouse");
     }
 
     /**
-     * 角色详情
+     * 工区类型详情
      * @param string $uuid
-     * @return mixed|null
+     * @return mixed
      * @throws EmptyException
      * @throws ForbiddenException
      * @throws UnAuthorizationException
@@ -61,24 +59,21 @@ class AccountController extends Controller
      */
     public function Show(string $uuid)
     {
-        if (request()->ajax()) {
-            return $this->sendStandardRequest("account/$uuid");
-        }
-        return null;
+        return $this->sendStandardRequest("positionDepotStorehouse/{$uuid}");
     }
 
     /**
-     * 编辑用户页面
+     * 编辑工区类型页面
      * @param string $uuid
      * @return Factory|Application|View
      */
     public function Edit(string $uuid)
     {
-        return view("Account.edit", ["uuid" => $uuid,]);
+        return view("PositionDepotStorehouse.edit", ["uuid" => $uuid,]);
     }
 
     /**
-     * 编辑用户
+     * 编辑工区类型
      * @param string $uuid
      * @return mixed
      * @throws EmptyException
@@ -88,25 +83,11 @@ class AccountController extends Controller
      */
     public function Update(string $uuid)
     {
-        return $this->sendStandardRequest("account/$uuid");
+        return $this->sendStandardRequest("positionDepotStorehouse/{$uuid}");
     }
 
     /**
-     * 编辑用户密码
-     * @param string $uuid
-     * @return mixed
-     * @throws EmptyException
-     * @throws ForbiddenException
-     * @throws UnAuthorizationException
-     * @throws UnLoginException
-     */
-    public function UpdatePassword(string $uuid)
-    {
-        return $this->sendStandardRequest("account/$uuid/updatePassword");
-    }
-
-    /**
-     * 删除用户
+     * 删除工区类型
      * @param string $uuid
      * @return mixed
      * @throws EmptyException
@@ -116,6 +97,6 @@ class AccountController extends Controller
      */
     public function Destroy(string $uuid)
     {
-        return $this->sendStandardRequest("account/{$uuid}");
+        return $this->sendStandardRequest("positionDepotStorehouse/{$uuid}");
     }
 }
