@@ -23,6 +23,7 @@ class CreatePositionIndoorCabinetsTable extends Migration
             $table->string('unique_code', 11)->nullable(false)->unique()->comment('室内上道位置柜架代码（11位）');
             $table->string('name', 64)->nullable(false)->unique()->comment('室内上道位置柜架名称');
             $table->string('position_indoor_row_uuid', 36)->nullable(false)->comment('所属室内上道位置机房排UUID');
+            $table->index('position_indoor_row_uuid');
         });
     }
 

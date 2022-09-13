@@ -23,7 +23,9 @@ class CreatePositionIndoorRoomsTable extends Migration
             $table->string('unique_code', 11)->nullable(false)->unique()->comment('室内上道位置机房代码（11位）');
             $table->string('name', 64)->nullable(false)->unique()->comment('室内上道位置机房名称');
             $table->string('position_indoor_room_type_uuid', 36)->nullable(false)->comment('室内上道位置机房类型');
+            $table->index('position_indoor_room_type_uuid');
             $table->string('location_railroad_grade_cross_uuid', 36)->comment('所属道口UUID');
+            $table->index('location_railroad_grade_cross_uuid');
         });
     }
 
