@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @property string $organization_work_area_uuid
  * @property-read OrganizationWorkArea $organization_work_area
  * @property-read LocationLine[] $location_lines
+ * @property-read PositionIndoorRoom[] $position_indoor_rooms
  */
 class LocationStation extends Model
 {
@@ -57,5 +59,14 @@ class LocationStation extends Model
     public function LocationLines():BelongsToMany
     {
         return $this->belongsToMany(LocationLine::class,"pivot_location_line_and_location_stations","location_station_id","location_line_id");
+    }
+
+    /**
+     * 相关室内上道位置机房
+     * @return BelongsTo
+     */
+    public function PositionIndoorRooms():BelongsTo
+    {
+        return $this->belongsTo(PositionIndoorRoom::class,"location_station_uuid","uuid");
     }
 }
