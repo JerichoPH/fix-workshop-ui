@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -25,6 +26,10 @@ use Illuminate\Support\Carbon;
  * @property-read OrganizationWorkAreaProfession $organization_work_area_profession
  * @property string $organization_workshop_uuid
  * @property-read OrganizationWorkshop $organization_workshop
+ * @property-read LocationStation[] $location_stations
+ * @property-read LocationCenter[] $location_centers
+ * @property-read LocationSection[] $location_sections
+ * @property-read LocationRailroadGradeCross[] $location_railroad_grade_crosses
  */
 class OrganizationWorkArea extends Model
 {
@@ -57,5 +62,41 @@ class OrganizationWorkArea extends Model
     public function OrganizationWorkAreaProfession(): HasOne
     {
         return $this->hasOne(OrganizationWorkAreaProfession::class, "uuid", "organization_work_area_profession_uuid");
+    }
+
+    /**
+     * 相关站场
+     * @return BelongsTo
+     */
+    public function LocationStations(): BelongsTo
+    {
+        return $this->belongsTo(LocationStation::class, "organization_work_area_uuid", "uuid");
+    }
+
+    /**
+     * 相关中心
+     * @return BelongsTo
+     */
+    public function LocationCenters(): BelongsTo
+    {
+        return $this->belongsTo(LocationCenter::class, "organization_work_area_uuid", "uuid");
+    }
+
+    /**
+     * 相关区间
+     * @return BelongsTo
+     */
+    public function LocationSections(): BelongsTo
+    {
+        return $this->belongsTo(LocationSection::class, "organization_work_area_uuid", "uuid");
+    }
+
+    /**
+     * 相关道口
+     * @return BelongsTo
+     */
+    public function LocationRailroadGradeCrosses(): BelongsTo
+    {
+        return $this->belongsTo(LocationRailroadGradeCross::class, "organization_work_area_uuid", "uuid");
     }
 }

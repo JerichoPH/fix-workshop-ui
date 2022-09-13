@@ -25,6 +25,10 @@ use Illuminate\Support\Carbon;
  * @property string $organization_paragraph_uuid
  * @property-read OrganizationParagraph $organization_paragraph
  * @property-read OrganizationWorkArea[] $organization_work_areas
+ * @property-read LocationStation[] $location_stations
+ * @property-read LocationCenter[] $location_centers
+ * @property-read LocationSection[] $location_sections
+ * @property-read LocationRailroadGradeCross[] $location_railroad_grade_crosses
  */
 class OrganizationWorkshop extends Model
 {
@@ -57,5 +61,41 @@ class OrganizationWorkshop extends Model
     public function OrganizationWorkAreas(): BelongsTo
     {
         return $this->belongsTo(OrganizationWorkArea::class, "uuid", "organization_workshop_uuid");
+    }
+
+    /**
+     * 相关站场
+     * @return BelongsTo
+     */
+    public function LocationStations(): BelongsTo
+    {
+        return $this->belongsTo(LocationStation::class, "organization_workshop_uuid", "uuid");
+    }
+
+    /**
+     * 相关中心
+     * @return BelongsTo
+     */
+    public function LocationCenters(): BelongsTo
+    {
+        return $this->belongsTo(LocationCenter::class, "organization_workshop_uuid", "uuid");
+    }
+
+    /**
+     * 相关区间
+     * @return BelongsTo
+     */
+    public function LocationSections(): BelongsTo
+    {
+        return $this->belongsTo(LocationSection::class, "organization_workshop_uuid", "uuid");
+    }
+
+    /**
+     * 相关道口
+     * @return BelongsTo
+     */
+    public function LocationRailroadGradeCrosses(): BelongsTo
+    {
+        return $this->belongsTo(LocationRailroadGradeCross::class, "organization_workshop_uuid", "uuid");
     }
 }

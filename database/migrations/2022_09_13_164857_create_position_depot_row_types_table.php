@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateMenusTable extends Migration
+class CreatePositionDepotRowTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateMenusTable extends Migration
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('position_depot_row_types', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('name', 64)->nullable(false)->unique()->comment('菜单名称');
-            $table->string('url', 128)->comment('菜单URL');
-            $table->string('uri_name', 64)->comment('菜单路由标识');
-            $table->string('icon', 64)->comment('菜单图标');
+            $table->string('unique_code', 64)->nullable(false)->unique()->comment('仓库排类型代码');
+            $table->string('name', 64)->nullable(false)->unique()->comment('仓库排类型名称');
         });
     }
 
@@ -34,6 +32,6 @@ class CreateMenusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('position_depot_row_types');
     }
 }
