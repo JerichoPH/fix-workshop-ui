@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $position_indoor_row_uuid
  * @property-read PositionIndoorRow $position_indoor_row
+ * @property-read PositionIndoorTier[] $position_indoor_tiers
  */
 class PositionIndoorCabinet extends Model
 {
@@ -33,5 +35,14 @@ class PositionIndoorCabinet extends Model
     public function PositionIndoorRow(): HasOne
     {
         return $this->hasOne(PositionIndoorRow::class, "uuid", "position_indoor_row_uuid");
+    }
+
+    /**
+     * 相关室内上道位置机柜层
+     * @return BelongsTo
+     */
+    public function PositionIndoorTiers():BelongsTo
+    {
+        return $this->belongsTo(PositionIndoorTier::class,"position_indoor_cabinet_uuid","uuid");
     }
 }
