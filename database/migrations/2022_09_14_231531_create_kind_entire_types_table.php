@@ -22,7 +22,7 @@ class CreateKindEntireTypesTable extends Migration
 
             $table->string('unique_code', 5)->nullable(false)->unique()->comment('类型代码（5位：Q0102）');
             $table->string('name', 64)->nullable(false)->unique()->comment('类型名称');
-            $table->string('nickname', 64)->unique()->comment('昵称');
+            $table->string('nickname', 64)->nullable(true)->comment('昵称');
             $table->string('kind_category_uuid',36)->nullable(false)->comment('所属种类UUID');
             $table->index('kind_category_uuid');
             $table->smallInteger('cycle_repair_year')->nullable(false)->default(0)->comment('周期修（年）');

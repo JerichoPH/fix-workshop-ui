@@ -24,7 +24,7 @@ class CreateKindCategoriesTable extends Migration
             $table->string('name', 64)->nullable(false)->unique()->comment('种类名称');
             $table->string('nickname', 64)->unique()->comment('昵称');
             $table->boolean('be_enable')->nullable(false)->default(true)->comment('是否可用');
-            $table->string('race', 64)->unique()->comment('设备、器材分类：S设备、Q器材');
+            $table->string('race', 64)->nullable(false)->default('Q')->comment('设备、器材分类：S设备、Q器材');
         });
     }
 

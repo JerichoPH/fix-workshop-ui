@@ -25,7 +25,7 @@ class CreateOrganizationWorkAreasTable extends Migration
             $table->boolean('be_enable')->nullable(false)->default(true)->comment('是否可用');
             $table->string('organization_work_area_type_uuid', 36)->nullable(false)->comment('所属工区类型UUID');
             $table->index('organization_work_area_type_uuid');
-            $table->string('organization_work_area_profession_uuid', 36)->nullabel(false)->comment('所属工区专业UUID');
+            $table->string('organization_work_area_profession_uuid', 36)->nullable(false)->comment('所属工区专业UUID');
             $table->index('organization_work_area_profession_uuid','organization_work_areas__owapu');
             $table->string('organization_workshop_uuid', 36)->nullable(false)->comment('所属车间UUID');
             $table->index('organization_workshop_uuid');

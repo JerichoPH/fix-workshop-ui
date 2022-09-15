@@ -25,7 +25,7 @@ class CreateLocationSectionsTable extends Migration
             $table->boolean('be_enable')->nullable(false)->default(true)->comment('是否可用');
             $table->string('organization_workshop_uuid', 36)->nullable(false)->comment('所属车间UUID');
             $table->index('organization_workshop_uuid');
-            $table->string('organization_work_area_uuid', 36)->comment('所属工区UUID');
+            $table->string('organization_work_area_uuid', 36)->nullable(true)->comment('所属工区UUID');
             $table->index('organization_work_area_uuid');
         });
     }
