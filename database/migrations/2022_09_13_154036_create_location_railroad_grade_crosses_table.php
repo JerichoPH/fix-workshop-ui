@@ -14,7 +14,8 @@ class CreateLocationRailroadGradeCrossesTable extends Migration
     public function up()
     {
         Schema::create('location_railroad_grade_crosses', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id');
+            $table->primary('id','location_railroad_grade_crosses__pk');
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
@@ -24,9 +25,9 @@ class CreateLocationRailroadGradeCrossesTable extends Migration
             $table->string('name', 64)->nullable(false)->unique()->comment('道口名称');
             $table->boolean('be_enable')->nullable(false)->default(true)->comment('是否可用');
             $table->string('organization_workshop_uuid', 36)->nullable(false)->comment('所属车间UUID');
-            $table->index('organization_workshop_uuid');
+            $table->index('organization_workshop_uuid','location_railroad_grade_crosses__owu');
             $table->string('organization_work_area_uuid', 36)->comment('所属工区UUID');
-            $table->index('organization_work_area_uuid');
+            $table->index('organization_work_area_uuid','location_railroad_grade_crosses__owua');
         });
     }
 

@@ -29,6 +29,8 @@ use Illuminate\Support\Carbon;
  * @property-read LocationCenter[] $location_centers
  * @property-read LocationSection[] $location_sections
  * @property-read LocationRailroadGradeCross[] $location_railroad_grade_crosses
+ * @property-read EntireInstance[] $entire_instances
+ * @property-read EntireInstanceLog[] $entire_instance_logs
  */
 class OrganizationWorkshop extends Model
 {
@@ -97,5 +99,23 @@ class OrganizationWorkshop extends Model
     public function LocationRailroadGradeCrosses(): BelongsTo
     {
         return $this->belongsTo(LocationRailroadGradeCross::class, "organization_workshop_uuid", "uuid");
+    }
+
+    /**
+     * 相关器材
+     * @return BelongsTo
+     */
+    public function EntireInstances():BelongsTo
+    {
+        return $this->belongsTo(Entireinstance::class,"belong_to_organization_workshop_uuid","uuid");
+    }
+
+    /**
+     * 相关器材日志
+     * @return BelongsTo
+     */
+    public function EntireInstanceLogs():BelongsTo
+    {
+        return $this->belongsTo(EntireInstanceLog::class,"organization_workshop_uuid","uuid");
     }
 }

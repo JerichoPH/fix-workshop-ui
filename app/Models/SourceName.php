@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -20,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string $source_type_uuid
  * @property-read SourceType $source_type
+ * @property-read EntireInstance[] $entire_instances
  */
 class SourceName extends Model
 {
@@ -34,5 +36,14 @@ class SourceName extends Model
     public function SourceType():HasOne
     {
         return $this->hasOne(SourceType::class,"uuid","source_type_uuid");
+    }
+
+    /**
+     * 相关器材
+     * @return BelongsTo
+     */
+    public function EntireInstances():BelongsTo
+    {
+        return $this->belongsTo(EntireInstance::class,"source_name_uuid","uuid");
     }
 }

@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property boolean $be_enable
  * @property string $race
  * @property-read KindEntireType[] $kind_entire_types
+ * @property-read EntireInstance[] $entire_instances
  */
 class KindCategory extends Model
 {
@@ -36,5 +37,14 @@ class KindCategory extends Model
     public function KindEntireTypes():BelongsTo
     {
         return $this->belongsTo(KindEntireType::class,"kind_category_uuid","uuid");
+    }
+
+    /**
+     * 相关器材
+     * @return BelongsTo
+     */
+    public function EntireInstances():BelongsTo
+    {
+       return $this->belongsTo(EntireInstance::class,"kind_category_uuid","uuid");
     }
 }

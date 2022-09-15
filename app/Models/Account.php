@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,6 +29,8 @@ use Illuminate\Support\Carbon;
  * @property-read OrganizationWorkshop $organization_workshop
  * @property string $organization_work_area_uuid
  * @property-read OrganizationWorkArea $organization_work_area
+ * @property-read EntireInstanceLog[] $entire_instance_logs
+ * @property-read EntireInstance[] $deleted_entire_instances
  */
 class Account extends Model
 {
@@ -78,5 +81,23 @@ class Account extends Model
     public function RbacRoles(): BelongsToMany
     {
         return $this->belongsToMany(RbacRole::class, "pivot_rbac_role_and_accounts", "account_id", "rbac_role_id");
+    }
+
+    /**
+     * 相关器材日志
+     * @return BelongsTo
+     */
+    public function EntireInstanceLogs():BelongsTo
+    {
+        return $this->belongsTo(EntireInstanceLog::class,"operator_uuid","uuid");
+    }
+
+    /**
+     * 相关已删除器材
+     * @return BelongsTo
+     */
+    public function DeletedEntireInstances():BelongsTo
+    {
+        return $this->belongsTo(EntireInstance::class,"deleted_operator_uuid","uuid")->withoutGlobalScopes();
     }
 }

@@ -16,7 +16,7 @@ class CreatePivotLocationLineAndLocationSectionsTable extends Migration
         Schema::create('pivot_location_line_and_location_sections', function (Blueprint $table) {
             $table->integer('location_line_id');
             $table->integer('location_section_id');
-            $table->primary(['location_line_id', 'location_section_id',]);
+            $table->primary(['location_line_id', 'location_section_id',],'pivot_location_line_and_location_sections__pk');
         });
     }
 

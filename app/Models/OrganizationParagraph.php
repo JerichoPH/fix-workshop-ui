@@ -24,6 +24,8 @@ use Illuminate\Support\Carbon;
  * @property string $organization_railway_uuid
  * @property-read OrganizationRailway $organization_railway
  * @property-read OrganizationWorkshop[] $organization_workshops
+ * @property-read EntireInstance[] $entire_instances
+ * @property-read EntireInstanceLog[] $entire_instance_logs
  */
 class OrganizationParagraph extends Model
 {
@@ -47,5 +49,23 @@ class OrganizationParagraph extends Model
     public function OrganizationWorkshops(): BelongsTo
     {
         return $this->belongsTo(OrganizationWorkshop::class, "uuid", "organization_paragraph_uuid");
+    }
+
+    /**
+     * 相关器材
+     * @return BelongsTo
+     */
+    public function EntireInstances(): BelongsTo
+    {
+        return $this->belongsTo(EntireInstance::class, "belong_to_organization_paragraph_uuid", "uuid");
+    }
+
+    /**
+     * 相关器材日志
+     * @return BelongsTo
+     */
+    public function EntireInstanceLogs(): BelongsTo
+    {
+        return $this->belongsTo(EntireInstanceLog::class, "organization_paragraph_uuid", "uuid");
     }
 }

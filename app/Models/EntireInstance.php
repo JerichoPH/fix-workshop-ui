@@ -106,6 +106,7 @@ use Illuminate\Support\Carbon;
  * @property-read PositionIndoorCell $use_place_last_position_indoor_cell
  * @property int $ex_cycle_repair_year
  * @property int $ex_life_year
+ * @property-read EntireInstanceLog[] $entire_instance_logs
  */
 class EntireInstance extends Model
 {
@@ -383,4 +384,21 @@ class EntireInstance extends Model
         return $this->hasOne(PositionIndoorCell::class, "uuid", "use_place_last_position_indoor_cell_uuid");
     }
 
+    /**
+     * 相关日志
+     * @return BelongsTo
+     */
+    public function EntireInstanceLogs():BelongsTo
+    {
+        return $this->belongsTo(EntireInstanceLog::class,"entire_instance_identity_code","identity_code");
+    }
+
+    /**
+     * 相关器材锁
+     * @return BelongsTo
+     */
+    public function EntireInstanceLocks():BelongsTo
+    {
+        return $this->belongsTo(EntireInstanceLog::class ,"entire_instance_identity_code","identity_code");
+    }
 }

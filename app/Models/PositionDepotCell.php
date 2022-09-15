@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $name
  * @property string $position_depot_tier_uuid
  * @property-read PositionDepotTier $position_depot_tier
+ * @property-read EntireInstance[] $entire_instances
  */
 class PositionDepotCell extends Model
 {
@@ -28,5 +30,14 @@ class PositionDepotCell extends Model
     public function PositionDepotTier(): HasOne
     {
         return $this->hasOne(PositionDepotTier::class, "", "");
+    }
+
+    /**
+     * 相关器材
+     * @return BelongsTo
+     */
+    public function UseEntireInstances():BelongsTo
+    {
+        return $this->belongsTo(EntireInstance::class,"use_warehouse_position_depot_cell_uuid","uuid");
     }
 }

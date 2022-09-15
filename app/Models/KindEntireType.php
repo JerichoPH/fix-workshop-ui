@@ -26,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @property int $cycle_repair_year
  * @property int $life_year
  * @property-read KindSubType[] $kind_sub_types
+ * @property-read EntireInstance[] $entire_instances
  */
 class KindEntireType extends Model
 {
@@ -49,5 +50,14 @@ class KindEntireType extends Model
     public function KindSubTypes():BelongsTo
     {
         return $this->belongsTo(KindSubType::class,"kind_entire_type_uuid","uuid");
+    }
+
+    /**
+     * 相关器材
+     * @return BelongsTo
+     */
+    public function EntireInstances():BelongsTo
+    {
+        return $this->belongsTo(EntireInstance::class,"kind_entire_type_uuid","uuid");
     }
 }

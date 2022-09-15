@@ -8,31 +8,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * Class Factory
+ * Class EntireInstanceLogType
  * @package App\Models
  * @property int $id
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon|null $deleted_at
- * @property string $uuid
- * @property int $sort
+ * @property int $uuid
+ * @property string $sort
  * @property string $unique_code
  * @property string $name
- * @property string $shot_name
- * @property-read EntireInstance[] $entire_instances
+ * @property string $unique_code_for_paragraph
+ * @property string $number_code
+ * @property string $icon
  */
-class Factory extends Model
+class EntireInstanceLogType extends Model
 {
     use SoftDeletes;
 
     protected $guarded = [];
 
     /**
-     * 相关器材
+     * 相关器材日志
      * @return BelongsTo
      */
-    public function EntireInstances():BelongsTo
+    public function EntireInstanceLogs():BelongsTo
     {
-        return $this->belongsTo(EntireInstance::class,"factory_uuid","uuid");
+        return $this->belongsTo(EntireInstanceLog::class,"entire_instance_log_type_unique_code","unique_code");
     }
 }

@@ -16,7 +16,7 @@ class CreatePivotLocationLineAndLocationCentersTable extends Migration
         Schema::create('pivot_location_line_and_location_centers', function (Blueprint $table) {
             $table->integer('location_line_id');
             $table->integer('location_center_id');
-            $table->primary(['location_line_id','location_center_id',]);
+            $table->primary(['location_line_id','location_center_id',],'pivot_location_line_and_location_centers__pk');
         });
     }
 
