@@ -34,8 +34,7 @@ class DataCommand extends Command
      */
     private function init()
     {
-        $this->line("初始化数据开始");
-
+        $this->line("截断现有数据");
         collect([
             "accounts",
             "entire_instance_locks",
@@ -53,6 +52,7 @@ class DataCommand extends Command
             "location_sections",
             "location_stations",
             "menus",
+            "migrations",
             "organization_paragraphs",
             "organization_railways",
             "organization_work_area_professions",
@@ -89,6 +89,7 @@ class DataCommand extends Command
             DB::table($tableName)->truncate();
         });
 
+        $this->line("初始化数据开始");
         // 注册用户
         $account = Account::with([])
             ->create([
@@ -396,43 +397,43 @@ class DataCommand extends Command
             [
                 "unique_code" => "FIXING",
                 "name" => "待修",
-                "number" => "07",
+                "number_code" => "07",
             ], [
                 "unique_code" => "FIXED",
                 "name" => "所内成品",
-                "number" => "08",
+                "number_code" => "08",
             ], [
                 "unique_code" => "TRANSFER_OUT",
                 "name" => "出所在途",
-                "number" => "02",
+                "number_code" => "02",
             ], [
                 "unique_code" => "INSTALLED",
                 "name" => "上道使用",
-                "number" => "01",
+                "number_code" => "01",
             ], [
                 "unique_code" => "INSTALLING",
                 "name" => "备品",
-                "number" => "03",
+                "number_code" => "03",
             ], [
                 "unique_code" => "TRANSFER_IN",
                 "name" => "入所在途",
-                "number" => "06",
+                "number_code" => "06",
             ], [
                 "unique_code" => "UNINSTALLED",
                 "name" => "下道停用",
-                "number" => "04",
+                "number_code" => "04",
             ], [
                 "unique_code" => "UNINSTALLED_BREAKDOWN",
                 "name" => "故障停用",
-                "number" => "05",
+                "number_code" => "05",
             ], [
                 "unique_code" => "SEND_REPAIR",
                 "name" => "返厂修",
-                "number" => "09",
+                "number_code" => "09",
             ], [
                 "unique_code" => "SCRAP",
                 "name" => "报废",
-                "number" => "10",
+                "number_code" => "10",
             ],
         ])
             ->each(function ($status) {
@@ -443,9 +444,9 @@ class DataCommand extends Command
                         "uuid" => Str::uuid(),
                         "unique_code" => $status["unique_code"],
                         "name" => $status["name"],
-                        "number" => $status["number"],
+                        "number_code" => $status["number_code"],
                     ]);
-                $this->comment("创建器材状态：{$status["unique_code"]} {$status["number"]} {$status["name"]}");
+                $this->comment("创建器材状态：{$status["unique_code"]} {$status["number_code"]} {$status["name"]}");
             });
 
         // 创建器材日志类型
@@ -519,7 +520,6 @@ class DataCommand extends Command
                         "unique_code" => $type["unique_code"],
                         "name" => $type["name"],
                         "icon" => $type["icon"],
-                        "number" => "",
                         "unique_code_for_paragraph" => $type["unique_code_for_paragraph"] ?? "",
                     ]);
                 $this->comment("创建器材日志类型：{$type["unique_code"]} {$type["name"]}");

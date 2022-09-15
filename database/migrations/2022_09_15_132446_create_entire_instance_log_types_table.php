@@ -22,7 +22,7 @@ class CreateEntireInstanceLogTypesTable extends Migration
 
             $table->string('unique_code',64)->nullable(false)->unique()->comment('器材日志类型代码');
             $table->string('name',64)->nullable(false)->unique()->comment('器材日志类型名称');
-            $table->string('unique_code_for_paragraph',64)->nullable(false)->unique()->comment('器材日志对应段中心代码');
+            $table->string('unique_code_for_paragraph',64)->nullable(false)->comment('器材日志对应段中心代码');
             $table->string('icon',64)->nullable(false)->comment('器材日志类型图标');
         });
     }

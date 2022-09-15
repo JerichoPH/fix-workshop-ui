@@ -24,6 +24,8 @@ class CreateMenusTable extends Migration
             $table->string('url', 128)->comment('菜单URL');
             $table->string('uri_name', 64)->comment('菜单路由标识');
             $table->string('icon', 64)->comment('菜单图标');
+            $table->string('parent_uuid', 36)->comment('父级UUID');
+            $table->index('parent_uuid');
         });
     }
 
