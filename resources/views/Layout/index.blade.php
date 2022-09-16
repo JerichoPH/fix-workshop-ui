@@ -119,8 +119,9 @@
                     },
                     error: function (err) {
                         console.log(`{{ route("web.Authorization:GetMenus") }} fail:`, err);
-                        if (err.status === 401) location.href = "{{ url('login') }}";
-                        alert(err['responseJSON']['msg']);
+                        layer.msg(err["responseJSON"]["msg"], {time: 1000,}, function () {
+                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                        });
                     }
                 });
             }

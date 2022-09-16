@@ -10,6 +10,7 @@ use App\Exceptions\ValidateException;
 use App\Facades\JsonResponseFacade;
 use Closure;
 use Curl\Curl;
+use Curl\MultiCurl;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

@@ -18,24 +18,22 @@
                 <h3 class="box-title">工区类型-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                        <a href="{{ route('web.OrganizationWorkAreaType:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.OrganizationWorkAreaType:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
             <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-condensed" id="tblOrganizationWorkAreaType">
-                        <thead>
-                        <tr>
-                            <th>创建时间</th>
-                            <th>代码</th>
-                            <th>名称</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+                <table class="table table-hover table-striped table-condensed" id="tblOrganizationWorkAreaType">
+                    <thead>
+                    <tr>
+                        <th>创建时间</th>
+                        <th>代码</th>
+                        <th>名称</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </section>

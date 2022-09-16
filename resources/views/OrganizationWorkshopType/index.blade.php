@@ -23,20 +23,18 @@
                 <hr>
             </div>
             <div class="box-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-condensed" id="tblOrganizationWorkshopType">
-                        <thead>
-                        <tr>
-                            <th>新建时间</th>
-                            <th>代码</th>
-                            <th>数字代码</th>
-                            <th>名称</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
+                <table class="table table-hover table-striped table-condensed" id="tblOrganizationWorkshopType">
+                    <thead>
+                    <tr>
+                        <th>新建时间</th>
+                        <th>代码</th>
+                        <th>数字代码</th>
+                        <th>名称</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </div>
         </div>
     </section>

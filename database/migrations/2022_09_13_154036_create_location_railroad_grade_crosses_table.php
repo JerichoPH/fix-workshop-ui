@@ -14,8 +14,7 @@ class CreateLocationRailroadGradeCrossesTable extends Migration
     public function up()
     {
         Schema::create('location_railroad_grade_crosses', function (Blueprint $table) {
-            $table->integer('id');
-            $table->primary('id','location_railroad_grade_crosses__pk');
+            $table->integer('id',true)->index('location_railroad_grade_crosses__pk');
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');

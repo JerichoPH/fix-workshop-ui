@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use App\Facades\TextFacade;
 use App\Models\Account;
 use App\Models\Menu;
+use App\Models\OrganizationWorkAreaProfession;
+use App\Models\OrganizationWorkAreaType;
+use App\Models\OrganizationWorkshopType;
 use App\Models\PivotRbacRoleAndRbacPermission;
 use App\Models\RbacPermission;
 use App\Models\RbacPermissionGroup;
@@ -524,6 +527,41 @@ class DataCommand extends Command
                     ]);
                 $this->comment("创建器材日志类型：{$type["unique_code"]} {$type["name"]}");
             });
+
+        // 车间类型
+        collect([
+            ["unique_code" => "SCENE-WORKSHOP", "name" => "现场车间", "number_code" => "01"],
+            ["unique_code" => "FIX-WORKSHOP", "name" => "检修车间", "number_code" => "02"],
+            ["unique_code" => "ELE-WORKSHOP", "name" => "电子车间", "number_code" => "03"],
+            ["unique_code" => "VEH-WORKSHOP", "name" => "车载车间", "number_code" => "04"],
+            ["unique_code" => "HUMP-WORKSHOP", "name" => "驼峰车间", "number_code" => "05"],
+        ])->each(function ($datum) {
+            OrganizationWorkshopType::with([])->create(array_merge(["uuid" => Str::uuid(), "sort" => 0,], $datum));
+            $this->comment("创建车间类型：{$datum["unique_code"]} {$datum["name"]}");
+        });
+
+        // 工区类型
+        collect([
+            ["unique_code" => "SCENE-WORK-AREA", "name" => "现场工区"],
+            ["unique_code" => "FIX-WORK-AREA", "name" => "检修车间专业工区"],
+            ["unique_code" => "ELE-WORK-AREA", "name" => "电子车间专业工区"],
+            ["unique_code" => "VEH-WORK-AREA", "name" => "车载车间专业工区"],
+            ["unique_code" => "HUMP-WORK-AREA", "name" => "驼峰车间专业工区"],
+        ])->each(function ($datum) {
+            OrganizationWorkAreaType::with([])->create(array_merge(["uuid" => Str::uuid(), "sort" => 0], $datum));
+            $this->comment("创建工区类型：{$datum["unique_code"]} {$datum["name"]}");
+        });
+
+        // 工区专业
+        collect([
+            ["unique_code" => "POINT-SWITCH", "name" => "转辙机"],
+            ["unique_code" => "RELAY", "name" => "继电器"],
+            ["unique_code" => "SYNTHESIZE", "name" => "综合"],
+            ["unique_code" => "POWER-SUPPLY-PANEL", "name" => "电源屏"],
+        ])->each(function ($datum) {
+            OrganizationWorkAreaProfession::with([])->create(array_merge(["uuid" => Str::uuid(), "sort" => 0], $datum));
+            $this->comment("创建工区专业：{$datum["unique_code"]} {$datum["name"]}");
+        });
 
         $this->info("初始化数据完成");
     }

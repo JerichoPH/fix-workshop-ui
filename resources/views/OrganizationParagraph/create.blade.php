@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">代码*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="unique_code" id="txtUniqueCode" type="text" class="form-control" placeholder="必填，唯一" required value="" autocomplete="off">
+                                    <input name="unique_code" id="txtUniqueCode" type="text" class="form-control" placeholder="必填，唯一 4位：B048" required value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
