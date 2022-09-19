@@ -20,9 +20,11 @@ class CreateEntireInstanceStatusesTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 64)->nullable(false)->unique()->comment('器材状态代码');
-            $table->string('name', 64)->nullable(false)->unique()->comment('器材状态名称');
-            $table->string('number_code',2)->nullable(false)->unique()->comment('器材状态数字代码');
+            $table->string('unique_code', 64)->nullable(false)->comment('器材状态代码');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('器材状态名称');
+            $table->string('number_code',2)->nullable(false)->comment('器材状态数字代码');
+            $table->index('number_code');
         });
     }
 

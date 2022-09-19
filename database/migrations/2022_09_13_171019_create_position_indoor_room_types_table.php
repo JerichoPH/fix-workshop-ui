@@ -20,8 +20,9 @@ class CreatePositionIndoorRoomTypesTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 64)->nullable(false)->unique()->comment('室内上道位置机房类型代码');
-            $table->string('name', 64)->nullable(false)->unique()->comment('室内上道位置机房类型名称');
+            $table->string('unique_code', 64)->nullable(false)->comment('室内上道位置机房类型代码');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('室内上道位置机房类型名称');
         });
     }
 

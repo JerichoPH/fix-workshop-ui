@@ -20,8 +20,9 @@ class CreateLocationRailroadGradeCrossesTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 5)->nullable(false)->unique()->comment('道口代码（5位：I0001）');
-            $table->string('name', 64)->nullable(false)->unique()->comment('道口名称');
+            $table->string('unique_code', 5)->nullable(false)->comment('道口代码（5位：I0001）');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('道口名称');
             $table->boolean('be_enable')->nullable(false)->default(true)->comment('是否可用');
             $table->string('organization_workshop_uuid', 36)->nullable(false)->comment('所属车间UUID');
             $table->index('organization_workshop_uuid','location_railroad_grade_crosses__owu');

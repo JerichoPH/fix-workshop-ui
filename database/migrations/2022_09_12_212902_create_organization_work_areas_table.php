@@ -20,8 +20,9 @@ class CreateOrganizationWorkAreasTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 8)->nullable(false)->unique()->comment('工区代码（8位 B048D001）');
-            $table->string('name', 64)->nullable(false)->unique()->comment('工区名称');
+            $table->string('unique_code', 8)->nullable(false)->comment('工区代码（8位 B048D001）');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('工区名称');
             $table->boolean('be_enable')->nullable(false)->default(true)->comment('是否可用');
             $table->string('organization_work_area_type_uuid', 36)->nullable(false)->comment('所属工区类型UUID');
             $table->index('organization_work_area_type_uuid');

@@ -20,8 +20,9 @@ class CreatePositionDepotStorehousesTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 4)->nullable(false)->unique()->comment('仓库代码（4位）');
-            $table->string('name', 64)->nullable(false)->unique()->comment('仓库名称');
+            $table->string('unique_code', 4)->nullable(false)->comment('仓库代码（4位）');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('仓库名称');
             $table->string('organization_workshop_uuid', 36)->nullable(false)->comment('所属车间UUID');
             $table->index('organization_workshop_uuid');
             $table->string('organization_work_area_uuid', 36)->nullable(true)->comment('所属工区UUID');

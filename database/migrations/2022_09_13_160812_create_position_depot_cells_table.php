@@ -20,8 +20,9 @@ class CreatePositionDepotCellsTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 14)->nullable(false)->unique()->comment('仓库柜架格位代码（14位）');
-            $table->string('name', 64)->nullable(false)->unique()->comment('仓库柜架格位名称');
+            $table->string('unique_code', 14)->nullable(false)->comment('仓库柜架格位代码（14位）');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('仓库柜架格位名称');
             $table->string('position_depot_tier_uuid',36)->nullable(false)->comment('所属仓库柜架层UUID');
             $table->index('position_depot_tier_uuid');
         });

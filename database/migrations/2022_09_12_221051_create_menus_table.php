@@ -20,7 +20,7 @@ class CreateMenusTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('name', 64)->nullable(false)->unique()->comment('菜单名称');
+            $table->string('name', 64)->nullable(false)->comment('菜单名称');
             $table->string('url', 128)->nullable(true)->comment('菜单URL');
             $table->string('uri_name', 64)->nullable(true)->comment('菜单路由标识');
             $table->string('icon', 64)->nullable(true)->comment('菜单图标');

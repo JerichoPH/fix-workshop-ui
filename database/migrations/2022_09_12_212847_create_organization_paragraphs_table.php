@@ -20,9 +20,9 @@ class CreateOrganizationParagraphsTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 4)->nullable(false)->unique()->comment('站段代码（4位 B048）');
-            $table->string('name', 64)->nullable(false)->unique()->comment('站段名称');
-            $table->string('short_name', 64)->nullable(false)->unique()->comment('站段简称');
+            $table->string('unique_code', 4)->nullable(false)->comment('站段代码（4位 B048）');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('站段名称');
             $table->boolean('be_enable')->nullable(false)->default(true)->comment('是否可用');
             $table->string('organization_railway_uuid', 36)->nullable(false)->comment('所属路局UUID');
             $table->index('organization_railway_uuid');

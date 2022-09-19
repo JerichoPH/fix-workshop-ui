@@ -20,8 +20,9 @@ class CreateSourceNamesTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 64)->nullable(false)->unique()->comment('来源名称代码');
-            $table->string('name', 64)->nullable(false)->unique()->comment('来源名称名称');
+            $table->string('unique_code', 64)->nullable(false)->comment('来源名称代码');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('来源名称名称');
             $table->string('source_type_uuid',36)->nullable(false)->comment('所属来源类型UUID');
             $table->index('source_type_uuid');
         });

@@ -20,7 +20,8 @@ class CreateAccountsTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('username', 64)->nullable(false)->unique()->comment('用户名');
+            $table->string('username', 64)->nullable(false)->comment('用户名');
+            $table->index('username');
             $table->string('password', 128)->nullable(false)->comment('密码');
             $table->string('nickname', 64)->nullable(false)->unique()->comment('昵称');
 

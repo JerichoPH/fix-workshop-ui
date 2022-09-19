@@ -141,7 +141,8 @@
                     data: {id: id},
                     success: function (res) {
                         console.log(`{{ url('organizationWorkshop')}}/${id} success:`, res);
-                        location.reload();
+
+                        tblOrganizationWorkshop.ajax.reload();
                     },
                     error: function (err) {
                         console.log(`{{ url('organizationWorkshop')}}/${id} fail:`, err);

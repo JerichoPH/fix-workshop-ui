@@ -20,8 +20,9 @@ class CreatePositionDepotCabinetsTable extends Migration
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');
             $table->unsignedSmallInteger('sort')->nullable(false)->default(0)->comment('排序');
 
-            $table->string('unique_code', 10)->nullable(false)->unique()->comment('仓库柜架代码（10位）');
-            $table->string('name', 64)->nullable(false)->unique()->comment('仓库柜架名称');
+            $table->string('unique_code', 10)->nullable(false)->comment('仓库柜架代码（10位）');
+            $table->index('unique_code');
+            $table->string('name', 64)->nullable(false)->comment('仓库柜架名称');
             $table->string('position_depot_row_uuid',36)->nullable(false)->comment('所属仓库排UUID');
             $table->index('position_depot_row_uuid');
         });
