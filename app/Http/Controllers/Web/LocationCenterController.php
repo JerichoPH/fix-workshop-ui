@@ -46,7 +46,14 @@ class LocationCenterController extends Controller
      */
     public function Store()
     {
-        return $this->sendStandardRequest("locationCenter");
+        return $this->sendStandardRequest(
+            "locationCenter",
+            function(Request $request){
+                $request = $request->all();
+                $request["be_enable"] = boolval($request["be_enable"]);
+                return $request;
+            }
+        );
     }
 
     /**
