@@ -55,18 +55,17 @@
              */
             function fnInitMenu() {
                 let currentUriName = "{{ request()->route()->getName() }}".split(":")[0];
-                let activeUUIDs = [];
+                let activeUuids = [];
                 let html = '';
                 html = '<li class="header">菜单</li>';
 
-                // 加入统计报表页面
                 html = '<li>' +
                     '<a href="/">' +
                     '<i class="fa fa-home">&nbsp;</i><span>首页</span>' +
                     '</a>' +
                     '</li>';
 
-                let fillMenuItem = function (arr) {
+                let fnFillMenuItem = function (arr) {
                     for (let k = 0; k < arr.length; k++) {
                         if (arr[k]["subs"]) {
                             html += `
@@ -77,14 +76,14 @@
     </a>
 <ul class="treeview-menu">
 `;
-                            fillMenuItem(arr[k]["subs"]);
+                            fnFillMenuItem(arr[k]["subs"]);
                             html += '</ul></li>';
                         } else {
                             // 判断是否是当前路由
                             if (arr[k]["uri_name"] === currentUriName) {
-                                activeUUIDs.push(arr[k]["uuid"]);
+                                activeUuids.push(arr[k]["uuid"]);
                                 if (arr[k]["parent_uuid"]) {
-                                    activeUUIDs.push(arr[k]["parent_uuid"]);
+                                    activeUuids.push(arr[k]["parent_uuid"]);
                                 }
                             }
                             html += `
@@ -108,11 +107,11 @@
 
                         let {menus,} = res["data"];
                         if (menus.length > 0) {
-                            fillMenuItem(menus);
+                            fnFillMenuItem(menus);
                         }
                         $('#divTree').html(html);
-                        if (activeUUIDs.length > 0) {
-                            activeUUIDs.map(function (activeUUID) {
+                        if (activeUuids.length > 0) {
+                            activeUuids.map(function (activeUUID) {
                                 $(`#menu_${activeUUID}`).addClass("active");
                             });
                         }

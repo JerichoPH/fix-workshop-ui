@@ -64,7 +64,10 @@
 
             table.render({
                 elem: '#tblAccount',
-                // height: 312,
+                height: 'full-150',
+                skin: 'line',
+                even: true,
+                size: 'lg',
                 url: '{{ route('web.Account:Index') }}', //数据接口
                 where: {be_enable: 1,},
                 page: true, //开启分页
@@ -77,8 +80,8 @@
                     };
                 },
                 cols: [[ //表头,
-                    {type: 'number', title: '行号',},
-                    {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'},
+                    {type: 'number',},
+                    {field: 'id', title: 'ID', width: 80, sort: true,},
                     {field: 'username', title: '账号', width: 236},
                     // {
                     //     field: 'name', title: '名称', sort: true, fixed: 'left', templet: function (row) {
