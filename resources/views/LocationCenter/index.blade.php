@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblLocationCenter">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>新建时间</th>
                         <th>代码</th>
                         <th>名称</th>
@@ -86,6 +87,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -158,7 +160,8 @@
                     data: {id: id},
                     success: function (res) {
                         console.log(`{{ url('locationCenter')}}/${id} success:`, res);
-                        location.reload();
+
+                        tblLocationCenter.ajax.reload();
                     },
                     error: function (err) {
                         console.log(`{{ url('locationCenter')}}/${id} fail:`, err);
