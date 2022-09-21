@@ -25,7 +25,7 @@ class AccountController extends Controller
      */
     public function Index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("account") : view("Account.index2");
+        return request()->ajax() ? $this->sendStandardRequest("account") : view("Account.index");
     }
 
     /**

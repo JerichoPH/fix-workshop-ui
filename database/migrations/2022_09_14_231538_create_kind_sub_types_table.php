@@ -23,7 +23,7 @@ class CreateKindSubTypesTable extends Migration
             $table->string('unique_code', 7)->nullable(false)->comment('型号代码（7位：Q010203');
             $table->index('unique_code');
             $table->string('name', 64)->nullable(false)->comment('型号名称');
-            $table->string('nickname', 64)->nullable(true)->comment('昵称');
+            $table->string('nickname', 64)->nullable(false)->default('')->comment('昵称');
             $table->string('kind_entire_type_uuid', 36)->nullable(false)->comment('类型种类UUID');
             $table->index('kind_entire_type_uuid');
             $table->smallInteger('cycle_repair_year')->nullable(false)->default(0)->comment('周期修（年）');

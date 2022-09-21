@@ -23,48 +23,22 @@ class JsonResponseService
     }
 
     /**
-     * data 别名方法
-     * @param array $data
+     * 操作成功
+     * @param null $content
+     * @param null $pagination
      * @param string $msg
      * @param ...$details
      * @return JsonResponse
      */
-    final public static function Dict($data = [], string $msg = "OK", ...$details): JsonResponse
-    {
-        return self::Data($data, $msg, $details);
-    }
-
-    /**
-     * 响应数据
-     * @param mixed $data
-     * @param string $msg
-     * @param array $details
-     * @return JsonResponse
-     */
-    final public static function Data($data = [], string $msg = "OK", ...$details): JsonResponse
+    final public function Ok($content = null, $pagination = null, string $msg = "OK", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
             "status" => 200,
             "errorCode" => 0,
-            "data" => $data,
+            "content" => $content,
+            "pagination" => $pagination,
             "details" => $details,
-        ]);
-    }
-
-    /**
-     * 操作成功
-     * @param string $msg
-     * @return JsonResponse
-     */
-    final public function OK(string $msg = "OK"): JsonResponse
-    {
-        return response()->json([
-            "msg" => $msg,
-            "status" => 200,
-            "errorCode" => 0,
-            "data" => [],
-            "details" => [],
         ]);
     }
 
@@ -248,7 +222,7 @@ class JsonResponseService
             "status" => 500,
             "errorCode" => $errorCode,
             "data" => [],
-            "details"=>[
+            "details" => [
                 $e->getMessage(),
                 $e->getFile(),
                 $e->getLine(),

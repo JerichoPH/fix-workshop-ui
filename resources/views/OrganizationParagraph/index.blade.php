@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblOrganizationParagraph">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>新建时间</th>
                         <th>站段代码</th>
                         <th>站段名称</th>
@@ -55,7 +56,7 @@
                         url: `{{ route("web.OrganizationParagraph:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.OrganizationParagraph:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_paragraphs: organizationParagraphs,} = res["data"];
+                            let {organization_paragraphs: organizationParagraphs,} = res["content"];
                             let render = [];
                             if (organizationParagraphs.length > 0) {
                                 $.each(organizationParagraphs, (_, organizationParagraph) => {
@@ -74,6 +75,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -88,13 +90,13 @@
                         error: function (err) {
                             console.log(`{{ route("web.OrganizationParagraph:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
-                        });
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            });
                         }
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 5,
+                        targets: [0, 6,],
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -102,7 +104,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[0, 'desc']],  // 排序依据
+                    order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -117,6 +119,12 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblOrganizationParagraph.on('draw.dt order.dt search.dt', function () {
+                    tblOrganizationParagraph.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 

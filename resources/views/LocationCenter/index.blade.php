@@ -58,7 +58,7 @@
                         url: `{{ route("web.LocationCenter:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.LocationCenter:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {location_centers: locationCenters,} = res["data"];
+                            let {location_centers: locationCenters,} = res["content"];
                             let render = [];
                             if (locationCenters.length > 0) {
                                 $.each(locationCenters, (_, locationCenter) => {

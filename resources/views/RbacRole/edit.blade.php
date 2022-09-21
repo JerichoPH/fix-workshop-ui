@@ -60,7 +60,7 @@
                 async: false,
                 success: res => {
                     console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} success:`, res);
-                    rbacRole = res["data"]["rbac_role"];
+                    rbacRole = res["content"]["rbac_role"];
                     $txtName.val(rbacRole["name"]);
                 },
                 error: err => {

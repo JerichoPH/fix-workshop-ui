@@ -57,7 +57,7 @@
                         url: `{{ route("web.OrganizationWorkArea:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.OrganizationWorkArea:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_work_areas: organizationWorkAreas,} = res["data"];
+                            let {organization_work_areas: organizationWorkAreas,} = res["content"];
                             let render = [];
                             if (organizationWorkAreas.length > 0) {
                                 $.each(organizationWorkAreas, (_, organizationWorkArea) => {
@@ -77,7 +77,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
-                                        '',
+                                        null,
                                         createdAt,
                                         uniqueCode,
                                         name,

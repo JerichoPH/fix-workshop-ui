@@ -103,9 +103,9 @@
                     data: {},
                     async: true,
                     success: function (res) {
-                        console.log(`{{ route("web.Authorization:GetMenus") }} success:`, res);
+                        console.log(`加载菜单 {{ route("web.Authorization:GetMenus") }} success:`, res);
 
-                        let {menus,} = res["data"];
+                        let {menus,} = res["content"];
                         if (menus.length > 0) {
                             fnFillMenuItem(menus);
                         }

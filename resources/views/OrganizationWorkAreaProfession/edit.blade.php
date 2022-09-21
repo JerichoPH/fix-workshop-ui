@@ -68,7 +68,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkAreaProfession:Show", ["uuid" => $uuid,]) }} success:`, res);
 
-                    organizationWorkAreaProfession = res["data"]["organization_work_area_profession"];
+                    organizationWorkAreaProfession = res["content"]["organization_work_area_profession"];
 
                     $txtUniqueCode.val(organizationWorkAreaProfession["unique_code"]);
                     $txtName.val(organizationWorkAreaProfession["name"]);

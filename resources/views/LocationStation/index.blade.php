@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblLocationStation">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>新建时间</th>
                         <th>代码</th>
                         <th>名称</th>
@@ -57,7 +58,7 @@
                         url: `{{ route("web.LocationStation:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.LocationStation:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {location_stations: locationStations,} = res["data"];
+                            let {location_stations: locationStations,} = res["content"];
                             let render = [];
                             if (locationStations.length > 0) {
                                 $.each(locationStations, (_, locationStation) => {
@@ -86,6 +87,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         uniqueCode,
                                         name,

@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblRbacRole">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>新建时间</th>
                         <th>编号</th>
                         <th>名称</th>
@@ -53,7 +54,7 @@
                         url: `{{ route("web.RbacRole:Index") }}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.RbacRole:Index") }} success:`, res);
-                            let {rbac_roles: rbacRoles,} = res['data'];
+                            let {rbac_roles: rbacRoles,} = res['content'];
                             let render = [];
                             if (rbacRoles.length > 0) {
                                 $.each(rbacRoles, (key, rbacRole) => {
@@ -70,6 +71,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         uuid,
                                         name,
@@ -88,7 +90,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 3,
+                        targets: [0,4,],
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -96,7 +98,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[0, 'desc']],  // 排序依据
+                    order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -111,6 +113,12 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblRbacRole.on('draw.dt order.dt search.dt', function () {
+                    tblRbacRole.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 

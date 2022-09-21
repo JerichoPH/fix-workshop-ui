@@ -10,7 +10,6 @@ use App\Exceptions\ValidateException;
 use App\Facades\JsonResponseFacade;
 use Closure;
 use Curl\Curl;
-use Curl\MultiCurl;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -96,13 +95,13 @@ class Controller extends BaseController
             switch ($this->curl->getHttpStatusCode()) {
                 case 200:
                 default:
-                    return JsonResponseFacade::Dict((array)$this->curl->response->content, $this->curl->response->msg);
+                    return JsonResponseFacade::Ok($this->curl->response->content, $this->curl->response->pagination, $this->curl->response->msg);
                 case 201:
-                    return JsonResponseFacade::Created((array)$this->curl->response->content, $this->curl->response->msg);
+                    return JsonResponseFacade::Created($this->curl->response->content, $this->curl->response->msg);
                 case 202:
-                    return JsonResponseFacade::Updated((array)$this->curl->response->content, $this->curl->response->msg);
+                    return JsonResponseFacade::Updated($this->curl->response->content, $this->curl->response->msg);
                 case 204:
-                    return JsonResponseFacade::Deleted([], @$this->curl->response->msg ?: "删除成功");
+                    return JsonResponseFacade::Deleted(null, @$this->curl->response->msg ?: "删除成功");
             }
         }
     }

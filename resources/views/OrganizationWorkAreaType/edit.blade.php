@@ -68,7 +68,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkAreaType:Show", ["uuid" => $uuid,]) }} success:`, res);
 
-                    organizationWorkAreaType = res["data"]["organization_work_area_type"];
+                    organizationWorkAreaType = res["content"]["organization_work_area_type"];
                     $txtUniqueCode.val(organizationWorkAreaType["unique_code"]);
                     $txtName.val(organizationWorkAreaType["name"]);
                 },

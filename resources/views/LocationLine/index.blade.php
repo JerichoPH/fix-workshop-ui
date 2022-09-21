@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblLine">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>新建时间</th>
                         <th>代码</th>
                         <th>名称</th>
@@ -48,7 +49,7 @@
                     url: `{{ route("web.LocationLine:Index") }}`,
                     dataSrc: function (res) {
                         console.log(`{{ route("web.LocationLine:Index") }} success:`, res);
-                        let {location_lines: locationLines,} = res["data"];
+                        let {location_lines: locationLines,} = res["content"];
                         let render = [];
                         if (locationLines.length > 0) {
                             $.each(locationLines, (_, locationLine) => {
@@ -65,6 +66,7 @@
                                 divBtnGroup += `</td>`;
 
                                 render.push([
+                                    null,
                                     createdAt,
                                     uniqueCode,
                                     name,
@@ -87,7 +89,7 @@
                 },
                 columnDefs: [{
                     orderable: false,
-                    targets: 3,
+                    targets: [0,4,],
                 }],
                 paging: true,  // 分页器
                 lengthChange: true,
@@ -95,7 +97,7 @@
                 ordering: true,  // 列排序
                 info: true,
                 autoWidth: true,  // 自动宽度
-                order: [[0, 'desc']],  // 排序依据
+                order: [[1, 'desc']],  // 排序依据
                 iDisplayLength: 200,  // 默认分页数
                 aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                 language: {

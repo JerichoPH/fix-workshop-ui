@@ -23,7 +23,7 @@ class CreateFactoriesTable extends Migration
             $table->string('unique_code', 5)->nullable(false)->comment('供应商代码（5位：P0001）');
             $table->index('unique_code');
             $table->string('name', 64)->nullable(false)->comment('供应商名称');
-            $table->string('short_name', 64)->nullable(true)->unique()->comment('简称');
+            $table->string('short_name', 64)->nullable(false)->default('')->unique()->comment('简称');
         });
     }
 

@@ -18,24 +18,16 @@
         layui.use(function () {
             let {jquery: $, layer, form, table,} = layui;
             table.render({
+                ...tableBaseOptions,
                 elem: '#tblRbacRole',
-                skin: 'line',
-                even: true,
-                size: 'lg',
-                height: 'full-150',
                 url: '{{ route('web.RbacRole:Index') }}',
-                where: {},
-                page: true,
+                where: {__order__: 'created_at desc',},
+                toolbar: `<div class="layui-btn-group"><a href="{{ route("web.RbacRole:Create") }}" class="layui-btn layui-btn-sm"><i class="fa fa-plus"></i></a></div>`,
                 parseData: function (res) {
-                    return {
-                        code: res['errorCode'],
-                        msg: res['msg'],
-                        count: res['data']['rbac_roles'].length,
-                        data: res['data']['rbac_roles'],
-                    };
+                    return tableBaseParseData(res,'rbac_roles');
                 },
                 cols: [[ //表头,
-                    {type: 'number', title: '行号',},
+                    ...tableBaseColumns,
                     {
                         field: 'created_at', title: '创建时间', sort: true, templet: function (datum) {
                             return `<div>${datum['created_at'] ? moment(datum['created_at']).format('YYYY-MM-DD HH:mm:ss') : ''}</div>`;

@@ -75,8 +75,8 @@
                     return {
                         code: res['errorCode'],
                         msg: res['msg'],
-                        count: res['data']['accounts'].length,
-                        data: res['data']['accounts'],
+                        count: res['pagination']['count'],
+                        data: res['content']['accounts'],
                     };
                 },
                 cols: [[ //表头,

@@ -88,7 +88,7 @@
                 async: true,
                 success: res => {
                     console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} success:`, res);
-                    organizationRailway = res["data"]["organization_railway"];
+                    organizationRailway = res["content"]["organization_railway"];
 
                     let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable, location_lines: locationLines,} = organizationRailway;
 
@@ -126,7 +126,7 @@
                         url: `{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {location_lines: locationLines,} = res["data"];
+                            let {location_lines: locationLines,} = res["content"];
                             let render = [];
                             if (locationLines.length > 0) {
                                 $.each(locationLines, (_, locationLine) => {

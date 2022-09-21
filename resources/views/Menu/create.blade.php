@@ -99,7 +99,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.Menu:Index") }} success:`, res);
 
-                    let {menus,} = res["data"];
+                    let {menus,} = res["content"];
 
                     $selParent.empty();
                     $selParent.append(`<option value="">顶级</option>`);
@@ -129,7 +129,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.RbacRole:Index") }} success:`, res);
 
-                    let {rbac_roles: rbacRoles,} = res["data"];
+                    let {rbac_roles: rbacRoles,} = res["content"];
 
                     if (rbacRoles.length > 0) {
                         $selRbacRoles.empty();

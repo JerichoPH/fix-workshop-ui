@@ -90,7 +90,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
 
-                    let {organization_railways: organizationRailways,} = res["data"];
+                    let {organization_railways: organizationRailways,} = res["content"];
 
                     $selOrganizationRailway.empty();
                     $selOrganizationRailway.append(`<option value="" disabled selected>未选择</option>`);

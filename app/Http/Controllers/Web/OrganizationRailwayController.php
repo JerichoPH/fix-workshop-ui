@@ -69,7 +69,7 @@ class OrganizationRailwayController extends Controller
         if (request()->ajax()) {
             return $this->sendStandardRequest("organizationRailway/{$uuid}");
         }
-        return JsonResponseFacade::OK();
+        return JsonResponseFacade::Ok();
     }
 
     /**

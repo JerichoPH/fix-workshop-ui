@@ -11,9 +11,7 @@ use Throwable;
  * Class JsonResponseFacade
  * @package App\Facades
  * @method static Dump(...$data): JsonResponse
- * @method static Dict($data = [], string $msg = 'OK', ...$details): JsonResponse
- * @method static Data($data = [], string $msg = 'OK', ...$details): JsonResponse
- * @method static OK($msg = 'OK'): JsonResponse
+ * @method static Ok($content = null, $pagination = null, string $msg = "OK", ...$details): JsonResponse
  * @method static Created($data = [], string $msg = '新建成功', ...$details): JsonResponse
  * @method static Updated($data = [], string $msg = '编辑成功', ...$details): JsonResponse
  * @method static Deleted($data = [], string $msg = '删除成功', ...$details): JsonResponse

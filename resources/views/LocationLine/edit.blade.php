@@ -88,7 +88,7 @@
                 success: res => {
                     console.log(`{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }} success:`, res);
 
-                    locationLine = res["data"]["location_line"];
+                    locationLine = res["content"]["location_line"];
 
                     let {unique_code: uniqueCode, name, be_enable: beEnable,} = locationLine;
 

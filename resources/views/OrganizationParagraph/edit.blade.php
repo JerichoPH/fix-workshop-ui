@@ -93,7 +93,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.OrganizationParagraph:Show", ["uuid" => $uuid,]) }} success:`, res);
 
-                    organizationParagraph = res["data"]["organization_paragraph"];
+                    organizationParagraph = res["content"]["organization_paragraph"];
 
                     $txtUniqueCode.val(organizationParagraph["unique_code"]);
                     $txtName.val(organizationParagraph["name"]);
@@ -124,7 +124,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
 
-                    let {organization_railways: organizationRailways,} = res["data"];
+                    let {organization_railways: organizationRailways,} = res["content"];
                     $selOrganizationRailway.empty();
                     $selOrganizationRailway.append(`<option value="" disabled>未选择</option>`);
                     if (organizationRailways.length > 0) {

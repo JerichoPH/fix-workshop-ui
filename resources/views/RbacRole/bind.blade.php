@@ -99,7 +99,7 @@
                 success: res => {
                     console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} success:`, res);
 
-                    rbacRole = res["data"]["rbac_role"];
+                    rbacRole = res["content"]["rbac_role"];
 
                     // 解析已经绑定的用户uuid
                     if (rbacRole["accounts"].length > 0) {
@@ -134,7 +134,7 @@
                         async: false,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.Account:Index") }} success:`, res);
-                            let {accounts,} = res['data'];
+                            let {accounts,} = res["content"];
                             let render = [];
                             if (accounts.length > 0) {
                                 $.each(accounts, (key, account) => {
@@ -204,7 +204,7 @@
                 success: res => {
                     console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
 
-                    let {rbac_permission_groups: rbacPermissionGroups,} = res["data"];
+                    let {rbac_permission_groups: rbacPermissionGroups,} = res["content"];
 
                     if (rbacPermissionGroups.length > 0) {
                         $selRbacPermissionGroup.empty();
@@ -234,7 +234,7 @@
                         async: false,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID} success:`, res);
-                            let {rbac_permissions: rbacPermissions,} = res['data'];
+                            let {rbac_permissions: rbacPermissions,} = res["content"];
                             let render = [];
                             if (rbacPermissions.length > 0) {
                                 $.each(rbacPermissions, (key, rbacPermission) => {

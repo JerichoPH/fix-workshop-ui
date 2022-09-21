@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblRbacPermissionGroup">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>创建时间</th>
                         <th>编号</th>
                         <th>名称</th>
@@ -88,11 +89,10 @@
                         url: `{{ route("web.RbacPermissionGroup:Index") }}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
-                            let {rbac_permission_groups: rbacPermissionGroups,} = res['data'];
+                            let {rbac_permission_groups: rbacPermissionGroups,} = res['content'];
                             let render = [];
                             if (rbacPermissionGroups.length > 0) {
                                 $.each(rbacPermissionGroups, (key, rbacPermissionGroup) => {
-                                    console.log(rbacPermissionGroup);
                                     let createdAt = rbacPermissionGroup["created_at"] ? moment(rbacPermissionGroup["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                     let uuid = rbacPermissionGroup["uuid"];
                                     let name = rbacPermissionGroup["name"];
@@ -109,6 +109,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         uuid,
                                         name,
@@ -122,13 +123,13 @@
                         error: function (err) {
                             console.log(`{{ route("web.RbacPermissionGroup:Index") }} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
-                        });
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            });
                         },
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 4,
+                        targets: [0, 5,],
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -136,7 +137,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[0, 'desc']],  // 排序依据
+                    order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -151,6 +152,12 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblRbacPermissionGroup.on('draw.dt order.dt search.dt', function () {
+                    tblRbacPermissionGroup.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 

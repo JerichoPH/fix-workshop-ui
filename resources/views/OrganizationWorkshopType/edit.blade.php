@@ -74,7 +74,7 @@
                 async: true,
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkshopType:Show", ["uuid" => $uuid]) }} success:`, res);
-                    organizationWorkshopType = res["data"]["organization_workshop_type"];
+                    organizationWorkshopType = res["content"]["organization_workshop_type"];
 
                     $txtUniqueCode.val(organizationWorkshopType["unique_code"]);
                     $txtNumber.val(organizationWorkshopType["number"]);

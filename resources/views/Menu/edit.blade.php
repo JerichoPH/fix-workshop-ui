@@ -101,7 +101,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.Menu:Show", ["uuid" => $uuid]) }} success:`, res);
 
-                    menu = res["data"]["menu"];
+                    menu = res["content"]["menu"];
                     $txtName.val(menu["name"]);
                     $txtUrl.val(menu["url"])
                     $txtUriName.val(menu["uri_name"]);
@@ -130,7 +130,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.Menu:Index") }} success:`, res);
 
-                    let {menus,} = res["data"];
+                    let {menus,} = res["content"];
                     $selParentMenu.empty();
                     $selParentMenu.append(`<option value="">顶级</option>`);
                     menu["rbac_roles"].map(function (rbacRole) {
@@ -163,7 +163,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.RbacRole:Index") }} success:`, res);
 
-                    let {rbac_roles: rbacRoles,} = res["data"];
+                    let {rbac_roles: rbacRoles,} = res["content"];
                     $selSelRbacRoles.empty();
                     if (rbacRoles.length > 0) {
                         rbacRoles.map(function (rbacRole) {

@@ -69,7 +69,7 @@ class LocationLineController extends Controller
         if (request()->ajax()) {
             return $this->sendStandardRequest("locationLine/{$uuid}");
         }
-        return JsonResponseFacade::OK();
+        return JsonResponseFacade::Ok();
     }
 
     /**

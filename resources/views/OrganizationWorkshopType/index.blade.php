@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblOrganizationWorkshopType">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>新建时间</th>
                         <th>代码</th>
                         <th>数字代码</th>
@@ -54,7 +55,7 @@
                         url: `{{ route("web.OrganizationWorkshopType:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.OrganizationWorkshopType:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_workshop_types: organizationWorkshopTypes,} = res["data"];
+                            let {organization_workshop_types: organizationWorkshopTypes,} = res["content"];
                             let render = [];
                             if (organizationWorkshopTypes.length > 0) {
                                 $.each(organizationWorkshopTypes, (_, organizationWorkshopType) => {
@@ -72,6 +73,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         uniqueCode,
                                         number,
@@ -91,7 +93,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 4,  // 清除第一列排序
+                        targets: [0,5,],  // 清除第一列排序
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -99,7 +101,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[0, 'desc']],  // 排序依据
+                    order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -114,6 +116,12 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblOrganizationWorkshopType.on('draw.dt order.dt search.dt', function () {
+                    tblOrganizationWorkshopType.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 

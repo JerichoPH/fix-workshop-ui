@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblAccount">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>创建时间</th>
                         <th>编号</th>
                         <th>用户名</th>
@@ -59,7 +60,7 @@
                         url: `{{ route("web.Account:Index") }}`,
                         dataSrc(res) {
                             console.log(`{{ route("web.Account:Index") }} success:`, res);
-                            let {accounts,} = res['data'];
+                            let {accounts,} = res['content'];
                             let render = [];
                             if (accounts.length > 0) {
                                 $.each(accounts, (_, account) => {
@@ -80,6 +81,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         uuid,
                                         username,
@@ -103,7 +105,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 4,
+                        targets: [0, 5],
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -111,7 +113,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[0, 'desc']],  // 排序依据
+                    order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -126,10 +128,16 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblAccount.on('draw.dt order.dt search.dt', function () {
+                    tblAccount.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 
-        $(()=>{
+        $(() => {
             if ($select2.length > 0) $('.select2').select2();
 
             fnFillTblAccount();  // 填充用户表

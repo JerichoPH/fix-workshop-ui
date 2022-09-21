@@ -26,6 +26,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblLocationRailroadGradeCross">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>新建时间</th>
                         <th>代码</th>
                         <th>名称</th>
@@ -57,7 +58,7 @@
                         url: `{{ route("web.LocationRailroadGradeCross:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.LocationRailroadGradeCross:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {location_railroad_grade_crosses: locationRailroadGradeCrosses,} = res["data"];
+                            let {location_railroad_grade_crosses: locationRailroadGradeCrosses,} = res["content"];
                             let render = [];
                             if (locationRailroadGradeCrosses.length > 0) {
                                 $.each(locationRailroadGradeCrosses, (_, locationRailroadGradeCross) => {
@@ -86,6 +87,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         uniqueCode,
                                         name,
@@ -116,7 +118,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[0, 'desc']],  // 排序依据
+                    order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {

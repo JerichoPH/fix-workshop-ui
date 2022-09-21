@@ -75,7 +75,7 @@
                         url: `{{ route("web.PositionDepotStorehouse:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.PositionDepotStorehouse:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {position_depot_storehouses: positionDepotStorehouses,} = res["data"];
+                            let {position_depot_storehouses: positionDepotStorehouses,} = res["content"];
                             let render = [];
                             if (positionDepotStorehouses.length > 0) {
                                 $.each(positionDepotStorehouses, (_, positionDepotStorehouse) => {

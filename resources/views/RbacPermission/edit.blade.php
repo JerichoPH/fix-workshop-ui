@@ -83,7 +83,7 @@
                 success: res => {
                     console.log(`{{ route("web.RbacPermission:Show", ["uuid" => $uuid]) }} success:`, res);
 
-                    rbacPermission = res["data"]["rbac_permission"];
+                    rbacPermission = res["content"]["rbac_permission"];
 
                     fnFillSelRbacPermissionGroup(rbacPermission["rbac_permission_group_uuid"]);  // 填充权限分组下拉列表
                     $txtName.val(rbacPermission["name"]);
@@ -111,7 +111,7 @@
                 success: res => {
                     console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
 
-                    let {rbac_permission_groups: rbacPermissionGroups,} = res["data"];
+                    let {rbac_permission_groups: rbacPermissionGroups,} = res["content"];
 
                     if (rbacPermissionGroups.length > 0) {
                         $selRbacPermissionGroup.empty();

@@ -101,7 +101,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationParagraph:Index") }} success:`, res);
 
-                    let {organization_paragraphs: organizationParagraphs,} = res["data"];
+                    let {organization_paragraphs: organizationParagraphs,} = res["content"];
 
                     $selOrganizationParagraph.empty();
                     $selOrganizationParagraph.append(`<option value="" disabled selected>未选择</option>`);
@@ -133,7 +133,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkshopType:Index") }} success:`, res);
 
-                    let {organization_workshop_types: organizationWorkshopTypes,} = res["data"];
+                    let {organization_workshop_types: organizationWorkshopTypes,} = res["content"];
 
                     $selOrganizationWorkshopType.empty();
                     $selOrganizationWorkshopType.append(`<option value="" disabled selected>未选择</option>`);

@@ -59,7 +59,7 @@
                 success: res => {
                     console.log(`{{ route("web.RbacPermissionGroup:Show", ["uuid" => $uuid]) }} success:`, res);
 
-                    rbacPermissionGroup = res["data"]["rbac_permission_group"];
+                    rbacPermissionGroup = res["content"]["rbac_permission_group"];
 
                     $txtName.val(rbacPermissionGroup["name"]);
                 },

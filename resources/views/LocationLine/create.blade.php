@@ -96,7 +96,7 @@
                         url: `{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {organization_railways: organizationRailways,} = res["data"];
+                            let {organization_railways: organizationRailways,} = res["content"];
                             let render = [];
                             if (organizationRailways.length > 0) {
                                 $.each(organizationRailways, (_, organizationRailway) => {

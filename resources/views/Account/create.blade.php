@@ -111,7 +111,7 @@
                 success(res) {
                     console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
 
-                    let {organization_railways: organizationRailways} = res["data"];
+                    let {organization_railways: organizationRailways} = res["content"];
                     $selOrganizationRailway.empty();
                     $selOrganizationRailway.append(`<option value="">未选择</option>`);
                     if (organizationRailways.length > 0) {
@@ -152,7 +152,7 @@
                     success(res) {
                         console.log(`{{ route("web.OrganizationParagraph:Index") }} success:`, res);
 
-                        let {organization_paragraphs: organizationParagraphs,} = res["data"];
+                        let {organization_paragraphs: organizationParagraphs,} = res["content"];
                         if (organizationParagraphs.length > 0) {
                             organizationParagraphs.map(function (organizationParagraph) {
                                 $selOrganizationParagraph.append(`<option value="${organizationParagraph["uuid"]}">${organizationParagraph["name"]}</option>`);
@@ -196,7 +196,7 @@
                     success(res) {
                         console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
 
-                        let {organization_workshops: organizationWorkshops,} = res["data"];
+                        let {organization_workshops: organizationWorkshops,} = res["content"];
                         if (organizationWorkshops.length > 0) {
                             organizationWorkshops.map(function (organizationWorkshop) {
                                 $selOrganizationWorkshop.append(`<option value="${organizationWorkshop["uuid"]}">${organizationWorkshop["name"]}</option>`);
@@ -236,7 +236,7 @@
                     success(res) {
                         console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
 
-                        let {organization_work_areas: organizationWorkAreas,} = res["data"];
+                        let {organization_work_areas: organizationWorkAreas,} = res["content"];
                         if (organizationWorkAreas.length > 0) {
                             organizationWorkAreas.map(function (organizationWorkArea) {
                                 $selOrganizationWorkArea.append(`<option value="${organizationWorkArea["uuid"]}">${organizationWorkArea["name"]}</option>`);

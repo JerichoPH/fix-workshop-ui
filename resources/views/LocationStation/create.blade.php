@@ -126,7 +126,7 @@
                         url: `{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {location_lines: locationLines,} = res["data"];
+                            let {location_lines: locationLines,} = res["content"];
                             let render = [];
                             if (locationLines.length > 0) {
                                 $.each(locationLines, (_, locationLine) => {
@@ -212,7 +212,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
 
-                    let {organization_workshops: organizationWorkshops,} = res["data"];
+                    let {organization_workshops: organizationWorkshops,} = res["content"];
 
                     $selOrganizationWorkshop.empty();
                     $selOrganizationWorkshop.append(`<option value="" disabled selected>未选择</option>`);
@@ -254,7 +254,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
 
-                    let {organization_work_areas: organizationWorkAreas,} = res["data"];
+                    let {organization_work_areas: organizationWorkAreas,} = res["content"];
 
                     $selOrganizationWorkArea.empty();
                     $selOrganizationWorkArea.append(`<option value="">未选择</option>`);

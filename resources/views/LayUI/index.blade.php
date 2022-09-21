@@ -29,9 +29,38 @@
 <script src="/AdminLTE/bower_components/moment/min/moment.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
+    let tableBaseOptions = {
+        limit: 200,
+        limits: [50, 100, 200, 500],
+        even: true,
+        size: 'lg',
+        height: 'full-150',
+        page: true,
+        request: {
+            pageName: '__page__',
+            limitName: '__limit__',
+        },
+    };
+
+    let tableBaseParseData = function (res = null, dataName = '') {
+        return {
+            code: res['errorCode'],
+            msg: res['msg'],
+            count: res['pagination'] ? res['pagination']['count'] : 0,
+            data:res['content'][dataName],
+        };
+    };
+
+    let tableBaseColumns = [
+        {
+            title: '行号', templet: function (datum) {
+                return `${datum['LAY_INDEX']}`;
+            }, fixed: 'left',
+        },
+    ];
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
     layui.use(function () {
-        let {jquery: $, element,} = layui;
+        let {jquery: $, element, table,} = layui;
         let $navTop = $('#navTop');
 
         let fnInitMenu = function () {
@@ -73,7 +102,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.Authorization:GetMenus") }} success:`, res);
 
-                    let {menus,} = res['data'];
+                    let {menus,} = res['content'];
                     if (menus.length > 0) {
                         fnFillMenuItem(menus);
                     }
@@ -85,7 +114,7 @@
                     }
                 },
                 error: function (err) {
-                    console.error(`{{ route("web.Authorization:GetMenus") }} error:`, err);
+                    console.log(`{{ route("web.Authorization:GetMenus") }} error:`, err);
                 },
                 complete: function () {
                     element.init();

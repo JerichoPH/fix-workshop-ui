@@ -23,7 +23,7 @@ class RbacRoleController extends Controller
      */
     public function Index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("rbacRole") : view("RbacRole.index2");
+        return request()->ajax() ? $this->sendStandardRequest("rbacRole") : view("RbacRole.index");
     }
 
     /**

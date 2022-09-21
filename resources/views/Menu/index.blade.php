@@ -23,9 +23,9 @@
                         <div class="col-md-4">
                             <div class="input-group">
                                 <div class="input-group-addon">父级</div>
-                                <select name="parent_uuid" id="selParentMenu" class="select2 form-control" style="width: 100%;"></select>
+                                <select name="parent_uuid" id="selParentMenu" class="select2 form-control" style="width: 100%;" onchange="fnSearch()"></select>
                                 <div class="input-group-btn">
-                                    <a href="javascript:" class="btn btn-default" onclick="fnSearch()"><i class="fa fa-search"></i></a>
+                                    {{--<a href="javascript:" class="btn btn-default" onclick="fnSearch()"><i class="fa fa-search"></i></a>--}}
                                     <a href="javascript:" class="btn btn-success" onclick="fnToCreate()"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
@@ -37,6 +37,7 @@
                 <table class="table table-hover table-striped table-condensed" id="tblMenu">
                     <thead>
                     <tr>
+                        <th>行号</th>
                         <th>创建时间</th>
                         <th>名称</th>
                         <th>URL</th>
@@ -72,7 +73,7 @@
                 success: function (res) {
                     console.log(`{{ route("web.Menu:Index") }} success:`, res);
 
-                    let {menus,} = res["data"];
+                    let {menus,} = res["content"];
 
                     $selParentMenu.empty();
                     $selParentMenu.append(`<option value="">顶级</option>`);
@@ -99,8 +100,8 @@
                     ajax: {
                         url: `{{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {menus: menus,} = res['data'];
+                            console.log(`okok {{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            let {menus: menus,} = res['content'];
                             let render = [];
                             if (menus.length > 0) {
                                 $.each(menus, (key, menu) => {
@@ -126,6 +127,7 @@
                                     divBtnGroup += `</td>`;
 
                                     render.push([
+                                        null,
                                         createdAt,
                                         name,
                                         url,
@@ -142,8 +144,8 @@
                         error: function (err) {
                             console.log(`{{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
-                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
-                            }else{
+                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                            } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
                                     if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
                                 });
@@ -152,7 +154,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: 7,
+                        targets: [0, 8,],
                     }],
                     paging: true,  // 分页器
                     lengthChange: true,
@@ -160,7 +162,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: true,  // 自动宽度
-                    order: [[0, 'desc']],  // 排序依据
+                    order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 200,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
@@ -175,6 +177,12 @@
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
+
+                tblMenu.on('draw.dt order.dt search.dt', function () {
+                    tblMenu.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                        cell.innerHTML = i + 1;
+                    });
+                }).draw();
             }
         }
 

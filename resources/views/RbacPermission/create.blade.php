@@ -81,7 +81,7 @@
                 success: res => {
                     console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
 
-                    let {rbac_permission_groups: rbacPermissionGroups,} = res["data"];
+                    let {rbac_permission_groups: rbacPermissionGroups,} = res["content"];
 
                     if (rbacPermissionGroups.length > 0) {
                         $selRbacPermissionGroup.empty();

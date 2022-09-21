@@ -119,7 +119,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkArea:Show", ["uuid" => $uuid,]) }} success:`, res);
 
-                    organizationWorkArea = res["data"]["organization_work_area"];
+                    organizationWorkArea = res["content"]["organization_work_area"];
 
                     $txtUniqueCode.val(organizationWorkArea["unique_code"]);
                     $txtName.val(organizationWorkArea["name"]);
@@ -154,7 +154,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
 
-                    let {organization_workshops: organizationWorkshops,} = res["data"];
+                    let {organization_workshops: organizationWorkshops,} = res["content"];
 
                     $selOrganizationWorkshop.empty();
                     $selOrganizationWorkshop.append(`<option value="" disabled selected>未选择</option>`);
@@ -187,7 +187,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkAreaType:Index") }} success:`, res);
 
-                    let {organization_work_area_types: organizationWorkAreaTypes,} = res["data"];
+                    let {organization_work_area_types: organizationWorkAreaTypes,} = res["content"];
 
                     $selOrganizationWorkAreaType.empty();
                     $selOrganizationWorkAreaType.append(`<option value="" disabled selected>未选择</option>`);
@@ -223,7 +223,7 @@
                 success: res => {
                     console.log(`{{ route("web.OrganizationWorkAreaProfession:Index") }} success:`, res);
 
-                    let {organization_work_area_professions: organizationWorkAreaProfessions,} = res["data"];
+                    let {organization_work_area_professions: organizationWorkAreaProfessions,} = res["content"];
 
                     if (organizationWorkAreaProfessions.length > 0) {
                         organizationWorkAreaProfessions.map(function (organizationWorkAreaProfession) {

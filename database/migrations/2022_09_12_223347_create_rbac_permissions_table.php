@@ -22,9 +22,9 @@ class CreateRbacPermissionsTable extends Migration
 
             $table->string('name', 64)->nullable(false)->comment('权限名称');
             $table->string('uri', 128)->nullable(false)->comment('权限路由');
-            $table->index('uri')->nullable(true);
+            $table->index('uri')->nullable(false)->default('');
             $table->string('method', 64)->nullable(false)->comment('请求方法');
-            $table->index('method')->nullable(true);
+            $table->index('method')->nullable(false)->default('');
             $table->string('rbac_permission_group_uuid',36)->nullable(false)->comment('所属权限分组UUID');
         });
     }

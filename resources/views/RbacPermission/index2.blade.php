@@ -18,35 +18,16 @@
         layui.use(function () {
             let {jquery: $, layer, form, table,} = layui;
             table.render({
+                ...tableBaseOptions,
                 elem: '#tblRbacPermission',
-                limit: 50,
-                limits: [50, 100, 200, 500],
-                even: true,
-                size: 'lg',
-                height: 'full-150',
                 url: '{{ route('web.RbacPermission:Index') }}',
-                where: {},
-                page: true,
-                request: {
-                    pageName: '__page__',
-                    limitName: '__limit__',
-                },
+                where: {__order__: 'created_at desc',},
+                toolbar: `<div class="layui-btn-group"><a href="{{ route("web.RbacPermission:Create") }}" class="layui-btn layui-btn-sm"><i class="fa fa-plus"></i></a></div>`,
                 parseData: function (res) {
-                    return {
-                        code: res['errorCode'],
-                        msg: res['msg'],
-                        count: res['data']['rbac_permissions'].length,
-                        data: res['data']['rbac_permissions'],
-                    };
+                    return tableBaseParseData(res,'rbac_permissions');
                 },
-                toolbar: ` `,
                 cols: [[ //表头,
-                    {
-                        title: '行号', templet: function (datum) {
-                            return `${datum['LAY_INDEX']}`;
-                        }
-                    },
-                    {type: 'checkbox',},
+                    ...tableBaseColumns,
                     {
                         field: 'created_at', title: '创建时间', sort: true, templet: function (datum) {
                             return `<div>${datum['created_at'] ? moment(datum['created_at']).format('YYYY-MM-DD HH:mm:ss') : ''}</div>`;
