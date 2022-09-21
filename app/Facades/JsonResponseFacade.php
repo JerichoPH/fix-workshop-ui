@@ -12,9 +12,9 @@ use Throwable;
  * @package App\Facades
  * @method static Dump(...$data): JsonResponse
  * @method static Ok($content = null, $pagination = null, string $msg = "OK", ...$details): JsonResponse
- * @method static Created($data = [], string $msg = '新建成功', ...$details): JsonResponse
- * @method static Updated($data = [], string $msg = '编辑成功', ...$details): JsonResponse
- * @method static Deleted($data = [], string $msg = '删除成功', ...$details): JsonResponse
+ * @method static Created($data = null, string $msg = '新建成功', ...$details): JsonResponse
+ * @method static Updated($data = null, string $msg = '编辑成功', ...$details): JsonResponse
+ * @method static Deleted($data = null, string $msg = '删除成功', ...$details): JsonResponse
  * @method static WrongEmpty(string $msg = '数据不存在', ...$details): JsonResponse
  * @method static WrongForbidden(string $msg, ...$details): JsonResponse
  * @method static WrongUnLogin(string $msg = '未登录', ...$details): JsonResponse

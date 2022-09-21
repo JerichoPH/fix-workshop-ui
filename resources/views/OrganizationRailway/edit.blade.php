@@ -76,6 +76,22 @@
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
         let organizationRailway = null;
+        let boundLocationLineUuids = [];
+
+        /**
+         * 选择是否可用状态
+         */
+        function fnRdoBeEnable(checked = null) {
+            if (checked) {
+                if (checked) {
+                    $rdoBeEnableYes.attr('checked', checked);
+                    $rdoBeEnableYes.attr('checked', !checked);
+                } else {
+                    $rdoBeEnableYes.attr('checked', !checked);
+                    $rdoBeEnableYes.attr('checked', checked);
+                }
+            }
+        }
 
         /**
          * 初始化数据
@@ -86,7 +102,7 @@
                 type: 'get',
                 data: {},
                 async: true,
-                success: res => {
+                success: function (res) {
                     console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} success:`, res);
                     organizationRailway = res["content"]["organization_railway"];
 
@@ -95,19 +111,17 @@
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
                     $txtShortName.val(shortName);
-                    if (beEnable) {
-                        $rdoBeEnableYes.prop("checked", "checked");
-                    } else {
-                        $rdoBeEnableNo.prop("checked", "checked");
-                    }
+                    fnRdoBeEnable(beEnable);
                     // 已经绑定的线别
                     if (locationLines.length > 0) {
                         locationLines.map(function (locationLine) {
-                            boundLocationLineUUIDs.push(locationLine["uuid"]);
+                            boundLocationLineUuids.push(locationLine["uuid"]);
                         });
                     }
+
+                    $txtName.focus();
                 },
-                error: err => {
+                error: function (err) {
                     console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
@@ -209,7 +223,9 @@
                 success: function (res) {
                     console.log(`{{ route('web.OrganizationRailway:Update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
-                    layer.msg(res.msg, {time: 1000,});
+                    layer.msg(res.msg, {time: 1000,}, function () {
+                        $txtName.focus();
+                    });
                 },
                 error: function (err) {
                     console.log(`{{ route('web.OrganizationRailway:Update', ["uuid" => $uuid, ]) }} fail:`, err);

@@ -69,9 +69,40 @@
         let $select2 = $('.select2');
         let $frmStore = $('#frmStore');
         let tblLocationLine = null;
+        let $txtUniqueCode = $('#txtUniqueCode');
+        let $txtName = $('#txtName');
+        let $txtShortName = $('#txtShortName');
+        let $rdoBeEnableYes = $('#rdoBeEnableYes');
+        let $rdoBeEnableNo = $('#rdoBeEnableNo');
+
+        /**
+         * 修改是否可用状态
+         */
+        function fnRdoBeEnable(checked = null) {
+            if (checked) {
+                $rdoBeEnableYes.attr('checked', checked);
+                $rdoBeEnableYes.attr('checked', !checked);
+            } else {
+                $rdoBeEnableYes.attr('checked', !checked);
+                $rdoBeEnableYes.attr('checked', checked);
+            }
+        }
+
+        /**
+         * 初始化页面
+         */
+        function fnInit() {
+            $txtUniqueCode.val('');
+            $txtUniqueCode.focus();
+            $txtName.val('');
+            $txtShortName.val('');
+            fnRdoBeEnable(true);
+        }
 
         $(function () {
             if ($select2.length > 0) $select2.select2();
+
+            fnInit();  // 初始化页面
         });
 
         /**
@@ -89,7 +120,7 @@
                     console.log(`{{ route('web.OrganizationRailway:Store') }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,}, function () {
-                        location.reload();
+                        fnInit();
                     });
                 },
                 error: function (err) {

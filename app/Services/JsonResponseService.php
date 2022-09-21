@@ -44,30 +44,30 @@ class JsonResponseService
 
     /**
      * 新建成功
-     * @param array $data
+     * @param null $content
      * @param string $msg
-     * @param array $details
+     * @param ...$details
      * @return JsonResponse
      */
-    final public static function Created(array $data = [], string $msg = "新建成功", ...$details): JsonResponse
+    final public static function Created($content = null, string $msg = "新建成功", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
             "status" => 200,
             "errorCode" => 0,
-            "data" => $data,
+            "data" => $content,
             "details" => $details,
         ]);
     }
 
     /**
      * 更新成功
-     * @param array $data
+     * @param null $data
      * @param string $msg
      * @param array $details
      * @return JsonResponse
      */
-    final public static function Updated(array $data = [], string $msg = "编辑成功", ...$details): JsonResponse
+    final public static function Updated($data = null, string $msg = "编辑成功", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -80,12 +80,12 @@ class JsonResponseService
 
     /**
      * 删除成功
+     * @param null $data
      * @param string $msg
-     * @param array $data
-     * @param array $details
+     * @param ...$details
      * @return JsonResponse
      */
-    final public static function Deleted(array $data = [], string $msg = "删除成功", ...$details): JsonResponse
+    final public static function Deleted($data = null, string $msg = "删除成功", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,

@@ -17,15 +17,14 @@
             <form id="frmSearch">
                 <div class="box-header">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <h3 class="box-title">权限-列表</h3>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="input-group">
                                 <div class="input-group-addon">权限分组</div>
-                                <select name="rbac_permission_group_uuid" id="selRbacPermissionGroup" class="select2 form-control" style="width: 100%;"></select>
+                                <select name="rbac_permission_group_uuid" id="selRbacPermissionGroup" class="select2 form-control" style="width: 100%;" onchange="fnSearch()"></select>
                                 <div class="input-group-btn">
-                                    <a href="javascript:" class="btn btn-default" onclick="fnSearch()"><i class="fa fa-search"></i></a>
                                     <a href="javascript:" class="btn btn-success" onclick="fnToCreate()"><i class="fa fa-plus"></i></a>
                                 </div>
                             </div>
