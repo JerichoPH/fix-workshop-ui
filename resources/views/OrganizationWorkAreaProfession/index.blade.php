@@ -92,18 +92,19 @@
                         orderable: false,
                         targets: [0,4,],  // 清除第一列排序
                     }],
+                    processing: true,
                     paging: true,  // 分页器
                     lengthChange: true,
-                    searching: true,  // 搜索框
+                    searching: false,  // 搜索框
                     ordering: true,  // 列排序
                     info: true,
-                    autoWidth: true,  // 自动宽度
+                    autoWidth: false,  // 自动宽度
                     order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
                         sInfoFiltered: "从_MAX_中过滤",
-                        sProcessing: "正在加载中...",
+                        sProcessing: "数据加载中...",
                         info: "第 _START_ - _END_ 条记录，共 _TOTAL_ 条",
                         sLengthMenu: "每页显示_MENU_条记录",
                         zeroRecords: "没有符合条件的记录",

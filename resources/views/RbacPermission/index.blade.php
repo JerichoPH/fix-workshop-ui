@@ -103,8 +103,8 @@
                         error: function (err) {
                             console.log(`{{ route("web.RbacPermission:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
-                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
-                            }else{
+                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                            } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
                                     if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
                                 });
@@ -113,26 +113,27 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: [0,6,],
+                        targets: [0, 6,],
                     }],
-                    paging: true,  // 分页器
+                    processing: true,
+                    paging: true,  // 分页
                     lengthChange: true,
-                    searching: true,  // 搜索框
+                    searching: false,  // 筛选框
                     ordering: true,  // 列排序
-                    info: true,
-                    autoWidth: true,  // 自动宽度
+                    info: true,  // 左下角提示
+                    autoWidth: false,  // 自动宽度
                     order: [[1, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {
                         sInfoFiltered: "从_MAX_中过滤",
-                        sProcessing: "正在加载中...",
+                        sProcessing: "数据加载中...",
                         info: "第 _START_ - _END_ 条记录，共 _TOTAL_ 条",
                         sLengthMenu: "每页显示_MENU_条记录",
                         zeroRecords: "没有符合条件的记录",
                         infoEmpty: " ",
                         emptyTable: "没有符合条件的记录",
-                        search: "筛选：",
+                        search: "快速筛选：",
                         paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
                     }
                 });
