@@ -54,6 +54,7 @@
                         url: `{{ route("web.OrganizationWorkAreaType:Index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.OrganizationWorkAreaType:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log('ok', res["content"]);
                             let {organization_work_area_types: organizationWorkAreaTypes,} = res["content"];
                             let render = [];
                             if (organizationWorkAreaTypes.length > 0) {
@@ -90,7 +91,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: [0,4,],  // 清除第一列排序
+                        targets: [0, 4,],  // 清除第一列排序
                     }],
                     processing: true,
                     paging: true,  // 分页器

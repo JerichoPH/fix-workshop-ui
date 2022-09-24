@@ -219,12 +219,13 @@
                         orderable: false,
                         targets: [0, 1,],  // 清除第一列排序
                     }],
+                    processing: true,
                     paging: true,  // 分页器
                     lengthChange: true,
                     searching: false,  // 搜索框
                     ordering: true,  // 列排序
                     info: true,
-                    autoWidth: true,  // 自动宽度
+                    autoWidth: false,  // 自动宽度
                     order: [[2, 'desc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
