@@ -204,7 +204,7 @@
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshop:Index") }}`,
                 type: 'get',
-                data: {be_enable: 1,},
+                data: {be_enable: 1, organization_workshop_type_unique_code: "SCENE-WORKSHOP",},
                 async: true,
                 beforeSend: function () {
                     $selOrganizationWorkshop.attr('disabled', 'disabled');
@@ -240,7 +240,7 @@
          * @param {string} organizationWorkshopUuid
          */
         function fnFillSelOrganizationWorkArea(organizationWorkshopUuid = '') {
-            let data = {be_enable: 1,}
+            let data = {be_enable: 1, organization_work_area_type_unique_code: "SCENE-WORK-AREA",}
             if (organizationWorkshopUuid) data['organization_workshop_uuid'] = organizationWorkshopUuid
 
             $.ajax({

@@ -200,11 +200,11 @@
         /**
          * 填充车间下拉列表
          */
-        function fnFillSelWorkshop() {
+        function fnFillSelOrganizationWorkshop() {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshop:Index") }}`,
                 type: 'get',
-                data: {be_enable: 1,},
+                data: {be_enable: 1, organization_workshop_type_unique_code: "SCENE-WORKSHOP",},
                 async: true,
                 beforeSend: function () {
                     $selOrganizationWorkshop.attr('disabled', 'disabled');
@@ -239,7 +239,7 @@
          * @param {string} organizationWorkshopUuid
          */
         function fnFillSelWorkArea(organizationWorkshopUuid = "") {
-            let data = {be_enable: 1,};
+            let data = {be_enable: 1, organization_work_area_type_unique_code: "SCENE-WORK-AREA",};
             if (organizationWorkshopUuid) data["organization_workshop_uuid"] = organizationWorkshopUuid;
 
             $.ajax({
@@ -279,7 +279,7 @@
             if ($select2.length > 0) $select2.select2();
 
             fnFillTblLocationLine(); // 加载线别下拉列表
-            fnFillSelWorkshop();  // 加载车间下拉列表
+            fnFillSelOrganizationWorkshop();  // 加载车间下拉列表
             fnFillSelWorkArea();  // 加载工区下拉列表
 
             fnCheckAll("chkAllLocationLine", "location-line-uuid");  // 全选线别
