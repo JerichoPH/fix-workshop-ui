@@ -21,6 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string $username
  * @property string $password
  * @property string $nickname
+ * @property boolean $be_super_admin
  * @property string $organization_railway_uuid
  * @property-read OrganizationRailway|null $organization_railway
  * @property string $organization_paragraph_uuid
@@ -87,17 +88,17 @@ class Account extends Model
      * 相关器材日志
      * @return BelongsTo
      */
-    public function EntireInstanceLogs():BelongsTo
+    public function EntireInstanceLogs(): BelongsTo
     {
-        return $this->belongsTo(EntireInstanceLog::class,"operator_uuid","uuid");
+        return $this->belongsTo(EntireInstanceLog::class, "operator_uuid", "uuid");
     }
 
     /**
      * 相关已删除器材
      * @return BelongsTo
      */
-    public function DeletedEntireInstances():BelongsTo
+    public function DeletedEntireInstances(): BelongsTo
     {
-        return $this->belongsTo(EntireInstance::class,"deleted_operator_uuid","uuid")->withoutGlobalScopes();
+        return $this->belongsTo(EntireInstance::class, "deleted_operator_uuid", "uuid")->withoutGlobalScopes();
     }
 }

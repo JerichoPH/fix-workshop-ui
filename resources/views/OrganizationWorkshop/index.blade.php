@@ -27,7 +27,6 @@
                     <thead>
                     <tr>
                         <th>行号</th>
-                        <th>创建时间</th>
                         <th>代码</th>
                         <th>名称</th>
                         <th>所属站段</th>
@@ -65,7 +64,7 @@
                                     let createdAt = organizationWorkshop["created_at"] ? moment(organizationWorkshop["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                     let uniqueCode = organizationWorkshop["unique_code"] ? organizationWorkshop["unique_code"] : "";
                                     let name = organizationWorkshop["name"] ? organizationWorkshop["name"] : "";
-                                    let organizationRailwayName = organizationWorkshop["organization_railway"] ? organizationWorkshop["organization_railway"]["name"] : "";
+                                    let organizationParagraphName = organizationWorkshop["organization_paragraph"] ? organizationWorkshop["organization_paragraph"]["name"] : "";
                                     let organizationWorkshopTypeName = organizationWorkshop["organization_workshop_type"] ? organizationWorkshop["organization_workshop_type"]["name"] : "";
                                     let beEnable = organizationWorkshop["be_enable"] ? "是" : "否";
                                     let divBtnGroup = '';
@@ -78,10 +77,9 @@
 
                                     render.push([
                                         null,
-                                        createdAt,
                                         uniqueCode,
                                         name,
-                                        organizationRailwayName,
+                                        organizationParagraphName,
                                         organizationWorkshopTypeName,
                                         beEnable,
                                         divBtnGroup,
@@ -99,7 +97,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: [0,6,],  // 清除第一列排序
+                        targets: [0,5,],  // 清除第一列排序
                     }],
                     processing: true,
                     paging: true,  // 分页器
@@ -108,7 +106,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: false,  // 自动宽度
-                    order: [[1, 'desc']],  // 排序依据
+                    order: [[1, 'asc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {

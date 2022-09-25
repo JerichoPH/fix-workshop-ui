@@ -27,7 +27,6 @@
                     <thead>
                     <tr>
                         <th>行号</th>
-                        <th>新建时间</th>
                         <th>代码</th>
                         <th>名称</th>
                         <th>所属车间</th>
@@ -78,7 +77,6 @@
 
                                     render.push([
                                         null,
-                                        createdAt,
                                         uniqueCode,
                                         name,
                                         organizationWorkshopName,
@@ -99,7 +97,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: [0, 7],  // 清除首列排序
+                        targets: [0, 6,],  // 清除首列排序
                     }],
                     processing: true,
                     paging: true,  // 分页器
@@ -108,7 +106,7 @@
                     ordering: true,  // 列排序
                     info: true,
                     autoWidth: false,  // 自动宽度
-                    order: [[1, 'desc']],  // 排序依据
+                    order: [[1, 'asc']],  // 排序依据
                     iDisplayLength: 50,  // 默认分页数
                     aLengthMenu: [50, 100, 200],  // 分页下拉框选项
                     language: {

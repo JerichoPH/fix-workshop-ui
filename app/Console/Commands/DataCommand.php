@@ -5,9 +5,14 @@ namespace App\Console\Commands;
 use App\Facades\TextFacade;
 use App\Models\Account;
 use App\Models\Menu;
+use App\Models\OrganizationParagraph;
+use App\Models\OrganizationRailway;
+use App\Models\OrganizationWorkArea;
 use App\Models\OrganizationWorkAreaProfession;
 use App\Models\OrganizationWorkAreaType;
+use App\Models\OrganizationWorkshop;
 use App\Models\OrganizationWorkshopType;
+use App\Models\PivotRbacRoleAndAccount;
 use App\Models\PivotRbacRoleAndRbacPermission;
 use App\Models\RbacPermission;
 use App\Models\RbacPermissionGroup;
@@ -100,6 +105,7 @@ class DataCommand extends Command
                 "username" => "admin",
                 "password" => bcrypt("zces@1234"),
                 "nickname" => "admin",
+                "be_super_admin" => true,
             ]);
         $this->comment("创建用户：$account->nickname");
 
@@ -529,38 +535,225 @@ class DataCommand extends Command
             });
 
         // 车间类型
-        collect([
-            ["unique_code" => "SCENE-WORKSHOP", "name" => "现场车间", "number_code" => "01"],
-            ["unique_code" => "FIX-WORKSHOP", "name" => "检修车间", "number_code" => "02"],
-            ["unique_code" => "ELE-WORKSHOP", "name" => "电子车间", "number_code" => "03"],
-            ["unique_code" => "VEH-WORKSHOP", "name" => "车载车间", "number_code" => "04"],
-            ["unique_code" => "HUMP-WORKSHOP", "name" => "驼峰车间", "number_code" => "05"],
-        ])->each(function ($datum) {
-            OrganizationWorkshopType::with([])->create(array_merge(["uuid" => Str::uuid(), "sort" => 0,], $datum));
-            $this->comment("创建车间类型：{$datum["unique_code"]} {$datum["name"]}");
-        });
-
+        $scene_workshop = OrganizationWorkshopType::with([])->create(["uuid" => Str::uuid(), "sort" => 1, "unique_code" => "SCENE-WORKSHOP", "name" => "现场车间", "number_code" => "01",]);
+        $this->comment("创建车间类型：{$scene_workshop->name}");
+        $fix_workshop = OrganizationWorkshopType::with([])->create(["uuid" => Str::uuid(), "sort" => 2, "unique_code" => "FIX-WORKSHOP", "name" => "检修车间", "number_code" => "02",]);
+        $this->comment("创建车间类型：{$fix_workshop->name}");
+        $ele_workshop = OrganizationWorkshopType::with([])->create(["uuid" => Str::uuid(), "sort" => 3, "unique_code" => "ELE-WORKSHOP", "name" => "电子车间", "number_code" => "03",]);
+        $this->comment("创建车间类型：{$ele_workshop->name}");
+        $veh_workshop = OrganizationWorkshopType::with([])->create(["uuid" => Str::uuid(), "sort" => 4, "unique_code" => "VEH-WORKSHOP", "name" => "车载车间", "number_code" => "04",]);
+        $this->comment("创建车间类型：{$veh_workshop->name}");
+        $hump_workshop = OrganizationWorkshopType::with([])->create(["uuid" => Str::uuid(), "sort" => 5, "unique_code" => "HUMP-WORKSHOP", "name" => "驼峰车间", "number_code" => "05",]);
+        $this->comment("创建车间类型：{$hump_workshop->name}");
         // 工区类型
-        collect([
-            ["unique_code" => "SCENE-WORK-AREA", "name" => "现场工区"],
-            ["unique_code" => "FIX-WORK-AREA", "name" => "检修车间专业工区"],
-            ["unique_code" => "ELE-WORK-AREA", "name" => "电子车间专业工区"],
-            ["unique_code" => "VEH-WORK-AREA", "name" => "车载车间专业工区"],
-            ["unique_code" => "HUMP-WORK-AREA", "name" => "驼峰车间专业工区"],
-        ])->each(function ($datum) {
-            OrganizationWorkAreaType::with([])->create(array_merge(["uuid" => Str::uuid(), "sort" => 0], $datum));
-            $this->comment("创建工区类型：{$datum["unique_code"]} {$datum["name"]}");
-        });
-
+        $scene_work_area = OrganizationWorkAreaType::with([])->create(["uuid" => Str::uuid(), "sort" => 1, "unique_code" => "SCENE-WORK-AREA", "name" => "现场工区"]);
+        $this->comment("创建工区类型：{$scene_work_area->name}");
+        $fix_work_area = OrganizationWorkAreaType::with([])->create(["uuid" => Str::uuid(), "sort" => 2, "unique_code" => "FIX-WORK-AREA", "name" => "检修车间专业工区"]);
+        $this->comment("创建工区类型：{$fix_work_area->name}");
+        $ele_work_area = OrganizationWorkAreaType::with([])->create(["uuid" => Str::uuid(), "sort" => 3, "unique_code" => "ELE-WORK-AREA", "name" => "电子车间专业工区"]);
+        $this->comment("创建工区类型：{$ele_work_area->name}");
+        $veh_work_area = OrganizationWorkAreaType::with([])->create(["uuid" => Str::uuid(), "sort" => 4, "unique_code" => "VEH-WORK-AREA", "name" => "车载车间专业工区"]);
+        $this->comment("创建工区类型：{$veh_work_area->name}");
+        $hump_work_area = OrganizationWorkAreaType::with([])->create(["uuid" => Str::uuid(), "sort" => 5, "unique_code" => "HUMP-WORK-AREA", "name" => "驼峰车间专业工区"]);
+        $this->comment("创建工区类型：{$hump_work_area->name}");
         // 工区专业
+        $point_switch_profession = OrganizationWorkAreaProfession::with([])->create(["uuid" => Str::uuid(), "sort" => 1, "unique_code" => "POINT-SWITCH", "name" => "转辙机"]);
+        $this->comment("创建工区专业：{$point_switch_profession->name}");
+        $relay_profession = OrganizationWorkAreaProfession::with([])->create(["uuid" => Str::uuid(), "sort" => 2, "unique_code" => "RELAY", "name" => "继电器"]);
+        $this->comment("创建工区专业：{$relay_profession->name}");
+        $synthesize_profession = OrganizationWorkAreaProfession::with([])->create(["uuid" => Str::uuid(), "sort" => 3, "unique_code" => "SYNTHESIZE", "name" => "综合"]);
+        $this->comment("创建工区专业：{$synthesize_profession->name}");
+        $power_supply_panel_profession = OrganizationWorkAreaProfession::with([])->create(["uuid" => Str::uuid(), "sort" => 4, "unique_code" => "POWER-SUPPLY-PANEL", "name" => "电源屏"]);
+        $this->comment("创建工区专业：{$power_supply_panel_profession->name}");
+
+        // 路局
         collect([
-            ["unique_code" => "POINT-SWITCH", "name" => "转辙机"],
-            ["unique_code" => "RELAY", "name" => "继电器"],
-            ["unique_code" => "SYNTHESIZE", "name" => "综合"],
-            ["unique_code" => "POWER-SUPPLY-PANEL", "name" => "电源屏"],
-        ])->each(function ($datum) {
-            OrganizationWorkAreaProfession::with([])->create(array_merge(["uuid" => Str::uuid(), "sort" => 0], $datum));
-            $this->comment("创建工区专业：{$datum["unique_code"]} {$datum["name"]}");
+            ["unique_code" => "A00", "name" => "中国铁路总公司", "short_name" => "铁总", "sort" => 1, "paragraph_name" => "",],
+            ["unique_code" => "A01", "name" => "哈尔滨铁路局", "short_name" => "哈尔滨局", "sort" => 2, "paragraph_name" => "哈尔滨",],
+            ["unique_code" => "A02", "name" => "沈阳铁路局", "short_name" => "沈阳局", "sort" => 3, "paragraph_name" => "沈阳",],
+            ["unique_code" => "A03", "name" => "北京铁路局", "short_name" => "北京局", "sort" => 4, "paragraph_name" => "北京",],
+            ["unique_code" => "A04", "name" => "太原铁路局", "short_name" => "太原局", "sort" => 5, "paragraph_name" => "太原",],
+            ["unique_code" => "A05", "name" => "呼和浩特铁路局", "short_name" => "呼和浩特局", "sort" => 6, "paragraph_name" => "呼和浩特",],
+            ["unique_code" => "A06", "name" => "郑州铁路局", "short_name" => "郑州局", "sort" => 7, "paragraph_name" => "郑州",],
+            ["unique_code" => "A07", "name" => "武汉铁路局", "short_name" => "武汉局", "sort" => 8, "paragraph_name" => "武汉",],
+            ["unique_code" => "A08", "name" => "西安铁路局", "short_name" => "西安局", "sort" => 9, "paragraph_name" => "西安",],
+            ["unique_code" => "A09", "name" => "济南铁路局", "short_name" => "济南局", "sort" => 10, "paragraph_name" => "济南",],
+            ["unique_code" => "A10", "name" => "上海铁路局", "short_name" => "上海局", "sort" => 11, "paragraph_name" => "上海",],
+            ["unique_code" => "A11", "name" => "南昌铁路局", "short_name" => "南昌局", "sort" => 12, "paragraph_name" => "南昌",],
+            ["unique_code" => "A12", "name" => "广州铁路（集团）公司", "short_name" => "广州局", "sort" => 13, "paragraph_name" => "广州",],
+            ["unique_code" => "A13", "name" => "南宁铁路局", "short_name" => "南宁局", "sort" => 14, "paragraph_name" => "南宁",],
+            ["unique_code" => "A14", "name" => "成都铁路局", "short_name" => "成都局", "sort" => 15, "paragraph_name" => "成都",],
+            ["unique_code" => "A15", "name" => "昆明铁路局", "short_name" => "昆明局", "sort" => 16, "paragraph_name" => "昆明",],
+            ["unique_code" => "A16", "name" => "兰州铁路局", "short_name" => "兰州局", "sort" => 17, "paragraph_name" => "兰州",],
+            ["unique_code" => "A17", "name" => "乌鲁木齐铁路局", "short_name" => "乌鲁木齐局", "sort" => 18, "paragraph_name" => "乌鲁木齐",],
+            ["unique_code" => "A18", "name" => "青藏铁路公司", "short_name" => "青藏局", "sort" => 19, "paragraph_name" => "青藏",],
+        ])->each(function ($datum) use (
+            $scene_workshop,
+            $fix_workshop,
+            $ele_workshop,
+            $veh_workshop,
+            $hump_workshop,
+            $scene_work_area,
+            $fix_work_area,
+            $ele_work_area,
+            $veh_work_area,
+            $hump_work_area,
+            $point_switch_profession,
+            $relay_profession,
+            $synthesize_profession,
+            $power_supply_panel_profession
+        ) {
+            $organization_railway = OrganizationRailway::with([])->create([
+                "uuid" => Str::uuid(),
+                "sort" => $datum["sort"],
+                "unique_code" => $datum["unique_code"],
+                "name" => $datum["name"],
+                "short_name" => $datum["short_name"],
+                "be_enable" => true,
+            ]);
+            $this->comment("创建路局：{$organization_railway->name}");
+
+            if ($organization_railway->unique_code == "A12") {
+                // 电务段
+                collect([
+                    ["unique_code" => "B048", "name" => "广州电务段", "short_name" => "广州",],
+                    ["unique_code" => "B049", "name" => "长沙电务段", "short_name" => "长沙",],
+                    ["unique_code" => "B050", "name" => "怀化电务段", "short_name" => "怀化",],
+                    ["unique_code" => "B051", "name" => "衡阳电务段", "short_name" => "衡阳",],
+                    ["unique_code" => "B052", "name" => "惠州电务段", "short_name" => "惠州",],
+                    ["unique_code" => "B053", "name" => "肇庆电务段", "short_name" => "肇庆",],
+                    ["unique_code" => "B074", "name" => "海口电务段", "short_name" => "海口",],
+                ])->each(function ($datum) use (
+                    $organization_railway,
+                    $scene_workshop,
+                    $fix_workshop,
+                    $ele_workshop,
+                    $veh_workshop,
+                    $hump_workshop,
+                    $scene_work_area,
+                    $fix_work_area,
+                    $ele_work_area,
+                    $veh_work_area,
+                    $hump_work_area,
+                    $point_switch_profession,
+                    $relay_profession,
+                    $synthesize_profession,
+                    $power_supply_panel_profession
+                ) {
+                    $organization_paragraph = OrganizationParagraph::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 1,
+                            "unique_code" => $datum["unique_code"],
+                            "name" => $datum["name"],
+                            "be_enable" => true,
+                            "organization_railway_uuid" => $organization_railway["uuid"],
+                        ]);
+                    $this->comment("创建站段：{$organization_paragraph->name}");
+
+                    // 创建检修车间
+                    $fix_organization_workshop = OrganizationWorkshop::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 0,
+                            "unique_code" => "{$datum["unique_code"]}C01",
+                            "name" => "{$datum["short_name"]}电务段检修车间",
+                            "be_enable" => true,
+                            "organization_workshop_type_uuid" => $fix_workshop->uuid,
+                            "organization_paragraph_uuid" => $organization_paragraph->uuid,
+                        ]);
+                    $this->comment("创建车间：{$fix_organization_workshop->name}");
+
+                    // 创建工区
+                    $point_switch_organization_work_area = OrganizationWorkArea::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 0,
+                            "unique_code" => "{$datum["unique_code"]}D001",
+                            "name" => "转辙机工区",
+                            "be_enable" => true,
+                            "organization_work_area_type_uuid" => $fix_work_area->uuid,
+                            "organization_work_area_profession_uuid" => $point_switch_profession->uuid,
+                            "organization_workshop_uuid" => $fix_organization_workshop->uuid,
+                        ]);
+                    $this->comment("创建工区：{$point_switch_organization_work_area->name}");
+                    $relay_organization_work_area = OrganizationWorkArea::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 0,
+                            "unique_code" => "{$datum["unique_code"]}D002",
+                            "name" => "继电器工区",
+                            "be_enable" => true,
+                            "organization_work_area_type_uuid" => $fix_work_area->uuid,
+                            "organization_work_area_profession_uuid" => $relay_profession->uuid,
+                            "organization_workshop_uuid" => $fix_organization_workshop->uuid,
+                        ]);
+                    $this->comment("创建工区：{$relay_organization_work_area->name}");
+                    $synthesize_organization_work_area = OrganizationWorkArea::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 0,
+                            "unique_code" => "{$datum["unique_code"]}D003",
+                            "name" => "综合工区",
+                            "be_enable" => true,
+                            "organization_work_area_type_uuid" => $fix_work_area->uuid,
+                            "organization_work_area_profession_uuid" => $synthesize_profession->uuid,
+                            "organization_workshop_uuid" => $fix_organization_workshop->uuid,
+                        ]);
+                    $this->comment("创建工区：{$synthesize_organization_work_area->name}");
+                    $power_supply_panel_organization_work_area = OrganizationWorkArea::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 0,
+                            "unique_code" => "{$datum["unique_code"]}D004",
+                            "name" => "电源屏工区",
+                            "be_enable" => true,
+                            "organization_work_area_type_uuid" => $fix_work_area->uuid,
+                            "organization_work_area_profession_uuid" => $power_supply_panel_profession->uuid,
+                            "organization_workshop_uuid" => $fix_organization_workshop->uuid,
+                        ]);
+                    $this->comment("创建工区：{$power_supply_panel_organization_work_area->name}");
+
+                    // 创建电子车间
+                    $ele_organization_workshop = OrganizationWorkshop::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 0,
+                            "unique_code" => "{$datum["unique_code"]}C02",
+                            "name" => "{$datum["short_name"]}电务段电子车间",
+                            "be_enable" => true,
+                            "organization_workshop_type_uuid" => $ele_workshop->uuid,
+                            "organization_paragraph_uuid" => $organization_paragraph->uuid,
+                        ]);
+                    $this->comment("创建车间：{$ele_organization_workshop->name}");
+
+                    // 创建车载车间
+                    $veh_organization_workshop = OrganizationWorkshop::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 0,
+                            "unique_code" => "{$datum["unique_code"]}C03",
+                            "name" => "{$datum["short_name"]}电务段车载车间",
+                            "be_enable" => true,
+                            "organization_workshop_type_uuid" => $veh_workshop->uuid,
+                            "organization_paragraph_uuid" => $organization_paragraph->uuid,
+                        ]);
+                    $this->comment("创建车间：{$veh_organization_workshop->name}");
+
+                    // 创建驼峰车间
+                    $hump_organization_workshop = OrganizationWorkshop::with([])
+                        ->create([
+                            "uuid" => Str::uuid(),
+                            "sort" => 0,
+                            "unique_code" => "{$datum["unique_code"]}C04",
+                            "name" => "{$datum["short_name"]}电务段驼峰车间",
+                            "be_enable" => true,
+                            "organization_workshop_type_uuid" => $hump_workshop->uuid,
+                            "organization_paragraph_uuid" => $organization_paragraph->uuid,
+                        ]);
+                    $this->comment("创建车间：{$hump_organization_workshop->name}");
+                });
+            }
         });
 
         $this->info("初始化数据完成");
@@ -571,7 +764,89 @@ class DataCommand extends Command
      */
     private function test()
     {
+        // 路局用户
+        $accountRailway = Account::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "username" => "railway",
+                "password" => bcrypt("zces@1234"),
+                "nickname" => "路局测试用户",
+                "be_super_admin" => false,
+            ]);
+        $this->comment("创建用户：$accountRailway->nickname");
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountRailway->id]);
 
+        // 站段用户
+        $accountParagraph = Account::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "username" => "paragraph",
+                "password" => bcrypt("zces@1234"),
+                "nickname" => "站段测试用户",
+                "be_super_admin" => false,
+            ]);
+        $this->comment("创建用户：$accountParagraph->nickname");
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountParagraph->id]);
+
+        // 车间用户
+        $accountWorkshop = Account::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "username" => "workshop",
+                "password" => bcrypt("zces@1234"),
+                "nickname" => "车间测试用户",
+                "be_super_admin" => false,
+            ]);
+        $this->comment("创建用户：$accountWorkshop->nickname");
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountWorkshop->id]);
+
+        // 转辙机用户
+        $accountPointSwitch = Account::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "username" => "pointSwitch",
+                "password" => bcrypt("zces@1234"),
+                "nickname" => "转辙机测试用户",
+                "be_super_admin" => false,
+            ]);
+        $this->comment("创建用户：$accountPointSwitch->nickname");
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountPointSwitch->id]);
+
+        // 继电器用户
+        $accountRelay = Account::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "username" => "relay",
+                "password" => bcrypt("zces@1234"),
+                "nickname" => "继电器测试用户",
+                "be_super_admin" => false,
+            ]);
+        $this->comment("创建用户：$accountRelay->nickname");
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountRelay->id]);
+
+        // 综合用户
+        $accountSynthesize = Account::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "username" => "synthesize",
+                "password" => bcrypt("zces@1234"),
+                "nickname" => "综合测试用户",
+                "be_super_admin" => false,
+            ]);
+        $this->comment("创建用户：$accountSynthesize->nickname");
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountSynthesize->id]);
+
+        // 电源屏用户
+        $accountPowerSupplyPanel = Account::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "username" => "powerSupplyPanel",
+                "password" => bcrypt("zces@1234"),
+                "nickname" => "电源屏测试用户",
+                "be_super_admin" => false,
+            ]);
+        $this->comment("创建用户：$accountPowerSupplyPanel->nickname");
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountPowerSupplyPanel->id]);
     }
 
     /**
