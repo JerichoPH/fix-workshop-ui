@@ -22,18 +22,18 @@ class OrganizationWorkAreaController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("organizationWorkArea") : view("OrganizationWorkArea.index");
+        return request()->ajax() ? $this->sendStandardRequest('organizationWorkArea') : view('OrganizationWorkArea.index');
     }
 
     /**
      * 新建工区类型页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("OrganizationWorkArea.create");
+        return view('OrganizationWorkArea.create');
     }
 
     /**
@@ -44,13 +44,13 @@ class OrganizationWorkAreaController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Store()
+    public function store()
     {
         return $this->sendStandardRequest(
-            "organizationWorkArea",
+            'organizationWorkArea',
             function (Request $request) {
                 $request = $request->all();
-                $request["be_enable"] = boolval($request["be_enable"]);
+                $request['be_enable'] = boolval($request['be_enable']);
                 return $request;
             }
         );
@@ -65,9 +65,9 @@ class OrganizationWorkAreaController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
-        return $this->sendStandardRequest("organizationWorkArea/{$uuid}");
+        return $this->sendStandardRequest('organizationWorkArea/{$uuid}');
     }
 
     /**
@@ -75,9 +75,9 @@ class OrganizationWorkAreaController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("OrganizationWorkArea.edit", ["uuid" => $uuid,]);
+        return view('OrganizationWorkArea.edit', ['uuid' => $uuid,]);
     }
 
     /**
@@ -89,13 +89,13 @@ class OrganizationWorkAreaController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            "organizationWorkArea/{$uuid}",
+            'organizationWorkArea/{$uuid}',
             function (Request $request) {
                 $request = $request->all();
-                $request["be_enable"] = boolval($request["be_enable"]);
+                $request['be_enable'] = boolval($request['be_enable']);
                 return $request;
             }
         );
@@ -110,8 +110,8 @@ class OrganizationWorkAreaController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("organizationWorkArea/{$uuid}");
+        return $this->sendStandardRequest('organizationWorkArea/{$uuid}');
     }
 }

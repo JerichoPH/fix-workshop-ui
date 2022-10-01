@@ -21,18 +21,18 @@ class RbacRoleController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("rbacRole") : view("RbacRole.index");
+        return request()->ajax() ? $this->sendStandardRequest('rbacRole') : view('RbacRole.index');
     }
 
     /**
      * 新建角色页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("RbacRole.create");
+        return view('RbacRole.create');
     }
 
     /**
@@ -42,9 +42,9 @@ class RbacRoleController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Store()
+    public function store()
     {
-        return $this->sendStandardRequest("rbacRole");
+        return $this->sendStandardRequest('rbacRole');
     }
 
     /**
@@ -54,10 +54,10 @@ class RbacRoleController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacRole/$uuid");
+            return $this->sendStandardRequest('rbacRole/$uuid');
         }
         return null;
     }
@@ -67,9 +67,9 @@ class RbacRoleController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("RbacRole.edit", ["uuid" => $uuid]);
+        return view('RbacRole.edit', ['uuid' => $uuid]);
     }
 
     /**
@@ -81,9 +81,9 @@ class RbacRoleController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/$uuid");
+        return $this->sendStandardRequest('rbacRole/$uuid');
     }
 
     /**
@@ -95,9 +95,9 @@ class RbacRoleController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/$uuid");
+        return $this->sendStandardRequest('rbacRole/$uuid');
     }
 
     /**
@@ -105,9 +105,9 @@ class RbacRoleController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function GetBind(string $uuid)
+    public function getBind(string $uuid)
     {
-        return view("RbacRole.bind", ["uuid" => $uuid,]);
+        return view('RbacRole.bind', ['uuid' => $uuid,]);
     }
 
     /**
@@ -119,9 +119,9 @@ class RbacRoleController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function PutBindAccounts(string $uuid)
+    public function putBindAccounts(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/{$uuid}/bindAccounts");
+        return $this->sendStandardRequest('rbacRole/{$uuid}/bindAccounts');
     }
 
     /**
@@ -133,8 +133,8 @@ class RbacRoleController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function PutBindPermissions(string $uuid)
+    public function putBindPermissions(string $uuid)
     {
-        return $this->sendStandardRequest("rbacRole/{$uuid}/bindPermissions");
+        return $this->sendStandardRequest('rbacRole/{$uuid}/bindPermissions');
     }
 }

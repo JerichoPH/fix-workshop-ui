@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.Account:Index', []) }}"><i class="fa fa-users">&nbsp;</i>用户-列表</a></li>
+            <li><a href="{{ route('web.Account:index', []) }}"><i class="fa fa-users">&nbsp;</i>用户-列表</a></li>
             <li class="active">用户-编辑</li>
         </ol>
     </section>
@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.Account:Index', []) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.Account:index', []) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
@@ -144,7 +144,7 @@
                 error(err) {
                     console.log(`{{ route("web.Account:Show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 },
                 complete() {
@@ -157,7 +157,7 @@
          */
         function fnFillOrganizationRailway() {
             $.ajax({
-                url: `{{ route("web.OrganizationRailway:Index") }}`,
+                url: `{{ route("web.OrganizationRailway:index") }}`,
                 type: 'get',
                 data: {be_enable: 1,},
                 async: true,
@@ -165,7 +165,7 @@
                     $selOrganizationRailway.prop("disabled", "disabled");
                 },
                 success(res) {
-                    console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
+                    console.log(`{{ route("web.OrganizationRailway:index") }} success:`, res);
 
                     let {organization_railways: organizationRailways} = res["content"];
                     $selOrganizationRailway.empty();
@@ -177,9 +177,9 @@
                     }
                 },
                 error(err) {
-                    console.log(`{{ route("web.OrganizationRailway:Index") }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationRailway:index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 },
                 complete() {
@@ -198,7 +198,7 @@
 
             if (organizationRailwayUUID) {
                 $.ajax({
-                    url: `{{ route("web.OrganizationParagraph:Index") }}`,
+                    url: `{{ route("web.OrganizationParagraph:index") }}`,
                     type: 'get',
                     data: {be_enable: 1, organization_railway_uuid: organizationRailwayUUID,},
                     async: true,
@@ -206,7 +206,7 @@
                         $selOrganizationParagraph.prop("disabled", "disabled");
                     },
                     success(res) {
-                        console.log(`{{ route("web.OrganizationParagraph:Index") }} success:`, res);
+                        console.log(`{{ route("web.OrganizationParagraph:index") }} success:`, res);
 
                         let {organization_paragraphs: organizationParagraphs,} = res["content"];
                         if (organizationParagraphs.length > 0) {
@@ -216,9 +216,9 @@
                         }
                     },
                     error(err) {
-                        console.log(`{{ route("web.OrganizationParagraph:Index") }} fail:`, err);
+                        console.log(`{{ route("web.OrganizationParagraph:index") }} fail:`, err);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     },
                     complete() {
@@ -238,7 +238,7 @@
 
             if (organizationParagraphUUID) {
                 $.ajax({
-                    url: `{{ route("web.OrganizationWorkshop:Index") }}`,
+                    url: `{{ route("web.OrganizationWorkshop:index") }}`,
                     type: 'get',
                     data: {
                         be_enable: 1,
@@ -250,7 +250,7 @@
                         $selOrganizationWorkshop.prop("disabled", "disabled");
                     },
                     success(res) {
-                        console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
+                        console.log(`{{ route("web.OrganizationWorkshop:index") }} success:`, res);
 
                         let {organization_workshops: organizationWorkshops,} = res["content"];
                         if (organizationWorkshops.length > 0) {
@@ -260,9 +260,9 @@
                         }
                     },
                     error(err) {
-                        console.log(`{{ route("web.OrganizationWorkshop:Index") }} fail:`, err);
+                        console.log(`{{ route("web.OrganizationWorkshop:index") }} fail:`, err);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     },
                     complete() {
@@ -282,7 +282,7 @@
 
             if (organizationWorkshopUUID) {
                 $.ajax({
-                    url: `{{ route("web.OrganizationWorkArea:Index") }}`,
+                    url: `{{ route("web.OrganizationWorkArea:index") }}`,
                     type: 'get',
                     data: {be_enable: 1, organization_workshop_uuid: organizationWorkshopUUID,},
                     async: true,
@@ -290,7 +290,7 @@
                         $selOrganizationWorkArea.prop("disabled", "disabled");
                     },
                     success(res) {
-                        console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
+                        console.log(`{{ route("web.OrganizationWorkArea:index") }} success:`, res);
 
                         let {organization_work_areas: organizationWorkAreas,} = res["content"];
                         if (organizationWorkAreas.length > 0) {
@@ -300,9 +300,9 @@
                         }
                     },
                     error(err) {
-                        console.log(`{{ route("web.OrganizationWorkArea:Index") }} fail:`, err);
+                        console.log(`{{ route("web.OrganizationWorkArea:index") }} fail:`, err);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     },
                     complete() {
@@ -345,7 +345,7 @@
                     console.log(`{{ route("web.Account:Update", ["uuid" => $uuid]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 },
                 complete() {
@@ -375,7 +375,7 @@
                     console.log(`{{ route("web.Account:UpdatePassword", ["uuid" => $uuid]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 },
                 complete() {

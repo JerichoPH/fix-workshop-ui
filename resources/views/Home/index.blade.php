@@ -68,7 +68,7 @@
                 skin: 'line',
                 even: true,
                 size: 'lg',
-                url: '{{ route('web.Account:Index') }}', //数据接口
+                url: '{{ route('web.Account:index') }}', //数据接口
                 where: {be_enable: 1,},
                 page: true, //开启分页
                 parseData: function (res) {

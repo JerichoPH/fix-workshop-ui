@@ -18,7 +18,7 @@
                 <h3 class="box-title">工区专业-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.OrganizationWorkAreaProfession:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.OrganizationWorkAreaProfession:create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
@@ -51,9 +51,9 @@
             if (document.getElementById('tblOrganizationWorkAreaProfession')) {
                 tblOrganizationWorkAreaProfession = $('#tblOrganizationWorkAreaProfession').DataTable({
                     ajax: {
-                        url: `{{ route("web.OrganizationWorkAreaProfession:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.OrganizationWorkAreaProfession:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.OrganizationWorkAreaProfession:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log(`{{ route("web.OrganizationWorkAreaProfession:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {organization_work_area_professions: organizationWorkAreaProfessions,} = res["content"];
                             let render = [];
                             if (organizationWorkAreaProfessions.length > 0) {
@@ -65,7 +65,7 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ route("web.OrganizationWorkAreaProfession:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.OrganizationWorkAreaProfession:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
@@ -82,9 +82,9 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.OrganizationWorkAreaProfession:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.OrganizationWorkAreaProfession:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                             });
                         }
                     },
@@ -147,7 +147,7 @@
                         console.log(`{{ url('organizationWorkAreaProfession')}}/${id} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     }
                 });

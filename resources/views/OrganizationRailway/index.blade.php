@@ -18,7 +18,7 @@
                 <h3 class="box-title">路局-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.OrganizationRailway:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.OrganizationRailway:create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <div class="box-body">
@@ -50,9 +50,9 @@
             if (document.getElementById('tblOrganizationRailway')) {
                 tblOrganizationRailway = $('#tblOrganizationRailway').DataTable({
                     ajax: {
-                        url: `{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.OrganizationRailway:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log(`{{ route("web.OrganizationRailway:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {organization_railways: organizationRailways,} = res["content"];
                             let render = [];
                             if (organizationRailways.length > 0) {
@@ -65,7 +65,7 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ route("web.OrganizationRailway:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.OrganizationRailway:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
@@ -82,12 +82,12 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.OrganizationRailway:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.OrganizationRailway:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon:2, });
                             }else{
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                                 });
                             }
                         },
@@ -151,7 +151,7 @@
                         console.log(`{{ url('organizationRailway')}}/${id} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     }
                 });

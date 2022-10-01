@@ -68,7 +68,7 @@
             let activeUuids = [];
             let html = '';
 
-            html += `<li class="layui-nav-item"><a href="{{ route("web.Home:Index") }}"><i class="fa fa-home">&nbsp;</i>首页</a></li>`;
+            html += `<li class="layui-nav-item"><a href="{{ route("web.Home:index") }}"><i class="fa fa-home">&nbsp;</i>首页</a></li>`;
 
             let fnFillMenuItem = function (arr) {
                 for (let k = 0; k < arr.length; k++) {
@@ -93,14 +93,14 @@
             };
 
             $.ajax({
-                url: `{{ route("web.Authorization:GetMenus") }}`,
+                url: `{{ route("web.Authorization:getMenus") }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 beforeSend: function () {
                 },
                 success: function (res) {
-                    console.log(`{{ route("web.Authorization:GetMenus") }} success:`, res);
+                    console.log(`{{ route("web.Authorization:getMenus") }} success:`, res);
 
                     let {menus,} = res['content'];
                     if (menus.length > 0) {
@@ -114,7 +114,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.Authorization:GetMenus") }} error:`, err);
+                    console.log(`{{ route("web.Authorization:getMenus") }} error:`, err);
                 },
                 complete: function () {
                     element.init();

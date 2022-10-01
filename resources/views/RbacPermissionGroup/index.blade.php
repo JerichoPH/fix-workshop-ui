@@ -18,7 +18,7 @@
                 <h3 class="box-title">权限分组-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.RbacPermissionGroup:Create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.RbacPermissionGroup:create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
@@ -86,9 +86,9 @@
             if (document.getElementById('tblRbacPermissionGroup')) {
                 tblRbacPermissionGroup = $('#tblRbacPermissionGroup').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacPermissionGroup:Index") }}`,
+                        url: `{{ route("web.RbacPermissionGroup:index") }}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
+                            console.log(`{{ route("web.RbacPermissionGroup:index") }} success:`, res);
                             let {rbac_permission_groups: rbacPermissionGroups,} = res['content'];
                             let render = [];
                             if (rbacPermissionGroups.length > 0) {
@@ -100,7 +100,7 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${uuid}" class="btn btn-default"><i class="fa fa-eye"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.RbacPermission:index") }}?rbac_permission_group_uuid=${uuid}" class="btn btn-default"><i class="fa fa-eye"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-success" onclick="fnToCreatePermission('${uuid}')"><i class="fa fa-plus">&nbsp;</i>添加单个权限</a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-success" onclick="modalStoreResourcesRbacPermissions('${uuid}')"><i class="fa fa-archive">&nbsp;</i>批量添加资源权限</a>`;
                                     divBtnGroup += `<a href="{{ url("rbacPermissionGroup") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
@@ -121,9 +121,9 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.RbacPermissionGroup:Index") }} fail:`, err);
+                            console.log(`{{ route("web.RbacPermissionGroup:index") }} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                             });
                         },
                     },
@@ -173,7 +173,7 @@
          */
         function fnToCreatePermission(uuid = "") {
             if (uuid) {
-                location.href = `{{ route("web.RbacPermission:Create") }}?rbac_permission_group_uuid=${uuid}`
+                location.href = `{{ route("web.RbacPermission:create") }}?rbac_permission_group_uuid=${uuid}`
             }
         }
 
@@ -196,12 +196,12 @@
             let rbacPermissionGroupUUID = $hdnRbacPermissionGroupUUID.val();
 
             $.ajax({
-                url: `{{ route("web.RbacPermission:PostResource") }}`,
+                url: `{{ route("web.RbacPermission:postResource") }}`,
                 type: 'post',
                 data,
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.RbacPermission:PostResource") }} success:`, res);
+                    console.log(`{{ route("web.RbacPermission:postResource") }} success:`, res);
                     layer.close(loading);
                     layer.msg(res["msg"], {time: 1000,}, function () {
                         tblRbacPermissionGroup.ajax.reload();
@@ -210,10 +210,10 @@
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.RbacPermission:PostResource") }} fail:`, err);
+                    console.log(`{{ route("web.RbacPermission:postResource") }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                        if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                        if (err["status"] === 401) location.href = "{{ route("web.Authorization:getLogin") }}";
                     });
                 }
             });
@@ -242,7 +242,7 @@
                         console.log(`{{ url("rbacPermissionGroup") }}/${uuid} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                            if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                            if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                         });
                     },
                 });

@@ -22,18 +22,18 @@ class MenuController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("menu") : view("Menu.index");
+        return request()->ajax() ? $this->sendStandardRequest('menu') : view('Menu.index');
     }
 
     /**
      * 新建菜单页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("Menu.create");
+        return view('Menu.create');
     }
 
     /**
@@ -44,9 +44,9 @@ class MenuController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Store()
+    public function store()
     {
-        return $this->sendStandardRequest("menu");
+        return $this->sendStandardRequest('menu');
     }
 
     /**
@@ -58,9 +58,9 @@ class MenuController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
-        return $this->sendStandardRequest("menu/$uuid");
+        return $this->sendStandardRequest('menu/$uuid');
     }
 
     /**
@@ -68,9 +68,9 @@ class MenuController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("Menu.edit", ["uuid" => $uuid]);
+        return view('Menu.edit', ['uuid' => $uuid]);
     }
 
     /**
@@ -82,9 +82,9 @@ class MenuController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
-        return $this->sendStandardRequest("menu/$uuid");
+        return $this->sendStandardRequest('menu/$uuid');
     }
 
     /**
@@ -94,8 +94,8 @@ class MenuController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("menu/$uuid");
+        return $this->sendStandardRequest('menu/$uuid');
     }
 }

@@ -18,7 +18,7 @@
                 <h3 class="box-title">仓库位置-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.PositionDepotStorehouse:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.PositionDepotStorehouse:create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
@@ -72,9 +72,9 @@
             if (document.getElementById('tblPositionDepotStorehouse')) {
                 tblPositionDepotStorehouse = $('#tblPositionDepotStorehouse').DataTable({
                     ajax: {
-                        url: `{{ route("web.PositionDepotStorehouse:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.PositionDepotStorehouse:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.PositionDepotStorehouse:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log(`{{ route("web.PositionDepotStorehouse:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {position_depot_storehouses: positionDepotStorehouses,} = res["content"];
                             let render = [];
                             if (positionDepotStorehouses.length > 0) {
@@ -103,9 +103,9 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.PositionDepotStorehouse:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.PositionDepotStorehouse:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                             });
                         }
                     },
@@ -167,7 +167,7 @@
                         console.log(`{{ url('positionDepotStorehouse')}}/${uuid} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     }
                 });

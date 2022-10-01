@@ -161,10 +161,10 @@
                     <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{ route("web.Account:Edit", ["uuid" => session("__account__.uuid")]) }}" class="btn btn-default">修改个人信息</a>
+                                <a href="{{ route("web.Account:edit", ["uuid" => session("__account__.uuid")]) }}" class="btn btn-default">修改个人信息</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{ route("web.Authorization:GetLogout") }}" class="btn btn-default">退出登录</a>
+                                <a href="{{ route("web.Authorization:getLogout") }}" class="btn btn-default">退出登录</a>
                             </div>
                         </li>
                     </ul>

@@ -21,9 +21,9 @@ class AuthorizationController extends Controller
      * 登录页面
      * @return Factory|Application|View
      */
-    public function GetLogin()
+    public function getLogin()
     {
-        return view("Authorization.login");
+        return view('Authorization.login');
     }
 
     /**
@@ -33,18 +33,18 @@ class AuthorizationController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function PostLogin(Request $request)
+    public function postLogin(Request $request)
     {
         $this->sendStandardRequest(
-            "authorization/login",
+            'authorization/login',
             null,
             function () {
                 if (!$this->curl->error) {
                     session()->put(__JWT__, $this->curl->response->content->token);
                     session()->put(__ACCOUNT__, [
-                        "username" => $this->curl->response->content->username,
-                        "nickname" => $this->curl->response->content->nickname,
-                        "uuid" => $this->curl->response->content->uuid,
+                        'username' => $this->curl->response->content->username,
+                        'nickname' => $this->curl->response->content->nickname,
+                        'uuid' => $this->curl->response->content->uuid,
                     ]);
                 }
                 return $this->handleResponse();
@@ -60,32 +60,32 @@ class AuthorizationController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function GetMenus()
+    public function getMenus()
     {
-        return $this->sendStandardRequest("authorization/menus");
+        return $this->sendStandardRequest('authorization/menus');
     }
 
     /**
      * 退出
      * @return Application|RedirectResponse|Redirector
      */
-    public function GetLogout()
+    public function getLogout()
     {
         session()->forget(__ACCOUNT__);
         session()->forget(__JWT__);
 
-        return redirect("authorization/login");
+        return redirect('authorization/login');
     }
 
     /**
      * 退出
      * @return mixed
      */
-    public function PostLogout()
+    public function postLogout()
     {
         session()->forget(__ACCOUNT__);
         session()->forget(__JWT__);
 
-        return JsonResponseFacade::Ok("退出成功");
+        return JsonResponseFacade::ok('退出成功');
     }
 }

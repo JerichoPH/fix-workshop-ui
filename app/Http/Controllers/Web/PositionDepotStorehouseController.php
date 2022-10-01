@@ -21,18 +21,18 @@ class PositionDepotStorehouseController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("positionDepotStorehouse") : view("PositionDepotStorehouse.index");
+        return request()->ajax() ? $this->sendStandardRequest('positionDepotStorehouse') : view('PositionDepotStorehouse.index');
     }
 
     /**
      * 新建工区类型页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("PositionDepotStorehouse.create");
+        return view('PositionDepotStorehouse.create');
     }
 
     /**
@@ -43,9 +43,9 @@ class PositionDepotStorehouseController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Store()
+    public function store()
     {
-        return $this->sendStandardRequest("positionDepotStorehouse");
+        return $this->sendStandardRequest('positionDepotStorehouse');
     }
 
     /**
@@ -57,9 +57,9 @@ class PositionDepotStorehouseController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
-        return $this->sendStandardRequest("positionDepotStorehouse/{$uuid}");
+        return $this->sendStandardRequest('positionDepotStorehouse/{$uuid}');
     }
 
     /**
@@ -67,9 +67,9 @@ class PositionDepotStorehouseController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("PositionDepotStorehouse.edit", ["uuid" => $uuid,]);
+        return view('PositionDepotStorehouse.edit', ['uuid' => $uuid,]);
     }
 
     /**
@@ -81,9 +81,9 @@ class PositionDepotStorehouseController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
-        return $this->sendStandardRequest("positionDepotStorehouse/{$uuid}");
+        return $this->sendStandardRequest('positionDepotStorehouse/{$uuid}');
     }
 
     /**
@@ -95,8 +95,8 @@ class PositionDepotStorehouseController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("positionDepotStorehouse/{$uuid}");
+        return $this->sendStandardRequest('positionDepotStorehouse/{$uuid}');
     }
 }

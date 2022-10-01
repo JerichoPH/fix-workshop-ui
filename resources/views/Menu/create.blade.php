@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route("web.Menu:Index", ["parent_uuid" => request("parent_uuid")]) }}"><i class="fa fa-users">&nbsp;</i>菜单管理</a></li>
+            <li><a href="{{ route("web.Menu:index", ["parent_uuid" => request("parent_uuid")]) }}"><i class="fa fa-users">&nbsp;</i>菜单管理</a></li>
             <li class="active">新建</li>
         </ol>
     </section>
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route("web.Menu:Index", ["parent_uuid" => request("parent_uuid")]) }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route("web.Menu:index", ["parent_uuid" => request("parent_uuid")]) }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>
@@ -92,12 +92,12 @@
          */
         function fnFillSelParent() {
             $.ajax({
-                url: `{{ route("web.Menu:Index") }}`,
+                url: `{{ route("web.Menu:index") }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.Menu:Index") }} success:`, res);
+                    console.log(`{{ route("web.Menu:index") }} success:`, res);
 
                     let {menus,} = res["content"];
 
@@ -110,7 +110,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.Menu:Index") }} fail:`, err);
+                    console.log(`{{ route("web.Menu:index") }} fail:`, err);
                     if (err.status === 401) location.href = "{{ url('login') }}";
                     alert(err['responseJSON']['msg']);
                 }
@@ -122,12 +122,12 @@
          */
         function fnFillSelRbacRoles() {
             $.ajax({
-                url: `{{ route("web.RbacRole:Index") }}`,
+                url: `{{ route("web.RbacRole:index") }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.RbacRole:Index") }} success:`, res);
+                    console.log(`{{ route("web.RbacRole:index") }} success:`, res);
 
                     let {rbac_roles: rbacRoles,} = res["content"];
 
@@ -139,7 +139,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.RbacRole:Index") }} fail:`, err);
+                    console.log(`{{ route("web.RbacRole:index") }} fail:`, err);
                     if (err.status === 401) location.href = "{{ url('login') }}";
                     alert(err['responseJSON']['msg']);
                 }
@@ -161,21 +161,21 @@
             let data = $frmStore.serializeArray();
 
             $.ajax({
-                url: `{{ route("web.Menu:Store") }}`,
+                url: `{{ route("web.Menu:store") }}`,
                 type: "post",
                 data,
                 success: function (res) {
-                    console.log(`{{ route("web.Menu:Store") }} success:`, res);
+                    console.log(`{{ route("web.Menu:store") }} success:`, res);
                     layer.close(loading);
                     layer.msg(res["msg"], {time: 1000,}, function () {
                         location.reload();
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.Menu:Store") }} fail:`, err);
+                    console.log(`{{ route("web.Menu:store") }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                        if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                        if (err["status"] === 401) location.href = "{{ route("web.Authorization:getLogin") }}";
                     });
                 }
             });

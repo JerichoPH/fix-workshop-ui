@@ -21,18 +21,18 @@ class RbacPermissionController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("rbacPermission") : view("RbacPermission.index");
+        return request()->ajax() ? $this->sendStandardRequest('rbacPermission') : view('RbacPermission.index');
     }
 
     /**
      * 新建页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("RbacPermission.create");
+        return view('RbacPermission.create');
     }
 
     /**
@@ -43,9 +43,9 @@ class RbacPermissionController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Store()
+    public function store()
     {
-        return $this->sendStandardRequest("rbacPermission");
+        return $this->sendStandardRequest('rbacPermission');
     }
 
     /**
@@ -55,10 +55,10 @@ class RbacPermissionController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacPermission/{$uuid}");
+            return $this->sendStandardRequest('rbacPermission/{$uuid}');
         }
         return null;
     }
@@ -68,9 +68,9 @@ class RbacPermissionController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("RbacPermission.edit", ["uuid" => $uuid,]);
+        return view('RbacPermission.edit', ['uuid' => $uuid,]);
     }
 
     /**
@@ -82,9 +82,9 @@ class RbacPermissionController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
-        return $this->sendStandardRequest("rbacPermission/{$uuid}");
+        return $this->sendStandardRequest('rbacPermission/{$uuid}');
     }
 
     /**
@@ -94,9 +94,9 @@ class RbacPermissionController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("rbacPermission/{$uuid}");
+        return $this->sendStandardRequest('rbacPermission/{$uuid}');
     }
 
     /**
@@ -109,6 +109,6 @@ class RbacPermissionController extends Controller
      */
     public function PostResource()
     {
-        return $this->sendStandardRequest("rbacPermission/resource");
+        return $this->sendStandardRequest('rbacPermission/resource');
     }
 }

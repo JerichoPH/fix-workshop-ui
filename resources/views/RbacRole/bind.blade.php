@@ -117,7 +117,7 @@
                 error: err => {
                     console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
                 },
             });
@@ -130,10 +130,10 @@
             if (document.getElementById('tblAccount')) {
                 return tblAccount = $('#tblAccount').DataTable({
                     ajax: {
-                        url: `{{ route("web.Account:Index") }}`,
+                        url: `{{ route("web.Account:index") }}`,
                         async: false,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.Account:Index") }} success:`, res);
+                            console.log(`{{ route("web.Account:index") }} success:`, res);
                             let {accounts,} = res["content"];
                             let render = [];
                             if (accounts.length > 0) {
@@ -154,12 +154,12 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.Account:Index") }} fail:`, err);
+                            console.log(`{{ route("web.Account:index") }} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon:2, });
                             }else{
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                                 });
                             }
                         },
@@ -197,12 +197,12 @@
          */
         function fnFillSelRbacPermissionGroup() {
             $.ajax({
-                url: `{{ route("web.RbacPermissionGroup:Index") }}`,
+                url: `{{ route("web.RbacPermissionGroup:index") }}`,
                 type: 'get',
                 data: {},
                 async: false,
                 success: res => {
-                    console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
+                    console.log(`{{ route("web.RbacPermissionGroup:index") }} success:`, res);
 
                     let {rbac_permission_groups: rbacPermissionGroups,} = res["content"];
 
@@ -215,9 +215,9 @@
                     }
                 },
                 error: err => {
-                    console.log(`{{ route("web.RbacPermissionGroup:Index") }} fail:`, err);
+                    console.log(`{{ route("web.RbacPermissionGroup:index") }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
                 },
             });
@@ -230,10 +230,10 @@
             if (tblPermission == null) {
                 tblPermission = $('#tblPermission').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID}`,
+                        url: `{{ route("web.RbacPermission:index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID}`,
                         async: false,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID} success:`, res);
+                            console.log(`{{ route("web.RbacPermission:index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID} success:`, res);
                             let {rbac_permissions: rbacPermissions,} = res["content"];
                             let render = [];
                             if (rbacPermissions.length > 0) {
@@ -256,12 +256,12 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID} fail:`, err);
+                            console.log(`{{ route("web.RbacPermission:index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon:2, });
                             }else{
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                                 });
                             }
                         },
@@ -294,7 +294,7 @@
             }
 
             if (rbacPermissionGroupUUID) {
-                tblPermission.ajax.url(`{{ route("web.RbacPermission:Index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID}`);
+                tblPermission.ajax.url(`{{ route("web.RbacPermission:index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID}`);
                 tblPermission.ajax.reload();
             }
         }
@@ -322,21 +322,21 @@
             if (accountUUIDs.length > 0) {
                 let loading = layer.msg('处理中……', {time: 0,});
                 $.ajax({
-                    url: `{{ route("web.RbacRole:PutBindAccounts", ["uuid" => $uuid]) }}`,
+                    url: `{{ route("web.RbacRole:putBindAccounts", ["uuid" => $uuid]) }}`,
                     type: 'put',
                     data: {account_uuids: accountUUIDs,},
                     async: true,
                     success: res => {
-                        console.log(`{{ route("web.RbacRole:PutBindAccounts", ["uuid" => $uuid]) }} success:`, res);
+                        console.log(`{{ route("web.RbacRole:putBindAccounts", ["uuid" => $uuid]) }} success:`, res);
                         layer.close(loading);
                         layer.msg(res['msg'], {time: 1000,}, function () {
                         });
                     },
                     error: err => {
-                        console.log(`{{ route("web.RbacRole:PutBindAccounts", ["uuid" => $uuid]) }} fail:`, err);
+                        console.log(`{{ route("web.RbacRole:putBindAccounts", ["uuid" => $uuid]) }} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                            if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                            if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                         });
                     },
                 });
@@ -356,21 +356,21 @@
             if (rbacPermissionUUIDs.length > 0) {
                 let loading = layer.msg('处理中……', {time: 0,});
                 $.ajax({
-                    url: `{{ route("web.RbacRole:PutBindPermissions", ["uuid" => $uuid]) }}`,
+                    url: `{{ route("web.RbacRole:putBindPermissions", ["uuid" => $uuid]) }}`,
                     type: 'put',
                     data: {rbac_permission_uuids: rbacPermissionUUIDs,},
                     async: true,
                     success: res => {
-                        console.log(`{{ route("web.RbacRole:PutBindPermissions", ["uuid" => $uuid]) }} success:`, res);
+                        console.log(`{{ route("web.RbacRole:putBindPermissions", ["uuid" => $uuid]) }} success:`, res);
                         layer.close(loading);
                         layer.msg(res['msg'], {time: 1000,}, function () {
                         });
                     },
                     error: err => {
-                        console.log(`{{ route("web.RbacRole:PutBindPermissions", ["uuid" => $uuid]) }} fail:`, err);
+                        console.log(`{{ route("web.RbacRole:putBindPermissions", ["uuid" => $uuid]) }} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                            if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                            if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                         });
                     },
                 });

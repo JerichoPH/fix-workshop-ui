@@ -20,9 +20,9 @@
             table.render({
                 ...tableBaseOptions,
                 elem: '#tblRbacRole',
-                url: '{{ route('web.RbacRole:Index') }}',
+                url: '{{ route('web.RbacRole:index') }}',
                 where: {__order__: 'created_at desc',},
-                toolbar: `<div class="layui-btn-group"><a href="{{ route("web.RbacRole:Create") }}" class="layui-btn layui-btn-sm"><i class="fa fa-plus"></i></a></div>`,
+                toolbar: `<div class="layui-btn-group"><a href="{{ route("web.RbacRole:create") }}" class="layui-btn layui-btn-sm"><i class="fa fa-plus"></i></a></div>`,
                 parseData: function (res) {
                     return tableBaseParseData(res,'rbac_roles');
                 },
@@ -38,7 +38,7 @@
                         title: '', templet: function (datum) {
                             return `
 <div class="layui-btn-group">
-  <a href="{{ route("web.RbacRole:Index") }}/${datum["uuid"]}/edit" class="layui-btn layui-btn-warm layui-btn-sm">
+  <a href="{{ route("web.RbacRole:index") }}/${datum["uuid"]}/edit" class="layui-btn layui-btn-warm layui-btn-sm">
     <i class="fa fa-edit"></i>
   </a>
   <button type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="fnDelete(${datum["uuid"]})">

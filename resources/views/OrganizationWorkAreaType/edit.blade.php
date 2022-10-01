@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.OrganizationWorkAreaType:Index') }}"><i class="fa fa-users">&nbsp;</i>工区类型-列表</a></li>
+            <li><a href="{{ route('web.OrganizationWorkAreaType:index') }}"><i class="fa fa-users">&nbsp;</i>工区类型-列表</a></li>
             <li class="active">工区类型-编辑</li>
         </ol>
     </section>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationWorkAreaType:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.OrganizationWorkAreaType:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
@@ -75,7 +75,7 @@
                 error: err => {
                     console.log(`{{ route("web.OrganizationWorkAreaType:Show", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 },
             });
@@ -108,7 +108,7 @@
                     console.log(`{{ route('web.OrganizationWorkAreaType:Update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 }
             });

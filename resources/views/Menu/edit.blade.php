@@ -123,12 +123,12 @@
          */
         function fnFillSelParentMenu(uuid = "") {
             $.ajax({
-                url: `{{ route("web.Menu:Index") }}`,
+                url: `{{ route("web.Menu:index") }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.Menu:Index") }} success:`, res);
+                    console.log(`{{ route("web.Menu:index") }} success:`, res);
 
                     let {menus,} = res["content"];
                     $selParentMenu.empty();
@@ -144,7 +144,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.Menu:Index") }} fail:`, err);
+                    console.log(`{{ route("web.Menu:index") }} fail:`, err);
                     if (err.status === 401) location.href = "{{ url('login') }}";
                     alert(err['responseJSON']['msg']);
                 }
@@ -156,12 +156,12 @@
          */
         function fnFillSelRbacRoles() {
             $.ajax({
-                url: `{{ route("web.RbacRole:Index") }}`,
+                url: `{{ route("web.RbacRole:index") }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.RbacRole:Index") }} success:`, res);
+                    console.log(`{{ route("web.RbacRole:index") }} success:`, res);
 
                     let {rbac_roles: rbacRoles,} = res["content"];
                     $selSelRbacRoles.empty();
@@ -172,7 +172,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.RbacRole:Index") }} fail:`, err);
+                    console.log(`{{ route("web.RbacRole:index") }} fail:`, err);
                     if (err.status === 401) location.href = "{{ url('login') }}";
                     alert(err['responseJSON']['msg']);
                 }
@@ -207,7 +207,7 @@
                     console.log('fail:', err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                        if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                        if (err["status"] === 401) location.href = "{{ route("web.Authorization:getLogin") }}";
                     });
                 }
             });
@@ -218,7 +218,7 @@
          */
         function fnToIndex() {
             let queries = $.param({parent_uuid: $selParentMenu.val()});
-            location.href = `{{ route("web.Menu:Index") }}?${queries}`;
+            location.href = `{{ route("web.Menu:index") }}?${queries}`;
         }
 
         /**

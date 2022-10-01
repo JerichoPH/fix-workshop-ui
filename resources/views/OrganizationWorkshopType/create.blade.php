@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.OrganizationWorkshopType:Index') }}"><i class="fa fa-users">&nbsp;</i>车间类型-列表</a></li>
+            <li><a href="{{ route('web.OrganizationWorkshopType:index') }}"><i class="fa fa-users">&nbsp;</i>车间类型-列表</a></li>
             <li class="active">车间类型-新建</li>
         </ol>
     </section>
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationWorkshopType:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.OrganizationWorkshopType:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>
@@ -71,21 +71,21 @@
             let data = $frmStore.serializeArray();
 
             $.ajax({
-                url: '{{ route('web.OrganizationWorkshopType:Store') }}',
+                url: '{{ route('web.OrganizationWorkshopType:store') }}',
                 type: 'post',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationWorkshopType:Store') }} success:`, res);
+                    console.log(`{{ route('web.OrganizationWorkshopType:store') }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,}, function () {
                         location.reload();
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationWorkshopType:Store') }} fail:`, err);
+                    console.log(`{{ route('web.OrganizationWorkshopType:store') }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                 }
             });

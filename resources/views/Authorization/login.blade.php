@@ -53,21 +53,21 @@
             let data = $frmLogin.serializeArray();
 
             $.ajax({
-                url: `{{ route("web.Authorization:PostLogin") }}`,
+                url: `{{ route("web.Authorization:postLogin") }}`,
                 type: 'post',
                 data,
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.Authorization:PostLogin") }} success:`, res);
+                    console.log(`{{ route("web.Authorization:postLogin") }} success:`, res);
                     layer.close(loading);
 
                     location.href = "/";
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.Authorization:PostLogin") }} fail:`, err);
+                    console.log(`{{ route("web.Authorization:postLogin") }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 }
             });

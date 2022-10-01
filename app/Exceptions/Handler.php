@@ -89,61 +89,61 @@ class Handler extends ExceptionHandler
 
         if ($e instanceof UnAuthorizationException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongUnauthorized($msg)
+                ? JsonResponseFacade::wrongUnauthorized($msg)
                 : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof EmptyException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongEmpty($msg)
+                ? JsonResponseFacade::wrongEmpty($msg)
                 : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof ForbiddenException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongForbidden($msg)
+                ? JsonResponseFacade::wrongForbidden($msg)
                 : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof UnLoginException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongUnLogin($msg)
+                ? JsonResponseFacade::wrongUnLogin($msg)
                 : redirect("/login", $msg);
         }
 
         if ($e instanceof UnOwnerException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongUnauthorized($msg)
+                ? JsonResponseFacade::wrongUnauthorized($msg)
                 : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof ValidateException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongValidate($msg)
+                ? JsonResponseFacade::wrongValidate($msg)
                 : back()->withInput()->with("danger", $msg);
         }
 
         if ($e instanceof ModelNotFoundException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongEmpty("错误：资源不存在。错误代码：{$this->__code}")
+                ? JsonResponseFacade::wrongEmpty("错误：资源不存在。错误代码：{$this->__code}")
                 : back()->withInput()->with("danger", "错误：资源不存在。错误代码：{$this->__code}");
         }
 
         if ($e instanceof NotFoundHttpException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongEmpty("错误：路由不存在。错误代码：{$this->__code}")
+                ? JsonResponseFacade::wrongEmpty("错误：路由不存在。错误代码：{$this->__code}")
                 : back()->withInput()->with("danger", "错误：资源不存在。错误代码：{$this->__code}");
         }
 
         if ($e instanceof ExcelInException) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongForbidden($msg)
+                ? JsonResponseFacade::wrongForbidden($msg)
                 : back()->with("danger", $msg);
         }
 
         if ($e instanceof Exception) {
             return $request->ajax()
-                ? JsonResponseFacade::WrongException($e)
+                ? JsonResponseFacade::wrongException($e)
                 : back()->withInput()->with("danger", "意外错误。错误代码：{$this->__code}");
         }
 

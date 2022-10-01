@@ -66,9 +66,9 @@
             if (document.getElementById('tblRbacPermission')) {
                 tblRbacPermission = $('#tblRbacPermission').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacPermission:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.RbacPermission:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacPermission:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log(`{{ route("web.RbacPermission:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {rbac_permissions: rbacPermissions,} = res['content'];
                             let render = [];
                             if (rbacPermissions.length > 0) {
@@ -101,12 +101,12 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.RbacPermission:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.RbacPermission:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon: 2,});
                             } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                                 });
                             }
                         },
@@ -151,12 +151,12 @@
          */
         function fnFillSelRbacPermissionGroup() {
             $.ajax({
-                url: `{{ route("web.RbacPermissionGroup:Index") }}`,
+                url: `{{ route("web.RbacPermissionGroup:index") }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
+                    console.log(`{{ route("web.RbacPermissionGroup:index") }} success:`, res);
 
                     let {rbac_permission_groups: rbacPermissionGroups,} = res["content"];
 
@@ -169,9 +169,9 @@
                     }
                 },
                 error: err => {
-                    console.log(`{{ route("web.RbacPermissionGroup:Index") }} fail:`, err);
+                    console.log(`{{ route("web.RbacPermissionGroup:index") }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
                 },
             });
@@ -190,7 +190,7 @@
         function fnSearch() {
             let queries = $.param($frmSearch.serializeArray());
 
-            tblRbacPermission.ajax.url(`{{ route("web.RbacPermission:Index") }}?${queries}`);
+            tblRbacPermission.ajax.url(`{{ route("web.RbacPermission:index") }}?${queries}`);
             tblRbacPermission.ajax.reload();
         }
 
@@ -198,7 +198,7 @@
          * 跳转到新建页面
          */
         function fnToCreate() {
-            location.href = `{{ route('web.RbacPermission:Create') }}?${$.param($frmSearch.serializeArray())}`;
+            location.href = `{{ route('web.RbacPermission:create') }}?${$.param($frmSearch.serializeArray())}`;
         }
 
         /**
@@ -224,7 +224,7 @@
                         console.log(`{{ url("rbacPermission") }}/${uuid} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                            if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                            if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                         });
                     },
                 });

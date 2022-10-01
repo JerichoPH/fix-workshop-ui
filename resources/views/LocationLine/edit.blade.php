@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.LocationLine:Index') }}"><i class="fa fa-users">&nbsp;</i>线别-列表</a></li>
+            <li><a href="{{ route('web.LocationLine:index') }}"><i class="fa fa-users">&nbsp;</i>线别-列表</a></li>
             <li class="active">线别-编辑</li>
         </ol>
     </section>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.LocationLine:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.LocationLine:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <div class="pull-right">
                                 <input type="checkbox" id="chkReturn">
                                 <label for="chkReturn">保存后返回列表</label>
@@ -104,7 +104,7 @@
                 error: err => {
                     console.log(`{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
                 },
             });
@@ -133,7 +133,7 @@
                     layer.close(loading);
                     layer.msg(res.msg, {time: 500,},function(){
                         if($chkReturn.is(':checked')){
-                            location.href = '{{ route('web.LocationLine:Index') }}';
+                            location.href = '{{ route('web.LocationLine:index') }}';
                         }else{
                             fnInit();
                         }
@@ -143,7 +143,7 @@
                     console.log(`{{ route('web.LocationLine:Update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 }
             });

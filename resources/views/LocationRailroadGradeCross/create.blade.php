@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.LocationRailroadGradeCross:Index') }}"><i class="fa fa-users">&nbsp;</i>道口-列表</a></li>
+            <li><a href="{{ route('web.LocationRailroadGradeCross:index') }}"><i class="fa fa-users">&nbsp;</i>道口-列表</a></li>
             <li class="active">道口-新建</li>
         </ol>
     </section>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.LocationRailroadGradeCross:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.LocationRailroadGradeCross:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </div>
@@ -123,9 +123,9 @@
             if (document.getElementById('tblLocationLine')) {
                 tblLocationLine = $('#tblLocationLine').DataTable({
                     ajax: {
-                        url: `{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.LocationLine:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log(`{{ route("web.LocationLine:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {location_lines: locationLines,} = res["content"];
                             let render = [];
                             if (locationLines.length > 0) {
@@ -157,9 +157,9 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.LocationLine:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.LocationLine:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                             });
                         }
                     },
@@ -202,7 +202,7 @@
          */
         function fnFillSelOrganizationWorkshop() {
             $.ajax({
-                url: `{{ route("web.OrganizationWorkshop:Index") }}`,
+                url: `{{ route("web.OrganizationWorkshop:index") }}`,
                 type: 'get',
                 data: {be_enable: 1, organization_workshop_type_unique_code: "SCENE-WORKSHOP",},
                 async: true,
@@ -212,7 +212,7 @@
                     $selOrganizationWorkshop.append(`<option value="" disabled selected>无</option>`);
                 },
                 success: function (res) {
-                    console.log(`{{ route("web.OrganizationWorkshop:Index") }} success:`, res);
+                    console.log(`{{ route("web.OrganizationWorkshop:index") }} success:`, res);
 
                     let {organization_workshops: organizationWorkshops,} = res["content"];
 
@@ -223,9 +223,9 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.OrganizationWorkshop:Index") }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationWorkshop:index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 },
                 complete: function () {
@@ -243,7 +243,7 @@
             if (organizationWorkshopUuid) data["organization_workshop_uuid"] = organizationWorkshopUuid;
 
             $.ajax({
-                url: `{{ route("web.OrganizationWorkArea:Index") }}`,
+                url: `{{ route("web.OrganizationWorkArea:index") }}`,
                 type: 'get',
                 data,
                 async: true,
@@ -253,7 +253,7 @@
                     $selOrganizationWorkArea.append(`<option value="">无</option>`);
                 },
                 success: function (res) {
-                    console.log(`{{ route("web.OrganizationWorkArea:Index") }} success:`, res);
+                    console.log(`{{ route("web.OrganizationWorkArea:index") }} success:`, res);
 
                     let {organization_work_areas: organizationWorkAreas,} = res["content"];
 
@@ -264,9 +264,9 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.OrganizationWorkArea:Index") }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationWorkArea:index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 },
                 complete: function () {
@@ -294,21 +294,21 @@
             console.log(data);
 
             $.ajax({
-                url: '{{ route('web.LocationRailroadGradeCross:Store') }}',
+                url: '{{ route('web.LocationRailroadGradeCross:store') }}',
                 type: 'post',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.LocationRailroadGradeCross:Store') }} success:`, res);
+                    console.log(`{{ route('web.LocationRailroadGradeCross:store') }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,}, function () {
                         location.reload();
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.LocationRailroadGradeCross:Store') }} fail:`, err);
+                    console.log(`{{ route('web.LocationRailroadGradeCross:store') }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 }
             });

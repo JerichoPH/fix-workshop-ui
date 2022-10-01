@@ -98,12 +98,12 @@
                 };
 
                 $.ajax({
-                    url: `{{ route("web.Authorization:GetMenus") }}`,
+                    url: `{{ route("web.Authorization:getMenus") }}`,
                     type: 'get',
                     data: {},
                     async: true,
                     success: function (res) {
-                        console.log(`加载菜单 {{ route("web.Authorization:GetMenus") }} success:`, res);
+                        console.log(`加载菜单 {{ route("web.Authorization:getMenus") }} success:`, res);
 
                         let {menus,} = res["content"];
                         if (menus.length > 0) {
@@ -117,9 +117,9 @@
                         }
                     },
                     error: function (err) {
-                        console.log(`{{ route("web.Authorization:GetMenus") }} fail:`, err);
+                        console.log(`{{ route("web.Authorization:getMenus") }} fail:`, err);
                         layer.msg(err["responseJSON"]["msg"], {time: 1000,}, function () {
-                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:getLogin") }}";
                         });
                     }
                 });

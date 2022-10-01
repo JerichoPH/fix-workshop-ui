@@ -20,9 +20,9 @@
             table.render({
                 ...tableBaseOptions,
                 elem: '#tblAccount',
-                url: '{{ route('web.Account:Index') }}',
+                url: '{{ route('web.Account:index') }}',
                 where: {__order__: 'created_at desc',},
-                toolbar: `<div class="layui-btn-group"><a href="{{ route("web.Account:Create") }}" class="layui-btn layui-btn-sm"><i class="fa fa-plus"></i></a></div>`,
+                toolbar: `<div class="layui-btn-group"><a href="{{ route("web.Account:create") }}" class="layui-btn layui-btn-sm"><i class="fa fa-plus"></i></a></div>`,
                 parseData: function (res) {
                     return tableBaseParseData(res, 'accounts');
                 },
@@ -39,7 +39,7 @@
                         title: '', templet: function (datum) {
                             return `
 <div class="layui-btn-group">
-  <a href="{{ route("web.Account:Index") }}/${datum["uuid"]}/edit" class="layui-btn layui-btn-warm layui-btn-sm">
+  <a href="{{ route("web.Account:index") }}/${datum["uuid"]}/edit" class="layui-btn layui-btn-warm layui-btn-sm">
     <i class="fa fa-edit"></i>
   </a>
   <button type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="fnDelete(${datum["uuid"]})">

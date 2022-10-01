@@ -23,18 +23,18 @@ class OrganizationRailwayController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("organizationRailway") : view("OrganizationRailway.index");
+        return request()->ajax() ? $this->sendStandardRequest('organizationRailway') : view('OrganizationRailway.index');
     }
 
     /**
      * 新建页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("OrganizationRailway.create");
+        return view('OrganizationRailway.create');
     }
 
     /**
@@ -45,13 +45,13 @@ class OrganizationRailwayController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Store()
+    public function store()
     {
         return $this->sendStandardRequest(
-            "organizationRailway",
+            'organizationRailway',
             function (Request $request) {
                 $request = $request->all();
-                $request["be_enable"] = boolval($request["be_enable"]);
+                $request['be_enable'] = boolval($request['be_enable']);
                 return $request;
             }
         );
@@ -64,12 +64,12 @@ class OrganizationRailwayController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("organizationRailway/{$uuid}");
+            return $this->sendStandardRequest('organizationRailway/{$uuid}');
         }
-        return JsonResponseFacade::Ok();
+        return JsonResponseFacade::ok();
     }
 
     /**
@@ -77,9 +77,9 @@ class OrganizationRailwayController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("OrganizationRailway/edit", ["uuid" => $uuid,]);
+        return view('OrganizationRailway/edit', ['uuid' => $uuid,]);
     }
 
     /**
@@ -89,13 +89,13 @@ class OrganizationRailwayController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            "organizationRailway/{$uuid}",
+            'organizationRailway/{$uuid}',
             function (Request $request) {
                 $request = $request->all();
-                $request["be_enable"] = boolval($request["be_enable"]);
+                $request['be_enable'] = boolval($request['be_enable']);
                 return $request;
             }
         );
@@ -108,9 +108,9 @@ class OrganizationRailwayController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("organizationRailway/{$uuid}");
+        return $this->sendStandardRequest('organizationRailway/{$uuid}');
     }
 
     /**
@@ -122,8 +122,8 @@ class OrganizationRailwayController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function PutBindLocationLines(string $uuid)
+    public function putBindLocationLines(string $uuid)
     {
-        return $this->sendStandardRequest("organizationRailway/{$uuid}/bindLocationLines");
+        return $this->sendStandardRequest('organizationRailway/{$uuid}/bindLocationLines');
     }
 }

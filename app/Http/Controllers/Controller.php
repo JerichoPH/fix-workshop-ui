@@ -21,22 +21,21 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $curl = null;
-    protected $ueUrlRoot = "";
-    protected $ueApiVersion = "";
-    protected $ueApiUrl = "";
+    protected $ueUrlRoot = '';
+    protected $ueApiVersion = '';
+    protected $ueApiUrl = '';
 
     public function __construct()
     {
         $this->curl = new Curl();
-        $this->ueUrlRoot = env("UE_URL_ROOT");
-        $this->ueApiVersion = env("UE_API_VERSION");
+        $this->ueUrlRoot = env('UE_URL_ROOT');
+        $this->ueApiVersion = env('UE_API_VERSION');
         $this->ueApiUrl = "{$this->ueUrlRoot}/{$this->ueApiVersion}";
     }
 
     /**
      * 发送标准请求
      * @param string $url
-     * @param string|null $token
      * @param Closure|null $before
      * @param Closure|null $after
      * @return mixed
@@ -48,13 +47,13 @@ class Controller extends BaseController
     protected function sendStandardRequest(string $url, Closure $before = null, Closure $after = null)
     {
         $method = strtolower(request()->method());
-        if (GetJWTFromSession()) $this->curl->setHeader("Authorization", "JWT " . GetJWTFromSession());
+        if (GetJWTFromSession()) $this->curl->setHeader('Authorization', 'JWT ' . GetJWTFromSession());
         switch ($method) {
-            case "GET":
-                $this->curl->setHeader("Accept", "application/json");
+            case 'GET':
+                $this->curl->setHeader('Accept', 'application/json');
                 break;
             default:
-                $this->curl->setHeader("Content-Type", "application/json");
+                $this->curl->setHeader('Content-Type', 'application/json');
                 break;
         }
         $request = null;
@@ -75,7 +74,7 @@ class Controller extends BaseController
     protected function handleResponse()
     {
         if ($this->curl->error) {
-            $msg = @$this->curl->response->msg ?: "";
+            $msg = @$this->curl->response->msg ?: '';
             switch ($this->curl->errorCode) {
                 case 401:
                     throw new UnLoginException($msg);
@@ -95,13 +94,13 @@ class Controller extends BaseController
             switch ($this->curl->getHttpStatusCode()) {
                 case 200:
                 default:
-                    return JsonResponseFacade::Ok($this->curl->response->content, $this->curl->response->pagination, $this->curl->response->msg);
+                    return JsonResponseFacade::ok($this->curl->response->content, $this->curl->response->pagination, $this->curl->response->msg);
                 case 201:
-                    return JsonResponseFacade::Created($this->curl->response->content, $this->curl->response->msg);
+                    return JsonResponseFacade::created($this->curl->response->content, $this->curl->response->msg);
                 case 202:
-                    return JsonResponseFacade::Updated($this->curl->response->content, $this->curl->response->msg);
+                    return JsonResponseFacade::updated($this->curl->response->content, $this->curl->response->msg);
                 case 204:
-                    return JsonResponseFacade::Deleted(null, @$this->curl->response->msg ?: "删除成功");
+                    return JsonResponseFacade::deleted(null, @$this->curl->response->msg ?: '删除成功');
             }
         }
     }

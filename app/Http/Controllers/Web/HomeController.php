@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    public function Index()
+    public function index()
     {
         return view("Home.index");
     }

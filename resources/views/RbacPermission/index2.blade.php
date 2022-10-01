@@ -20,9 +20,9 @@
             table.render({
                 ...tableBaseOptions,
                 elem: '#tblRbacPermission',
-                url: '{{ route('web.RbacPermission:Index') }}',
+                url: '{{ route('web.RbacPermission:index') }}',
                 where: {__order__: 'created_at desc',},
-                toolbar: `<div class="layui-btn-group"><a href="{{ route("web.RbacPermission:Create") }}" class="layui-btn layui-btn-sm"><i class="fa fa-plus"></i></a></div>`,
+                toolbar: `<div class="layui-btn-group"><a href="{{ route("web.RbacPermission:create") }}" class="layui-btn layui-btn-sm"><i class="fa fa-plus"></i></a></div>`,
                 parseData: function (res) {
                     return tableBaseParseData(res,'rbac_permissions');
                 },
@@ -45,7 +45,7 @@
                         title: ``, templet: function (datum) {
                             return `
 <div class="layui-btn-group">
-  <a href="{{ route("web.RbacPermission:Index") }}/${datum["uuid"]}/edit" class="layui-btn layui-btn-warm layui-btn-sm">
+  <a href="{{ route("web.RbacPermission:index") }}/${datum["uuid"]}/edit" class="layui-btn layui-btn-warm layui-btn-sm">
     <i class="fa fa-edit"></i>
   </a>
   <button type="button" class="layui-btn layui-btn-danger layui-btn-sm" onclick="fnDelete(${datum["uuid"]})">

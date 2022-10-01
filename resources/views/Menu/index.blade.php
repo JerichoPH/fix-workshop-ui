@@ -66,12 +66,12 @@
          */
         function fnFillParentMenu() {
             $.ajax({
-                url: `{{ route("web.Menu:Index") }}`,
+                url: `{{ route("web.Menu:index") }}`,
                 type: 'get',
                 data: {parent_uuid: "",},
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.Menu:Index") }} success:`, res);
+                    console.log(`{{ route("web.Menu:index") }} success:`, res);
 
                     let {menus,} = res["content"];
 
@@ -84,7 +84,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.Menu:Index") }} fail:`, err);
+                    console.log(`{{ route("web.Menu:index") }} fail:`, err);
                     if (err.status === 401) location.href = "{{ url('login') }}";
                     alert(err['responseJSON']['msg']);
                 }
@@ -98,9 +98,9 @@
             if (document.getElementById('tblMenu')) {
                 tblMenu = $('#tblMenu').DataTable({
                     ajax: {
-                        url: `{{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.Menu:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`okok {{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log(`okok {{ route("web.Menu:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {menus: menus,} = res['content'];
                             let render = [];
                             if (menus.length > 0) {
@@ -142,12 +142,12 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.Menu:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.Menu:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
                                 layer.alert(err["responseJSON"]["msg"], {icon: 2,});
                             } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                                    if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                                 });
                             }
                         },
@@ -200,7 +200,7 @@
         function fnSearch() {
             let queries = $.param($frmSearch.serializeArray());
 
-            tblMenu.ajax.url(`{{ route("web.Menu:Index") }}?${queries}`);
+            tblMenu.ajax.url(`{{ route("web.Menu:index") }}?${queries}`);
             tblMenu.ajax.reload();
         }
 
@@ -209,7 +209,7 @@
          */
         function fnToCreate() {
             let parentUUID = $selParentMenu.val();
-            location.href = `{{ route('web.Menu:Create') }}?parent_uuid=${parentUUID}`;
+            location.href = `{{ route('web.Menu:create') }}?parent_uuid=${parentUUID}`;
         }
 
         /**
@@ -237,7 +237,7 @@
                         console.log(`{{ url("menu") }}/${uuid} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                            if (err["status"] === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                            if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                         });
                     }
                 });

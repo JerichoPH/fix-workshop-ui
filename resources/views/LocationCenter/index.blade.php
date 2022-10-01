@@ -18,7 +18,7 @@
                 <h3 class="box-title">中心-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.LocationCenter:Create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.LocationCenter:create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
@@ -55,9 +55,9 @@
             if (document.getElementById('tblLocationCenter')) {
                 tblLocationCenter = $('#tblLocationCenter').DataTable({
                     ajax: {
-                        url: `{{ route("web.LocationCenter:Index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.LocationCenter:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.LocationCenter:Index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            console.log(`{{ route("web.LocationCenter:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
                             let {location_centers: locationCenters,} = res["content"];
                             let render = [];
                             if (locationCenters.length > 0) {
@@ -81,7 +81,7 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ route("web.LocationCenter:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.LocationCenter:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
@@ -102,9 +102,9 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.LocationCenter:Index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.LocationCenter:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                             });
                         }
                     },
@@ -168,7 +168,7 @@
                         console.log(`{{ url('locationCenter')}}/${id} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     }
                 });

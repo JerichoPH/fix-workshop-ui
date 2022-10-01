@@ -22,18 +22,18 @@ class OrganizationParagraphController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("organizationParagraph") : view("OrganizationParagraph.index");
+        return request()->ajax() ? $this->sendStandardRequest('organizationParagraph') : view('OrganizationParagraph.index');
     }
 
     /**
      * 新建站段页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("OrganizationParagraph.create");
+        return view('OrganizationParagraph.create');
     }
 
     /**
@@ -43,13 +43,13 @@ class OrganizationParagraphController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Store()
+    public function store()
     {
         return $this->sendStandardRequest(
-            "organizationParagraph",
+            'organizationParagraph',
             function (Request $request) {
                 $request = $request->all();
-                $request["be_enable"] = boolval($request["be_enable"]);
+                $request['be_enable'] = boolval($request['be_enable']);
                 return $request;
             }
         );
@@ -64,9 +64,9 @@ class OrganizationParagraphController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
-        return $this->sendStandardRequest("organizationParagraph/{$uuid}");
+        return $this->sendStandardRequest('organizationParagraph/{$uuid}');
     }
 
     /**
@@ -74,9 +74,9 @@ class OrganizationParagraphController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("OrganizationParagraph.edit", ["uuid" => $uuid,]);
+        return view('OrganizationParagraph.edit', ['uuid' => $uuid,]);
     }
 
     /**
@@ -88,13 +88,13 @@ class OrganizationParagraphController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            "organizationParagraph/{$uuid}",
+            'organizationParagraph/{$uuid}',
             function (Request $request) {
                 $request = $request->all();
-                $request["be_enable"] = boolval($request["be_enable"]);
+                $request['be_enable'] = boolval($request['be_enable']);
                 return $request;
             }
         );
@@ -107,8 +107,8 @@ class OrganizationParagraphController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("organizationParagraph/{$uuid}");
+        return $this->sendStandardRequest('organizationParagraph/{$uuid}');
     }
 }

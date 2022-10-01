@@ -10,18 +10,18 @@ use Throwable;
 /**
  * Class JsonResponseFacade
  * @package App\Facades
- * @method static Dump(...$data): JsonResponse
- * @method static Ok($content = null, $pagination = null, string $msg = "OK", ...$details): JsonResponse
- * @method static Created($data = null, string $msg = '新建成功', ...$details): JsonResponse
- * @method static Updated($data = null, string $msg = '编辑成功', ...$details): JsonResponse
- * @method static Deleted($data = null, string $msg = '删除成功', ...$details): JsonResponse
- * @method static WrongEmpty(string $msg = '数据不存在', ...$details): JsonResponse
- * @method static WrongForbidden(string $msg, ...$details): JsonResponse
- * @method static WrongUnLogin(string $msg = '未登录', ...$details): JsonResponse
- * @method static WrongUnauthorized(string $msg = '授权失败', ...$details): JsonResponse
- * @method static WrongValidate(string $msg): JsonResponse
- * @method static WrongCustom(string $msg = '意外错误', int $errorCode = 1, Throwable $e = null): JsonResponse
- * @method static WrongException(Throwable $e, string $msg = '意外错误', $errorCode = 1): JsonResponse
+ * @method static dump(...$data): JsonResponse
+ * @method static ok($content = null, $pagination = null, string $msg = "OK", ...$details): JsonResponse
+ * @method static created($data = null, string $msg = '新建成功', ...$details): JsonResponse
+ * @method static updated($data = null, string $msg = '编辑成功', ...$details): JsonResponse
+ * @method static deleted($data = null, string $msg = '删除成功', ...$details): JsonResponse
+ * @method static wrongEmpty(string $msg = '数据不存在', ...$details): JsonResponse
+ * @method static wrongForbidden(string $msg, ...$details): JsonResponse
+ * @method static wrongUnLogin(string $msg = '未登录', ...$details): JsonResponse
+ * @method static wrongUnauthorized(string $msg = '授权失败', ...$details): JsonResponse
+ * @method static wrongValidate(string $msg): JsonResponse
+ * @method static wrongCustom(string $msg = '意外错误', int $errorCode = 1, Throwable $e = null): JsonResponse
+ * @method static wrongException(Throwable $e, string $msg = '意外错误', $errorCode = 1): JsonResponse
  */
 class JsonResponseFacade extends Facade
 {

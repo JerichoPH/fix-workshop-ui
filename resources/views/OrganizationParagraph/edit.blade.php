@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ url('web.OrganizationParagraph:Index') }}"><i class="fa fa-users">&nbsp;</i>站段管理</a></li>
+            <li><a href="{{ url('web.OrganizationParagraph:index') }}"><i class="fa fa-users">&nbsp;</i>站段管理</a></li>
             <li class="active">编辑</li>
         </ol>
     </section>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationParagraph:Index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.OrganizationParagraph:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
@@ -117,12 +117,12 @@
          */
         function fnFillSelOrganizationRailway(organizationRailwayUUID = "") {
             $.ajax({
-                url: `{{ route("web.OrganizationRailway:Index") }}`,
+                url: `{{ route("web.OrganizationRailway:index") }}`,
                 type: 'get',
                 data: {be_enable: 1,},
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
+                    console.log(`{{ route("web.OrganizationRailway:index") }} success:`, res);
 
                     let {organization_railways: organizationRailways,} = res["content"];
                     $selOrganizationRailway.empty();
@@ -134,7 +134,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.OrganizationRailway:Index") }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationRailway:index") }} fail:`, err);
                     if (err.status === 401) location.href = "{{ url('login') }}";
                     alert(err['responseJSON']['msg']);
                 }
@@ -172,7 +172,7 @@
                         layer.alert(err["responseJSON"]["msg"], {icon: 2,});
                     } else {
                         layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:GetLogin") }}";
+                            if (err["status"] === 401) location.href = "{{ route("web.Authorization:getLogin") }}";
                         });
                     }
                 }

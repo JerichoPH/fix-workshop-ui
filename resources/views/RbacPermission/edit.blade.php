@@ -93,7 +93,7 @@
                 error: err => {
                     console.log(`{{ route("web.RbacPermission:Show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
                 },
             });
@@ -104,12 +104,12 @@
          */
         function fnFillSelRbacPermissionGroup(uuid = "") {
             $.ajax({
-                url: `{{ route("web.RbacPermissionGroup:Index") }}`,
+                url: `{{ route("web.RbacPermissionGroup:index") }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.RbacPermissionGroup:Index") }} success:`, res);
+                    console.log(`{{ route("web.RbacPermissionGroup:index") }} success:`, res);
 
                     let {rbac_permission_groups: rbacPermissionGroups,} = res["content"];
 
@@ -122,9 +122,9 @@
                     }
                 },
                 error: err => {
-                    console.log(`{{ route("web.RbacPermissionGroup:Index") }} fail:`, err);
+                    console.log(`{{ route("web.RbacPermissionGroup:index") }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
                 },
             });
@@ -170,7 +170,7 @@
                     console.log(`{{ route('web.RbacPermission:Update', ['uuid' => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 }
             });
@@ -178,7 +178,7 @@
 
         function fnToIndex() {
             let queries = $.param({rbac_permission_group_uuid: $selRbacPermissionGroup.val()});
-            location.href = `{{ route("web.RbacPermission:Index") }}?${queries}`;
+            location.href = `{{ route("web.RbacPermission:index") }}?${queries}`;
         }
     </script>
 @endsection

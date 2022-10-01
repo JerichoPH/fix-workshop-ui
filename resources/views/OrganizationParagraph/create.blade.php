@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.OrganizationParagraph:Index') }}"><i class="fa fa-users">&nbsp;</i>站段-列表</a></li>
+            <li><a href="{{ route('web.OrganizationParagraph:index') }}"><i class="fa fa-users">&nbsp;</i>站段-列表</a></li>
             <li class="active">站段-新建</li>
         </ol>
     </section>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.OrganizationParagraph:Index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.OrganizationParagraph:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>
@@ -83,12 +83,12 @@
          */
         function fnFillOrganizationRailway() {
             $.ajax({
-                url: `{{ route("web.OrganizationRailway:Index") }}`,
+                url: `{{ route("web.OrganizationRailway:index") }}`,
                 type: 'get',
                 data: {be_enable: 1,},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.OrganizationRailway:Index") }} success:`, res);
+                    console.log(`{{ route("web.OrganizationRailway:index") }} success:`, res);
 
                     let {organization_railways: organizationRailways,} = res["content"];
 
@@ -102,12 +102,12 @@
                     }
                 },
                 error: err => {
-                    console.log(`{{ route("web.OrganizationRailway:Index") }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationRailway:index") }} fail:`, err);
                     if (err["status"] === 406) {
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,});
                     } else {
                         layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     }
                 },
@@ -128,24 +128,24 @@
             let data = $frmStore.serializeArray();
 
             $.ajax({
-                url: '{{ route('web.OrganizationParagraph:Store') }}',
+                url: '{{ route('web.OrganizationParagraph:store') }}',
                 type: 'post',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationParagraph:Store') }} success:`, res);
+                    console.log(`{{ route('web.OrganizationParagraph:store') }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,}, function () {
                         location.reload();
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationParagraph:Store') }} fail:`, err);
+                    console.log(`{{ route('web.OrganizationParagraph:store') }} fail:`, err);
                     layer.close(loading);
                     if (err["status"] === 406) {
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,});
                     } else {
                         layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     }
                 }

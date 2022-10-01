@@ -22,18 +22,18 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("rbacPermissionGroup") : view("RbacPermissionGroup.index");
+        return request()->ajax() ? $this->sendStandardRequest('rbacPermissionGroup') : view('RbacPermissionGroup.index');
     }
 
     /**
      * 创建权限分组页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("RbacPermissionGroup.create");
+        return view('RbacPermissionGroup.create');
     }
 
     /**
@@ -45,9 +45,9 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Store(Request $request)
+    public function store(Request $request)
     {
-        return $this->sendStandardRequest("rbacPermissionGroup");
+        return $this->sendStandardRequest('rbacPermissionGroup');
     }
 
     /**
@@ -57,10 +57,10 @@ class RbacPermissionGroupController extends Controller
      * @throws ForbiddenException
      * @throws UnAuthorizationException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
+            return $this->sendStandardRequest('rbacPermissionGroup/$uuid');
         }
         return null;
     }
@@ -70,9 +70,9 @@ class RbacPermissionGroupController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("RbacPermissionGroup.edit", ["uuid" => $uuid]);
+        return view('RbacPermissionGroup.edit', ['uuid' => $uuid]);
     }
 
     /**
@@ -84,9 +84,9 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
-        return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
+        return $this->sendStandardRequest('rbacPermissionGroup/$uuid');
     }
 
     /**
@@ -98,8 +98,8 @@ class RbacPermissionGroupController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
+        return $this->sendStandardRequest('rbacPermissionGroup/$uuid');
     }
 }

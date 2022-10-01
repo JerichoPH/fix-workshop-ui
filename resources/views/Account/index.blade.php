@@ -18,7 +18,7 @@
                 <h3 class="box-title">用户-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.Account:Create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.Account:create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
@@ -57,9 +57,9 @@
             if (document.getElementById('tblAccount')) {
                 tblAccount = $('#tblAccount').DataTable({
                     ajax: {
-                        url: `{{ route("web.Account:Index") }}`,
+                        url: `{{ route("web.Account:index") }}`,
                         dataSrc(res) {
-                            console.log(`{{ route("web.Account:Index") }} success:`, res);
+                            console.log(`{{ route("web.Account:index") }} success:`, res);
                             let {accounts,} = res['content'];
                             let render = [];
                             if (accounts.length > 0) {
@@ -75,7 +75,7 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ route("web.Account:Index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.Account:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
@@ -97,9 +97,9 @@
                             return render;
                         },
                         error(err) {
-                            console.log(`{{ route("web.Account:Index") }} fail:`, err);
+                            console.log(`{{ route("web.Account:index") }} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                                if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                                if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                             });
                         },
                     },
@@ -155,24 +155,24 @@
 
                 let loading = layer.msg('处理中……', {time: 0,});
                 $.ajax({
-                    url: `{{ route("web.Account:Index") }}/${uuid}`,
+                    url: `{{ route("web.Account:index") }}/${uuid}`,
                     type: 'delete',
                     data: {},
                     async: true,
                     beforeSend() {
                     },
                     success(res) {
-                        console.log(`{{ route("web.Account:Index") }}/${uuid} success:`, res);
+                        console.log(`{{ route("web.Account:index") }}/${uuid} success:`, res);
                         layer.close(loading);
                         layer.msg(res['msg'], {time: 1000,}, function () {
                             tblAccount.ajax.reload();
                         });
                     },
                     error(err) {
-                        console.log(`{{ route("web.Account:Index") }}/${uuid} fail:`, err);
+                        console.log(`{{ route("web.Account:index") }}/${uuid} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     },
                     complete() {

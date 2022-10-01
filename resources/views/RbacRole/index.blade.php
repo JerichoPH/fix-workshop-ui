@@ -18,7 +18,7 @@
                 <h3 class="box-title">角色-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.RbacRole:Create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.RbacRole:create', []) }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
@@ -51,9 +51,9 @@
             if (document.getElementById('tblRbacRole')) {
                 tblRbacRole = $('#tblRbacRole').DataTable({
                     ajax: {
-                        url: `{{ route("web.RbacRole:Index") }}`,
+                        url: `{{ route("web.RbacRole:index") }}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.RbacRole:Index") }} success:`, res);
+                            console.log(`{{ route("web.RbacRole:index") }} success:`, res);
                             let {rbac_roles: rbacRoles,} = res['content'];
                             let render = [];
                             if (rbacRoles.length > 0) {
@@ -82,9 +82,9 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.RbacRole:Index") }} fail:`, err);
+                            console.log(`{{ route("web.RbacRole:index") }} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                         },
                     },
@@ -152,7 +152,7 @@
                         console.log(`{{ url("rbacRole") }}/${uuid} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });
                     },
                 });

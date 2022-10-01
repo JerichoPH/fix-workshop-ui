@@ -12,7 +12,7 @@ class JsonResponseService
      * @param array $data
      * @return JsonResponse
      */
-    final public static function Dump(...$data): JsonResponse
+    final public static function dump(...$data): JsonResponse
     {
         return response()->json([
             "msg" => "dump response",
@@ -30,7 +30,7 @@ class JsonResponseService
      * @param ...$details
      * @return JsonResponse
      */
-    final public function Ok($content = null, $pagination = null, string $msg = "OK", ...$details): JsonResponse
+    final public function ok($content = null, $pagination = null, string $msg = "OK", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -49,7 +49,7 @@ class JsonResponseService
      * @param ...$details
      * @return JsonResponse
      */
-    final public static function Created($content = null, string $msg = "新建成功", ...$details): JsonResponse
+    final public static function created($content = null, string $msg = "新建成功", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -67,7 +67,7 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function Updated($data = null, string $msg = "编辑成功", ...$details): JsonResponse
+    final public static function updated($data = null, string $msg = "编辑成功", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -85,7 +85,7 @@ class JsonResponseService
      * @param ...$details
      * @return JsonResponse
      */
-    final public static function Deleted($data = null, string $msg = "删除成功", ...$details): JsonResponse
+    final public static function deleted($data = null, string $msg = "删除成功", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -102,7 +102,7 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function WrongEmpty(string $msg = "数据不存在", ...$details): JsonResponse
+    final public static function wrongEmpty(string $msg = "数据不存在", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -120,7 +120,7 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function WrongForbidden(string $msg, ...$details): JsonResponse
+    final public static function wrongForbidden(string $msg, ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -138,7 +138,7 @@ class JsonResponseService
      * @param ...$details
      * @return JsonResponse
      */
-    final public static function WrongUnLogin(string $msg = "未登录", ...$details): JsonResponse
+    final public static function wrongUnLogin(string $msg = "未登录", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -156,7 +156,7 @@ class JsonResponseService
      * @param array $details
      * @return JsonResponse
      */
-    final public static function WrongUnauthorized(string $msg = "未授权", ...$details): JsonResponse
+    final public static function wrongUnauthorized(string $msg = "未授权", ...$details): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -173,7 +173,7 @@ class JsonResponseService
      * @param string $msg
      * @return JsonResponse
      */
-    final public static function WrongValidate(string $msg): JsonResponse
+    final public static function wrongValidate(string $msg): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -191,7 +191,7 @@ class JsonResponseService
      * @param Throwable|null $e
      * @return JsonResponse
      */
-    final public static function WrongCustom(string $msg = "意外错误", int $errorCode = 5, Throwable $e = null): JsonResponse
+    final public static function wrongCustom(string $msg = "意外错误", int $errorCode = 5, Throwable $e = null): JsonResponse
     {
         return response()->json([
             "msg" => $msg,
@@ -215,7 +215,7 @@ class JsonResponseService
      * @param int $errorCode
      * @return JsonResponse
      */
-    final public static function WrongException(Throwable $e, string $msg = "意外错误", int $errorCode = 6): JsonResponse
+    final public static function wrongException(Throwable $e, string $msg = "意外错误", int $errorCode = 6): JsonResponse
     {
         return response()->json([
             "msg" => $msg,

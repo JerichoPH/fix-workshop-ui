@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.RbacPermissionGroup:Index', []) }}"><i class="fa fa-users">&nbsp;</i>权限分组-列表</a></li>
+            <li><a href="{{ route('web.RbacPermissionGroup:index', []) }}"><i class="fa fa-users">&nbsp;</i>权限分组-列表</a></li>
             <li class="active">权限分组-编辑</li>
         </ol>
     </section>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.RbacPermissionGroup:Index', []) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.RbacPermissionGroup:index', []) }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
@@ -66,7 +66,7 @@
                 error: err => {
                     console.log(`{{ route("web.RbacPermissionGroup:Show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = `{{ route("web.Authorization:GetLogin") }}`;
+                        if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
                 },
             });
@@ -98,7 +98,7 @@
                     console.log(`{{ route('web.RbacPermissionGroup:Update', ['uuid' => $uuid ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
-                        if (err.status === 401) location.href = '{{ route('web.Authorization:GetLogin') }}';
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
                 }
             });

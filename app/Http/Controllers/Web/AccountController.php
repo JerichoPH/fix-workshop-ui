@@ -23,18 +23,18 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Index()
+    public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest("account") : view("Account.index");
+        return request()->ajax() ? $this->sendStandardRequest('account') : view('Account.index');
     }
 
     /**
      * 新建用户页面
      * @return Factory|Application|View
      */
-    public function Create()
+    public function create()
     {
-        return view("Account.create");
+        return view('Account.create');
     }
 
     /**
@@ -45,9 +45,9 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Store()
+    public function store()
     {
-        return $this->sendStandardRequest("account");
+        return $this->sendStandardRequest('account');
     }
 
     /**
@@ -59,10 +59,10 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Show(string $uuid)
+    public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest("account/$uuid");
+            return $this->sendStandardRequest('account/$uuid');
         }
         return null;
     }
@@ -72,9 +72,9 @@ class AccountController extends Controller
      * @param string $uuid
      * @return Factory|Application|View
      */
-    public function Edit(string $uuid)
+    public function edit(string $uuid)
     {
-        return view("Account.edit", ["uuid" => $uuid,]);
+        return view('Account.edit', ['uuid' => $uuid,]);
     }
 
     /**
@@ -86,9 +86,9 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Update(string $uuid)
+    public function update(string $uuid)
     {
-        return $this->sendStandardRequest("account/$uuid");
+        return $this->sendStandardRequest('account/$uuid');
     }
 
     /**
@@ -100,9 +100,9 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function UpdatePassword(string $uuid)
+    public function updatePassword(string $uuid)
     {
-        return $this->sendStandardRequest("account/$uuid/updatePassword");
+        return $this->sendStandardRequest('account/$uuid/updatePassword');
     }
 
     /**
@@ -114,8 +114,8 @@ class AccountController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function Destroy(string $uuid)
+    public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("account/{$uuid}");
+        return $this->sendStandardRequest('account/{$uuid}');
     }
 }
