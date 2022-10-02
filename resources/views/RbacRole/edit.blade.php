@@ -54,17 +54,17 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.RbacRole:show", ["uuid" => $uuid]) }}`,
                 type: 'get',
                 data: {},
                 async: false,
                 success: res => {
-                    console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} success:`, res);
+                    console.log(`{{ route("web.RbacRole:show", ["uuid" => $uuid]) }} success:`, res);
                     rbacRole = res["content"]["rbac_role"];
                     $txtName.val(rbacRole["name"]);
                 },
                 error: err => {
-                    console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    console.log(`{{ route("web.RbacRole:show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });

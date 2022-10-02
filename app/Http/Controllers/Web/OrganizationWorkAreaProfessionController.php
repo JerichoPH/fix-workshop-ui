@@ -60,7 +60,7 @@ class OrganizationWorkAreaProfessionController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkAreaProfession/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkAreaProfession/$uuid");
     }
 
     /**
@@ -84,7 +84,7 @@ class OrganizationWorkAreaProfessionController extends Controller
      */
     public function update(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkAreaProfession/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkAreaProfession/$uuid");
     }
 
     /**
@@ -98,6 +98,6 @@ class OrganizationWorkAreaProfessionController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkAreaProfession/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkAreaProfession/$uuid");
     }
 }

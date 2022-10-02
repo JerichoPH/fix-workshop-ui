@@ -67,7 +67,7 @@ class OrganizationRailwayController extends Controller
     public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest('organizationRailway/{$uuid}');
+            return $this->sendStandardRequest("organizationRailway/$uuid");
         }
         return JsonResponseFacade::ok();
     }
@@ -92,7 +92,7 @@ class OrganizationRailwayController extends Controller
     public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            'organizationRailway/{$uuid}',
+            "organizationRailway/$uuid",
             function (Request $request) {
                 $request = $request->all();
                 $request['be_enable'] = boolval($request['be_enable']);
@@ -110,7 +110,7 @@ class OrganizationRailwayController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('organizationRailway/{$uuid}');
+        return $this->sendStandardRequest("organizationRailway/$uuid");
     }
 
     /**
@@ -124,6 +124,6 @@ class OrganizationRailwayController extends Controller
      */
     public function putBindLocationLines(string $uuid)
     {
-        return $this->sendStandardRequest('organizationRailway/{$uuid}/bindLocationLines');
+        return $this->sendStandardRequest("organizationRailway/$uuid/bindLocationLines");
     }
 }

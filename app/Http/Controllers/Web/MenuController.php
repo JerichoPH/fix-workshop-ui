@@ -60,7 +60,7 @@ class MenuController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('menu/$uuid');
+        return $this->sendStandardRequest("menu/$uuid");
     }
 
     /**
@@ -84,7 +84,7 @@ class MenuController extends Controller
      */
     public function update(string $uuid)
     {
-        return $this->sendStandardRequest('menu/$uuid');
+        return $this->sendStandardRequest("menu/$uuid");
     }
 
     /**
@@ -96,6 +96,6 @@ class MenuController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('menu/$uuid');
+        return $this->sendStandardRequest("menu/$uuid");
     }
 }

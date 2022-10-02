@@ -136,14 +136,14 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.LocationSection:Show", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.LocationSection:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 beforeSend: function () {
                 },
                 success: function (res) {
-                    console.log(`{{ route("web.LocationSection:Show", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.LocationSection:show", ["uuid" => $uuid,]) }} success:`, res);
 
                     locationSection = res["content"]["location_section"];
 
@@ -166,7 +166,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.LocationSection:Show", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.LocationSection:show", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });

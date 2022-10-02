@@ -59,7 +59,7 @@ class PositionDepotStorehouseController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('positionDepotStorehouse/{$uuid}');
+        return $this->sendStandardRequest("positionDepotStorehouse/$uuid");
     }
 
     /**
@@ -83,7 +83,7 @@ class PositionDepotStorehouseController extends Controller
      */
     public function update(string $uuid)
     {
-        return $this->sendStandardRequest('positionDepotStorehouse/{$uuid}');
+        return $this->sendStandardRequest("positionDepotStorehouse/$uuid");
     }
 
     /**
@@ -97,6 +97,6 @@ class PositionDepotStorehouseController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('positionDepotStorehouse/{$uuid}');
+        return $this->sendStandardRequest("positionDepotStorehouse/$uuid");
     }
 }

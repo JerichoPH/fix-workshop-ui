@@ -61,12 +61,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.OrganizationWorkAreaProfession:Show", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.OrganizationWorkAreaProfession:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.OrganizationWorkAreaProfession:Show", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.OrganizationWorkAreaProfession:show", ["uuid" => $uuid,]) }} success:`, res);
 
                     organizationWorkAreaProfession = res["content"]["organization_work_area_profession"];
 
@@ -74,7 +74,7 @@
                     $txtName.val(organizationWorkAreaProfession["name"]);
                 },
                 error: err => {
-                    console.log(`{{ route("web.OrganizationWorkAreaProfession:Show", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationWorkAreaProfession:show", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });

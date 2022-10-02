@@ -67,7 +67,7 @@ class LocationLineController extends Controller
     public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest('locationLine/{$uuid}');
+            return $this->sendStandardRequest("locationLine/$uuid");
         }
         return JsonResponseFacade::ok();
     }
@@ -94,7 +94,7 @@ class LocationLineController extends Controller
     public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            'locationLine/{$uuid}',
+            "locationLine/$uuid",
             function (Request $request) {
                 $request = $request->all();
                 $request['be_enable'] = boolval($request['be_enable']);
@@ -114,7 +114,7 @@ class LocationLineController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('locationLine/{$uuid}');
+        return $this->sendStandardRequest("locationLine/$uuid");
     }
 
     /**
@@ -128,6 +128,6 @@ class LocationLineController extends Controller
      */
     public function putBindOrganizationRailways(string $uuid)
     {
-        return $this->sendStandardRequest('locationLine/{$uuid}/bindOrganizationRailways');
+        return $this->sendStandardRequest("locationLine/$uuid/bindOrganizationRailways");
     }
 }

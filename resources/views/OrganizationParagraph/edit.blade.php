@@ -86,12 +86,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.OrganizationParagraph:Show", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.OrganizationParagraph:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.OrganizationParagraph:Show", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.OrganizationParagraph:show", ["uuid" => $uuid,]) }} success:`, res);
 
                     organizationParagraph = res["content"]["organization_paragraph"];
 
@@ -105,7 +105,7 @@
                     fnFillSelOrganizationRailway(organizationParagraph["organization_railway_uuid"]);  // 初始化路局下拉菜单
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.OrganizationParagraph:Show", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationParagraph:show", ["uuid" => $uuid,]) }} fail:`, err);
                     if (err.status === 401) location.href = "{{ url('login') }}";
                     alert(err['responseJSON']['msg']);
                 }

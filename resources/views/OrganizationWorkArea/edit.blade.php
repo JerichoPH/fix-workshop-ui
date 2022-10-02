@@ -112,12 +112,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.OrganizationWorkArea:Show", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.OrganizationWorkArea:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.OrganizationWorkArea:Show", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.OrganizationWorkArea:show", ["uuid" => $uuid,]) }} success:`, res);
 
                     organizationWorkArea = res["content"]["organization_work_area"];
 
@@ -133,7 +133,7 @@
                     fnFillSelOrganizationWorkAreaProfession(organizationWorkArea["organization_work_area_profession"]["uuid"]);
                 },
                 error: err => {
-                    console.log(`{{ route("web.OrganizationWorkArea:Show", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationWorkArea:show", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });

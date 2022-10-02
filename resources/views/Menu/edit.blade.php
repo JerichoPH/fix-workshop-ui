@@ -94,12 +94,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.Menu:Show", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.Menu:show", ["uuid" => $uuid]) }}`,
                 type: 'get',
                 data: {},
                 async: false,
                 success: function (res) {
-                    console.log(`{{ route("web.Menu:Show", ["uuid" => $uuid]) }} success:`, res);
+                    console.log(`{{ route("web.Menu:show", ["uuid" => $uuid]) }} success:`, res);
 
                     menu = res["content"]["menu"];
                     $txtName.val(menu["name"]);
@@ -111,7 +111,7 @@
                     fnFillSelRbacRoles();  // 填充角色下拉列表
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.Menu:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    console.log(`{{ route("web.Menu:show", ["uuid" => $uuid]) }} fail:`, err);
                     if (err.status === 401) location.href = "{{ url('login') }}";
                     alert(err['responseJSON']['msg']);
                 }

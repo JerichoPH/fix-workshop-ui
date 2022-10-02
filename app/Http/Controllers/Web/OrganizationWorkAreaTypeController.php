@@ -59,7 +59,7 @@ class OrganizationWorkAreaTypeController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkAreaType/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkAreaType/$uuid");
     }
 
     /**
@@ -83,7 +83,7 @@ class OrganizationWorkAreaTypeController extends Controller
      */
     public function update(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkAreaType/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkAreaType/$uuid");
     }
 
     /**
@@ -97,6 +97,6 @@ class OrganizationWorkAreaTypeController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkAreaType/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkAreaType/$uuid");
     }
 }

@@ -127,14 +127,14 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.Account:Show", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.Account:show", ["uuid" => $uuid]) }}`,
                 type: 'get',
                 data: {},
                 async: false,
                 beforeSend() {
                 },
                 success(res) {
-                    console.log(`{{ route("web.Account:Show", ["uuid" => $uuid]) }} success:`, res);
+                    console.log(`{{ route("web.Account:show", ["uuid" => $uuid]) }} success:`, res);
 
                     account = res["content"]["account"];
 
@@ -142,7 +142,7 @@
                     $txtNickname.val(account["nickname"]);
                 },
                 error(err) {
-                    console.log(`{{ route("web.Account:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    console.log(`{{ route("web.Account:show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });

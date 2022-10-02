@@ -136,14 +136,14 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.LocationRailroadGradeCross:Show", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.LocationRailroadGradeCross:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 beforeSend: function () {
                 },
                 success: function (res) {
-                    console.log(`{{ route("web.LocationRailroadGradeCross:Show", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.LocationRailroadGradeCross:show", ["uuid" => $uuid,]) }} success:`, res);
 
                     locationRailroadGradeCross = res["content"]["location_railroad_grade_cross"];
 
@@ -166,7 +166,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.LocationRailroadGradeCross:Show", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.LocationRailroadGradeCross:show", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });

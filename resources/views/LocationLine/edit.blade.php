@@ -81,12 +81,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }}`,
+                url: `{{ route("web.LocationLine:show", ["uuid" => $uuid, ]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route("web.LocationLine:show", ["uuid" => $uuid, ]) }} success:`, res);
 
                     locationLine = res["content"]["location_line"];
 
@@ -102,7 +102,7 @@
                     $txtName.focus();
                 },
                 error: err => {
-                    console.log(`{{ route("web.LocationLine:Show", ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route("web.LocationLine:show", ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });

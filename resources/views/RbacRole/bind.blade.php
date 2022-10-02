@@ -51,7 +51,7 @@
                                     <div class="input-group-addon">权限分组</div>
                                     <select name="rbac_permission_group_uuid" id="selRbacPermissionGroup" class="select2 form-control" style="width: 100%;" onchange="fnFillTblPermission(this.value)"></select>
                                     <div class="input-group-btn">
-                                        <a href="javascript:" class="btn btn-primary" onclick="fnBindPermissions()"><i class="fa fa-link">&nbsp;</i>绑定权限</a>
+                                        <a href="javascript:" class="btn btn-primary" onclick="fnBindRbacPermissionsByRbacPermissionGroup()"><i class="fa fa-link">&nbsp;</i>绑定权限</a>
                                     </div>
                                 </div>
                             </div>
@@ -92,12 +92,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.RbacRole:show", ["uuid" => $uuid]) }}`,
                 type: 'get',
                 data: {},
                 async: false,
                 success: res => {
-                    console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} success:`, res);
+                    console.log(`{{ route("web.RbacRole:show", ["uuid" => $uuid]) }} success:`, res);
 
                     rbacRole = res["content"]["rbac_role"];
 
@@ -115,7 +115,7 @@
                     }
                 },
                 error: err => {
-                    console.log(`{{ route("web.RbacRole:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    console.log(`{{ route("web.RbacRole:show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
@@ -156,8 +156,8 @@
                         error: function (err) {
                             console.log(`{{ route("web.Account:index") }} fail:`, err);
                             if (err["status"] === 406) {
-                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
-                            }else{
+                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                            } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
                                     if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                                 });
@@ -258,8 +258,8 @@
                         error: function (err) {
                             console.log(`{{ route("web.RbacPermission:index") }}?rbac_permission_group_uuid=${rbacPermissionGroupUUID} fail:`, err);
                             if (err["status"] === 406) {
-                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
-                            }else{
+                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                            } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
                                     if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                                 });
@@ -347,27 +347,31 @@
         /**
          * 绑定权限
          */
-        function fnBindPermissions() {
-            let rbacPermissionUUIDs = [];
+        function fnBindRbacPermissionsByRbacPermissionGroup() {
+            let rbacPermissionUuids = [];
+            let rbacPermissionGroupUuid = $selRbacPermissionGroup.val();
+
             $(`.rbac-permission-uuid:checked`).each(function (_, datum) {
-                rbacPermissionUUIDs.push(datum.value);
+                rbacPermissionUuids.push(datum.value);
             });
 
-            if (rbacPermissionUUIDs.length > 0) {
+            if (rbacPermissionUuids.length > 0 && rbacPermissionGroupUuid !== "") {
                 let loading = layer.msg('处理中……', {time: 0,});
                 $.ajax({
-                    url: `{{ route("web.RbacRole:putBindPermissions", ["uuid" => $uuid]) }}`,
+                    url: `{{ route("web.RbacRole:putBindRbacPermissionsByRbacPermissionGroup", ["uuid" => $uuid]) }}`,
                     type: 'put',
-                    data: {rbac_permission_uuids: rbacPermissionUUIDs,},
+                    data: {
+                        rbac_permission_uuids: rbacPermissionUuids,
+                        rbac_permission_group_uuid: rbacPermissionGroupUuid,
+                    },
                     async: true,
                     success: res => {
-                        console.log(`{{ route("web.RbacRole:putBindPermissions", ["uuid" => $uuid]) }} success:`, res);
+                        console.log(`{{ route("web.RbacRole:putBindRbacPermissionsByRbacPermissionGroup", ["uuid" => $uuid]) }} success:`, res);
                         layer.close(loading);
-                        layer.msg(res['msg'], {time: 1000,}, function () {
-                        });
+                        layer.msg(res['msg'], {time: 1000,});
                     },
                     error: err => {
-                        console.log(`{{ route("web.RbacRole:putBindPermissions", ["uuid" => $uuid]) }} fail:`, err);
+                        console.log(`{{ route("web.RbacRole:putBindRbacPermissionsByRbacPermissionGroup", ["uuid" => $uuid]) }} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"], {time: 1500,}, () => {
                             if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;

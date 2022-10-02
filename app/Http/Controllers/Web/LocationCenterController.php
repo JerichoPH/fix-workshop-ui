@@ -67,7 +67,7 @@ class LocationCenterController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('locationCenter/{$uuid}');
+        return $this->sendStandardRequest("locationCenter/$uuid");
     }
 
     /**
@@ -92,7 +92,7 @@ class LocationCenterController extends Controller
     public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            'locationCenter/{$uuid}',
+            "locationCenter/$uuid",
             function (Request $request) {
                 $request = $request->all();
                 $request['be_enable'] = boolval($request['be_enable']);
@@ -112,7 +112,7 @@ class LocationCenterController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('locationCenter/{$uuid}');
+        return $this->sendStandardRequest("locationCenter/$uuid");
     }
 
     /**
@@ -126,6 +126,6 @@ class LocationCenterController extends Controller
      */
     public function putBindLocationLines(string $uuid)
     {
-        return $this->sendStandardRequest('locationCenter/{$uuid}/bindLocationLines');
+        return $this->sendStandardRequest("locationCenter/$uuid/bindLocationLines");
     }
 }

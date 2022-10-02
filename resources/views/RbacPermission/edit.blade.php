@@ -76,12 +76,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.RbacPermission:Show", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.RbacPermission:show", ["uuid" => $uuid]) }}`,
                 type: 'get',
                 data: {},
                 async: false,
                 success: res => {
-                    console.log(`{{ route("web.RbacPermission:Show", ["uuid" => $uuid]) }} success:`, res);
+                    console.log(`{{ route("web.RbacPermission:show", ["uuid" => $uuid]) }} success:`, res);
 
                     rbacPermission = res["content"]["rbac_permission"];
 
@@ -91,7 +91,7 @@
                     fnFillSelMethod(rbacPermission["method"]);  // 填充访问方法下拉列表
                 },
                 error: err => {
-                    console.log(`{{ route("web.RbacPermission:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    console.log(`{{ route("web.RbacPermission:show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });

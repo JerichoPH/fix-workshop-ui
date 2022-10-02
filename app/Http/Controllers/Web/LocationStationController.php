@@ -67,7 +67,7 @@ class LocationStationController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('locationStation/{$uuid}');
+        return $this->sendStandardRequest("locationStation/$uuid");
     }
 
     /**
@@ -92,7 +92,7 @@ class LocationStationController extends Controller
     public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            'locationStation/{$uuid}',
+            "locationStation/$uuid",
             function (Request $request) {
                 $request = $request->all();
                 $request['be_enable'] = boolval($request['be_enable']);
@@ -112,7 +112,7 @@ class LocationStationController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('locationStation/{$uuid}');
+        return $this->sendStandardRequest("locationStation/$uuid");
     }
 
     /**
@@ -124,6 +124,6 @@ class LocationStationController extends Controller
      */
     public function putBindLocationLines(string $uuid)
     {
-        return $this->sendStandardRequest('locationStation/{$uuid}/bindLocationLines');
+        return $this->sendStandardRequest("locationStation/$uuid/bindLocationLines");
     }
 }

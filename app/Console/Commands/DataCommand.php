@@ -98,16 +98,6 @@ class DataCommand extends Command
         });
 
         $this->line("初始化数据开始");
-        // 注册用户
-        $account = Account::with([])
-            ->create([
-                "uuid" => Str::uuid(),
-                "username" => "admin",
-                "password" => bcrypt("zces@1234"),
-                "nickname" => "admin",
-                "be_super_admin" => true,
-            ]);
-        $this->comment("创建用户：$account->nickname");
 
         // 创建角色
         $rbacRole = RbacRole::with([])
@@ -117,12 +107,21 @@ class DataCommand extends Command
             ]);
         $this->comment("创建角色：$rbacRole->name");
 
-        // 创建角色➡用户
+        // 创建用户（admin）
+        $accountAdmin = Account::with([])
+            ->create([
+                "uuid" => Str::uuid(),
+                "username" => "admin",
+                "password" => bcrypt("zces@1234"),
+                "nickname" => "Admin",
+                "be_super_admin" => true,
+            ]);
+        // 创建角色→用户
         DB::table("pivot_rbac_role_and_accounts")->insert([
             "rbac_role_id" => $rbacRole->id,
-            "account_id" => $account->id,
+            "account_id" => $accountAdmin->id,
         ]);
-        $this->comment("角色绑定用户：$account->nickname ➡ $rbacRole->id");
+        $this->comment("角色绑定用户：$accountAdmin->nickname → $rbacRole->id");
 
         // 创建权限分组
         collect([
@@ -136,6 +135,10 @@ class DataCommand extends Command
                     ],
                     "角色绑定权限" => [
                         "uri" => "rbacRole/:uuid/bindPermissions",
+                        "method" => "PUT",
+                    ],
+                    "角色绑定权限（根据权限分组）" => [
+                        "uri" => "rbacRole/:uuid/bindRbacPermissionsByRbacPermissionGroup",
                         "method" => "PUT",
                     ],
                 ],
@@ -380,7 +383,7 @@ class DataCommand extends Command
                     "menu_id" => $newMenu1->id,
                     "rbac_role_id" => $rbacRole->id,
                 ]);
-                $this->comment("角色绑定菜单：$rbacRole->name ➡ $newMenu1->name");
+                $this->comment("角色绑定菜单：$rbacRole->name → $newMenu1->name");
 
                 collect($menu1["subs"])->each(function ($menu2) use ($newMenu1, $rbacRole) {
                     $newMenu2 = Menu::with([])
@@ -392,12 +395,12 @@ class DataCommand extends Command
                             "parent_uuid" => $newMenu1->uuid,
                             "icon" => $menu2["icon"],
                         ]);
-                    $this->comment("创建菜单：$newMenu1->name ➡ $newMenu2->name");
+                    $this->comment("创建菜单：$newMenu1->name → $newMenu2->name");
                     DB::table("pivot_rbac_role_and_menus")->insert([
                         "menu_id" => $newMenu2->id,
                         "rbac_role_id" => $rbacRole->id,
                     ]);
-                    $this->comment("角色绑定菜单：$rbacRole->name ➡ $newMenu1->name($newMenu2->name)");
+                    $this->comment("角色绑定菜单：$rbacRole->name → $newMenu1->name($newMenu2->name)");
                 });
             });
 
@@ -902,13 +905,13 @@ class DataCommand extends Command
                         "method" => $datum["method"],
                         "rbac_permission_group_uuid" => $rbacPermissionGroup->uuid,
                     ]);
-                $this->comment("创建权限：$rbacPermissionGroup->name ➡ $rbacPermission->name");
-                // 创建角色➡权限
+                $this->comment("创建权限：$rbacPermissionGroup->name → $rbacPermission->name");
+                // 创建角色→权限
                 DB::table("pivot_rbac_role_and_rbac_permissions")->insert([
                     "rbac_permission_id" => $rbacPermission->id,
                     "rbac_role_id" => $rbacRole->id,
                 ]);
-                $this->comment("角色绑定权限：$rbacRole->name ➡ $rbacPermissionGroup->name($rbacPermission->name)");
+                $this->comment("角色绑定权限：$rbacRole->name → $rbacPermissionGroup->name($rbacPermission->name)");
             });
 
         return $rbacPermissionGroup;

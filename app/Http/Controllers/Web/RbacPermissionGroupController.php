@@ -60,7 +60,7 @@ class RbacPermissionGroupController extends Controller
     public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest('rbacPermissionGroup/$uuid');
+            return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
         }
         return null;
     }
@@ -86,7 +86,7 @@ class RbacPermissionGroupController extends Controller
      */
     public function update(string $uuid)
     {
-        return $this->sendStandardRequest('rbacPermissionGroup/$uuid');
+        return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
     }
 
     /**
@@ -100,6 +100,6 @@ class RbacPermissionGroupController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('rbacPermissionGroup/$uuid');
+        return $this->sendStandardRequest("rbacPermissionGroup/$uuid");
     }
 }

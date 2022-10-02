@@ -67,7 +67,7 @@ class OrganizationWorkAreaController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkArea/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkArea/$uuid");
     }
 
     /**
@@ -92,7 +92,7 @@ class OrganizationWorkAreaController extends Controller
     public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            'organizationWorkArea/{$uuid}',
+            "organizationWorkArea/$uuid",
             function (Request $request) {
                 $request = $request->all();
                 $request['be_enable'] = boolval($request['be_enable']);
@@ -112,6 +112,6 @@ class OrganizationWorkAreaController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkArea/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkArea/$uuid");
     }
 }

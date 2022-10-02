@@ -66,7 +66,7 @@ class OrganizationParagraphController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('organizationParagraph/{$uuid}');
+        return $this->sendStandardRequest("organizationParagraph/$uuid");
     }
 
     /**
@@ -91,7 +91,7 @@ class OrganizationParagraphController extends Controller
     public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            'organizationParagraph/{$uuid}',
+            "organizationParagraph/$uuid",
             function (Request $request) {
                 $request = $request->all();
                 $request['be_enable'] = boolval($request['be_enable']);
@@ -109,6 +109,6 @@ class OrganizationParagraphController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('organizationParagraph/{$uuid}');
+        return $this->sendStandardRequest("organizationParagraph/$uuid");
     }
 }

@@ -52,19 +52,19 @@
         // 初始化数据
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.RbacPermissionGroup:Show", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.RbacPermissionGroup:show", ["uuid" => $uuid]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.RbacPermissionGroup:Show", ["uuid" => $uuid]) }} success:`, res);
+                    console.log(`{{ route("web.RbacPermissionGroup:show", ["uuid" => $uuid]) }} success:`, res);
 
                     rbacPermissionGroup = res["content"]["rbac_permission_group"];
 
                     $txtName.val(rbacPermissionGroup["name"]);
                 },
                 error: err => {
-                    console.log(`{{ route("web.RbacPermissionGroup:Show", ["uuid" => $uuid]) }} fail:`, err);
+                    console.log(`{{ route("web.RbacPermissionGroup:show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });

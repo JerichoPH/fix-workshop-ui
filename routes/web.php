@@ -62,7 +62,8 @@ Route::prefix('')
                 Route::delete('{uuid}', 'RbacRoleController@destroy')->name('destroy');  // 删除角色
                 Route::get('{uuid}/bind', 'RbacRoleController@getBind')->name('getBind');  // 角色绑定管理页面
                 Route::put('{uuid}/bindAccounts', 'RbacRoleController@putBindAccounts')->name('putBindAccounts'); // 角色绑定用户
-                Route::put('{uuid}/bindPermissions', 'RbacRoleController@putBindPermissions')->name('putBindPermissions'); // 角色绑定权限
+                Route::put('{uuid}/bindRbacPermissions', 'RbacRoleController@putBindRbacPermissions')->name('putBindRbacPermissions'); // 角色绑定权限
+                Route::put('{uuid}/bindRbacPermissionsByRbacPermissionGroup', 'RbacRoleController@putBindRbacPermissionsByRbacPermissionGroup')->name('putBindRbacPermissionsByRbacPermissionGroup'); // 角色绑定权限（根据权限分组）
             });
 
         // 权限分组

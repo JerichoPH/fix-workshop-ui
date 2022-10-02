@@ -59,7 +59,7 @@ class OrganizationWorkshopTypeController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkshopType/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkshopType/$uuid");
     }
 
     /**
@@ -83,7 +83,7 @@ class OrganizationWorkshopTypeController extends Controller
      */
     public function update(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkshopType/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkshopType/$uuid");
     }
 
     /**
@@ -97,6 +97,6 @@ class OrganizationWorkshopTypeController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('organizationWorkshopType/{$uuid}');
+        return $this->sendStandardRequest("organizationWorkshopType/$uuid");
     }
 }

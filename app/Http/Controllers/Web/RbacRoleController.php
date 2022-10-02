@@ -57,7 +57,7 @@ class RbacRoleController extends Controller
     public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest('rbacRole/$uuid');
+            return $this->sendStandardRequest("rbacRole/$uuid");
         }
         return null;
     }
@@ -83,7 +83,7 @@ class RbacRoleController extends Controller
      */
     public function update(string $uuid)
     {
-        return $this->sendStandardRequest('rbacRole/$uuid');
+        return $this->sendStandardRequest("rbacRole/$uuid");
     }
 
     /**
@@ -97,7 +97,7 @@ class RbacRoleController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('rbacRole/$uuid');
+        return $this->sendStandardRequest("rbacRole/$uuid");
     }
 
     /**
@@ -121,7 +121,7 @@ class RbacRoleController extends Controller
      */
     public function putBindAccounts(string $uuid)
     {
-        return $this->sendStandardRequest('rbacRole/{$uuid}/bindAccounts');
+        return $this->sendStandardRequest("rbacRole/$uuid/bindAccounts");
     }
 
     /**
@@ -133,8 +133,22 @@ class RbacRoleController extends Controller
      * @throws UnAuthorizationException
      * @throws UnLoginException
      */
-    public function putBindPermissions(string $uuid)
+    public function putBindRbacPermissions(string $uuid)
     {
-        return $this->sendStandardRequest('rbacRole/{$uuid}/bindPermissions');
+        return $this->sendStandardRequest("rbacRole/$uuid/bindRbacPermissions");
+    }
+
+    /**
+     * 绑定权限（根据权限分组）
+     * @param string $uuid
+     * @return mixed
+     * @throws EmptyException
+     * @throws ForbiddenException
+     * @throws UnAuthorizationException
+     * @throws UnLoginException
+     */
+    public function putBindRbacPermissionsByRbacPermissionGroup(string $uuid)
+    {
+        return $this->sendStandardRequest("rbacRole/$uuid/bindRbacPermissionsByRbacPermissionGroup");
     }
 }

@@ -99,12 +99,12 @@
          */
         function fnFillInit() {
             $.ajax({
-                url: `{{ route("web.OrganizationWorkshop:Show", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.OrganizationWorkshop:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: res => {
-                    console.log(`{{ route("web.OrganizationWorkshop:Show", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.OrganizationWorkshop:show", ["uuid" => $uuid,]) }} success:`, res);
 
                     organizationWorkshop = res["content"]["organization_workshop"];
                     $txtUniqueCode.val(organizationWorkshop["unique_code"]);
@@ -118,7 +118,7 @@
                     }
                 },
                 error: err => {
-                    console.log(`{{ route("web.OrganizationWorkshop:Show", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationWorkshop:show", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                             if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                         });

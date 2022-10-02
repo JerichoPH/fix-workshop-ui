@@ -62,7 +62,7 @@ class AccountController extends Controller
     public function show(string $uuid)
     {
         if (request()->ajax()) {
-            return $this->sendStandardRequest('account/$uuid');
+            return $this->sendStandardRequest("account/$uuid");
         }
         return null;
     }
@@ -88,7 +88,7 @@ class AccountController extends Controller
      */
     public function update(string $uuid)
     {
-        return $this->sendStandardRequest('account/$uuid');
+        return $this->sendStandardRequest("account/$uuid");
     }
 
     /**
@@ -102,7 +102,7 @@ class AccountController extends Controller
      */
     public function updatePassword(string $uuid)
     {
-        return $this->sendStandardRequest('account/$uuid/updatePassword');
+        return $this->sendStandardRequest("account/$uuid/updatePassword");
     }
 
     /**
@@ -116,6 +116,6 @@ class AccountController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest('account/{$uuid}');
+        return $this->sendStandardRequest("account/$uuid");
     }
 }

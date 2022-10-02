@@ -98,12 +98,12 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }}`,
+                url: `{{ route("web.OrganizationRailway:show", ["uuid" => $uuid, ]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 success: function (res) {
-                    console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route("web.OrganizationRailway:show", ["uuid" => $uuid, ]) }} success:`, res);
                     organizationRailway = res["content"]["organization_railway"];
 
                     let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable, location_lines: locationLines,} = organizationRailway;
@@ -122,7 +122,7 @@
                     $txtName.focus();
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.OrganizationRailway:Show", ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route("web.OrganizationRailway:show", ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
