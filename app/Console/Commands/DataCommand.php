@@ -14,6 +14,7 @@ use App\Models\OrganizationWorkshop;
 use App\Models\OrganizationWorkshopType;
 use App\Models\PivotRbacRoleAndAccount;
 use App\Models\PivotRbacRoleAndRbacPermission;
+use App\Models\PositionDepotRowType;
 use App\Models\RbacPermission;
 use App\Models\RbacPermissionGroup;
 use App\Models\RbacRole;
@@ -156,8 +157,8 @@ class DataCommand extends Command
             "组织机构-工区" => ["group" => "organizationWorkArea", "subs" => [],],
             "组织机构-工区类型" => ["group" => "organizationWorkAreaType", "subs" => [],],
             "组织机构-工区专业" => ["group" => "organizationWorkAreaProfession", "subs" => [],],
-            "使用处所-线别" => ["group" => "locationLine", "subs" => [],],
-            "使用处所-区间" => [
+            "使用地点-线别" => ["group" => "locationLine", "subs" => [],],
+            "使用地点-区间" => [
                 "group" => "locationSection",
                 "subs" => [
                     "站场绑定线别" => [
@@ -166,7 +167,7 @@ class DataCommand extends Command
                     ],
                 ],
             ],
-            "使用处所-站场" => [
+            "使用地点-站场" => [
                 "group" => "locationStation",
                 "subs" => [
                     "站场绑定线别" => [
@@ -175,7 +176,7 @@ class DataCommand extends Command
                     ],
                 ],
             ],
-            "使用处所-道口" => [
+            "使用地点-道口" => [
                 "group" => "locationRailroadGradeCross",
                 "subs" => [
                     "站场绑定线别" => [
@@ -184,7 +185,7 @@ class DataCommand extends Command
                     ],
                 ],
             ],
-            "使用处所-中心" => [
+            "使用地点-中心" => [
                 "group" => "locationCenter",
                 "subs" => [
                     "中心绑定线别" => [
@@ -207,6 +208,15 @@ class DataCommand extends Command
             "使用位置-室内上道位置-机房柜架层" => ["group" => "positionIndoorTier", "subs" => [],],
             "使用位置-室内上道位置-机房柜架格位" => ["group" => "positionIndoorCell", "subs" => [],],
             "赋码" => ["group" => "tag", "subs" => [],],
+            "数据同步" => [
+                "group" => "sync",
+                "subs" => [
+                    "仓库位置（段中心→检修车间）" => [
+                        "uri" => "sync/positionDepotFromParagraphCenter",
+                        "method" => "POST",
+                    ],
+                ],
+            ],
         ])->each(function ($rbacPermissionGroupUri, $rbacPermissionGroupName) use ($rbacRole) {
             ["group" => $group, "subs" => $subs,] = $rbacPermissionGroupUri;
             $rbacPermissionGroup = $this->createPermissionGroup(
@@ -459,6 +469,27 @@ class DataCommand extends Command
                         "number_code" => $status["number_code"],
                     ]);
                 $this->comment("创建器材状态：{$status["unique_code"]} {$status["number_code"]} {$status["name"]}");
+            });
+
+        // 创建仓库排类型
+        collect([[
+            "unique_code" => "FIXED",
+            "name" => "成品",
+        ], [
+            "unique_code" => "EMERGENCY",
+            "name" => "应急备品",
+        ], [
+            "unique_code" => "FIXING",
+            "name" => "待修",
+        ]])
+            ->each(function ($datum) {
+                PositionDepotRowType::with([])
+                    ->create([
+                        "uuid" => Str::uuid(),
+                        "unique_code" => $datum["unique_code"],
+                        "name" => $datum["name"],
+                    ]);
+                $this->comment("创建仓库排：{$datum["name"]}");
             });
 
         // 创建器材日志类型

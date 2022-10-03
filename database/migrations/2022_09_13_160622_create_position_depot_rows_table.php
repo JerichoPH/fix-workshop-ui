@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreatePositionDepotRowsTable extends Migration
 {
@@ -23,8 +23,10 @@ class CreatePositionDepotRowsTable extends Migration
             $table->string('unique_code', 8)->nullable(false)->comment('仓库排代码（8位）');
             $table->index('unique_code');
             $table->string('name', 64)->nullable(false)->comment('仓库排名称');
-            $table->string('position_depot_section_uuid',36)->nullable(false)->comment('所属仓库区域UUID');
+            $table->string('position_depot_section_uuid', 36)->nullable(false)->comment('所属仓库区域UUID');
             $table->index('position_depot_section_uuid');
+            $table->string('position_depot_row_type_uuid', 36)->nullable(false)->comment('所属仓库排类型UUID');
+            $table->index('position_depot_row_type_uuid');
         });
     }
 

@@ -199,7 +199,7 @@ Route::prefix('')
                 Route::delete('{uuid}', 'OrganizationWorkAreaController@destroy')->name('destroy');  // 删除工区
             });
 
-        // 使用处所
+        // 使用地点
         // 线别
         Route::prefix('locationLine')
             ->name('LocationLine:')
