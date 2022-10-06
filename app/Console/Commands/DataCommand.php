@@ -57,7 +57,7 @@ class DataCommand extends Command
             "kind_sub_types",
             "location_centers",
             "location_lines",
-            "location_railroad_grade_crosses",
+            "location_railroads",
             "location_sections",
             "location_stations",
             "menus",
@@ -70,7 +70,7 @@ class DataCommand extends Command
             "organization_workshop_types",
             "organization_workshops",
             "pivot_location_line_and_location_centers",
-            "pivot_location_line_and_location_railroad_grade_crosses",
+            "pivot_location_line_and_location_railroads",
             "pivot_location_line_and_location_sections",
             "pivot_location_line_and_location_stations",
             "pivot_rbac_role_and_accounts",
@@ -119,8 +119,8 @@ class DataCommand extends Command
             ]);
         // 创建角色→用户
         DB::table("pivot_rbac_role_and_accounts")->insert([
-            "rbac_role_id" => $rbacRole->id,
-            "account_id" => $accountAdmin->id,
+            "rbac_role_uuid" => $rbacRole->uuid,
+            "account_uuid" => $accountAdmin->uuid,
         ]);
         $this->comment("角色绑定用户：$accountAdmin->nickname → $rbacRole->id");
 
@@ -237,7 +237,7 @@ class DataCommand extends Command
                             "rbac_permission_group_uuid" => $rbacPermissionGroup->uuid,
                         ]);
                     $this->comment("创建权限：{$name}");
-                    PivotRbacRoleAndRbacPermission::with([])->insert(["rbac_role_id" => $rbacRole->id, "rbac_permission_id" => $rbacPermission->id,]);
+                    PivotRbacRoleAndRbacPermission::with([])->insert(["rbac_role_uuid" => $rbacRole->uuid, "rbac_permission_uuid" => $rbacPermission->uuid,]);
                     $this->comment("绑定角色与权限：{$rbacRole->name}→{$rbacPermission->name}");
                 });
             }
@@ -390,8 +390,8 @@ class DataCommand extends Command
                     ]);
                 $this->comment("创建菜单：$newMenu1->name");
                 DB::table("pivot_rbac_role_and_menus")->insert([
-                    "menu_id" => $newMenu1->id,
-                    "rbac_role_id" => $rbacRole->id,
+                    "menu_uuid" => $newMenu1->uuid,
+                    "rbac_role_uuid" => $rbacRole->uuid,
                 ]);
                 $this->comment("角色绑定菜单：$rbacRole->name → $newMenu1->name");
 
@@ -407,8 +407,8 @@ class DataCommand extends Command
                         ]);
                     $this->comment("创建菜单：$newMenu1->name → $newMenu2->name");
                     DB::table("pivot_rbac_role_and_menus")->insert([
-                        "menu_id" => $newMenu2->id,
-                        "rbac_role_id" => $rbacRole->id,
+                        "menu_uuid" => $newMenu2->uuid,
+                        "rbac_role_uuid" => $rbacRole->uuid,
                     ]);
                     $this->comment("角色绑定菜单：$rbacRole->name → $newMenu1->name($newMenu2->name)");
                 });
@@ -796,8 +796,10 @@ class DataCommand extends Command
     /**
      * 初始化测试数据
      */
-    private function test()
+    private function testUser()
     {
+        $rbacRole = RbacRole::with([])->first();
+
         // 路局用户
         $accountRailway = Account::with([])
             ->create([
@@ -808,7 +810,7 @@ class DataCommand extends Command
                 "be_super_admin" => false,
             ]);
         $this->comment("创建用户：$accountRailway->nickname");
-        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountRailway->id]);
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_uuid" => $rbacRole->uuid, "account_uuid" => $accountRailway->uuid]);
 
         // 站段用户
         $accountParagraph = Account::with([])
@@ -820,7 +822,7 @@ class DataCommand extends Command
                 "be_super_admin" => false,
             ]);
         $this->comment("创建用户：$accountParagraph->nickname");
-        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountParagraph->id]);
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_uuid" => $rbacRole->uuid, "account_uuid" => $accountParagraph->uuid]);
 
         // 车间用户
         $accountWorkshop = Account::with([])
@@ -832,7 +834,7 @@ class DataCommand extends Command
                 "be_super_admin" => false,
             ]);
         $this->comment("创建用户：$accountWorkshop->nickname");
-        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountWorkshop->id]);
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_uuid" => $rbacRole->uuid, "account_uuid" => $accountWorkshop->uuid]);
 
         // 转辙机用户
         $accountPointSwitch = Account::with([])
@@ -844,7 +846,7 @@ class DataCommand extends Command
                 "be_super_admin" => false,
             ]);
         $this->comment("创建用户：$accountPointSwitch->nickname");
-        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountPointSwitch->id]);
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_uuid" => $rbacRole->uuid, "account_uuid" => $accountPointSwitch->uuid]);
 
         // 继电器用户
         $accountRelay = Account::with([])
@@ -856,7 +858,7 @@ class DataCommand extends Command
                 "be_super_admin" => false,
             ]);
         $this->comment("创建用户：$accountRelay->nickname");
-        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountRelay->id]);
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_uuid" => $rbacRole->uuid, "account_uuid" => $accountRelay->uuid]);
 
         // 综合用户
         $accountSynthesize = Account::with([])
@@ -868,7 +870,7 @@ class DataCommand extends Command
                 "be_super_admin" => false,
             ]);
         $this->comment("创建用户：$accountSynthesize->nickname");
-        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountSynthesize->id]);
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_uuid" => $rbacRole->uuid, "account_uuid" => $accountSynthesize->uuid]);
 
         // 电源屏用户
         $accountPowerSupplyPanel = Account::with([])
@@ -880,7 +882,7 @@ class DataCommand extends Command
                 "be_super_admin" => false,
             ]);
         $this->comment("创建用户：$accountPowerSupplyPanel->nickname");
-        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_id" => 1, "account_id" => $accountPowerSupplyPanel->id]);
+        PivotRbacRoleAndAccount::with([])->insert(["rbac_role_uuid" => $rbacRole->uuid, "account_uuid" => $accountPowerSupplyPanel->uuid]);
     }
 
     /**
@@ -938,10 +940,11 @@ class DataCommand extends Command
                     ]);
                 $this->comment("创建权限：$rbacPermissionGroup->name → $rbacPermission->name");
                 // 创建角色→权限
-                DB::table("pivot_rbac_role_and_rbac_permissions")->insert([
-                    "rbac_permission_id" => $rbacPermission->id,
-                    "rbac_role_id" => $rbacRole->id,
-                ]);
+                DB::table("pivot_rbac_role_and_rbac_permissions")
+                    ->insert([
+                        "rbac_permission_uuid" => $rbacPermission->uuid,
+                        "rbac_role_uuid" => $rbacRole->uuid,
+                    ]);
                 $this->comment("角色绑定权限：$rbacRole->name → $rbacPermissionGroup->name($rbacPermission->name)");
             });
 

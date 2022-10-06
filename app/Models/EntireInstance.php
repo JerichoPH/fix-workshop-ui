@@ -84,7 +84,7 @@ use Illuminate\Support\Carbon;
  * @property string $use_place_current_location_center_uuid
  * @property-read LocationCenter $use_place_current_location_center
  * @property string $use_place_current_location_railroad_grade_cross_uuid
- * @property-read LocationRailroadGradeCross $use_place_current_location_railroad_grade_cross
+ * @property-read LocationRailroad $use_place_current_location_railroad_grade_cross
  *
  * @property string $use_place_last_organization_workshop_uuid
  * @property-read OrganizationWorkshop $use_place_last_organization_workshop
@@ -99,7 +99,7 @@ use Illuminate\Support\Carbon;
  * @property string $use_place_last_location_center_uuid
  * @property-read LocationCenter $use_place_last_location_center
  * @property string $use_place_last_location_railroad_grade_cross_uuid
- * @property-read LocationRailroadGradeCross $use_place_last_location_railroad_grade_cross
+ * @property-read LocationRailroad $use_place_last_location_railroad_grade_cross
  * @property string $use_place_current_position_indoor_cell_uuid
  * @property-read PositionIndoorCell $use_place_current_position_indoor_cell
  * @property string $use_place_last_position_indoor_cell_uuid
@@ -300,7 +300,7 @@ class EntireInstance extends Model
      */
     public function UsePlaceCurrentLocationRailroadGradeCross(): HasOne
     {
-        return $this->hasOne(LocationRailroadGradeCross::class, "uuid", "use_place_current_location_railroad_grade_cross_uuid");
+        return $this->hasOne(LocationRailroad::class, "uuid", "use_place_current_location_railroad_grade_cross_uuid");
     }
 
     /**
@@ -363,7 +363,7 @@ class EntireInstance extends Model
      */
     public function UsePlaceLastLocationRailroadGradeCross(): HasOne
     {
-        return $this->hasOne(LocationRailroadGradeCross::class, "uuid", "use_place_last_location_railroad_grade_cross_uuid");
+        return $this->hasOne(LocationRailroad::class, "uuid", "use_place_last_location_railroad_grade_cross_uuid");
     }
 
     /**

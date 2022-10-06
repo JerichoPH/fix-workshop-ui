@@ -14,9 +14,9 @@ class CreatePivotRbacRoleAndMenusTable extends Migration
     public function up()
     {
         Schema::create('pivot_rbac_role_and_menus', function (Blueprint $table) {
-            $table->integer('rbac_role_id')->nullabel(false)->comment('所属角色ID');
-            $table->integer('menu_id')->nullable(false)->comment('所属菜单ID');
-            $table->primary(['rbac_role_id', 'menu_id']);
+            $table->string('rbac_role_uuid',36)->nullabel(false)->comment('所属角色UUID');
+            $table->string('menu_uuid',36)->nullable(false)->comment('所属菜单UUID');
+            $table->primary(['rbac_role_uuid', 'menu_uuid']);
         });
     }
 

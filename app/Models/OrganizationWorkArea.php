@@ -29,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @property-read LocationStation[] $location_stations
  * @property-read LocationCenter[] $location_centers
  * @property-read LocationSection[] $location_sections
- * @property-read LocationRailroadGradeCross[] $location_railroad_grade_crosses
+ * @property-read LocationRailroad[] $location_railroad_grade_crosses
  * @property-read EntireInstanceLog[] $entire_instance_logs
  */
 class OrganizationWorkArea extends Model
@@ -98,7 +98,7 @@ class OrganizationWorkArea extends Model
      */
     public function LocationRailroadGradeCrosses(): BelongsTo
     {
-        return $this->belongsTo(LocationRailroadGradeCross::class, "organization_work_area_uuid", "uuid");
+        return $this->belongsTo(LocationRailroad::class, "organization_work_area_uuid", "uuid");
     }
 
     /**

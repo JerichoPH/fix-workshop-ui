@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Class PivotLocationLineAndLocationSection
+ * Class PivotLocationLineAndLocationRailroad
  * @package App\Models
  * @property string $location_line_uuid
  * @property-read LocationLine $location_line
- * @property string $location_section_uuid
- * @property-read LocationSection $location_section
+ * @property string $location_railroad_uuid
+ * @property-read LocationRailroad $location_railroad
  */
-class PivotLocationLineAndLocationSection extends Model
+class PivotLocationLineAndLocationRailroad extends Model
 {
     protected $guarded = [];
 
@@ -27,11 +27,11 @@ class PivotLocationLineAndLocationSection extends Model
     }
 
     /**
-     * 所属区间
+     * 所属道口
      * @return HasOne
      */
-    public function LocationSection(): HasOne
+    public function LocationRailroadGradeCross(): HasOne
     {
-        return $this->hasOne(LocationSection::class, 'uuid', 'location_section_uuid');
+        return $this->hasOne(LocationRailroad::class, 'uuid', 'location_railroad_uuid');
     }
 }

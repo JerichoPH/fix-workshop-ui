@@ -85,8 +85,8 @@ class CreateEntireInstancesTable extends Migration
             $table->index('use_place_current_location_section_uuid','entire_instances__upclsu2');
             $table->string('use_place_current_location_center_uuid',64)->nullable(false)->default('')->comment('上道地点：中心UUID');
             $table->index('use_place_current_location_center_uuid','entire_instances__upclcu');
-            $table->string('use_place_current_location_railroad_grade_cross_uuid',64)->nullable(false)->default('')->comment('上道地点：道口UUID');
-            $table->index('use_place_current_location_railroad_grade_cross_uuid','entire_instances__upclrgcu');
+            $table->string('use_place_current_location_railroad_uuid',64)->nullable(false)->default('')->comment('上道地点：道口UUID');
+            $table->index('use_place_current_location_railroad_uuid','entire_instances__upclru');
             $table->string('use_place_last_organization_workshop_uuid',64)->nullable(false)->default('')->comment('上次上道地点：车间UUID');
             $table->index('use_place_last_organization_workshop_uuid','entire_instances__uplowu');
             $table->string('use_place_last_organization_work_area_uuid',64)->nullable(false)->default('')->comment('上次上道地点：工区UUID');
@@ -99,8 +99,8 @@ class CreateEntireInstancesTable extends Migration
             $table->index('use_place_last_location_section_uuid','entire_instances__upllsu2');
             $table->string('use_place_last_location_center_uuid',64)->nullable(false)->default('')->comment('上次上道地点：中心UUID');
             $table->index('use_place_last_location_center_uuid','entire_instances__upllcu');
-            $table->string('use_place_last_location_railroad_grade_cross_uuid',64)->nullable(false)->default('')->comment('上次上道地点：道口UUID');
-            $table->index('use_place_last_location_railroad_grade_cross_uuid','entire_instances__upllrgcu');
+            $table->string('use_place_last_location_railroad_uuid',64)->nullable(false)->default('')->comment('上次上道地点：道口UUID');
+            $table->index('use_place_last_location_railroad_uuid','entire_instances__upllru');
             $table->string('use_place_current_position_indoor_cell_uuid',64)->nullable(false)->default('')->comment('上道位置：室内上道位置UUID');
             $table->index('use_place_current_position_indoor_cell_uuid','entire_instances__upcpicu');
             $table->string('use_place_last_position_indoor_cell_uuid',64)->nullable(false)->default('')->comment('上次上道位置：室内上道位置UUID');

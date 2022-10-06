@@ -14,9 +14,9 @@ class CreatePivotLocationLineAndLocationSectionsTable extends Migration
     public function up()
     {
         Schema::create('pivot_location_line_and_location_sections', function (Blueprint $table) {
-            $table->integer('location_line_id');
-            $table->integer('location_section_id');
-            $table->primary(['location_line_id', 'location_section_id',],'pivot_location_line_and_location_sections__pk');
+            $table->string('location_line_uuid', 36);
+            $table->string('location_section_uuid', 36);
+            $table->primary(['location_line_uuid', 'location_section_uuid',], 'pivot_location_line_and_location_sections__pk');
         });
     }
 

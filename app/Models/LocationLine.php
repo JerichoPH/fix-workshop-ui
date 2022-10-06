@@ -23,7 +23,7 @@ use Illuminate\Support\Carbon;
  * @property-read LocationStation[] $location_stations
  * @property-read LocationCenter[] $location_centers
  * @property-read LocationSection[] $location_sections
- * @property-read LocationRailroadGradeCross[] $location_railroad_grade_crosses
+ * @property-read LocationRailroad[] $location_railroad_grade_crosses
  * @property-read EntireInstanceLog[] $entire_instance_logs
  */
 class LocationLine extends Model
@@ -65,7 +65,7 @@ class LocationLine extends Model
      */
     public function LocationRailroadGradeCrosses(): BelongsToMany
     {
-        return $this->belongsToMany(LocationRailroadGradeCross::class, "pivot_location_line_and_location_railroad_grade_crosses", "location_line_id", "location_railroad_grade_cross_id");
+        return $this->belongsToMany(LocationRailroad::class, "pivot_location_line_and_location_railroad_grade_crosses", "location_line_id", "location_railroad_grade_cross_id");
     }
 
     /**

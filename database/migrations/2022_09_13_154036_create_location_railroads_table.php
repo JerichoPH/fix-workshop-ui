@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLocationRailroadGradeCrossesTable extends Migration
+class CreateLocationRailroadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateLocationRailroadGradeCrossesTable extends Migration
      */
     public function up()
     {
-        Schema::create('location_railroad_grade_crosses', function (Blueprint $table) {
-            $table->integer('id',true)->index('location_railroad_grade_crosses__pk');
+        Schema::create('location_railroads', function (Blueprint $table) {
+            $table->integer('id',true)->index('location_railroads__pk');
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid', 36)->nullable(false)->unique()->comment('uuid');

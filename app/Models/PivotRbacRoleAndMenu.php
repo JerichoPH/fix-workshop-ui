@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * Class PivotRbacRoleAndMenu
  * @package App\Models
- * @property int $rbac_role_id
- * @property int $menu_id
+ * @property string $rbac_role_uuid
  * @property-read RbacRole $rbac_role
- * @property Menu $menu
+ * @property string $menu_uuid
+ * @property-read Menu $menu
  */
 class PivotRbacRoleAndMenu extends Model
 {
@@ -23,7 +23,7 @@ class PivotRbacRoleAndMenu extends Model
      */
     public function RbacRole(): HasOne
     {
-        return $this->hasOne(RbacRole::class);
+        return $this->hasOne(RbacRole::class, 'uuid', 'rbac_role_uuid');
     }
 
     /**
@@ -32,6 +32,6 @@ class PivotRbacRoleAndMenu extends Model
      */
     public function Menu(): HasOne
     {
-        return $this->hasOne(Menu::class);
+        return $this->hasOne(Menu::class, 'uuid', 'rbac_role_uuid');
     }
 }

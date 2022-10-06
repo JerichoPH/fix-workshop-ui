@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class PivotRbacRoleAndAccount
  * @package App\Models
- * @property int $rbac_role_id
+ * @property string $rbac_role_uuid
  * @property-read RbacRole $rbac_role
- * @property int $account_id
+ * @property string $account_uuid
  * @property-read Account $account
  */
 class PivotRbacRoleAndAccount extends Model
@@ -24,7 +24,7 @@ class PivotRbacRoleAndAccount extends Model
      */
     public function RbacRole(): HasOne
     {
-        return $this->hasOne(RbacRole::class);
+        return $this->hasOne(RbacRole::class,'uuid','rbac_role_uuid');
     }
 
     /**
@@ -33,6 +33,6 @@ class PivotRbacRoleAndAccount extends Model
      */
     public function Account(): HasOne
     {
-        return $this->hasOne(Account::class);
+        return $this->hasOne(Account::class,'uuid','account_uuid');
     }
 }

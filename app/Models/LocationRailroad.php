@@ -29,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @property-read PositionIndoorRoom[] $position_indoor_rooms
  * @property-read EntireInstanceLog[] $entire_instance_logs
  */
-class LocationRailroadGradeCross extends Model
+class LocationRailroad extends Model
 {
     use SoftDeletes;
 

@@ -14,9 +14,9 @@ class CreatePivotRbacRoleAndAccountsTable extends Migration
     public function up()
     {
         Schema::create('pivot_rbac_role_and_accounts', function (Blueprint $table) {
-            $table->integer('rbac_role_id')->nullabel(false)->comment('所属角色ID');
-            $table->integer('account_id')->nullable(false)->comment('所属用户ID');
-            $table->primary(['rbac_role_id', 'account_id']);
+            $table->string('rbac_role_uuid')->nullabel(false)->comment('所属角色UUID');
+            $table->string('account_uuid')->nullable(false)->comment('所属用户UUID');
+            $table->primary(['rbac_role_uuid', 'account_uuid']);
         });
     }
 

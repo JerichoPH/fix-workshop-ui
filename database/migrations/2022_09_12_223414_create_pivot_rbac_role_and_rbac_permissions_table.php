@@ -14,9 +14,9 @@ class CreatePivotRbacRoleAndRbacPermissionsTable extends Migration
     public function up()
     {
         Schema::create('pivot_rbac_role_and_rbac_permissions', function (Blueprint $table) {
-            $table->integer('rbac_role_id');
-            $table->integer('rbac_permission_id');
-            $table->primary(['rbac_role_id', 'rbac_permission_id'],'pivot_rbac_role_and_rbac_permissions__pk');
+            $table->string('rbac_role_uuid', 36);
+            $table->string('rbac_permission_uuid', 36);
+            $table->primary(['rbac_role_uuid', 'rbac_permission_uuid'], 'pivot_rbac_role_and_rbac_permissions__pk');
         });
     }
 

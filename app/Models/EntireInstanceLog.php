@@ -41,7 +41,7 @@ use Illuminate\Support\Carbon;
  * @property string $location_center_uuid
  * @property-read LocationCenter $location_center
  * @property string $location_railroad_grade_cross_uuid
- * @property-read LocationRailroadGradeCross $location_railroad_grade_cross
+ * @property-read LocationRailroad $location_railroad_grade_cross
  */
 class EntireInstanceLog extends Model
 {
@@ -154,7 +154,7 @@ class EntireInstanceLog extends Model
      */
     public function LocationRailroadGradCross(): HasOne
     {
-        return $this->hasOne(LocationRailroadGradeCross::class, "uuid", "location_railroad_grade_cross_uuid");
+        return $this->hasOne(LocationRailroad::class, "uuid", "location_railroad_grade_cross_uuid");
     }
 
 }
