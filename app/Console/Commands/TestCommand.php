@@ -8,9 +8,9 @@ use Illuminate\Console\Command;
 class TestCommand extends Command
 {
     protected $__curl = null;
-    protected $__ue_url_root = "";
-    protected $__ue_api_version = "";
-    protected $__ue_api_url = "";
+    protected $_ueUrlRoot = "";
+    protected $_ueApiVersion = "";
+    protected $_ueApiUrl = "";
 
     /**
      * The name and signature of the console command.
@@ -35,9 +35,9 @@ class TestCommand extends Command
     {
         parent::__construct();
         $this->__curl = new Curl();
-        $this->__ue_url_root = env("UE_URL_ROOT");
-        $this->__ue_api_version = env("UE_API_VERSION");
-        $this->__ue_api_url = "{$this->__ue_url_root}/{$this->__ue_api_version}";
+        $this->_ueUrlRoot = env("UE_URL_ROOT");
+        $this->_ueApiVersion = env("UE_API_VERSION");
+        $this->_ueApiUrl = "{$this->_ueUrlRoot}/{$this->_ueApiVersion}";
     }
 
     /**
@@ -47,10 +47,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $this->__curl->post("{$this->__ue_api_url}/authorization/login", [
-            "username" => "admin",
-            "password" => "123123",
-        ]);
+        $this->__curl->post("{$this->_ueApiUrl}/authorization/login", ["username" => "admin", "password" => "123123"]);
         dump($this->__curl->getHttpStatusCode());
         $this->__curl->close();
     }
