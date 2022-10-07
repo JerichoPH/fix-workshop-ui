@@ -169,10 +169,10 @@ class DataCommand extends Command
                 ]
             ],
             "使用地点-道口" => [
-                "group" => "locationRailroadGradeCross",
+                "group" => "locationRailroad",
                 "subs" => [
                     "站场绑定线别" => [
-                        "uri" => "locationRailroadGradeCross/:uuid/bindLocationLines",
+                        "uri" => "locationRailroad/:uuid/bindLocationLines",
                         "method" => "PUT"
                     ]
                 ]
@@ -300,8 +300,8 @@ class DataCommand extends Command
                     ],
                     [
                         "name" => "道口管理",
-                        "url" => "/locationRailroadGradeCross",
-                        "uri_name" => "web.LocationRailroadGradeCross",
+                        "url" => "/locationRailroad",
+                        "uri_name" => "web.locationRailroad",
                         "icon" => "fa fa-openid"
                     ],
                     [

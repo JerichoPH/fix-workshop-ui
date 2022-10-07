@@ -42,8 +42,8 @@ class CreateEntireInstanceLogsTable extends Migration
             $table->index('location_section_uuid');
             $table->string('location_center_uuid',36)->nullable(false)->default('')->comment('所属中心UUID');
             $table->index('location_center_uuid');
-            $table->string('location_railroad_grade_cross_uuid',36)->nullable(false)->default('')->comment('所属道口UUID');
-            $table->index('location_railroad_grade_cross_uuid');
+            $table->string('location_railroad_uuid',36)->nullable(false)->default('')->comment('所属道口UUID');
+            $table->index('location_railroad_uuid');
         });
     }
 

@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.LocationRailroadGradeCross:index') }}"><i class="fa fa-users">&nbsp;</i>道口-列表</a></li>
+            <li><a href="{{ route('web.locationRailroad:index') }}"><i class="fa fa-users">&nbsp;</i>道口-列表</a></li>
             <li class="active">道口-编辑</li>
         </ol>
     </section>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.LocationRailroadGradeCross:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.locationRailroad:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
         let $selOrganizationWorkshop = $("#selOrganizationWorkshop");
         let $selOrganizationWorkArea = $("#selOrganizationWorkArea");
-        let locationRailroadGradeCross = null;
+        let locationRailroad = null;
         let tblLocationLine = null;
         let boundLocationLineUUIDs = [];
         let $frmBindLocationLines = $("#frmBindLocationLines");
@@ -136,18 +136,18 @@
          */
         function fnInit() {
             $.ajax({
-                url: `{{ route("web.LocationRailroadGradeCross:show", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.locationRailroad:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
                 data: {},
                 async: true,
                 beforeSend: function () {
                 },
                 success: function (res) {
-                    console.log(`{{ route("web.LocationRailroadGradeCross:show", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.locationRailroad:show", ["uuid" => $uuid,]) }} success:`, res);
 
-                    locationRailroadGradeCross = res["content"]["location_railroad_grade_cross"];
+                    locationRailroad = res["content"]["location_railroad"];
 
-                    let {unique_code: uniqueCode, name, be_enable: beEnable, location_lines: locationLines,} = locationRailroadGradeCross;
+                    let {unique_code: uniqueCode, name, be_enable: beEnable, location_lines: locationLines,} = locationRailroad;
 
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
@@ -156,8 +156,8 @@
                     } else {
                         $rdoBeEnableNo.attr("checked", "checked");
                     }
-                    fnFillSelOrganizationWorkshop(locationRailroadGradeCross["organization_workshop"]["uuid"]);
-                    fnFillSelOrganizationWorkArea(locationRailroadGradeCross["organization_workshop"]["uuid"], locationRailroadGradeCross["organization_work_area"]["uuid"]);
+                    fnFillSelOrganizationWorkshop(locationRailroad["organization_workshop"]["uuid"]);
+                    fnFillSelOrganizationWorkArea(locationRailroad["organization_workshop"]["uuid"], locationRailroad["organization_work_area"]["uuid"]);
                     // 已经绑定的线别
                     if (locationLines.length > 0) {
                         locationLines.map(function (locationLine) {
@@ -166,7 +166,7 @@
                     }
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.LocationRailroadGradeCross:show", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.locationRailroad:show", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                     });
@@ -343,17 +343,17 @@
             data.push({name: "unique_code", value: $txtUniqueCode.val()});
 
             $.ajax({
-                url: `{{ route('web.LocationRailroadGradeCross:Update', ["uuid" => $uuid , ]) }}`,
+                url: `{{ route('web.locationRailroad:Update', ["uuid" => $uuid , ]) }}`,
                 type: 'put',
                 async: false,
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.LocationRailroadGradeCross:Update', ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route('web.locationRailroad:Update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.LocationRailroadGradeCross:Update', ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route('web.locationRailroad:Update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
@@ -370,19 +370,19 @@
             let data = $frmBindLocationLines.serializeArray();
 
             $.ajax({
-                url: `{{ route("web.LocationRailroadGradeCross:putBindLocationLines", ["uuid" => $uuid,]) }}`,
+                url: `{{ route("web.locationRailroad:putBindLocationLines", ["uuid" => $uuid,]) }}`,
                 type: 'put',
                 data,
                 async: false,
                 success: function (res) {
-                    console.log(`{{ route("web.LocationRailroadGradeCross:putBindLocationLines", ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route("web.locationRailroad:putBindLocationLines", ["uuid" => $uuid,]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res['msg'], {time: 1000,}, function () {
 
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route("web.LocationRailroadGradeCross:putBindLocationLines", ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route("web.locationRailroad:putBindLocationLines", ["uuid" => $uuid,]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';

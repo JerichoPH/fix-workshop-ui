@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
- * Class LocationRailroadGradeCross
+ * Class locationRailroad
  * @package App\Models
  * @property int $id
  * @property Carbon $created_at
@@ -59,7 +59,7 @@ class LocationRailroad extends Model
      */
     public function LocationLines(): BelongsToMany
     {
-        return $this->belongsToMany(LocationLine::class, "pivot_location_line_and_location_railroad_grade_crosses", "location_railroad_grade_cross_id", "location_line_id");
+        return $this->belongsToMany(LocationLine::class, "pivot_location_line_and_location_railroades", "location_railroad_id", "location_line_id");
     }
 
     /**
@@ -68,7 +68,7 @@ class LocationRailroad extends Model
      */
     public function PositionIndoorRooms():BelongsTo
     {
-        return $this->belongsTo(PositionIndoorRoom::class,"location_railroad_grade_cross_uuid","uuid");
+        return $this->belongsTo(PositionIndoorRoom::class,"location_railroad_uuid","uuid");
     }
 
     /**
@@ -77,6 +77,6 @@ class LocationRailroad extends Model
      */
     public function EntireInstanceLogs():BelongsTo
     {
-        return $this->belongsTo(EntireInstanceLog::class,"location_railroad_grade_cross_uuid","uuid");
+        return $this->belongsTo(EntireInstanceLog::class,"location_railroad_uuid","uuid");
     }
 }

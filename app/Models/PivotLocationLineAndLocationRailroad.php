@@ -30,7 +30,7 @@ class PivotLocationLineAndLocationRailroad extends Model
      * 所属道口
      * @return HasOne
      */
-    public function LocationRailroadGradeCross(): HasOne
+    public function locationRailroad(): HasOne
     {
         return $this->hasOne(LocationRailroad::class, 'uuid', 'location_railroad_uuid');
     }

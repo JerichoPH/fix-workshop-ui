@@ -12,7 +12,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class LocationRailroadGradeCrossController extends Controller
+class locationRailroadController extends Controller
 {
     /**
      * 道口列表
@@ -24,7 +24,7 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function index()
     {
-        return request()->ajax() ? $this->sendStandardRequest('locationRailroadGradeCross') : view('LocationRailroadGradeCross.index');
+        return request()->ajax() ? $this->sendStandardRequest('locationRailroad') : view('locationRailroad.index');
     }
 
     /**
@@ -33,7 +33,7 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function create()
     {
-        return view('LocationRailroadGradeCross.create');
+        return view('locationRailroad.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class LocationRailroadGradeCrossController extends Controller
     public function store()
     {
         return $this->sendStandardRequest(
-            'locationRailroadGradeCross',
+            'locationRailroad',
             function (Request $request) {
                 $request = $request->all();
                 $request['be_enable'] = boolval($request['be_enable']);
@@ -67,7 +67,7 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function show(string $uuid)
     {
-        return $this->sendStandardRequest("locationRailroadGradeCross/$uuid");
+        return $this->sendStandardRequest("locationRailroad/$uuid");
     }
 
     /**
@@ -77,7 +77,7 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function edit(string $uuid)
     {
-        return view('LocationRailroadGradeCross.edit', ['uuid' => $uuid,]);
+        return view('locationRailroad.edit', ['uuid' => $uuid,]);
     }
 
     /**
@@ -92,7 +92,7 @@ class LocationRailroadGradeCrossController extends Controller
     public function update(string $uuid)
     {
         return $this->sendStandardRequest(
-            "locationRailroadGradeCross/$uuid",
+            "locationRailroad/$uuid",
             function(Request $request){
                 $request = $request->all();
                 $request['be_enable'] = boolval($request['be_enable']);
@@ -112,7 +112,7 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function destroy(string $uuid)
     {
-        return $this->sendStandardRequest("locationRailroadGradeCross/$uuid");
+        return $this->sendStandardRequest("locationRailroad/$uuid");
     }
 
     /**
@@ -126,6 +126,6 @@ class LocationRailroadGradeCrossController extends Controller
      */
     public function putBindLocationLines(string $uuid)
     {
-        return $this->sendStandardRequest("locationRailroadGradeCross/$uuid/bindLocationLines");
+        return $this->sendStandardRequest("locationRailroad/$uuid/bindLocationLines");
     }
 }

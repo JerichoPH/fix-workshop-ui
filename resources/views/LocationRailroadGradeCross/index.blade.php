@@ -18,12 +18,12 @@
                 <h3 class="box-title">道口-列表</h3>
                 <!--右侧最小化按钮-->
                 <div class="pull-right btn-group btn-group-sm">
-                    <a href="{{ route('web.LocationRailroadGradeCross:create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                    <a href="{{ route('web.locationRailroad:create') }}" class="btn btn-success"><i class="fa fa-plus"></i></a>
                 </div>
                 <hr>
             </div>
             <div class="box-body">
-                <table class="table table-hover table-striped table-condensed" id="tblLocationRailroadGradeCross">
+                <table class="table table-hover table-striped table-condensed" id="tbllocationRailroad">
                     <thead>
                     <tr>
                         <th>行号</th>
@@ -46,30 +46,30 @@
 @section('script')
     <script>
         let $select2 = $('.select2');
-        let tblLocationRailroadGradeCross = null;
+        let tbllocationRailroad = null;
 
         /**
          * 加载道口表格
          */
-        function fnFillTblLocationRailroadGradeCross() {
-            if (document.getElementById('tblLocationRailroadGradeCross')) {
-                tblLocationRailroadGradeCross = $('#tblLocationRailroadGradeCross').DataTable({
+        function fnFillTbllocationRailroad() {
+            if (document.getElementById('tbllocationRailroad')) {
+                tbllocationRailroad = $('#tbllocationRailroad').DataTable({
                     ajax: {
-                        url: `{{ route("web.LocationRailroadGradeCross:index") }}?{!! http_build_query(request()->all()) !!}`,
+                        url: `{{ route("web.locationRailroad:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
-                            console.log(`{{ route("web.LocationRailroadGradeCross:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {location_railroad_grade_crosses: locationRailroadGradeCrosses,} = res["content"];
+                            console.log(`{{ route("web.locationRailroad:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
+                            let {location_railroades: locationRailroades,} = res["content"];
                             let render = [];
-                            if (locationRailroadGradeCrosses.length > 0) {
-                                $.each(locationRailroadGradeCrosses, (_, locationRailroadGradeCross) => {
-                                    let uuid = locationRailroadGradeCross["uuid"];
-                                    let createdAt = locationRailroadGradeCross["created_at"] ? moment(locationRailroadGradeCross["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                    let uniqueCode = locationRailroadGradeCross["unique_code"] ? locationRailroadGradeCross["unique_code"] : "";
-                                    let name = locationRailroadGradeCross["name"] ? locationRailroadGradeCross["name"] : "";
-                                    let beEnable = locationRailroadGradeCross["be_enable"] ? locationRailroadGradeCross["be_enable"] : "";
-                                    let organizationWorkshopName = locationRailroadGradeCross["organization_workshop"] ? locationRailroadGradeCross["organization_workshop"]["name"] : "";
-                                    let organizationWorkAreaName = locationRailroadGradeCross["organization_work_area"] ? locationRailroadGradeCross["organization_work_area"]["name"] : "";
-                                    let locationLines = locationRailroadGradeCross["location_lines"] ? locationRailroadGradeCross["location_lines"] : [];
+                            if (locationRailroades.length > 0) {
+                                $.each(locationRailroades, (_, locationRailroad) => {
+                                    let uuid = locationRailroad["uuid"];
+                                    let createdAt = locationRailroad["created_at"] ? moment(locationRailroad["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
+                                    let uniqueCode = locationRailroad["unique_code"] ? locationRailroad["unique_code"] : "";
+                                    let name = locationRailroad["name"] ? locationRailroad["name"] : "";
+                                    let beEnable = locationRailroad["be_enable"] ? locationRailroad["be_enable"] : "";
+                                    let organizationWorkshopName = locationRailroad["organization_workshop"] ? locationRailroad["organization_workshop"]["name"] : "";
+                                    let organizationWorkAreaName = locationRailroad["organization_work_area"] ? locationRailroad["organization_work_area"]["name"] : "";
+                                    let locationLines = locationRailroad["location_lines"] ? locationRailroad["location_lines"] : [];
                                     let locationLineNames = [];
                                     if (locationLines.length > 0) {
                                         locationLines.map(function (locationLine) {
@@ -81,7 +81,7 @@
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="{{ route("web.LocationRailroadGradeCross:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
+                                    divBtnGroup += `<a href="{{ route("web.locationRailroad:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
                                     divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
@@ -102,7 +102,7 @@
                             return render;
                         },
                         error: function (err) {
-                            console.log(`{{ route("web.LocationRailroadGradeCross:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
+                            console.log(`{{ route("web.locationRailroad:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                                 if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
                             });
@@ -135,8 +135,8 @@
                     }
                 });
 
-                tblLocationRailroadGradeCross.on('draw.dt order.dt search.dt', function () {
-                    tblLocationRailroadGradeCross.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+                tbllocationRailroad.on('draw.dt order.dt search.dt', function () {
+                    tbllocationRailroad.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
                         cell.innerHTML = i + 1;
                     });
                 }).draw();
@@ -146,7 +146,7 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillTblLocationRailroadGradeCross();  // 加载区间列表
+            fnFillTbllocationRailroad();  // 加载区间列表
         });
 
         /**
@@ -156,16 +156,16 @@
         function fnDelete(id) {
             if (confirm('删除不能恢复，是否确认'))
                 $.ajax({
-                    url: `{{ url('locationRailroadGradeCross') }}/${id}`,
+                    url: `{{ url('locationRailroad') }}/${id}`,
                     type: 'delete',
                     data: {id: id},
                     success: function (res) {
-                        console.log(`{{ url('locationRailroadGradeCross')}}/${id} success:`, res);
+                        console.log(`{{ url('locationRailroad')}}/${id} success:`, res);
 
-                        tblLocationRailroadGradeCross.ajax.reload();
+                        tbllocationRailroad.ajax.reload();
                     },
                     error: function (err) {
-                        console.log(`{{ url('locationRailroadGradeCross')}}/${id} fail:`, err);
+                        console.log(`{{ url('locationRailroad')}}/${id} fail:`, err);
                         layer.close(loading);
                         layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                             if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';

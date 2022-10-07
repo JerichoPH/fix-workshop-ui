@@ -8,7 +8,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="/"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li><a href="{{ route('web.LocationRailroadGradeCross:index') }}"><i class="fa fa-users">&nbsp;</i>道口-列表</a></li>
+            <li><a href="{{ route('web.locationRailroad:index') }}"><i class="fa fa-users">&nbsp;</i>道口-列表</a></li>
             <li class="active">道口-新建</li>
         </ol>
     </section>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            <a href="{{ route('web.LocationRailroadGradeCross:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
+                            <a href="{{ route('web.locationRailroad:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
                             <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </div>
@@ -294,18 +294,18 @@
             console.log(data);
 
             $.ajax({
-                url: '{{ route('web.LocationRailroadGradeCross:store') }}',
+                url: '{{ route('web.locationRailroad:store') }}',
                 type: 'post',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.LocationRailroadGradeCross:store') }} success:`, res);
+                    console.log(`{{ route('web.locationRailroad:store') }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,}, function () {
                         location.reload();
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.LocationRailroadGradeCross:store') }} fail:`, err);
+                    console.log(`{{ route('web.locationRailroad:store') }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';

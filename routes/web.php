@@ -229,17 +229,17 @@ Route::prefix('')
             });
 
         // 道口
-        Route::prefix('locationRailroadGradeCross')
-            ->name('LocationRailroadGradeCross:')
+        Route::prefix('locationRailroad')
+            ->name('locationRailroad:')
             ->group(function () {
-                Route::get('', 'LocationRailroadGradeCrossController@index')->name('index');  // 道口列表
-                Route::get('create', 'LocationRailroadGradeCrossController@create')->name('create');  // 新建道口页面
-                Route::get('{uuid}', 'LocationRailroadGradeCrossController@show')->name('show');  // 道口详情
-                Route::get('{uuid}/edit', 'LocationRailroadGradeCrossController@edit')->name('edit');  // 道口详情
-                Route::post('', 'LocationRailroadGradeCrossController@store')->name('store');  // 道口角色
-                Route::put('{uuid}', 'LocationRailroadGradeCrossController@update')->name('update'); // 道口角色
-                Route::delete('{uuid}', 'LocationRailroadGradeCrossController@destroy')->name('destroy');  // 删除道口
-                Route::put('{uuid}/bindLocationLines', 'LocationRailroadGradeCrossController@putBindLocationLines')->name('putBindLocationLines');  // 绑定线别
+                Route::get('', 'locationRailroadController@index')->name('index');  // 道口列表
+                Route::get('create', 'locationRailroadController@create')->name('create');  // 新建道口页面
+                Route::get('{uuid}', 'locationRailroadController@show')->name('show');  // 道口详情
+                Route::get('{uuid}/edit', 'locationRailroadController@edit')->name('edit');  // 道口详情
+                Route::post('', 'locationRailroadController@store')->name('store');  // 道口角色
+                Route::put('{uuid}', 'locationRailroadController@update')->name('update'); // 道口角色
+                Route::delete('{uuid}', 'locationRailroadController@destroy')->name('destroy');  // 删除道口
+                Route::put('{uuid}/bindLocationLines', 'locationRailroadController@putBindLocationLines')->name('putBindLocationLines');  // 绑定线别
             });
 
         // 区间

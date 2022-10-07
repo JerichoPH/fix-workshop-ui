@@ -26,8 +26,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read LocationSection $location_section
  * @property string $location_center_uuid
  * @property-read LocationCenter $location_center
- * @property string $location_railroad_grade_cross_uuid
- * @property-read LocationRailroad $location_railroad_grade_cross
+ * @property string $location_railroad_uuid
+ * @property-read LocationRailroad $location_railroad
  * @property-read PositionIndoorRow[] $position_indoor_rows
  */
 class PositionIndoorRoom extends Model
@@ -76,9 +76,9 @@ class PositionIndoorRoom extends Model
      * 所属道口
      * @return HasOne
      */
-    public function LocationRailroadGradeCross(): HasOne
+    public function locationRailroad(): HasOne
     {
-        return $this->hasOne(LocationRailroad::class, "uuid", "location_railroad_grade_cross_uuid");
+        return $this->hasOne(LocationRailroad::class, "uuid", "location_railroad_uuid");
     }
 
     /**
