@@ -12,7 +12,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class locationRailroadController extends Controller
+class LocationRailroadController extends Controller
 {
     /**
      * 道口列表
