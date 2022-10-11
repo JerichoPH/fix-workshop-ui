@@ -2,6 +2,8 @@
 
 use Monolog\Handler\StreamHandler;
 
+$now = now();
+
 return [
 
     /*
@@ -44,27 +46,9 @@ return [
             'level' => 'debug',
         ],
 
-        'sync-from-paragraph-center' => [
+        'curl-test' => [
             'driver' => 'single',
-            'path' => storage_path('logs/sync-from-paragraph-center.log'),
-            'level' => 'debug',
-        ],
-
-        'sync-to-paragraph-center' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/sync-to-paragraph-center.log'),
-            'level' => 'debug',
-        ],
-
-        'sync-to-electric-workshop' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/sync-to-electric-workshop.log'),
-            'level' => 'debug',
-        ],
-
-        'detection-data-go'=>[
-            'driver' => 'single',
-            'path' => storage_path('logs/detection-data-go.log'),
+            'path' => storage_path("logs/curl.{$now->toDateString()}.log"),
             'level' => 'debug',
         ],
 
