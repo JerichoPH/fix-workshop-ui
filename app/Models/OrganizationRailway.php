@@ -9,51 +9,55 @@ use Illuminate\Support\Carbon;
 
 /**
  * Class OrganizationRailway
+ *
  * @package App\Models
- * @property int $id
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property Carbon|null $deleted_at
- * @property string $uuid
- * @property int $sort
- * @property string $unique_code
- * @property string $name
- * @property string $short_name
- * @property boolean $be_enable
- * @property-read Account[] $accounts
- * @property-read EntireInstance[] $entire_instances
+ * @property int                      $id
+ * @property Carbon                   $created_at
+ * @property Carbon                   $updated_at
+ * @property Carbon|null              $deleted_at
+ * @property string                   $uuid
+ * @property int                      $sort
+ * @property string                   $unique_code
+ * @property string                   $name
+ * @property string                   $short_name
+ * @property boolean                  $be_enable
+ * @property-read Account[]           $accounts
+ * @property-read EntireInstance[]    $entire_instances
  * @property-read EntireInstanceLog[] $entire_instance_logs
  */
 class OrganizationRailway extends Model
 {
-    use SoftDeletes;
-
-    protected $guarded = [];
-
-    /**
-     * 相关用户
-     * @return BelongsTo
-     */
-    public function Accounts(): BelongsTo
-    {
-        return $this->belongsTo(Account::class, "uuid", "organization_railway_uuid");
-    }
-
-    /**
-     * 相关器材（资产）
-     * @return BelongsTo
-     */
-    public function EntireInstances():BelongsTo
-    {
-        return $this->belongsTo(EntireInstance::class,"belong_to_organization_railway_uuid","uuid");
-    }
-
-    /**
-     * 相关器材日志
-     * @return BelongsTo
-     */
-    public function EntireInstanceLogs():BelongsTo
-    {
-        return $this->belongsTo(EntireInstanceLog::class,"organization_railway_uuid","uuid");
-    }
+	use SoftDeletes;
+	
+	protected $guarded = [];
+	
+	/**
+	 * 相关用户
+	 *
+	 * @return BelongsTo
+	 */
+	public function Accounts(): BelongsTo
+	{
+		return $this->belongsTo(Account::class, "uuid", "organization_railway_uuid");
+	}
+	
+	/**
+	 * 相关器材（资产）
+	 *
+	 * @return BelongsTo
+	 */
+	public function EntireInstances(): BelongsTo
+	{
+		return $this->belongsTo(EntireInstance::class, "belong_to_organization_railway_uuid", "uuid");
+	}
+	
+	/**
+	 * 相关器材日志
+	 *
+	 * @return BelongsTo
+	 */
+	public function EntireInstanceLogs(): BelongsTo
+	{
+		return $this->belongsTo(EntireInstanceLog::class, "organization_railway_uuid", "uuid");
+	}
 }

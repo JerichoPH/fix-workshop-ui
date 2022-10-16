@@ -9,29 +9,30 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class PositionDepotRowType
+ *
  * @package App\Models
- * @property int $id
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property Carbon|null $deleted_at
- * @property string $uuid
- * @property int $sort
- * @property string $unique_code
- * @property string $name
+ * @property int                     $id
+ * @property Carbon                  $created_at
+ * @property Carbon                  $updated_at
+ * @property Carbon|null             $deleted_at
+ * @property string                  $uuid
+ * @property int                     $sort
+ * @property string                  $unique_code
+ * @property string                  $name
  * @property-read PositionDepotRow[] $position_depot_rows
  */
 class PositionDepotRowType extends Model
 {
-    use SoftDeletes;
-
-    protected $guarded = [];
-
-    /**
-     *
-     * @return BelongsTo
-     */
-    public function PositionDepotRows():BelongsTo
-    {
-        return $this->belongsTo(PositionDepotRow::class,"position_depot_row_type_uuid","uuid");
-    }
+	use SoftDeletes;
+	
+	protected $guarded = [];
+	
+	/**
+	 *
+	 * @return BelongsTo
+	 */
+	public function PositionDepotRows(): BelongsTo
+	{
+		return $this->belongsTo(PositionDepotRow::class, "position_depot_row_type_uuid", "uuid");
+	}
 }

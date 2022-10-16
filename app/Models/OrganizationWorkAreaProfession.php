@@ -9,29 +9,31 @@ use Illuminate\Support\Carbon;
 
 /**
  * Class OrganizationWorkAreaProfession
+ *
  * @package App\Models
- * @property int $id
- * @property Carbon $created_at
- * @property Carbon $updated_at
- * @property Carbon|null $deleted_at
- * @property string $uuid
- * @property int $sort
- * @property string $unique_code
- * @property string $name
+ * @property int                         $id
+ * @property Carbon                      $created_at
+ * @property Carbon                      $updated_at
+ * @property Carbon|null                 $deleted_at
+ * @property string                      $uuid
+ * @property int                         $sort
+ * @property string                      $unique_code
+ * @property string                      $name
  * @property-read OrganizationWorkArea[] $organization_work_areas
  */
 class OrganizationWorkAreaProfession extends Model
 {
-    use SoftDeletes;
-
-    protected $guarded = [];
-
-    /**
-     * 相关工区
-     * @return BelongsTo
-     */
-    public function OrganizationWorkAreas(): BelongsTo
-    {
-        return $this->belongsTo(OrganizationWorkArea::class, "organization_work_area_profession_uuid", "uuid");
-    }
+	use SoftDeletes;
+	
+	protected $guarded = [];
+	
+	/**
+	 * 相关工区
+	 *
+	 * @return BelongsTo
+	 */
+	public function OrganizationWorkAreas(): BelongsTo
+	{
+		return $this->belongsTo(OrganizationWorkArea::class, "organization_work_area_profession_uuid", "uuid");
+	}
 }

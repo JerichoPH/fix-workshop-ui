@@ -49,7 +49,7 @@ class TestCommand extends Command
         $curl1->setUrl('http://127.0.0.1:8080/api/v1/test');
         $curl1->setOpts([
             CURLOPT_POST => TRUE,
-            CURLOPT_POSTFIELDS => $curl1->buildPostData(['a' => 'A', 'b' => 'B', 'c' => 'C',]),
+            CURLOPT_POSTFIELDS => $curl1->buildPostData(['a' => 'A', 'b' => 'B', 'c' => 'C']),
         ]);
         $multiCurl->addCurl($curl1);
         
