@@ -29,7 +29,7 @@ class DataInitCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'data:init {--operation=init} {--prefix_url=}';
+    protected $signature = 'data:init {--O|operation=init} {--P|prefix_url=}';
 
     /**
      * The console command description.
