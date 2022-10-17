@@ -18,7 +18,7 @@ class TestCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'test {operation}';
+    protected $signature = 'test {--A|a=} {--B|b=}';
     
     /**
      * The console command description.
@@ -87,6 +87,7 @@ class TestCommand extends Command
      */
     public function handle(): void
     {
+		dd($this->options());
         $this->{$this->argument('operation')}();
     }
 }
