@@ -21,15 +21,20 @@ use Illuminate\Support\Carbon;
  * @property string                   $name
  * @property string                   $short_name
  * @property boolean                  $be_enable
- * @property-read Account[]           $accounts
- * @property-read EntireInstance[]    $entire_instances
- * @property-read EntireInstanceLog[] $entire_instance_logs
+ * @property-read Account[]           $Accounts
+ * @property-read EntireInstance[]    $EntireInstances
+ * @property-read EntireInstanceLog[] $EntireInstanceLogs
  */
 class OrganizationRailway extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 相关用户

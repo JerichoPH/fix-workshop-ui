@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -19,10 +20,19 @@ use Illuminate\Support\Carbon;
  * @property string                       $unique_code
  * @property string                       $name
  * @property string                       $position_depot_storehouse_uuid
- * @property-read PositionDepotStorehouse $position_depot_storehouse
+ * @property-read PositionDepotStorehouse $PositionDepotStorehouse
  */
 class PositionDepotSection extends Model
 {
+	use SoftDeletes;
+	
+	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return "{$this->PositionDepotStorehouse} {$this->attributes['name']}";
+	}
+	
 	/**
 	 * 所属仓库
 	 *

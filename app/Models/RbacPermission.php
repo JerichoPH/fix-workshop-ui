@@ -21,7 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string                   $uri
  * @property string                   $method
  * @property string                   $rbac_permission_group_uuid
- * @property-read RbacPermissionGroup $rbac_permission_group
+ * @property-read RbacPermissionGroup $RbacPermissionGroup
  */
 class RbacPermission extends Model
 {

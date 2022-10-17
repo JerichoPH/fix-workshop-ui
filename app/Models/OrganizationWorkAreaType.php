@@ -18,13 +18,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string                      $sort
  * @property string                      $unique_code
  * @property string                      $name
- * @property-read OrganizationWorkArea[] $organization_work_areas
+ * @property-read OrganizationWorkArea[] $OrganizationWorkAreas
  */
 class OrganizationWorkAreaType extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 相关工区

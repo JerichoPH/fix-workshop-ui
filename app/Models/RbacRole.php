@@ -18,8 +18,8 @@ use Illuminate\Support\Carbon;
  * @property string         $uuid
  * @property int            $sort
  * @property string         $name
- * @property-read Account[] $accounts
- * @property-read Menu[]    $menus
+ * @property-read Account[] $Accounts
+ * @property-read Menu[]    $Menus
  */
 class RbacRole extends Model
 {
@@ -45,5 +45,14 @@ class RbacRole extends Model
 	public function Menus(): BelongsToMany
 	{
 		return $this->belongsToMany(Menu::class, "pivot_rbac_role_and_menus", "rbac_role_id", "menu_id");
+	}
+	
+	/**
+	 * 相关权限
+	 * @return BelongsToMany
+	 */
+	public function RbacPermissions(): BelongsToMany
+	{
+		return $this->belongsToMany(RbacPermission::class, 'pivot_rbac_role_and_rbac_permissions', 'rbac_role_id', 'rbac_permission_id');
 	}
 }

@@ -22,27 +22,27 @@ use Illuminate\Support\Carbon;
  * @property string                     $name
  * @property string                     $url
  * @property string                     $operator_uuid
- * @property-read Account               $operator
+ * @property-read Account               $Operator
  * @property string                     $entire_instance_identity_code
- * @property-read EntireInstance        $entire_instance
+ * @property-read EntireInstance        $EntireInstance
  * @property string                     $organization_railway_uuid
- * @property-read OrganizationRailway   $organization_railway
+ * @property-read OrganizationRailway   $OrganizationRailway
  * @property string                     $organization_paragraph_uuid
- * @property-read OrganizationParagraph $organization_paragraph
+ * @property-read OrganizationParagraph $OrganizationParagraph
  * @property string                     $organization_workshop_uuid
- * @property-read OrganizationWorkshop  $organization_workshop
+ * @property-read OrganizationWorkshop  $OrganizationWorkshop
  * @property string                     $organization_work_area_uuid
- * @property-read OrganizationWorkArea  $organization_work_area
+ * @property-read OrganizationWorkArea  $OrganizationWorkArea
  * @property string                     $location_line_uuid
- * @property-read LocationLine          $location_line
+ * @property-read LocationLine          $LocationLine
  * @property string                     $location_station_uuid
- * @property-read LocationStation       $location_station
+ * @property-read LocationStation       $LocationStation
  * @property string                     $location_section_uuid
- * @property-read LocationSection       $location_section
+ * @property-read LocationSection       $LocationSection
  * @property string                     $location_center_uuid
- * @property-read LocationCenter        $location_center
+ * @property-read LocationCenter        $LocationCenter
  * @property string                     $location_railroad_uuid
- * @property-read LocationRailroad      $location_railroad
+ * @property-read LocationRailroad      $LocationRailroad
  */
 class EntireInstanceLog extends Model
 {

@@ -19,13 +19,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int                     $sort
  * @property string                  $unique_code
  * @property string                  $name
- * @property-read PositionDepotRow[] $position_depot_rows
+ * @property-read PositionDepotRow[] $PositionDepotRows
  */
 class PositionDepotRowType extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 *

@@ -33,6 +33,11 @@ class Menu extends Model
 	
 	protected $guarded = [];
 	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
+	
 	/**
 	 * 所属父级
 	 *

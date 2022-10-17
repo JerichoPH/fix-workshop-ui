@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @package App\Models
  * @property string        $rbac_role_uuid
- * @property-read RbacRole $rbac_role
+ * @property-read RbacRole $RbacRole
  * @property string        $menu_uuid
- * @property-read Menu     $menu
+ * @property-read Menu     $Menu
  */
 class PivotRbacRoleAndMenu extends Model
 {

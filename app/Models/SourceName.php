@@ -21,8 +21,8 @@ use Illuminate\Support\Carbon;
  * @property string                $unique_code
  * @property string                $name
  * @property string                $source_type_uuid
- * @property-read SourceType       $source_type
- * @property-read EntireInstance[] $entire_instances
+ * @property-read SourceType       $SourceType
+ * @property-read EntireInstance[] $EntireInstances
  */
 class SourceName extends Model
 {

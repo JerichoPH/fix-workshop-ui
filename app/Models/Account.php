@@ -24,21 +24,26 @@ use Illuminate\Support\Carbon;
  * @property string                        $nickname
  * @property boolean                       $be_super_admin
  * @property string                        $organization_railway_uuid
- * @property-read OrganizationRailway|null $organization_railway
+ * @property-read OrganizationRailway|null $OrganizationRailway
  * @property string                        $organization_paragraph_uuid
- * @property-read OrganizationParagraph    $organization_paragraph
+ * @property-read OrganizationParagraph    $OrganizationParagraph
  * @property string                        $organization_workshop_uuid
- * @property-read OrganizationWorkshop     $organization_workshop
+ * @property-read OrganizationWorkshop     $OrganizationWorkshop
  * @property string                        $organization_work_area_uuid
- * @property-read OrganizationWorkArea     $organization_work_area
- * @property-read EntireInstanceLog[]      $entire_instance_logs
- * @property-read EntireInstance[]         $deleted_entire_instances
+ * @property-read OrganizationWorkArea     $OrganizationWorkArea
+ * @property-read EntireInstanceLog[]      $EntireInstanceLogs
+ * @property-read EntireInstance[]         $DeletedEntireInstances
  */
 class Account extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['nickname'];
+	}
 	
 	/**
 	 * 所属路局

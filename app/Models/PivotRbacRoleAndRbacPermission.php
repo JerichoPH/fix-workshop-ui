@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @package App\Models
  * @property string              $rbac_role_uuid
- * @property-read RbacRole       $rbac_role
+ * @property-read RbacRole       $RbacRole
  * @property string              $rbac_permission_uuid
- * @property-read RbacPermission $rbac_permission
+ * @property-read RbacPermission $RbacPermission
  */
 class PivotRbacRoleAndRbacPermission extends Model
 {

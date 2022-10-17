@@ -58,10 +58,10 @@
                         url: `{{ route("web.locationRailroad:index") }}?{!! http_build_query(request()->all()) !!}`,
                         dataSrc: function (res) {
                             console.log(`{{ route("web.locationRailroad:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {location_railroades: locationRailroades,} = res["content"];
+                            let {location_railroads: locationrailroads,} = res["content"];
                             let render = [];
-                            if (locationRailroades.length > 0) {
-                                $.each(locationRailroades, (_, locationRailroad) => {
+                            if (locationrailroads.length > 0) {
+                                $.each(locationrailroads, (_, locationRailroad) => {
                                     let uuid = locationRailroad["uuid"];
                                     let createdAt = locationRailroad["created_at"] ? moment(locationRailroad["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                     let uniqueCode = locationRailroad["unique_code"] ? locationRailroad["unique_code"] : "";

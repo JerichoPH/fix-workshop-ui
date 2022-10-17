@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -23,18 +22,23 @@ use Illuminate\Support\Carbon;
  * @property string                    $name
  * @property boolean                   $be_enable
  * @property string                    $organization_workshop_uuid
- * @property-read OrganizationWorkshop $organization_workshop
+ * @property-read OrganizationWorkshop $OrganizationWorkshop
  * @property string                    $organization_work_area_uuid
- * @property-read OrganizationWorkArea $organization_work_area
- * @property-read LocationLine       $location_line
- * @property-read PositionIndoorRoom[] $position_indoor_rooms
- * @property-read EntireInstanceLog[]  $entire_instance_logs
+ * @property-read OrganizationWorkArea $OrganizationWorkArea
+ * @property-read LocationLine         $LocationLine
+ * @property-read PositionIndoorRoom[] $PositionIndoorRooms
+ * @property-read EntireInstanceLog[]  $EntireInstanceLogs
  */
 class LocationSection extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 所属车间
@@ -58,6 +62,7 @@ class LocationSection extends Model
 	
 	/**
 	 * 所属线别
+	 *
 	 * @return HasOne
 	 */
 	public function LocationLine(): HasOne

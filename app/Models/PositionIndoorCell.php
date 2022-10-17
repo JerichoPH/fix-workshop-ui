@@ -19,13 +19,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string                  $unique_code
  * @property string                  $name
  * @property string                  $position_indoor_tier_uuid
- * @property-read PositionIndoorTier $position_indoor_tier
+ * @property-read PositionIndoorTier $PositionIndoorTier
  */
 class PositionIndoorCell extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return "{$this->PositionIndoorTier} {$this->attributes['name']}";
+	}
 	
 	/**
 	 * 所属室内上道位置机柜层

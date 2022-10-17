@@ -23,16 +23,22 @@ use Illuminate\Support\Carbon;
  * @property string                      $short_name
  * @property boolean                     $be_enable
  * @property string                      $organization_railway_uuid
- * @property-read OrganizationRailway    $organization_railway
- * @property-read OrganizationWorkshop[] $organization_workshops
- * @property-read EntireInstance[]       $entire_instances
- * @property-read EntireInstanceLog[]    $entire_instance_logs
+ * @property-read OrganizationRailway    $OrganizationRailway
+ * @property-read OrganizationWorkshop[] $OrganizationWorkshops
+ * @property-read EntireInstance[]       $EntireInstances
+ * @property-read EntireInstanceLog[]    $EntireInstanceLogs
  */
 class OrganizationParagraph extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
+	
 	
 	/**
 	 * 所属路局

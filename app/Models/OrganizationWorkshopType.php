@@ -20,13 +20,18 @@ use Illuminate\Support\Carbon;
  * @property string                      $unique_code
  * @property string                      $name
  * @property string                      $number_code
- * @property-read OrganizationWorkshop[] $organization_workshops
+ * @property-read OrganizationWorkshop[] $OrganizationWorkshops
  */
 class OrganizationWorkshopType extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 相关车间

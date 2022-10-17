@@ -21,16 +21,21 @@ use Illuminate\Support\Carbon;
  * @property string                      $unique_code
  * @property string                      $name
  * @property string                      $organization_workshop_uuid
- * @property-read OrganizationWorkshop   $organization_workshop
+ * @property-read OrganizationWorkshop   $OrganizationWorkshop
  * @property string                      $organization_work_area_uuid
- * @property-read OrganizationWorkArea   $organization_work_area
- * @property-read PositionDepotSection[] $position_depot_sections
+ * @property-read OrganizationWorkArea   $OrganizationWorkArea
+ * @property-read PositionDepotSection[] $PositionDepotSections
  */
 class PositionDepotStorehouse extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 所属车间

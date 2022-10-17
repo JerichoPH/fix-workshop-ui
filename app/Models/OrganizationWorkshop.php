@@ -22,22 +22,27 @@ use Illuminate\Support\Carbon;
  * @property string                        $name
  * @property boolean                       $be_enable
  * @property string                        $organization_workshop_type_uuid
- * @property-read OrganizationWorkshopType $organization_workshop_type
+ * @property-read OrganizationWorkshopType $OrganizationWorkshopType
  * @property string                        $organization_paragraph_uuid
- * @property-read OrganizationParagraph    $organization_paragraph
- * @property-read OrganizationWorkArea[]   $organization_work_areas
- * @property-read LocationStation[]        $location_stations
- * @property-read LocationCenter[]         $location_centers
- * @property-read LocationSection[]        $location_sections
- * @property-read LocationRailroad[]       $location_railroades
- * @property-read EntireInstance[]         $entire_instances
- * @property-read EntireInstanceLog[]      $entire_instance_logs
+ * @property-read OrganizationParagraph    $OrganizationParagraph
+ * @property-read OrganizationWorkArea[]   $OrganizationWorkAreas
+ * @property-read LocationStation[]        $LocationStations
+ * @property-read LocationCenter[]         $LocationCenters
+ * @property-read LocationSection[]        $LocationSections
+ * @property-read LocationRailroad[]       $LocationRailroads
+ * @property-read EntireInstance[]         $EntireInstances
+ * @property-read EntireInstanceLog[]      $EntireInstanceLogs
  */
 class OrganizationWorkshop extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 所属站段
@@ -104,7 +109,7 @@ class OrganizationWorkshop extends Model
 	 *
 	 * @return BelongsTo
 	 */
-	public function locationRailroades(): BelongsTo
+	public function locationrailroads(): BelongsTo
 	{
 		return $this->belongsTo(LocationRailroad::class, "organization_workshop_uuid", "uuid");
 	}

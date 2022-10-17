@@ -29,6 +29,11 @@ class EntireInstanceLogType extends Model
 	
 	protected $guarded = [];
 	
+	public function __toString():string
+	{
+		return $this->attributes['name'];
+	}
+	
 	/**
 	 * 相关器材日志
 	 *

@@ -20,22 +20,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string                      $unique_code
  * @property string                      $name
  * @property string                      $position_indoor_room_type_uuid
- * @property-read PositionIndoorRoomType $position_indoor_room_type
+ * @property-read PositionIndoorRoomType $PositionIndoorRoomType
  * @property string                      $location_station_uuid
- * @property-read LocationStation        $location_station
+ * @property-read LocationStation        $LocationStation
  * @property string                      $location_section_uuid
- * @property-read LocationSection        $location_section
+ * @property-read LocationSection        $LocationSection
  * @property string                      $location_center_uuid
- * @property-read LocationCenter         $location_center
+ * @property-read LocationCenter         $LocationCenter
  * @property string                      $location_railroad_uuid
- * @property-read LocationRailroad       $location_railroad
- * @property-read PositionIndoorRow[]    $position_indoor_rows
+ * @property-read LocationRailroad       $LocationRailroad
+ * @property-read PositionIndoorRow[]    $PositionIndoorRows
  */
 class PositionIndoorRoom extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 所属室内上道位置机房类型

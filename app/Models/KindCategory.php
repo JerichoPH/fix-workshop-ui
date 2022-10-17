@@ -22,14 +22,19 @@ use Illuminate\Support\Carbon;
  * @property string                $nickname
  * @property boolean               $be_enable
  * @property string                $race
- * @property-read KindEntireType[] $kind_entire_types
- * @property-read EntireInstance[] $entire_instances
+ * @property-read KindEntireType[] $KindEntireTypes
+ * @property-read EntireInstance[] $EntireInstances
  */
 class KindCategory extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 相关类型

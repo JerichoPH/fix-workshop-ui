@@ -21,13 +21,18 @@ use Illuminate\Support\Carbon;
  * @property string                  $unique_code
  * @property string                  $name
  * @property string                  $position_indoor_room_uuid
- * @property-read PositionIndoorRoom $position_indoor_room
+ * @property-read PositionIndoorRoom $PositionIndoorRoom
  */
 class PositionIndoorRow extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return "{$this->PositionIndoorRoom} {$this->attributes['name']}";
+	}
 	
 	/**
 	 * 所属室内上道位置机房

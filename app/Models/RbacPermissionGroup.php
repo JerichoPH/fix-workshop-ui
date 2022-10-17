@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property string              $uuid
  * @property int                 $sort
  * @property string              $name
- * @property-read RbacPermission $rbac_permissions
+ * @property-read RbacPermission[] $RbacPermissions
  */
 class RbacPermissionGroup extends Model
 {

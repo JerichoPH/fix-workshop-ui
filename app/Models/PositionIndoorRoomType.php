@@ -18,13 +18,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string                    $sort
  * @property string                    $unique_code
  * @property string                    $name
- * @property-read PositionIndoorRoom[] $position_indoor_rooms
+ * @property-read PositionIndoorRoom[] $PositionIndoorRooms
  */
 class PositionIndoorRoomType extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 相关室内上道位置机房

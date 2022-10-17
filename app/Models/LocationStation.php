@@ -22,18 +22,23 @@ use Illuminate\Support\Carbon;
  * @property string                    $name
  * @property boolean                   $be_enable
  * @property string                    $organization_workshop_uuid
- * @property-read OrganizationWorkshop $organization_workshop
+ * @property-read OrganizationWorkshop $OrganizationWorkshop
  * @property string                    $organization_work_area_uuid
- * @property-read OrganizationWorkArea $organization_work_area
- * @property-read LocationLine         $location_line
- * @property-read PositionIndoorRoom[] $position_indoor_rooms
- * @property-read EntireInstanceLog[]  $entire_instance_logs
+ * @property-read OrganizationWorkArea $OrganizationWorkArea
+ * @property-read LocationLine         $LocationLine
+ * @property-read PositionIndoorRoom[] $PositionIndoorRooms
+ * @property-read EntireInstanceLog[]  $EntireInstanceLogs
  */
 class LocationStation extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 所属车间

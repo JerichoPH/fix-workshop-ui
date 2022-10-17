@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class PositionDepotCell
@@ -19,11 +20,20 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string                 $unique_code
  * @property string                 $name
  * @property string                 $position_depot_tier_uuid
- * @property-read PositionDepotTier $position_depot_tier
- * @property-read EntireInstance[]  $entire_instances
+ * @property-read PositionDepotTier $PositionDepotTier
+ * @property-read EntireInstance[]  $EntireInstances
  */
 class PositionDepotCell extends Model
 {
+	use SoftDeletes;
+	
+	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return "{$this->PositionDepotTier} {$this->attributes['name']}";
+	}
+	
 	/**
 	 * 所属仓库层
 	 *

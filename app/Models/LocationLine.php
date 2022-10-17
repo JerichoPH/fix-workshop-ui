@@ -20,17 +20,22 @@ use Illuminate\Support\Carbon;
  * @property string                   $unique_code
  * @property string                   $name
  * @property boolean                  $be_enable
- * @property-read LocationStation     $location_station
- * @property-read LocationCenter      $location_center
- * @property-read LocationSection     $location_section
- * @property-read LocationRailroad    $location_railroads
- * @property-read EntireInstanceLog[] $entire_instance_logs
+ * @property-read LocationStation     $LocationStation
+ * @property-read LocationCenter      $LocationCenter
+ * @property-read LocationSection     $LocationSection
+ * @property-read LocationRailroad    $LocationRailroads
+ * @property-read EntireInstanceLog[] $EntireInstanceLogs
  */
 class LocationLine extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	public function LocationStation(): BelongsTo
 	{

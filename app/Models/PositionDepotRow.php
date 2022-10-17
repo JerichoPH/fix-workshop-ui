@@ -20,16 +20,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string                      $unique_code
  * @property string                      $name
  * @property string                      $position_depot_row_type_uuid
- * @property-read PositionDepotRowType   $position_depot_row_type
+ * @property-read PositionDepotRowType   $PositionDepotRowType
  * @property string                      $position_depot_section_uuid
- * @property-read PositionDepotSection   $position_depot_section
- * @property-read PositionDepotCabinet[] $position_depot_cabinets
+ * @property-read PositionDepotSection   $PositionDepotSection
+ * @property-read PositionDepotCabinet[] $PositionDepotCabinets
  */
 class PositionDepotRow extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return "{$this->PositionDepotSection} {$this->attributes['name']}";
+	}
 	
 	/**
 	 * 所属仓库排类型

@@ -25,9 +25,9 @@ class CreateLocationRailroadsTable extends Migration
             $table->string('name', 64)->nullable(false)->comment('道口名称');
             $table->boolean('be_enable')->nullable(false)->default(true)->comment('是否可用');
             $table->string('organization_workshop_uuid', 36)->nullable(false)->comment('所属车间UUID');
-            $table->index('organization_workshop_uuid','location_railroades__owu');
+            $table->index('organization_workshop_uuid','location_railroads__owu');
             $table->string('organization_work_area_uuid', 36)->nullable(false)->default('')->comment('所属工区UUID');
-            $table->index('organization_work_area_uuid','location_railroades__owua');
+            $table->index('organization_work_area_uuid','location_railroads__owua');
 	        $table->string('location_line_uuid',36)->nullable(true)->comment('所属线别UUID');
 	        $table->index('location_line_uuid');
         });
@@ -40,6 +40,6 @@ class CreateLocationRailroadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('location_railroades');
+        Schema::dropIfExists('location_railroads');
     }
 }

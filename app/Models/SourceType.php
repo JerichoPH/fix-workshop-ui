@@ -19,7 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int          $sort
  * @property string       $unique_code
  * @property string       $name
- * @property Sourcename[] $source_names
+ * @property Sourcename[] $SourceNames
  */
 class SourceType extends Model
 {

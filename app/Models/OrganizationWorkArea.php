@@ -22,22 +22,27 @@ use Illuminate\Support\Carbon;
  * @property string                              $name
  * @property boolean                             $be_enable
  * @property string                              $organization_work_area_type_uuid
- * @property-read OrganizationWorkAreaType       $organization_work_area_type
+ * @property-read OrganizationWorkAreaType       $OrganizationWorkAreaType
  * @property string                              $organization_work_area_profession_uuid
- * @property-read OrganizationWorkAreaProfession $organization_work_area_profession
+ * @property-read OrganizationWorkAreaProfession $OrganizationWorkAreaProfession
  * @property string                              $organization_workshop_uuid
- * @property-read OrganizationWorkshop           $organization_workshop
- * @property-read LocationStation[]              $location_stations
- * @property-read LocationCenter[]               $location_centers
- * @property-read LocationSection[]              $location_sections
- * @property-read LocationRailroad[]             $location_railroades
- * @property-read EntireInstanceLog[]            $entire_instance_logs
+ * @property-read OrganizationWorkshop           $OrganizationWorkshop
+ * @property-read LocationStation[]              $LocationStations
+ * @property-read LocationCenter[]               $LocationCenters
+ * @property-read LocationSection[]              $LocationSections
+ * @property-read LocationRailroad[]             $LocationRailroads
+ * @property-read EntireInstanceLog[]            $EntireInstanceLogs
  */
 class OrganizationWorkArea extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 所属车间
@@ -104,7 +109,7 @@ class OrganizationWorkArea extends Model
 	 *
 	 * @return BelongsTo
 	 */
-	public function locationRailroades(): BelongsTo
+	public function locationrailroads(): BelongsTo
 	{
 		return $this->belongsTo(LocationRailroad::class, "organization_work_area_uuid", "uuid");
 	}

@@ -22,7 +22,7 @@ use Illuminate\Support\Carbon;
  * @property string              $nickname
  * @property boolean             $be_enable
  * @property string              $kind_entire_type_uuid
- * @property-read KindEntireType $kind_entire_type
+ * @property-read KindEntireType $KindEntireType
  * @property int                 $cycle_repair_year
  * @property int                 $life_year
  */
@@ -31,6 +31,11 @@ class KindSubType extends Model
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 所属类型

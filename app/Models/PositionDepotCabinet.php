@@ -21,14 +21,19 @@ use Illuminate\Support\Carbon;
  * @property string                   $unique_code
  * @property string                   $name
  * @property string                   $position_depot_row_uuid
- * @property-read PositionDepotRow    $position_depot_row
- * @property-read PositionDepotTier[] $position_depot_tiers
+ * @property-read PositionDepotRow    $PositionDepotRow
+ * @property-read PositionDepotTier[] $PositionDepotTiers
  */
 class PositionDepotCabinet extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return "{$this->PositionDepotRow} {$this->attributes['name']}";
+	}
 	
 	/**
 	 * 所属仓库排

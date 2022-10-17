@@ -19,13 +19,18 @@ use Illuminate\Support\Carbon;
  * @property int                         $sort
  * @property string                      $unique_code
  * @property string                      $name
- * @property-read OrganizationWorkArea[] $organization_work_areas
+ * @property-read OrganizationWorkArea[] $OrganizationWorkAreas
  */
 class OrganizationWorkAreaProfession extends Model
 {
 	use SoftDeletes;
 	
 	protected $guarded = [];
+	
+	public function __toString(): string
+	{
+		return $this->attributes['name'];
+	}
 	
 	/**
 	 * 相关工区

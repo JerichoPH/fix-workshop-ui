@@ -21,28 +21,28 @@ use Illuminate\Support\Carbon;
  * @property string                     $identity_code
  * @property string                     $serial_number
  * @property string                     $entire_instance_status_unique_code
- * @property-read EntireInstanceStatus  $entire_instance_status
+ * @property-read EntireInstanceStatus  $EntireInstanceStatus
  * @property string                     $kind_category_uuid
- * @property-read KindCategory          $kind_category
+ * @property-read KindCategory          $KindCategory
  * @property string                     $kind_entire_type_uuid
- * @property-read KindEntireType        $kind_entire_type
+ * @property-read KindEntireType        $KindEntireType
  * @property string                     $kind_sub_type_uuid
- * @property-read KindSubType           $kind_sub_type
+ * @property-read KindSubType           $KindSubType
  * @property string                     $factory_uuid
- * @property-read Factory               $factory
+ * @property-read Factory               $Factory
  * @property string                     $factory_made_serial_number
  * @property Carbon                     $factory_made_at
  * @property string                     $asset_code
  * @property string                     $fixed_asset_code
  * @property string                     $parent_identity_code
- * @property-read EntireInstance        $parent
- * @property-read EntireInstance[]      $subs
+ * @property-read EntireInstance        $Parent
+ * @property-read EntireInstance[]      $Subs
  * @property boolean                    $be_part
  * @property string                     $note
  * @property string                     $source_name_uuid
- * @property-read SourceName            $source_name
+ * @property-read SourceName            $SourceName
  * @property string                     $delete_operator_uuid
- * @property-read Account               $delete_operator
+ * @property-read Account               $DeleteOperator
  * @property string                     $wiring_system
  * @property boolean                    $has_extrusion_shroud
  * @property string                     $said_rod
@@ -51,7 +51,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon                     $use_next_cycle_repair_at
  * @property Carbon                     $use_warehouse_in_at
  * @property string                     $use_warehouse_position_depot_cell_uuid
- * @property-read PositionDepotCell     $use_warehouse_position_depot_cell
+ * @property-read PositionDepotCell     $UseWarehousePositionDepotCell
  * @property Carbon                     $use_repair_current_fixed_at
  * @property string                     $use_repair_current_fixer_name
  * @property Carbon                     $use_repair_current_checked_at
@@ -65,49 +65,49 @@ use Illuminate\Support\Carbon;
  * @property Carbon                     $use_repair_last_spot_checked_at
  * @property string                     $use_repair_last_spot_checker_name
  * @property string                     $belong_to_organization_railway_uuid
- * @property-read OrganizationRailway   $belong_to_organization_railway
+ * @property-read OrganizationRailway   $BelongToOrganizationRailway
  * @property string                     $belong_to_organization_paragraph_uuid
- * @property-read OrganizationParagraph $belong_to_organization_paragraph
+ * @property-read OrganizationParagraph $BelongToOrganizationParagraph
  * @property string                     $belong_to_organization_workshop_uuid
- * @property-read OrganizationWorkshop  $belong_to_organization_workshop
+ * @property-read OrganizationWorkshop  $BelongToOrganizationWorkshop
  * @property string                     $belong_to_organization_work_area_uuid
- * @property-read OrganizationWorkArea  $belong_to_organization_work_area
+ * @property-read OrganizationWorkArea  $BelongToOrganizationWorkArea
  * @property string                     $use_place_current_organization_workshop_uuid
  * @property OrganizationWorkshop       $use_place_current_organization_workshop
  * @property string                     $use_place_current_organization_work_area_uuid
- * @property-read OrganizationWorkArea  $use_place_current_organization_work_area
+ * @property-read OrganizationWorkArea  $UsePlaceCurrentOrganizationWorkArea
  * @property string                     $use_place_current_location_line_uuid
- * @property-read LocationLine          $use_place_current_location_line
+ * @property-read LocationLine          $UsePlaceCurrentLocationLine
  * @property string                     $use_place_current_location_station_uuid
- * @property-read LocationStation       $use_place_current_location_station
+ * @property-read LocationStation       $UsePlaceCurrentLocationStation
  * @property string                     $use_place_current_location_section_uuid
- * @property-read LocationSection       $use_place_current_location_section
+ * @property-read LocationSection       $UsePlaceCurrentLocationSection
  * @property string                     $use_place_current_location_center_uuid
- * @property-read LocationCenter        $use_place_current_location_center
+ * @property-read LocationCenter        $UsePlaceCurrentLocationCenter
  * @property string                     $use_place_current_location_railroad_uuid
- * @property-read LocationRailroad      $use_place_current_location_railroad
+ * @property-read LocationRailroad      $UsePlaceCurrentLocationRailroad
  *
  * @property string                     $use_place_last_organization_workshop_uuid
- * @property-read OrganizationWorkshop  $use_place_last_organization_workshop
+ * @property-read OrganizationWorkshop  $UsePlaceLastOrganizationWorkshop
  * @property string                     $use_place_last_organization_work_area_uuid
- * @property-read OrganizationWorkArea  $use_place_last_organization_work_area
+ * @property-read OrganizationWorkArea  $UsePlaceLastOrganizationWorkArea
  * @property string                     $use_place_last_location_line_uuid
- * @property-read LocationLine          $use_place_last_location_line
+ * @property-read LocationLine          $UsePlaceLastLocationLine
  * @property string                     $use_place_last_location_station_uuid
- * @property-read LocationLine          $use_place_last_location_station
+ * @property-read LocationLine          $UsePlaceLastLocationStation
  * @property string                     $use_place_last_location_section_uuid
- * @property-read LocationSection       $use_place_last_location_section
+ * @property-read LocationSection       $UsePlaceLastLocationSection
  * @property string                     $use_place_last_location_center_uuid
- * @property-read LocationCenter        $use_place_last_location_center
+ * @property-read LocationCenter        $UsePlaceLastLocationCenter
  * @property string                     $use_place_last_location_railroad_uuid
- * @property-read LocationRailroad      $use_place_last_location_railroad
+ * @property-read LocationRailroad      $UsePlaceLastLocationRailroad
  * @property string                     $use_place_current_position_indoor_cell_uuid
- * @property-read PositionIndoorCell    $use_place_current_position_indoor_cell
+ * @property-read PositionIndoorCell    $UsePlaceCurrentPositionIndoorCell
  * @property string                     $use_place_last_position_indoor_cell_uuid
- * @property-read PositionIndoorCell    $use_place_last_position_indoor_cell
+ * @property-read PositionIndoorCell    $UsePlaceLastPositionIndoorCell
  * @property int                        $ex_cycle_repair_year
  * @property int                        $ex_life_year
- * @property-read EntireInstanceLog[]   $entire_instance_logs
+ * @property-read EntireInstanceLog[]   $EntireInstanceLogs
  */
 class EntireInstance extends Model
 {
