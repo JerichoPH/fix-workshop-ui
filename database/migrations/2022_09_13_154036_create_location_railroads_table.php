@@ -28,6 +28,8 @@ class CreateLocationRailroadsTable extends Migration
             $table->index('organization_workshop_uuid','location_railroades__owu');
             $table->string('organization_work_area_uuid', 36)->nullable(false)->default('')->comment('所属工区UUID');
             $table->index('organization_work_area_uuid','location_railroades__owua');
+	        $table->string('location_line_uuid',36)->nullable(true)->comment('所属线别UUID');
+	        $table->index('location_line_uuid');
         });
     }
 

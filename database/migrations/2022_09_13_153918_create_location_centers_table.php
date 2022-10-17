@@ -28,6 +28,8 @@ class CreateLocationCentersTable extends Migration
             $table->index('organization_workshop_uuid');
             $table->string('organization_work_area_uuid', 36)->nullable(false)->default('')->comment('所属工区UUID');
             $table->index('organization_work_area_uuid');
+	        $table->string('location_line_uuid',36)->nullable(true)->comment('所属线别UUID');
+	        $table->index('location_line_uuid');
         });
     }
 
