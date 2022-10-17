@@ -156,42 +156,10 @@ class DataInitCommand extends Command
 			'组织机构-工区类型' => ['group' => 'organizationWorkAreaType', 'subs' => []],
 			'组织机构-工区专业' => ['group' => 'organizationWorkAreaProfession', 'subs' => []],
 			'使用地点-线别' => ['group' => 'locationLine', 'subs' => []],
-			'使用地点-区间' => [
-				'group' => 'locationSection',
-				'subs' => [
-					'站场绑定线别' => [
-						'uri' => 'locationSection/:uuid/bindLocationLines',
-						'method' => 'PUT'
-					]
-				]
-			],
-			'使用地点-站场' => [
-				'group' => 'locationStation',
-				'subs' => [
-					'站场绑定线别' => [
-						'uri' => 'locationStation/:uuid/bindLocationLines',
-						'method' => 'PUT'
-					]
-				]
-			],
-			'使用地点-道口' => [
-				'group' => 'locationRailroad',
-				'subs' => [
-					'站场绑定线别' => [
-						'uri' => 'locationRailroad/:uuid/bindLocationLines',
-						'method' => 'PUT'
-					]
-				]
-			],
-			'使用地点-中心' => [
-				'group' => 'locationCenter',
-				'subs' => [
-					'中心绑定线别' => [
-						'uri' => 'locationCenter/:uuid/bindLocationLines',
-						'method' => 'PUT'
-					]
-				]
-			],
+			'使用地点-区间' => ['group' => 'locationSection', 'subs' => []],
+			'使用地点-站场' => ['group' => 'locationStation', 'subs' => []],
+			'使用地点-道口' => ['group' => 'locationRailroad', 'subs' => []],
+			'使用地点-中心' => ['group' => 'locationCenter', 'subs' => []],
 			'使用位置-仓储-仓库' => ['group' => 'positionDepotStorehouse', 'subs' => []],
 			'使用位置-仓储-仓库区域' => ['group' => 'positionDepotSection', 'subs' => []],
 			'使用位置-仓库-仓库排类型' => ['group' => 'positionDepotRowType', 'subs' => []],
