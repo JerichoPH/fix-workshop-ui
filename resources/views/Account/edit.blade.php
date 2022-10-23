@@ -330,19 +330,19 @@
             let data = $frmUpdate.serializeArray();
 
             $.ajax({
-                url: `{{ route("web.Account:Update", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.Account:update", ["uuid" => $uuid]) }}`,
                 type: 'put',
                 data,
                 async: false,
                 beforeSend() {
                 },
                 success(res) {
-                    console.log(`{{ route("web.Account:Update", ["uuid" => $uuid]) }} success:`, res);
+                    console.log(`{{ route("web.Account:update", ["uuid" => $uuid]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res['msg'], {time: 1000,});
                 },
                 error(err) {
-                    console.log(`{{ route("web.Account:Update", ["uuid" => $uuid]) }} fail:`, err);
+                    console.log(`{{ route("web.Account:update", ["uuid" => $uuid]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';

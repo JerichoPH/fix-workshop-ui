@@ -57,7 +57,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationRailway:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
+                            <a onclick="update()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </div>
                 </form>
@@ -81,7 +81,7 @@
         /**
          * 选择是否可用状态
          */
-        function fnRdoBeEnable(checked = null) {
+        function setRdoBeEnable(checked = null) {
             if (checked) {
                 if (checked) {
                     $rdoBeEnableYes.attr('checked', checked);
@@ -96,7 +96,7 @@
         /**
          * 初始化数据
          */
-        function fnInit() {
+        function init() {
             $.ajax({
                 url: `{{ route("web.OrganizationRailway:show", ["uuid" => $uuid, ]) }}`,
                 type: 'get',
@@ -111,7 +111,7 @@
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
                     $txtShortName.val(shortName);
-                    fnRdoBeEnable(beEnable);
+                    setRdoBeEnable(beEnable);
                     // 已经绑定的线别
                     if (locationLines.length > 0) {
                         locationLines.map(function (locationLine) {
@@ -130,105 +130,33 @@
             });
         }
 
-        /**
-         * 加载线别表格
-         */
-        function fnFillTblLocationLine() {
-            if (document.getElementById('tblLocationLine')) {
-                tblLocationLine = $('#tblLocationLine').DataTable({
-                    ajax: {
-                        url: `{{ route("web.LocationLine:index") }}?{!! http_build_query(request()->all()) !!}`,
-                        dataSrc: function (res) {
-                            console.log(`{{ route("web.LocationLine:index") }}?{!! http_build_query(request()->all()) !!} success:`, res);
-                            let {location_lines: locationLines,} = res["content"];
-                            let render = [];
-                            if (locationLines.length > 0) {
-                                $.each(locationLines, (_, locationLine) => {
-                                    let uuid = locationLine["uuid"];
-                                    let createdAt = locationLine["created_at"] ? moment(locationLine["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
-                                    let uniqueCode = locationLine["unique_code"] ? locationLine["unique_code"] : "";
-                                    let name = locationLine["name"] ? locationLine["name"] : "";
-                                    let divBtnGroup = '';
-                                    divBtnGroup += `<td class="">`;
-                                    divBtnGroup += `<div class="btn-group btn-group-sm">`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-warning" onclick="('${uuid}')"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
-                                    divBtnGroup += `</div>`;
-                                    divBtnGroup += `</td>`;
-
-                                    render.push([
-                                        `<input type="checkbox" class="location-line-uuid" name="location_line_uuids[]" value="${uuid}" ${boundLocationLineUUIDs.indexOf(uuid) > -1 ? "checked" : ""} onchange="$('#chkAllLocationLine').prop('checked', $('.location-line-uuid').length === $('.location-line-uuid:checked').length)">`,
-                                        createdAt,
-                                        uniqueCode,
-                                        name,
-                                        divBtnGroup,
-                                    ]);
-                                });
-                            }
-                            return render;
-                        },
-                        error: function (err) {
-                            console.log(`{{ route("web.LocationLine:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
-                            layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                                if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
-                            });
-                        }
-                    },
-                    columnDefs: [{
-                        orderable: false,
-                        targets: 0,  // 清除第一列排序
-                    }],
-                    paging: true,  // 分页器
-                    lengthChange: true,
-                    searching: false,  // 搜索框
-                    ordering: true,  // 列排序
-                    info: true,
-                    autoWidth: false,  // 自动宽度
-                    order: [[1, 'desc']],  // 排序依据
-                    iDisplayLength: 50,  // 默认分页数
-                    aLengthMenu: [50, 100, 200],  // 分页下拉框选项
-                    language: {
-                        sInfoFiltered: "从_MAX_中过滤",
-                        sProcessing: "数据加载中...",
-                        info: "第 _START_ - _END_ 条记录，共 _TOTAL_ 条",
-                        sLengthMenu: "每页显示_MENU_条记录",
-                        zeroRecords: "没有符合条件的记录",
-                        infoEmpty: " ",
-                        emptyTable: "没有符合条件的记录",
-                        search: "筛选：",
-                        paginate: {sFirst: " 首页", sLast: "末页 ", sPrevious: " 上一页 ", sNext: " 下一页"}
-                    }
-                });
-            }
-        }
-
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnInit();  // 初始化数据
+            init();  // 初始化数据
         });
 
         /**
          * 保存
          */
-        function fnUpdate() {
+        function update() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmUpdate.serializeArray();
             data.push({name: "unique_code", value: $txtUniqueCode.val()});
 
             $.ajax({
-                url: `{{ route('web.OrganizationRailway:Update', ["uuid" => $uuid , ]) }}`,
+                url: `{{ route('web.OrganizationRailway:update', ["uuid" => $uuid , ]) }}`,
                 type: 'put',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationRailway:Update', ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route('web.OrganizationRailway:update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,}, function () {
                         $txtName.focus();
                     });
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationRailway:Update', ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route('web.OrganizationRailway:update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';

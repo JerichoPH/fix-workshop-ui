@@ -193,7 +193,7 @@
             let data = $frmUpdate.serializeArray();
 
             $.ajax({
-                url: `{{ route("web.Menu:Update", ["uuid" => $uuid]) }}`,
+                url: `{{ route("web.Menu:update", ["uuid" => $uuid]) }}`,
                 type: "put",
                 data,
                 success: function (res) {

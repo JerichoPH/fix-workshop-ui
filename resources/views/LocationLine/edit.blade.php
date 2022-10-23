@@ -125,22 +125,22 @@
             data.push({name: "unique_code", value: locationLine["unique_code"]});
 
             $.ajax({
-                url: `{{ route('web.LocationLine:Update', ["uuid" => $uuid , ]) }}`,
+                url: `{{ route('web.LocationLine:update', ["uuid" => $uuid , ]) }}`,
                 type: 'put',
                 data,
-                success (res) {
-                    console.log(`{{ route('web.LocationLine:Update', ["uuid" => $uuid, ]) }} success:`, res);
+                success(res) {
+                    console.log(`{{ route('web.LocationLine:update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
-                    layer.msg(res.msg, {time: 500,},function(){
-                        if($chkReturn.is(':checked')){
+                    layer.msg(res.msg, {time: 500,}, function () {
+                        if ($chkReturn.is(':checked')) {
                             location.href = '{{ route('web.LocationLine:index') }}';
-                        }else{
+                        } else {
                             fnInit();
                         }
                     });
                 },
-                error (err) {
-                    console.log(`{{ route('web.LocationLine:Update', ["uuid" => $uuid, ]) }} fail:`, err);
+                error(err) {
+                    console.log(`{{ route('web.LocationLine:update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';

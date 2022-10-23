@@ -86,16 +86,16 @@
             let data = $frmUpdate.serializeArray();
 
             $.ajax({
-                url: `{{ route('web.RbacPermissionGroup:Update', ['uuid' => $uuid ]) }}`,
+                url: `{{ route('web.RbacPermissionGroup:update', ['uuid' => $uuid ]) }}`,
                 type: 'put',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.RbacPermissionGroup:Update', ['uuid' => $uuid ]) }} success:`, res);
+                    console.log(`{{ route('web.RbacPermissionGroup:update', ['uuid' => $uuid ]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.RbacPermissionGroup:Update', ['uuid' => $uuid ]) }} fail:`, err);
+                    console.log(`{{ route('web.RbacPermissionGroup:update', ['uuid' => $uuid ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';

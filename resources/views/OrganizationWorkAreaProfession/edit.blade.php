@@ -97,16 +97,16 @@
             data.push({name: "unique_code", value: $txtUniqueCode.val()});
 
             $.ajax({
-                url: `{{ route('web.OrganizationWorkAreaProfession:Update', ["uuid" => $uuid , ]) }}`,
+                url: `{{ route('web.OrganizationWorkAreaProfession:update', ["uuid" => $uuid , ]) }}`,
                 type: 'put',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationWorkAreaProfession:Update', ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route('web.OrganizationWorkAreaProfession:update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationWorkAreaProfession:Update', ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route('web.OrganizationWorkAreaProfession:update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
                         if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';

@@ -156,17 +156,17 @@
             data.push({name: "unique_code", value: organizationParagraph["unique_code"]});
 
             $.ajax({
-                url: `{{ route('web.OrganizationParagraph:Update', ["uuid" => $uuid,]) }}`,
+                url: `{{ route('web.OrganizationParagraph:update', ["uuid" => $uuid,]) }}`,
                 type: "put",
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationParagraph:Update', ["uuid" => $uuid,]) }} success:`, res);
+                    console.log(`{{ route('web.OrganizationParagraph:update', ["uuid" => $uuid,]) }} success:`, res);
 
                     layer.close(loading);
                     layer.msg(res["msg"], {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationParagraph:Update', ["uuid" => $uuid,]) }} fail:`, err);
+                    console.log(`{{ route('web.OrganizationParagraph:update', ["uuid" => $uuid,]) }} fail:`, err);
                     layer.close(loading);
                     if (err["status"] === 406) {
                         layer.alert(err["responseJSON"]["msg"], {icon: 2,});

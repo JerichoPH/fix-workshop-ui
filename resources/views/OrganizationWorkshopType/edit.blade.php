@@ -83,8 +83,8 @@
                 error: err => {
                     console.log(`{{ route("web.OrganizationWorkshopType:show", ["uuid" => $uuid]) }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
-                        });
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
+                    });
                 },
             });
         }
@@ -103,20 +103,20 @@
             let data = $frmUpdate.serializeArray();
 
             $.ajax({
-                url: `{{ route('web.OrganizationWorkshopType:Update', ["uuid" => $uuid , ]) }}`,
+                url: `{{ route('web.OrganizationWorkshopType:update', ["uuid" => $uuid , ]) }}`,
                 type: 'put',
                 data,
                 success: function (res) {
-                    console.log(`{{ route('web.OrganizationWorkshopType:Update', ["uuid" => $uuid, ]) }} success:`, res);
+                    console.log(`{{ route('web.OrganizationWorkshopType:update', ["uuid" => $uuid, ]) }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,});
                 },
                 error: function (err) {
-                    console.log(`{{ route('web.OrganizationWorkshopType:Update', ["uuid" => $uuid, ]) }} fail:`, err);
+                    console.log(`{{ route('web.OrganizationWorkshopType:update', ["uuid" => $uuid, ]) }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
-                        });
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
+                    });
                 }
             });
         }
