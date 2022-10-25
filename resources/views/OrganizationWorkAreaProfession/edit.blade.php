@@ -59,7 +59,7 @@
         /**
          * 初始化数据
          */
-        function fnInit() {
+        function init() {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkAreaProfession:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
@@ -85,13 +85,13 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnInit();  // 初始化数据
+            init();  // 初始化数据
         });
 
         /**
          * 保存
          */
-        function fnUpdate() {
+        function update() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmUpdate.serializeArray();
             data.push({name: "unique_code", value: $txtUniqueCode.val()});

@@ -76,7 +76,6 @@
         let $rdoBeEnableYes = $("#rdoBeEnableYes");
         let $rdoBeEnableNo = $("#rdoBeEnableNo");
         let organizationRailway = null;
-        let boundLocationLineUuids = [];
 
         /**
          * 选择是否可用状态
@@ -85,10 +84,10 @@
             if (checked) {
                 if (checked) {
                     $rdoBeEnableYes.attr('checked', checked);
-                    $rdoBeEnableYes.attr('checked', !checked);
+                    $rdoBeEnableNo.attr('checked', !checked);
                 } else {
                     $rdoBeEnableYes.attr('checked', !checked);
-                    $rdoBeEnableYes.attr('checked', checked);
+                    $rdoBeEnableNo.attr('checked', checked);
                 }
             }
         }
@@ -102,22 +101,18 @@
                 type: 'get',
                 data: {},
                 async: true,
+                beforeSend() {
+                },
                 success: function (res) {
                     console.log(`{{ route("web.OrganizationRailway:show", ["uuid" => $uuid, ]) }} success:`, res);
                     organizationRailway = res["content"]["organization_railway"];
 
-                    let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable, location_lines: locationLines,} = organizationRailway;
+                    let {unique_code: uniqueCode, name, short_name: shortName, be_enable: beEnable,} = organizationRailway;
 
                     $txtUniqueCode.val(uniqueCode);
                     $txtName.val(name);
                     $txtShortName.val(shortName);
                     setRdoBeEnable(beEnable);
-                    // 已经绑定的线别
-                    if (locationLines.length > 0) {
-                        locationLines.map(function (locationLine) {
-                            boundLocationLineUuids.push(locationLine["uuid"]);
-                        });
-                    }
 
                     $txtName.focus();
                 },
@@ -126,6 +121,8 @@
                     layer.msg(err["responseJSON"], {time: 1500,}, () => {
                         if (err.status === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                     });
+                },
+                complete() {
                 },
             });
         }

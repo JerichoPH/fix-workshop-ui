@@ -56,7 +56,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationRailway:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
+                            <a onclick="store()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </div>
                 </div>
@@ -78,37 +78,37 @@
         /**
          * 修改是否可用状态
          */
-        function fnRdoBeEnable(checked = null) {
+        function setRdoBeEnable(checked = null) {
             if (checked) {
                 $rdoBeEnableYes.attr('checked', checked);
-                $rdoBeEnableYes.attr('checked', !checked);
+                $rdoBeEnableNo.attr('checked', !checked);
             } else {
                 $rdoBeEnableYes.attr('checked', !checked);
-                $rdoBeEnableYes.attr('checked', checked);
+                $rdoBeEnableNo.attr('checked', checked);
             }
         }
 
         /**
          * 初始化页面
          */
-        function fnInit() {
+        function init() {
             $txtUniqueCode.val('');
             $txtUniqueCode.focus();
             $txtName.val('');
             $txtShortName.val('');
-            fnRdoBeEnable(true);
+            setRdoBeEnable(true);
         }
 
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnInit();  // 初始化页面
+            init();  // 初始化页面
         });
 
         /**
          * 新建
          */
-        function fnStore() {
+        function store() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
 
@@ -120,7 +120,7 @@
                     console.log(`{{ route('web.OrganizationRailway:store') }} success:`, res);
                     layer.close(loading);
                     layer.msg(res.msg, {time: 1000,}, function () {
-                        fnInit();
+                        init();
                     });
                 },
                 error: function (err) {

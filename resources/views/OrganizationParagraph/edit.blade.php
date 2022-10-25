@@ -62,7 +62,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationParagraph:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
+                            <a onclick="update()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
                 </div>
@@ -84,7 +84,7 @@
         /**
          * 初始化数据
          */
-        function fnInit() {
+        function init() {
             $.ajax({
                 url: `{{ route("web.OrganizationParagraph:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
@@ -102,7 +102,7 @@
                     } else {
                         $rdoBeEnableNo.prop("checked", "checked");
                     }
-                    fnFillSelOrganizationRailway(organizationParagraph["organization_railway_uuid"]);  // 初始化路局下拉菜单
+                    fillSelOrganizationRailway(organizationParagraph["organization_railway_uuid"]);  // 初始化路局下拉菜单
                 },
                 error: function (err) {
                     console.log(`{{ route("web.OrganizationParagraph:show", ["uuid" => $uuid,]) }} fail:`, err);
@@ -115,7 +115,7 @@
         /**
          * 初始化路局下拉菜单
          */
-        function fnFillSelOrganizationRailway(organizationRailwayUUID = "") {
+        function fillSelOrganizationRailway(organizationRailwayUUID = "") {
             $.ajax({
                 url: `{{ route("web.OrganizationRailway:index") }}`,
                 type: 'get',
@@ -144,13 +144,13 @@
         $(function () {
             if ($select2.length > 0) $('.select2').select2();
 
-            fnInit();  // 初始化数据
+            init();  // 初始化数据
         });
 
         /**
          * 保存
          */
-        function fnUpdate() {
+        function update() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmUpdate.serializeArray();
             data.push({name: "unique_code", value: organizationParagraph["unique_code"]});

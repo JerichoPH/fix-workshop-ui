@@ -86,7 +86,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationWorkArea:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
+                            <a onclick="store()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>
                 </div>
@@ -105,7 +105,7 @@
         /**
          * 加载车间下拉列表
          */
-        function fnFillSelOrganizationWorkshop() {
+        function fillSelOrganizationWorkshop() {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshop:index") }}`,
                 type: 'get',
@@ -138,7 +138,7 @@
          * 加载工区类型下拉列表
          * @param {string} organizationWorkshopUUID
          */
-        function fnFillSelOrganizationWorkAreaType(organizationWorkshopUUID = "") {
+        function fillSelOrganizationWorkAreaType(organizationWorkshopUUID = "") {
             $selOrganizationWorkAreaType.empty();
             $selOrganizationWorkAreaType.append(`<option value="" disabled selected>未选择</option>`);
 
@@ -170,7 +170,7 @@
         /**
          * 加载工区专业下拉列表
          */
-        function fnFillSelOrganizationWorkAreaProfession() {
+        function fillSelOrganizationWorkAreaProfession() {
             $selOrganizationWorkAreaProfession.empty();
             $selOrganizationWorkAreaProfession.append(`<option value="">未选择</option>`);
 
@@ -202,15 +202,15 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillSelOrganizationWorkshop();  // 加载车间下拉列表
-            fnFillSelOrganizationWorkAreaType();  // 加载工区类型下拉列表
-            fnFillSelOrganizationWorkAreaProfession();  // 加载工区专业下拉列表
+            fillSelOrganizationWorkshop();  // 加载车间下拉列表
+            fillSelOrganizationWorkAreaType();  // 加载工区类型下拉列表
+            fillSelOrganizationWorkAreaProfession();  // 加载工区专业下拉列表
         });
 
         /**
          * 新建
          */
-        function fnStore() {
+        function store() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
 

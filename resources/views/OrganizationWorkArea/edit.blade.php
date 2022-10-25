@@ -110,7 +110,7 @@
         /**
          * 初始化数据
          */
-        function fnInit() {
+        function init() {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkArea:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
@@ -128,9 +128,9 @@
                     } else {
                         $rdoBeEnableNo.prop("checked", "checked");
                     }
-                    fnFillSelOrganizationWorkshop(organizationWorkArea["organization_workshop"]["uuid"]);
-                    fnFillSelOrganizationWorkAreaType(organizationWorkArea["organization_work_area_type"]["uuid"]);
-                    fnFillSelOrganizationWorkAreaProfession(organizationWorkArea["organization_work_area_profession"]["uuid"]);
+                    fillSelOrganizationWorkshop(organizationWorkArea["organization_workshop"]["uuid"]);
+                    fillSelOrganizationWorkAreaType(organizationWorkArea["organization_work_area_type"]["uuid"]);
+                    fillSelOrganizationWorkAreaProfession(organizationWorkArea["organization_work_area_profession"]["uuid"]);
                 },
                 error: err => {
                     console.log(`{{ route("web.OrganizationWorkArea:show", ["uuid" => $uuid,]) }} fail:`, err);
@@ -145,7 +145,7 @@
          * 加载车间下拉列表
          * @param {string} organizationWorkshopUUID
          */
-        function fnFillSelOrganizationWorkshop(organizationWorkshopUUID = "") {
+        function fillSelOrganizationWorkshop(organizationWorkshopUUID = "") {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshop:index") }}`,
                 type: 'get',
@@ -178,7 +178,7 @@
          * 加载工区类型下拉列表
          * @param {string} organizationWorkAreaTypeUUID
          */
-        function fnFillSelOrganizationWorkAreaType(organizationWorkAreaTypeUUID = "") {
+        function fillSelOrganizationWorkAreaType(organizationWorkAreaTypeUUID = "") {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkAreaType:index") }}`,
                 type: 'get',
@@ -211,7 +211,7 @@
          * 加载工区专业下拉列表
          * @param {string} organizationWorkAreaProfessionUUID
          */
-        function fnFillSelOrganizationWorkAreaProfession(organizationWorkAreaProfessionUUID = "") {
+        function fillSelOrganizationWorkAreaProfession(organizationWorkAreaProfessionUUID = "") {
             $selOrganizationWorkAreaProfession.empty();
             $selOrganizationWorkAreaProfession.append(`<option value="">未选择</option>`);
 
@@ -243,13 +243,13 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnInit(); // 初始化数据
+            init(); // 初始化数据
         });
 
         /**
          * 保存
          */
-        function fnUpdate() {
+        function update() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmUpdate.serializeArray();
             data.push({name: "unique_code", value: $txtUniqueCode.val()});

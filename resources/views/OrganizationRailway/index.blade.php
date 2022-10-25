@@ -61,12 +61,12 @@
                                     let createdAt = organizationRailway["created_at"] ? moment(organizationRailway["created_at"]).format("YYYY-MM-DD HH:mm:ss") : "";
                                     let uniqueCode = organizationRailway["unique_code"] ? organizationRailway["unique_code"] : "";
                                     let name = organizationRailway["name"] ? organizationRailway["name"] : "";
-                                    let beEnable = organizationRailway["be_enable"] ? "是" : "否" ;
+                                    let beEnable = organizationRailway["be_enable"] ? "是" : "否";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
                                     divBtnGroup += `<a href="{{ route("web.OrganizationRailway:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="destroy('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
@@ -84,8 +84,8 @@
                         error: function (err) {
                             console.log(`{{ route("web.OrganizationRailway:index") }}?{!! http_build_query(request()->all()) !!} fail:`, err);
                             if (err["status"] === 406) {
-                                layer.alert(err["responseJSON"]["msg"], {icon:2, });
-                            }else{
+                                layer.alert(err["responseJSON"]["msg"], {icon: 2,});
+                            } else {
                                 layer.msg(err["responseJSON"]["msg"], {time: 1500,}, function () {
                                     if (err["status"] === 401) location.href = `{{ route("web.Authorization:getLogin") }}`;
                                 });
@@ -94,7 +94,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: [0,4,],
+                        targets: [0, 4,],
                     }],
                     processing: true,
                     paging: true,  // 分页器
@@ -137,7 +137,7 @@
          * 删除
          * @param id 编号
          */
-        function fnDelete(id) {
+        function destroy(id) {
             if (confirm('删除不能恢复，是否确认'))
                 $.ajax({
                     url: `{{ url('organizationRailway') }}/${id}`,

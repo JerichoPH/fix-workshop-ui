@@ -62,7 +62,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationParagraph:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
+                            <a onclick="store()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>
                 </div>
@@ -81,7 +81,7 @@
         /**
          * 填充路局下拉列表
          */
-        function fnFillOrganizationRailway() {
+        function fillOrganizationRailway() {
             $.ajax({
                 url: `{{ route("web.OrganizationRailway:index") }}`,
                 type: 'get',
@@ -117,13 +117,13 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillOrganizationRailway();  // 填充路局下拉列表
+            fillOrganizationRailway();  // 填充路局下拉列表
         });
 
         /**
          * 新建
          */
-        function fnStore() {
+        function store() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
 

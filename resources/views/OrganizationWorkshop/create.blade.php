@@ -74,7 +74,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationWorkshop:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
+                            <a onclick="store()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>
                 </div>
@@ -92,7 +92,7 @@
         /**
          * 加载路局下拉列表
          */
-        function fnFillSelOrganizationParagraph() {
+        function fillSelOrganizationParagraph() {
             $.ajax({
                 url: `{{ route("web.OrganizationParagraph:index") }}`,
                 type: 'get',
@@ -115,8 +115,8 @@
                 error: err => {
                     console.log(`{{ route("web.OrganizationParagraph:index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
-                        });
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
+                    });
                 },
             });
         }
@@ -124,7 +124,7 @@
         /**
          * 加载车间类型下拉列表
          */
-        function fnFillSelOrganizationWorkshopType() {
+        function fillSelOrganizationWorkshopType() {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshopType:index") }}`,
                 type: 'get',
@@ -147,8 +147,8 @@
                 error: err => {
                     console.log(`{{ route("web.OrganizationWorkshopType:index") }} fail:`, err);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
-                        });
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
+                    });
                 },
             });
         }
@@ -156,14 +156,14 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillSelOrganizationParagraph(); // 加载路局下拉列表
-            fnFillSelOrganizationWorkshopType(); // 加载车间类型下拉列表
+            fillSelOrganizationParagraph(); // 加载路局下拉列表
+            fillSelOrganizationWorkshopType(); // 加载车间类型下拉列表
         });
 
         /**
          * 新建
          */
-        function fnStore() {
+        function store() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
 
@@ -182,8 +182,8 @@
                     console.log(`{{ route('web.OrganizationWorkshop:store') }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
-                        });
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
+                    });
                 }
             });
         }

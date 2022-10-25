@@ -60,7 +60,7 @@
         /**
          * 新建
          */
-        function fnStore () {
+        function store() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
 

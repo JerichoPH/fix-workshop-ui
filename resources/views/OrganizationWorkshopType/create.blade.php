@@ -46,7 +46,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationWorkshopType:index') }}" class="btn btn-default btn-sm pull-left"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnStore()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
+                            <a onclick="store()" class="btn btn-success btn-sm pull-right"><i class="fa fa-check">&nbsp;</i>新建</a>
                         </div>
                     </form>
                 </div>
@@ -66,7 +66,7 @@
         /**
          * 新建
          */
-        function fnStore () {
+        function store() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmStore.serializeArray();
 
@@ -85,8 +85,8 @@
                     console.log(`{{ route('web.OrganizationWorkshopType:store') }} fail:`, err);
                     layer.close(loading);
                     layer.msg(err["responseJSON"]["msg"], {icon: 2,}, function () {
-                            if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
-                        });
+                        if (err.status === 401) location.href = '{{ route('web.Authorization:getLogin') }}';
+                    });
                 }
             });
         }

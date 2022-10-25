@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label text-danger">数字代码*：</label>
                                 <div class="col-sm-10 col-md-9">
-                                    <input name="number" id="txtNumber" type="text" class="form-control" placeholder="唯一，必填" required value="" autocomplete="off">
+                                    <input name="number_code" id="txtNumberCode" type="text" class="form-control" placeholder="唯一，必填" required value="" autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationWorkshopType:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
+                            <a onclick="update()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
                 </div>
@@ -59,14 +59,14 @@
         let $select2 = $('.select2');
         let $frmUpdate = $('#frmUpdate');
         let $txtUniqueCode = $("#txtUniqueCode");
-        let $txtNumber = $("#txtNumber");
+        let $txtNumberCode = $("#txtNumberCode");
         let $txtName = $("#txtName");
         let organizationWorkshopType = null;
 
         /**
          * 初始化数据
          */
-        function fnInit() {
+        function init() {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshopType:show", ["uuid" => $uuid]) }}`,
                 type: 'get',
@@ -77,7 +77,7 @@
                     organizationWorkshopType = res["content"]["organization_workshop_type"];
 
                     $txtUniqueCode.val(organizationWorkshopType["unique_code"]);
-                    $txtNumber.val(organizationWorkshopType["number"]);
+                    $txtNumberCode.val(organizationWorkshopType["number_code"]);
                     $txtName.val(organizationWorkshopType["name"]);
                 },
                 error: err => {
@@ -92,13 +92,13 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnInit();  // 初始化数据
+            init();  // 初始化数据
         });
 
         /**
          * 保存
          */
-        function fnUpdate() {
+        function update() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmUpdate.serializeArray();
 

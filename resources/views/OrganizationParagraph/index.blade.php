@@ -48,7 +48,7 @@
         /**
          * 加载站段表格
          */
-        function fnFillTblOrganizationParagraph() {
+        function fillTblOrganizationParagraph() {
             if (document.getElementById('tblOrganizationParagraph')) {
                 tblOrganizationParagraph = $('#tblOrganizationParagraph').DataTable({
                     ajax: {
@@ -69,7 +69,7 @@
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
                                     divBtnGroup += `<a href="{{ route("web.OrganizationParagraph:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="destroy('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
@@ -130,14 +130,14 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillTblOrganizationParagraph();  // 加载站段表格
+            fillTblOrganizationParagraph();  // 加载站段表格
         });
 
         /**
          * 删除
          * @param id 编号
          */
-        function fnDelete(id) {
+        function destroy(id) {
             if (confirm('删除不能恢复，是否确认'))
                 $.ajax({
                     url: `{{ url('organizationParagraph') }}/${id}`,

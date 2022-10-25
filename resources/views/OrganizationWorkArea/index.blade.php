@@ -49,7 +49,7 @@
         /**
          * 加载工区表格
          */
-        function fnFillTblOrganizationWorkArea() {
+        function fillTblOrganizationWorkArea() {
             if (document.getElementById('tblOrganizationWorkArea')) {
                 tblOrganizationWorkArea = $('#tblOrganizationWorkArea').DataTable({
                     ajax: {
@@ -66,12 +66,12 @@
                                     let name = organizationWorkArea["name"] ? organizationWorkArea["name"] : "";
                                     let organizationWorkshopName = organizationWorkArea["organization_workshop"] ? organizationWorkArea["organization_workshop"]["name"] : "";
                                     let organizationWorkAreaTypeName = organizationWorkArea["organization_work_area_type"] ? organizationWorkArea["organization_work_area_type"]["name"] : "";
-                                    let organizationWorkAreaProfessionName = organizationWorkArea["organization_work_area_profession"] ? organizationWorkArea["organization_work_area_profession"]["name"] : "";
+                                    let organizationWorkAreaProfessionName = organizationWorkArea["organization_work_area_profession"]["name"] || "";
                                     let divBtnGroup = '';
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
                                     divBtnGroup += `<a href="{{ route("web.OrganizationWorkArea:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="destroy('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
@@ -133,14 +133,14 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillTblOrganizationWorkArea();  // 加载工区表格
+            fillTblOrganizationWorkArea();  // 加载工区表格
         });
 
         /**
          * 删除
          * @param id 编号
          */
-        function fnDelete(id) {
+        function destroy(id) {
             if (confirm('删除不能恢复，是否确认'))
                 $.ajax({
                     url: `{{ url('organizationWorkArea') }}/${id}`,

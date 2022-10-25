@@ -74,7 +74,7 @@
                         </div>
                         <div class="box-footer">
                             <a href="{{ route('web.OrganizationWorkshop:index') }}" class="btn btn-default pull-left btn-sm"><i class="fa fa-arrow-left">&nbsp;</i>返回</a>
-                            <a onclick="fnUpdate()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
+                            <a onclick="update()" class="btn btn-warning pull-right btn-sm"><i class="fa fa-check">&nbsp;</i>保存</a>
                         </div>
                     </form>
                 </div>
@@ -97,7 +97,7 @@
         /**
          * 初始化数据
          */
-        function fnFillInit() {
+        function fillInit() {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshop:show", ["uuid" => $uuid,]) }}`,
                 type: 'get',
@@ -109,8 +109,8 @@
                     organizationWorkshop = res["content"]["organization_workshop"];
                     $txtUniqueCode.val(organizationWorkshop["unique_code"]);
                     $txtName.val(organizationWorkshop["name"]);
-                    fnFillSelOrganizationParagraph(organizationWorkshop["organization_paragraph"]["uuid"]);
-                    fnFillSelOrganizationWorkshopType(organizationWorkshop["organization_workshop_type"]["uuid"]);
+                    fillSelOrganizationParagraph(organizationWorkshop["organization_paragraph"]["uuid"]);
+                    fillSelOrganizationWorkshopType(organizationWorkshop["organization_workshop_type"]["uuid"]);
                     if (organizationWorkshop["be_enable"]) {
                         $rdoBeEnableYes.prop("checked", "checked");
                     } else {
@@ -130,7 +130,7 @@
          * 加载路局下拉列表
          * @param {string} organizationParagraphUUID
          */
-        function fnFillSelOrganizationParagraph(organizationParagraphUUID = "") {
+        function fillSelOrganizationParagraph(organizationParagraphUUID = "") {
             $.ajax({
                 url: `{{ route("web.OrganizationParagraph:index") }}`,
                 type: 'get',
@@ -163,7 +163,7 @@
          * 加载车间类型下拉列表
          * @param {string} organizationWorkshopTypeUUID
          */
-        function fnFillSelOrganizationWorkshopType(organizationWorkshopTypeUUID = "") {
+        function fillSelOrganizationWorkshopType(organizationWorkshopTypeUUID = "") {
             $.ajax({
                 url: `{{ route("web.OrganizationWorkshopType:index") }}`,
                 type: 'get',
@@ -195,13 +195,13 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillInit(); // 初始化数据
+            fillInit(); // 初始化数据
         });
 
         /**
          * 保存
          */
-        function fnUpdate() {
+        function update() {
             let loading = layer.msg("处理中……", {time: 0,});
             let data = $frmUpdate.serializeArray();
 

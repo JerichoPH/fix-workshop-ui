@@ -49,7 +49,7 @@
         /**
          * 加载车间表格
          */
-        function fnFillTblOrganizationWorkshop() {
+        function fillTblOrganizationWorkshop() {
             if (document.getElementById('tblOrganizationWorkshop')) {
                 tblOrganizationWorkshop = $('#tblOrganizationWorkshop').DataTable({
                     ajax: {
@@ -71,7 +71,7 @@
                                     divBtnGroup += `<td class="">`;
                                     divBtnGroup += `<div class="btn-group btn-group-sm">`;
                                     divBtnGroup += `<a href="{{ route("web.OrganizationWorkshop:index") }}/${uuid}/edit" class="btn btn-warning"><i class="fa fa-edit"></i></a>`;
-                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="fnDelete('${uuid}')"><i class="fa fa-trash"></i></a>`;
+                                    divBtnGroup += `<a href="javascript:" class="btn btn-danger" onclick="destroy('${uuid}')"><i class="fa fa-trash"></i></a>`;
                                     divBtnGroup += `</div>`;
                                     divBtnGroup += `</td>`;
 
@@ -97,7 +97,7 @@
                     },
                     columnDefs: [{
                         orderable: false,
-                        targets: [0,5,],  // 清除第一列排序
+                        targets: [0, 5,],  // 清除第一列排序
                     }],
                     processing: true,
                     paging: true,  // 分页器
@@ -133,14 +133,14 @@
         $(function () {
             if ($select2.length > 0) $select2.select2();
 
-            fnFillTblOrganizationWorkshop(); // 加载车间表格
+            fillTblOrganizationWorkshop(); // 加载车间表格
         });
 
         /**
          * 删除
          * @param id 编号
          */
-        function fnDelete(id) {
+        function destroy(id) {
             if (confirm('删除不能恢复，是否确认'))
                 $.ajax({
                     url: `{{ url('organizationWorkshop') }}/${id}`,
